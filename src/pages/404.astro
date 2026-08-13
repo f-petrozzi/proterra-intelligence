@@ -1,0 +1,13 @@
+---
+import ArrowLink from "../components/ArrowLink.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Not found">
+  <section class="not-found reveal">
+    <span>404</span>
+    <h1>That signal isn’t here.</h1>
+    <p>The requested page may have moved or may only exist in a protected draft preview.</p>
+    <ArrowLink href="/" label="Return to latest" />
+  </section>
+</BaseLayout>

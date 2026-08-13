@@ -1,0 +1,63 @@
+---
+import ArrowLink from "../../components/ArrowLink.astro";
+import ReportCard from "../../components/ReportCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate, reports, sourceById, type Report } from "../../lib/content";
+
+export function getStaticPaths() {
+  return reports.map((report) => ({ params: { slug: report.slug }, props: { report } }));
+}
+
+interface Props {
+  report: Report;
+}
+
+const { report } = Astro.props as Props;
+---
+
+<BaseLayout title={`Issue ${report.issueNumber}`} description={report.executiveSummary}>
+  <article class="report-page">
+    <header class="report-header reveal">
+      <div class="report-kicker">
+        <span>Issue {String(report.issueNumber).padStart(2, "0")}</span>
+        <span>{report.status === "draft" ? "Draft preview" : "Approved"}</span>
+      </div>
+      <h1>{formatDate(report.publishedAt)}</h1>
+      <p>{report.title}</p>
+      <div class="report-period">
+        Reporting period: {formatDate(report.period.start, { month: "short" })}–{formatDate(report.period.end, { month: "short" })}
+      </div>
+    </header>
+
+    <section class="report-summary reveal delay-1">
+      <span>Executive summary</span>
+      <p>{report.executiveSummary}</p>
+      {report.editorNote && <aside><strong>Editor’s note</strong>{report.editorNote}</aside>}
+    </section>
+
+    <section class="report-items reveal delay-2" aria-label="Ranked developments">
+      {report.items.map((item) => (
+        <div class="report-item">
+          <ReportCard item={item} />
+          <div class="evidence-panel">
+            <div>
+              <span class="evidence-label">Watch next</span>
+              <p>{item.watchNext}</p>
+            </div>
+            <div>
+              <span class="evidence-label">Evidence · {item.confidence} confidence</span>
+              <ol>
+                {item.citations.map((citation) => (
+                  <li>
+                    <span>{sourceById.get(citation.sourceId)?.name}</span>
+                    <ArrowLink href={citation.url} label={citation.title} external />
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </div>
+      ))}
+    </section>
+  </article>
+</BaseLayout>

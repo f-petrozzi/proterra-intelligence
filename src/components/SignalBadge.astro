@@ -1,0 +1,11 @@
+---
+import type { SignalItem } from "../lib/content";
+
+interface Props {
+  signal: SignalItem["signal"];
+}
+
+const { signal } = Astro.props;
+---
+
+<span class={`signal-badge signal-${signal}`}>{signal}</span>

@@ -1,0 +1,66 @@
+---
+import ArrowLink from "../components/ArrowLink.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { formatDate, reports, sectorLabel, sectors } from "../lib/content";
+---
+
+<BaseLayout title="Archive" description="Approved Proterra Signal weekly briefings.">
+  <section class="page-heading reveal">
+    <div class="eyebrow"><span></span> Report history</div>
+    <h1>Intelligence archive</h1>
+    <p>Approved weekly briefings, preserved with their original evidence and editorial status.</p>
+  </section>
+
+  <section class="archive-shell reveal delay-1">
+    <div class="filter-bar" role="group" aria-label="Filter reports">
+      <button type="button" class="active" data-filter="all" aria-pressed="true">All</button>
+      {sectors.map((sector) => (
+        <button type="button" data-filter={sector} aria-pressed="false">{sectorLabel(sector)}</button>
+      ))}
+    </div>
+
+    <div class="archive-list" id="archive-list">
+      {reports.length > 0 ? reports.map((report) => {
+        const reportSectors = [...new Set(report.items.flatMap((item) => item.sectors))];
+        return (
+          <article class="archive-row" data-sectors={reportSectors.join(" ")}>
+            <div class="issue-index">{String(report.issueNumber).padStart(2, "0")}</div>
+            <div class="archive-copy">
+              <div class="tag-list">
+                {reportSectors.map((sector) => <span>{sectorLabel(sector)}</span>)}
+                {report.status === "draft" && <span class="draft-tag">Draft preview</span>}
+              </div>
+              <h2>{formatDate(report.publishedAt)}</h2>
+              <p>{report.executiveSummary}</p>
+            </div>
+            <ArrowLink href={`/reports/${report.slug}`} label="Open issue" />
+          </article>
+        );
+      }) : (
+        <div class="archive-empty">
+          <p>No approved reports yet.</p>
+          <span>The archive will populate after the first reviewed issue is merged.</span>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>("[data-filter]");
+    const rows = document.querySelectorAll<HTMLElement>(".archive-row");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter ?? "all";
+        buttons.forEach((candidate) => {
+          const selected = candidate === button;
+          candidate.classList.toggle("active", selected);
+          candidate.setAttribute("aria-pressed", String(selected));
+        });
+        rows.forEach((row) => {
+          row.hidden = filter !== "all" && !(row.dataset.sectors ?? "").split(" ").includes(filter);
+        });
+      });
+    });
+  </script>
+</BaseLayout>

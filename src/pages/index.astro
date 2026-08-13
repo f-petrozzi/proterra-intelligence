@@ -1,0 +1,79 @@
+---
+import ArrowLink from "../components/ArrowLink.astro";
+import ReportCard from "../components/ReportCard.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { formatDate, reports, sources } from "../lib/content";
+
+const latest = reports[0];
+const approvedSourceCount = sources.filter((source) => source.status === "approved").length;
+---
+
+<BaseLayout>
+  <section class="hero reveal">
+    <div class="eyebrow"><span></span> Weekly intelligence</div>
+    <h1>Clear signals from a changing livestock industry.</h1>
+    <p class="hero-summary">
+      The most consequential developments in dairy, meat, and bovine genetics—selected from a controlled source set and reviewed before publication.
+    </p>
+    <div class="hero-meta" aria-label="Publication standards">
+      <div><strong>8–10</strong><span>developments</span></div>
+      <div><strong>{approvedSourceCount}</strong><span>approved sources</span></div>
+      <div><strong>Weekly</strong><span>human review</span></div>
+    </div>
+  </section>
+
+  {latest ? (
+    <>
+      <section class="latest-heading reveal delay-1">
+        <div>
+          <div class="eyebrow"><span></span> Issue {String(latest.issueNumber).padStart(2, "0")}</div>
+          <h2>{formatDate(latest.publishedAt)}</h2>
+        </div>
+        <ArrowLink href={`/reports/${latest.slug}`} label="Read full briefing" />
+      </section>
+
+      <section class="executive-summary reveal delay-2">
+        <span>Executive summary</span>
+        <p>{latest.executiveSummary}</p>
+      </section>
+
+      <section class="signal-grid reveal delay-3" aria-label="Leading signals">
+        {latest.items.slice(0, 3).map((item) => <ReportCard item={item} compact />)}
+      </section>
+    </>
+  ) : (
+    <section class="empty-issue reveal delay-2">
+      <div>
+        <span class="status-dot" aria-hidden="true"></span>
+        <p>Editorial system ready</p>
+      </div>
+      <h2>No approved issue has been published.</h2>
+      <p>The first draft will appear in a protected pull-request preview. Production remains empty until the report is reviewed and merged.</p>
+      <div class="empty-actions">
+        <ArrowLink href="/methodology" label="Review methodology" />
+        <ArrowLink href="/sources" label="Inspect source registry" />
+      </div>
+    </section>
+  )}
+
+  <section class="principles reveal">
+    <div class="section-intro">
+      <div class="eyebrow"><span></span> Editorial standard</div>
+      <h2>Evidence first.<br />Interpretation second.</h2>
+    </div>
+    <div class="principle-list">
+      <article>
+        <span>01</span>
+        <div><h3>Controlled discovery</h3><p>Research begins with an approved registry of authoritative industry sources.</p></div>
+      </article>
+      <article>
+        <span>02</span>
+        <div><h3>Consistent ranking</h3><p>Impact, relevance, breadth, momentum, and confidence determine selection.</p></div>
+      </article>
+      <article>
+        <span>03</span>
+        <div><h3>Named accountability</h3><p>Every claim is linked to evidence and every issue requires human approval.</p></div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

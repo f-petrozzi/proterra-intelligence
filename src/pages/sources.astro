@@ -1,0 +1,39 @@
+---
+import ArrowLink from "../components/ArrowLink.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { sectorLabel, sources } from "../lib/content";
+---
+
+<BaseLayout title="Sources" description="The approved Proterra Signal source registry.">
+  <section class="page-heading reveal">
+    <div class="eyebrow"><span></span> Source governance</div>
+    <h1>Approved source registry</h1>
+    <p>Discovery is restricted to reviewed publishers. Exact articles, reports, and datasets are cited inside every issue.</p>
+  </section>
+
+  <section class="source-key reveal delay-1" aria-label="Source tier definitions">
+    <div><strong>A</strong><span>Official, intergovernmental, or recognized evaluation authority</span></div>
+    <div><strong>B</strong><span>Established academic, extension, or trade analysis</span></div>
+    <div><strong>C</strong><span>Company or industry announcement requiring context</span></div>
+  </section>
+
+  <section class="source-list reveal delay-2">
+    {sources.map((source) => (
+      <article class="source-row">
+        <div class="source-tier" aria-label={`Tier ${source.tier}`}>{source.tier}</div>
+        <div class="source-main">
+          <div class="tag-list">
+            {source.sectors.map((sector) => <span>{sectorLabel(sector)}</span>)}
+            {source.regions.map((region) => <span>{region}</span>)}
+          </div>
+          <h2>{source.name}</h2>
+          <p>{source.notes}</p>
+        </div>
+        <div class="source-meta">
+          <span>{source.cadence}</span>
+          <ArrowLink href={source.url} label="Visit source" external />
+        </div>
+      </article>
+    ))}
+  </section>
+</BaseLayout>

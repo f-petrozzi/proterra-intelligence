@@ -1,0 +1,71 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Proterra Signal",
+  description = "Weekly dairy, meat, and bovine genetics intelligence."
+} = Astro.props;
+
+const pageTitle = title === "Proterra Signal" ? title : `${title} · Proterra Signal`;
+const pathname = Astro.url.pathname;
+const nav = [
+  { href: "/", label: "Latest" },
+  { href: "/archive", label: "Archive" },
+  { href: "/sources", label: "Sources" },
+  { href: "/methodology", label: "Methodology" }
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#173f32" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="/" aria-label="Proterra Signal home">
+          <span class="brand-mark" aria-hidden="true">PS</span>
+          <span class="brand-lockup">
+            <strong>Proterra Signal</strong>
+            <small>Industry intelligence</small>
+          </span>
+        </a>
+
+        <nav aria-label="Primary navigation">
+          <ul class="nav-list">
+            {nav.map((item) => {
+              const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+              return (
+                <li>
+                  <a href={item.href} aria-current={active ? "page" : undefined}>{item.label}</a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </header>
+
+      <main id="main-content">
+        <slot />
+      </main>
+
+      <footer class="site-footer">
+        <p><strong>Proterra Signal</strong> · Internal decision support</p>
+        <p>Human-reviewed. Source-linked. Published weekly.</p>
+      </footer>
+    </div>
+  </body>
+</html>

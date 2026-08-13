@@ -1,0 +1,14 @@
+{
+  "slug": "YYYY-MM-DD",
+  "issueNumber": 1,
+  "title": "Weekly intelligence brief",
+  "status": "draft",
+  "period": {
+    "start": "YYYY-MM-DD",
+    "end": "YYYY-MM-DD"
+  },
+  "publishedAt": "YYYY-MM-DD",
+  "executiveSummary": "Replace with a concise synthesis of the week's most consequential developments and their relationship to the larger industry picture.",
+  "editorNote": "Optional editorial context.",
+  "items": []
+}
