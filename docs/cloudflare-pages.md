@@ -9,8 +9,8 @@ Connect the GitHub repository to Cloudflare Pages with these settings:
 | Production branch | `main` |
 | Build command | `npm run build` |
 | Build output directory | `dist` |
-| Root directory | `/` |
-| Node.js version | `22` |
+| Root directory | Leave blank (repository root) |
+| Node.js version | `22.22.0` (pinned by `.nvmrc`) |
 
 Set `SITE_URL` to the final production URL. The build is static and requires no server runtime or database.
 

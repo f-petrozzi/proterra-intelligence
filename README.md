@@ -6,7 +6,7 @@ The proof of concept is deliberately small: a static Astro site, structured JSON
 
 ## Local development
 
-Requirements: Node.js 22.12 or newer. If you use `nvm`, run `nvm use` in the repository.
+Requirements: Node.js 22.19 or newer. If you use `nvm`, run `nvm use` in the repository.
 
 ```sh
 npm install
