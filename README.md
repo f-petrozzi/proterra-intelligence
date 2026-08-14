@@ -35,8 +35,11 @@ Use Cloudflare Pages with GitHub integration, `npm run build`, and output direct
 
 ## Design principles
 
+- A useful 30-second scan before deeper reading
 - Evidence before volume
 - Direct links and visible confidence
 - Human approval before publication
 - Immutable, reviewable history
 - Minimal operational surface area
+
+The publication uses Astro components for editorial layouts. Web Awesome is loaded only on report pages for the accessible evidence disclosure; all other pages remain static HTML and CSS.

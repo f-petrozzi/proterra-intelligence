@@ -23,8 +23,11 @@ const directionMarks = {
 
 <section class="week-dashboard" aria-labelledby="market-pulse-title">
   <header class="dashboard-heading">
-    <h2 id="market-pulse-title">This week’s indicators</h2>
-    <p>Prices, production, inventory, and evaluation changes cited in this issue. Each figure shows its source comparison period.</p>
+    <div>
+      <span>At a glance</span>
+      <h2 id="market-pulse-title">This week’s indicators</h2>
+    </div>
+    <p>Comparable figures cited in this issue. Select any indicator to read the underlying story.</p>
   </header>
 
   <div class="pulse-grid">
@@ -48,14 +51,17 @@ const directionMarks = {
           <span>{pulse.basis}</span>
         </div>
         <p>{pulse.note}</p>
-        <span class="item-reference">Item {String(pulse.itemRank).padStart(2, "0")}</span>
+        <span class="item-reference">Read story {String(pulse.itemRank).padStart(2, "0")}</span>
       </a>
     ))}
   </div>
 
   <div class="metrics-panel">
     <div class="metrics-heading">
-      <h3>Key numbers</h3>
+      <div>
+        <span>Also in this issue</span>
+        <h3>Key numbers</h3>
+      </div>
     </div>
     <div class="metric-grid">
       {dashboard.keyMetrics.map((metric) => (

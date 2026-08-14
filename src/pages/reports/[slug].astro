@@ -2,8 +2,9 @@
 import IssueSummary from "../../components/IssueSummary.astro";
 import ReportCard from "../../components/ReportCard.astro";
 import WeekDashboard from "../../components/WeekDashboard.astro";
+import EvidenceDisclosure from "../../components/EvidenceDisclosure.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { formatDate, reports, sourceById, type Report } from "../../lib/content";
+import { formatDate, reports, type Report } from "../../lib/content";
 
 export function getStaticPaths() {
   return reports.map((report) => ({ params: { slug: report.slug }, props: { report } }));
@@ -43,44 +44,16 @@ const { report } = Astro.props as Props;
 
     <section class="report-items reveal delay-2" aria-labelledby="report-items-title">
       <header class="report-items-heading">
-        <h2 id="report-items-title">All stories</h2>
-        <p>Ranked by business impact, evidence, and relevance to Proterra.</p>
+        <div>
+          <span>{report.items.length} developments</span>
+          <h2 id="report-items-title">The full brief</h2>
+        </div>
+        <p>Ordered by relevance, evidence, and likely business impact.</p>
       </header>
       {report.items.map((item) => (
         <div class="report-item" id={`item-${item.rank}`}>
           <ReportCard item={item} />
-          <div class="evidence-panel">
-            <div>
-              <span class="evidence-label">Watch next</span>
-              <p>{item.watchNext}</p>
-            </div>
-            <div>
-              <div class="evidence-heading">
-                <span class="evidence-label">Sources</span>
-                <span class="confidence-label">{item.confidence} confidence</span>
-              </div>
-              <ul class="citation-list">
-                {item.citations.map((citation) => {
-                  const isPdf = new URL(citation.url).pathname.toLowerCase().endsWith(".pdf");
-                  return (
-                    <li>
-                      <a class="citation-link" href={citation.url} target="_blank" rel="noreferrer">
-                        <span class="citation-meta">
-                          <span>{sourceById.get(citation.sourceId)?.name}</span>
-                          <time datetime={citation.publishedAt}>{formatDate(citation.publishedAt, { month: "short" })}</time>
-                        </span>
-                        <strong>{citation.title}</strong>
-                        <span class="citation-action">
-                          {isPdf ? "Open PDF" : "Open source"}
-                          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5"></path></svg>
-                        </span>
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </div>
+          <EvidenceDisclosure item={item} />
         </div>
       ))}
     </section>

@@ -15,7 +15,7 @@ const latest = reports[0];
     <SectionLabel>Weekly Brief</SectionLabel>
     <h1>This week in livestock and genetics.</h1>
     <p class="hero-summary">
-      Important developments in dairy, meat, and bovine genetics, reviewed weekly with direct sources.
+      A concise weekly view of dairy, meat, and bovine genetics, with every development linked to its evidence.
     </p>
   </section>
 
@@ -40,7 +40,8 @@ const latest = reports[0];
       <section class="leading-stories reveal delay-3" aria-labelledby="leading-stories-title">
         <header class="content-section-heading">
           <div>
-            <h2 id="leading-stories-title">Top stories</h2>
+            <span>Ranked developments</span>
+            <h2 id="leading-stories-title">Start here</h2>
           </div>
           <ArrowLink href={`/reports/${latest.slug}`} label={`View all ${latest.items.length} stories`} />
         </header>
@@ -70,9 +71,9 @@ const latest = reports[0];
     </section>
   )}
 
-  <section class="principles reveal">
+  <section class="principles reveal" aria-labelledby="how-it-works-title">
     <div class="section-intro">
-      <h2>How the brief works</h2>
+      <h2 id="how-it-works-title">Built for a quick, trusted read</h2>
     </div>
     <div class="principle-list">
       <article>

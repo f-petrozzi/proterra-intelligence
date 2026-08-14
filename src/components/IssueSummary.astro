@@ -12,16 +12,19 @@ const { overview, fallback, editorNote } = Astro.props;
 
 <section class="issue-summary" aria-labelledby="issue-summary-title">
   <header>
-    <span>In brief</span>
+    <span>What matters this week</span>
     <h2 id="issue-summary-title">{overview?.headline ?? "Summary"}</h2>
   </header>
 
   {overview ? (
     <div class="summary-points">
-      {overview.points.map((point) => (
+      {overview.points.map((point, index) => (
         <article>
-          <h3>{point.label}</h3>
-          <p>{point.text}</p>
+          <span aria-hidden="true">0{index + 1}</span>
+          <div>
+            <h3>{point.label}</h3>
+            <p>{point.text}</p>
+          </div>
         </article>
       ))}
     </div>
@@ -31,7 +34,7 @@ const { overview, fallback, editorNote } = Astro.props;
 
   {editorNote && (
     <details class="editor-note">
-      <summary>Editorial note</summary>
+      <summary>About this issue</summary>
       <p>{editorNote}</p>
     </details>
   )}

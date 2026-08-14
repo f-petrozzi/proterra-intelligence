@@ -11,12 +11,11 @@ const hostname = new URL(source.url).hostname.replace(/^www\./, "");
 ---
 
 <article class="source-card">
-  <header>
+  <div class="source-identity">
+    <span class="source-domain">{hostname}</span>
     <h2>{source.name}</h2>
-    <ArrowLink href={source.url} label={`Open ${hostname}`} external />
-  </header>
-
-  <p>{source.notes}</p>
+    <p>{source.notes}</p>
+  </div>
 
   <dl>
     <div>
@@ -28,8 +27,10 @@ const hostname = new URL(source.url).hostname.replace(/^www\./, "");
       <dd>{source.regions.join(", ")}</dd>
     </div>
     <div>
-      <dt>Updates</dt>
+      <dt>Cadence</dt>
       <dd>{source.cadence}</dd>
     </div>
   </dl>
+
+  <ArrowLink href={source.url} label="Visit source" external />
 </article>
