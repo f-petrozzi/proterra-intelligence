@@ -1,13 +1,13 @@
 ---
 import ArrowLink from "../components/ArrowLink.astro";
 import FeaturedStory from "../components/FeaturedStory.astro";
+import IssueSummary from "../components/IssueSummary.astro";
 import SectionLabel from "../components/SectionLabel.astro";
 import WeekDashboard from "../components/WeekDashboard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { formatDate, reports, sources } from "../lib/content";
+import { formatDate, reports } from "../lib/content";
 
 const latest = reports[0];
-const approvedSourceCount = sources.filter((source) => source.status === "approved").length;
 ---
 
 <BaseLayout>
@@ -15,13 +15,8 @@ const approvedSourceCount = sources.filter((source) => source.status === "approv
     <SectionLabel>Weekly Brief</SectionLabel>
     <h1>This week in livestock and genetics.</h1>
     <p class="hero-summary">
-      A weekly review of important developments in dairy, meat, and bovine genetics, with direct sources and human review.
+      Important developments in dairy, meat, and bovine genetics, reviewed weekly with direct sources.
     </p>
-    <div class="hero-meta" aria-label="Publication standards">
-      <div><strong>8 to 10</strong><span>developments</span></div>
-      <div><strong>{approvedSourceCount}</strong><span>approved sources</span></div>
-      <div><strong>Weekly</strong><span>human review</span></div>
-    </div>
   </section>
 
   {latest ? (
@@ -34,24 +29,20 @@ const approvedSourceCount = sources.filter((source) => source.status === "approv
         <ArrowLink href={`/reports/${latest.slug}`} label="Read Weekly Brief" />
       </section>
 
+      <IssueSummary overview={latest.overview} fallback={latest.executiveSummary} />
+
       {latest.dashboard && (
         <div class="reveal delay-2">
           <WeekDashboard dashboard={latest.dashboard} reportHref={`/reports/${latest.slug}`} />
         </div>
       )}
 
-      <section class="executive-summary reveal delay-2">
-        <span>Executive summary</span>
-        <p>{latest.executiveSummary}</p>
-      </section>
-
       <section class="leading-stories reveal delay-3" aria-labelledby="leading-stories-title">
         <header class="content-section-heading">
           <div>
-            <SectionLabel>Leading developments</SectionLabel>
-            <h2 id="leading-stories-title">Start here</h2>
+            <h2 id="leading-stories-title">Top stories</h2>
           </div>
-          <ArrowLink href={`/reports/${latest.slug}`} label="View all developments" />
+          <ArrowLink href={`/reports/${latest.slug}`} label={`View all ${latest.items.length} stories`} />
         </header>
         <div class="featured-grid">
           {latest.items.slice(0, 3).map((item, index) => (
@@ -81,8 +72,7 @@ const approvedSourceCount = sources.filter((source) => source.status === "approv
 
   <section class="principles reveal">
     <div class="section-intro">
-      <SectionLabel>Editorial standard</SectionLabel>
-      <h2>Evidence first.<br />Interpretation second.</h2>
+      <h2>How the brief works</h2>
     </div>
     <div class="principle-list">
       <article>

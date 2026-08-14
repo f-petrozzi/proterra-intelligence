@@ -8,8 +8,25 @@
     "end": "2026-08-13"
   },
   "publishedAt": "2026-08-13",
-  "executiveSummary": "Genetic evaluations were the week's clearest strategic change, with new U.S. measures for calf health and conception arriving alongside the international August evaluation cycle. Dairy signals remain mixed: U.S. butter and nonfat dry milk output rose, global dairy prices stayed well below last year, and USDA lowered its milk price outlook. Beef supply remains tight in the United States, while imports and a planned reopening of one Mexican cattle crossing may provide limited relief.",
+  "executiveSummary": "CDCB added three dairy cattle traits for calf health and conception. Global dairy and meat prices declined in July, while U.S. butter and nonfat dry milk output increased. U.S. beef supplies remain tight, although higher imports and a planned Arizona border reopening may add some supply.",
   "editorNote": "First supervised issue. Items 7 and 8 use official releases from July 24 as 30-day context. Item 8 covers an August 24 reopening referenced again in the August 12 USDA outlook. Item 9 is based on the published evaluation schedule, not ranking results.",
+  "overview": {
+    "headline": "New genetic evaluations lead the week.",
+    "points": [
+      {
+        "label": "Genetics",
+        "text": "CDCB added two calf health traits and First Service to Conception to its August evaluation."
+      },
+      {
+        "label": "Dairy",
+        "text": "Global prices fell again as USDA lowered its 2026 all-milk forecast to $19.85 per hundredweight."
+      },
+      {
+        "label": "Beef",
+        "text": "U.S. cow and calf numbers remain tight. Imports and one planned border reopening may add limited supply."
+      }
+    ]
+  },
   "dashboard": {
     "sectorPulses": [
       {

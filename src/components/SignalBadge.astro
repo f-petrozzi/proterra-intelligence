@@ -6,6 +6,12 @@ interface Props {
 }
 
 const { signal } = Astro.props;
+const labels = {
+  new: "New this week",
+  continuing: "Continuing",
+  accelerating: "Accelerating",
+  easing: "Easing"
+} as const;
 ---
 
-<span class={`signal-badge signal-${signal}`}>{signal}</span>
+<span class={`signal-badge signal-${signal}`}>{labels[signal]}</span>

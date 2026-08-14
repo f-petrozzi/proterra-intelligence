@@ -8,8 +8,25 @@
     "end": "YYYY-MM-DD"
   },
   "publishedAt": "YYYY-MM-DD",
-  "executiveSummary": "Replace with a concise synthesis of the week's most consequential developments and their relationship to the larger industry picture.",
+  "executiveSummary": "Replace with a concise summary of the week's most important developments and how they relate to the larger industry picture.",
   "editorNote": "Optional editorial context.",
+  "overview": {
+    "headline": "One sentence stating the week's main development.",
+    "points": [
+      {
+        "label": "Genetics",
+        "text": "One plain-language sentence covering the most important genetics development."
+      },
+      {
+        "label": "Dairy",
+        "text": "One plain-language sentence covering the most important dairy development."
+      },
+      {
+        "label": "Meat",
+        "text": "One plain-language sentence covering the most important meat development."
+      }
+    ]
+  },
   "dashboard": {
     "sectorPulses": [
       {

@@ -1,5 +1,6 @@
 ---
 import ArrowLink from "../../components/ArrowLink.astro";
+import IssueSummary from "../../components/IssueSummary.astro";
 import ReportCard from "../../components/ReportCard.astro";
 import WeekDashboard from "../../components/WeekDashboard.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -20,15 +21,20 @@ const { report } = Astro.props as Props;
   <article class="report-page">
     <header class="report-header reveal">
       <div class="report-kicker">
-        <span>Issue {String(report.issueNumber).padStart(2, "0")}</span>
-        <span>{report.status === "draft" ? "Draft preview" : "Approved"}</span>
+        <span>Weekly Brief</span>
+        <span>Issue {String(report.issueNumber).padStart(2, "0")}{report.status === "draft" ? " · Draft preview" : ""}</span>
       </div>
       <h1>{formatDate(report.publishedAt)}</h1>
-      <p>{report.title}</p>
       <div class="report-period">
         Reporting period: {formatDate(report.period.start, { month: "short" })} to {formatDate(report.period.end, { month: "short" })}
       </div>
     </header>
+
+    <IssueSummary
+      overview={report.overview}
+      fallback={report.executiveSummary}
+      editorNote={report.editorNote}
+    />
 
     {report.dashboard && (
       <div class="report-dashboard reveal delay-1">
@@ -36,13 +42,11 @@ const { report } = Astro.props as Props;
       </div>
     )}
 
-    <section class="report-summary reveal delay-1">
-      <span>Executive summary</span>
-      <p>{report.executiveSummary}</p>
-      {report.editorNote && <aside><strong>Editor’s note</strong>{report.editorNote}</aside>}
-    </section>
-
-    <section class="report-items reveal delay-2" aria-label="Ranked developments">
+    <section class="report-items reveal delay-2" aria-labelledby="report-items-title">
+      <header class="report-items-heading">
+        <h2 id="report-items-title">All stories</h2>
+        <p>Ranked by business impact, evidence, and relevance to Proterra.</p>
+      </header>
       {report.items.map((item) => (
         <div class="report-item" id={`item-${item.rank}`}>
           <ReportCard item={item} />
@@ -52,7 +56,7 @@ const { report } = Astro.props as Props;
               <p>{item.watchNext}</p>
             </div>
             <div>
-              <span class="evidence-label">Evidence · {item.confidence} confidence</span>
+              <span class="evidence-label">Sources · {item.confidence} confidence</span>
               <ol>
                 {item.citations.map((citation) => (
                   <li>

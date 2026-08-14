@@ -61,6 +61,14 @@ const dashboardSchema = z.object({
   })).min(3).max(5)
 });
 
+const overviewSchema = z.object({
+  headline: z.string().min(12),
+  points: z.array(z.object({
+    label: z.string().min(3),
+    text: z.string().min(25)
+  })).length(3)
+});
+
 const reportSchema = z.object({
   slug: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   issueNumber: z.number().int().positive(),
@@ -73,6 +81,7 @@ const reportSchema = z.object({
   publishedAt: z.string().regex(datePattern),
   executiveSummary: z.string().min(60),
   editorNote: z.string().optional(),
+  overview: overviewSchema.optional(),
   dashboard: dashboardSchema.optional(),
   items: z.array(itemSchema).min(8).max(10)
 });

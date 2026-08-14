@@ -30,6 +30,7 @@ Create `src/data/reports/YYYY-MM-DD.json` from the template with:
 - `status` set to `draft`;
 - concise, neutral headlines;
 - a factual summary, a specific explanation of business relevance, and a specific “watch next” for each signal;
+- one plain-language overview headline and three labeled overview points;
 - one dashboard pulse for each sector and three to five key metrics, all taken from selected items;
 - an explicit comparison basis for every dashboard number, such as month over month, year over year, or forecast date;
 - an `itemRank` on every dashboard entry that points to its supporting report item;

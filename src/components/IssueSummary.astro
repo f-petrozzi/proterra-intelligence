@@ -1,0 +1,38 @@
+---
+import type { Report } from "../lib/content";
+
+interface Props {
+  overview?: Report["overview"];
+  fallback: string;
+  editorNote?: string;
+}
+
+const { overview, fallback, editorNote } = Astro.props;
+---
+
+<section class="issue-summary" aria-labelledby="issue-summary-title">
+  <header>
+    <span>In brief</span>
+    <h2 id="issue-summary-title">{overview?.headline ?? "Summary"}</h2>
+  </header>
+
+  {overview ? (
+    <div class="summary-points">
+      {overview.points.map((point) => (
+        <article>
+          <h3>{point.label}</h3>
+          <p>{point.text}</p>
+        </article>
+      ))}
+    </div>
+  ) : (
+    <p class="summary-fallback">{fallback}</p>
+  )}
+
+  {editorNote && (
+    <details class="editor-note">
+      <summary>Editorial note</summary>
+      <p>{editorNote}</p>
+    </details>
+  )}
+</section>

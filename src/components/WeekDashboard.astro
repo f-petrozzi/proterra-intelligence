@@ -1,5 +1,4 @@
 ---
-import SectionLabel from "./SectionLabel.astro";
 import { sectorLabel, type Report } from "../lib/content";
 
 interface Props {
@@ -24,10 +23,7 @@ const directionMarks = {
 
 <section class="week-dashboard" aria-labelledby="market-pulse-title">
   <header class="dashboard-heading">
-    <div>
-      <SectionLabel>Week at a glance</SectionLabel>
-      <h2 id="market-pulse-title">Market pulse</h2>
-    </div>
+    <h2 id="market-pulse-title">This week’s indicators</h2>
     <p>Selected indicators from this week’s brief. Each figure retains its source comparison period.</p>
   </header>
 
@@ -59,7 +55,7 @@ const directionMarks = {
 
   <div class="metrics-panel">
     <div class="metrics-heading">
-      <SectionLabel>Key numbers</SectionLabel>
+      <h3>Other key numbers</h3>
       <p>Selected figures from the report.</p>
     </div>
     <div class="metric-grid">
