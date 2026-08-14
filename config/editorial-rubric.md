@@ -1,6 +1,6 @@
 # Editorial rubric
 
-Use this rubric to rank candidate signals. Score each dimension from 0–5, multiply by its weight, and normalize to 100.
+Use this rubric to rank candidate signals. Score each dimension from 0 to 5, multiply by its weight, and normalize to 100.
 
 | Dimension | Weight | What earns a high score |
 | --- | ---: | --- |
@@ -13,7 +13,7 @@ Use this rubric to rank candidate signals. Score each dimension from 0–5, mult
 
 ## Selection rules
 
-- Publish 8–10 signals only when the evidence supports them.
+- Publish 8 to 10 signals only when the evidence supports them.
 - Cover dairy, meat, and bovine genetics; aim for at least two signals per sector.
 - Include both US and international developments; aim for at least three of each.
 - Consolidate articles about the same underlying development into one signal.

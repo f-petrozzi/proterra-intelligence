@@ -1,7 +1,7 @@
 [
   {
     "id": "usda-ams-dairy",
-    "name": "USDA Agricultural Marketing Service — Dairy Market News",
+    "name": "USDA Agricultural Marketing Service: Dairy Market News",
     "domain": "ams.usda.gov",
     "url": "https://www.ams.usda.gov/market-news/dairy",
     "tier": "A",
@@ -13,7 +13,7 @@
   },
   {
     "id": "usda-ers-dairy",
-    "name": "USDA Economic Research Service — Dairy",
+    "name": "USDA Economic Research Service: Dairy",
     "domain": "ers.usda.gov",
     "url": "https://www.ers.usda.gov/topics/animal-products/dairy",
     "tier": "A",
@@ -25,7 +25,7 @@
   },
   {
     "id": "usda-ers-livestock",
-    "name": "USDA Economic Research Service — Livestock and Meat",
+    "name": "USDA Economic Research Service: Livestock and Meat",
     "domain": "ers.usda.gov",
     "url": "https://www.ers.usda.gov/topics/animal-products/cattle-beef",
     "tier": "A",
@@ -109,7 +109,7 @@
   },
   {
     "id": "fao-faostat",
-    "name": "FAO — FAOSTAT",
+    "name": "FAO: FAOSTAT",
     "domain": "fao.org",
     "url": "https://www.fao.org/faostat/en",
     "tier": "A",
@@ -121,7 +121,7 @@
   },
   {
     "id": "woah-wahis",
-    "name": "World Organisation for Animal Health — WAHIS",
+    "name": "World Organisation for Animal Health: WAHIS",
     "domain": "woah.org",
     "url": "https://wahis.woah.org",
     "tier": "A",
@@ -133,7 +133,7 @@
   },
   {
     "id": "ec-agriculture",
-    "name": "European Commission — Agriculture and Rural Development",
+    "name": "European Commission: Agriculture and Rural Development",
     "domain": "agriculture.ec.europa.eu",
     "url": "https://agriculture.ec.europa.eu/data-and-analysis/markets/overviews/market-observatories_en",
     "tier": "A",

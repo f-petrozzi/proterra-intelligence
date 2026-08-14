@@ -1,15 +1,17 @@
 ---
 import ArrowLink from "../components/ArrowLink.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { site } from "../config/site";
 import { sectorLabel, sources } from "../lib/content";
 ---
 
-<BaseLayout title="Sources" description="The approved Proterra Signal source registry.">
-  <section class="page-heading reveal">
-    <div class="eyebrow"><span></span> Source governance</div>
-    <h1>Approved source registry</h1>
-    <p>Discovery is restricted to reviewed publishers. Exact articles, reports, and datasets are cited inside every issue.</p>
-  </section>
+<BaseLayout title="Sources" description={`The approved ${site.name} source registry.`}>
+  <PageHeader
+    label="Source governance"
+    title="Approved source registry"
+    description="Discovery is restricted to reviewed publishers. Exact articles, reports, and datasets are cited inside every issue."
+  />
 
   <section class="source-key reveal delay-1" aria-label="Source tier definitions">
     <div><strong>A</strong><span>Official, intergovernmental, or recognized evaluation authority</span></div>

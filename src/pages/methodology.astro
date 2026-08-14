@@ -1,13 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import SectionLabel from "../components/SectionLabel.astro";
+import { site } from "../config/site";
 ---
 
-<BaseLayout title="Methodology" description="How Proterra Signal discovers, ranks, and reviews industry developments.">
-  <section class="page-heading reveal">
-    <div class="eyebrow"><span></span> Editorial methodology</div>
-    <h1>How the signal is selected</h1>
-    <p>A repeatable research and review process designed to favor consequence over volume.</p>
-  </section>
+<BaseLayout title="Methodology" description={`How ${site.name} discovers, ranks, and reviews industry developments.`}>
+  <PageHeader
+    label="Editorial methodology"
+    title="How each development is selected"
+    description="A repeatable research and review process designed to favor consequence over volume."
+  />
 
   <section class="method-grid reveal delay-1">
     <article><span>01</span><h2>Discover</h2><p>Search the previous seven days across approved sources, with up to 30 days of context for continuing developments.</p></article>
@@ -18,26 +21,26 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
   <section class="rubric reveal delay-2">
     <div class="section-intro">
-      <div class="eyebrow"><span></span> Ranking rubric</div>
+      <SectionLabel>Ranking rubric</SectionLabel>
       <h2>Importance is explicit.</h2>
     </div>
     <div class="rubric-table">
-      <div><span>Industry or economic impact</span><strong>25%</strong></div>
-      <div><span>Source confidence</span><strong>20%</strong></div>
-      <div><span>Relevance to Proterra</span><strong>15%</strong></div>
-      <div><span>Breadth across markets</span><strong>15%</strong></div>
-      <div><span>Persistence or momentum</span><strong>15%</strong></div>
-      <div><span>Novelty</span><strong>10%</strong></div>
+      <div><span>Business impact</span><strong>30%</strong></div>
+      <div><span>Evidence strength</span><strong>25%</strong></div>
+      <div><span>Timeliness</span><strong>15%</strong></div>
+      <div><span>Strategic relevance</span><strong>15%</strong></div>
+      <div><span>Breadth</span><strong>10%</strong></div>
+      <div><span>Novelty</span><strong>5%</strong></div>
     </div>
   </section>
 
   <section class="guardrails reveal">
     <div>
-      <div class="eyebrow"><span></span> Publication guardrails</div>
+      <SectionLabel>Publication guardrails</SectionLabel>
       <h2>What an approved issue must contain</h2>
     </div>
     <ul>
-      <li><span>8–10</span> supported developments</li>
+      <li><span>8 to 10</span> supported developments</li>
       <li><span>2+</span> items from each sector</li>
       <li><span>3+</span> primarily U.S. items</li>
       <li><span>3+</span> primarily international items</li>

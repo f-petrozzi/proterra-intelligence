@@ -1,6 +1,7 @@
 ---
 import ArrowLink from "../components/ArrowLink.astro";
 import ReportCard from "../components/ReportCard.astro";
+import SectionLabel from "../components/SectionLabel.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { formatDate, reports, sources } from "../lib/content";
 
@@ -10,13 +11,13 @@ const approvedSourceCount = sources.filter((source) => source.status === "approv
 
 <BaseLayout>
   <section class="hero reveal">
-    <div class="eyebrow"><span></span> Weekly intelligence</div>
-    <h1>Clear signals from a changing livestock industry.</h1>
+    <SectionLabel>Weekly Brief</SectionLabel>
+    <h1>Decision-ready intelligence for a changing livestock industry.</h1>
     <p class="hero-summary">
-      The most consequential developments in dairy, meat, and bovine genetics—selected from a controlled source set and reviewed before publication.
+      The most consequential developments in dairy, meat, and bovine genetics, selected from a controlled source set and reviewed before publication.
     </p>
     <div class="hero-meta" aria-label="Publication standards">
-      <div><strong>8–10</strong><span>developments</span></div>
+      <div><strong>8 to 10</strong><span>developments</span></div>
       <div><strong>{approvedSourceCount}</strong><span>approved sources</span></div>
       <div><strong>Weekly</strong><span>human review</span></div>
     </div>
@@ -26,10 +27,10 @@ const approvedSourceCount = sources.filter((source) => source.status === "approv
     <>
       <section class="latest-heading reveal delay-1">
         <div>
-          <div class="eyebrow"><span></span> Issue {String(latest.issueNumber).padStart(2, "0")}</div>
+          <SectionLabel>Issue {String(latest.issueNumber).padStart(2, "0")}</SectionLabel>
           <h2>{formatDate(latest.publishedAt)}</h2>
         </div>
-        <ArrowLink href={`/reports/${latest.slug}`} label="Read full briefing" />
+        <ArrowLink href={`/reports/${latest.slug}`} label="Read Weekly Brief" />
       </section>
 
       <section class="executive-summary reveal delay-2">
@@ -47,7 +48,7 @@ const approvedSourceCount = sources.filter((source) => source.status === "approv
         <span class="status-dot" aria-hidden="true"></span>
         <p>Editorial system ready</p>
       </div>
-      <h2>No approved issue has been published.</h2>
+      <h2>No approved Weekly Brief has been published.</h2>
       <p>The first draft will appear in a protected pull-request preview. Production remains empty until the report is reviewed and merged.</p>
       <div class="empty-actions">
         <ArrowLink href="/methodology" label="Review methodology" />
@@ -58,7 +59,7 @@ const approvedSourceCount = sources.filter((source) => source.status === "approv
 
   <section class="principles reveal">
     <div class="section-intro">
-      <div class="eyebrow"><span></span> Editorial standard</div>
+      <SectionLabel>Editorial standard</SectionLabel>
       <h2>Evidence first.<br />Interpretation second.</h2>
     </div>
     <div class="principle-list">

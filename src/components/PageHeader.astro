@@ -1,0 +1,17 @@
+---
+import SectionLabel from "./SectionLabel.astro";
+
+interface Props {
+  label: string;
+  title: string;
+  description: string;
+}
+
+const { label, title, description } = Astro.props;
+---
+
+<header class="page-heading reveal">
+  <SectionLabel>{label}</SectionLabel>
+  <h1>{title}</h1>
+  <p>{description}</p>
+</header>

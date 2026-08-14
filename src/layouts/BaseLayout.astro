@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { site } from "../config/site";
 
 interface Props {
   title?: string;
@@ -7,11 +8,11 @@ interface Props {
 }
 
 const {
-  title = "Proterra Signal",
-  description = "Weekly dairy, meat, and bovine genetics intelligence."
+  title = site.name,
+  description = site.description
 } = Astro.props;
 
-const pageTitle = title === "Proterra Signal" ? title : `${title} · Proterra Signal`;
+const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
 const pathname = Astro.url.pathname;
 const nav = [
   { href: "/", label: "Latest" },
@@ -36,11 +37,11 @@ const nav = [
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="site-shell">
       <header class="site-header">
-        <a class="brand" href="/" aria-label="Proterra Signal home">
-          <span class="brand-mark" aria-hidden="true">PS</span>
+        <a class="brand" href="/" aria-label={`${site.name} home`}>
+          <span class="brand-mark" aria-hidden="true">{site.initials}</span>
           <span class="brand-lockup">
-            <strong>Proterra Signal</strong>
-            <small>Industry intelligence</small>
+            <strong>{site.name}</strong>
+            <small>{site.descriptor}</small>
           </span>
         </a>
 
@@ -63,8 +64,8 @@ const nav = [
       </main>
 
       <footer class="site-footer">
-        <p><strong>Proterra Signal</strong> · Internal decision support</p>
-        <p>Human-reviewed. Source-linked. Published weekly.</p>
+        <p><strong>{site.name}</strong> | Internal decision support</p>
+        <p>{site.footerNote}</p>
       </footer>
     </div>
   </body>

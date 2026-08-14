@@ -23,6 +23,7 @@
     --line: rgba(23, 32, 28, 0.14);
     --line-strong: rgba(23, 32, 28, 0.28);
     --shadow: 0 24px 60px rgba(18, 43, 34, 0.08);
+    --focus: 0 0 0 3px rgba(23, 63, 50, 0.22);
     --radius-sm: 0.55rem;
     --radius-md: 1rem;
     --radius-lg: 1.5rem;
@@ -34,9 +35,7 @@
     min-width: 20rem;
     min-height: 100vh;
     color: var(--ink);
-    background:
-      radial-gradient(circle at 82% 8%, rgba(183, 215, 193, 0.26), transparent 26rem),
-      var(--paper);
+    background: radial-gradient(circle at 82% 8%, rgba(183, 215, 193, 0.24), transparent 28rem), var(--paper);
     font-family: var(--sans);
     font-size: 1rem;
     line-height: 1.55;
@@ -44,20 +43,11 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  body::before {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background-image: linear-gradient(rgba(23, 32, 28, 0.025) 1px, transparent 1px);
-    background-size: 100% 4rem;
-    content: "";
-    pointer-events: none;
-  }
-
   a { color: inherit; text-decoration: none; }
   button { color: inherit; }
   h1, h2, h3 { font-weight: 520; letter-spacing: -0.035em; line-height: 1.04; }
   ::selection { color: var(--forest-deep); background: var(--mint); }
+  :focus-visible { outline: 0; box-shadow: var(--focus); }
 }
 
 @layer components {
@@ -85,7 +75,6 @@
     align-items: center;
     justify-content: space-between;
     min-height: 6.5rem;
-    border-bottom: 1px solid var(--line);
   }
 
   .brand { display: inline-flex; align-items: center; gap: 0.8rem; }
@@ -118,7 +107,7 @@
     border-radius: 999px;
     color: var(--ink-muted);
     font-size: 0.82rem;
-    transition: color 180ms ease, background 180ms ease;
+    transition: color 180ms ease, background-color 180ms ease;
   }
   .nav-list a:hover { color: var(--ink); background: rgba(255, 255, 255, 0.45); }
   .nav-list a[aria-current="page"] { color: var(--surface); background: var(--forest); }
@@ -150,16 +139,12 @@
   .hero-meta span { color: var(--ink-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; }
 
   .eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
     color: var(--ink-muted);
     font-size: 0.7rem;
     font-weight: 650;
     letter-spacing: 0.12em;
     text-transform: uppercase;
   }
-  .eyebrow > span { width: 1.8rem; height: 1px; background: currentColor; }
 
   .arrow-link {
     display: inline-flex;
@@ -169,6 +154,7 @@
     font-size: 0.8rem;
     font-weight: 650;
     letter-spacing: 0.01em;
+    border-radius: 0.25rem;
   }
   .arrow-link svg { width: 1rem; fill: none; stroke: currentColor; stroke-width: 1.4; transition: transform 180ms ease; }
   .arrow-link:hover svg { transform: translateX(0.25rem); }
@@ -213,7 +199,7 @@
     background: rgba(250, 250, 246, 0.72);
     transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
   }
-  .signal-card:hover { border-color: var(--line-strong); box-shadow: 0 18px 45px rgba(18, 43, 34, 0.06); transform: translateY(-0.25rem); }
+  .signal-card:hover { border-color: rgba(23, 63, 50, 0.34); box-shadow: 0 18px 45px rgba(18, 43, 34, 0.06); transform: translateY(-0.2rem); }
   .signal-card-topline { display: flex; align-items: center; justify-content: space-between; }
   .rank { color: var(--forest); font-size: 0.72rem; font-weight: 750; letter-spacing: 0.08em; }
   .signal-badge {
@@ -277,7 +263,6 @@
     justify-content: space-between;
     gap: 2rem;
     padding: 2.25rem 0 3rem;
-    border-top: 1px solid var(--line-strong);
     color: var(--ink-muted);
     font-size: 0.72rem;
   }
@@ -288,7 +273,7 @@
   .page-heading > p { max-width: 49rem; margin-top: 1.6rem; color: var(--ink-muted); font-size: clamp(1rem, 1.7vw, 1.25rem); }
 
   .filter-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line-strong); }
-  .filter-bar button { padding: 0.55rem 0.8rem; border: 1px solid var(--line); border-radius: 999px; background: transparent; cursor: pointer; font-size: 0.72rem; transition: 160ms ease; }
+  .filter-bar button { padding: 0.55rem 0.8rem; border: 1px solid var(--line); border-radius: 999px; background: transparent; cursor: pointer; font-size: 0.72rem; transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease; }
   .filter-bar button:hover { border-color: var(--forest); }
   .filter-bar button.active { color: var(--surface); border-color: var(--forest); background: var(--forest); }
   .archive-row {

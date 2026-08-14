@@ -25,7 +25,7 @@ const { report } = Astro.props as Props;
       <h1>{formatDate(report.publishedAt)}</h1>
       <p>{report.title}</p>
       <div class="report-period">
-        Reporting period: {formatDate(report.period.start, { month: "short" })}–{formatDate(report.period.end, { month: "short" })}
+        Reporting period: {formatDate(report.period.start, { month: "short" })} to {formatDate(report.period.end, { month: "short" })}
       </div>
     </header>
 

@@ -1,6 +1,6 @@
-# Proterra Signal
+# Proterra Intelligence
 
-An internal weekly intelligence brief covering the dairy industry, meat industry, and bovine genetics in the US and internationally.
+An internal decision-intelligence platform covering the dairy industry, meat industry, and bovine genetics in the US and internationally. Its primary publication is the human-reviewed Weekly Brief.
 
 The proof of concept is deliberately small: a static Astro site, structured JSON reports, an approved source registry, automated validation, Cloudflare preview deployments, and human approval before publication. It has no database, CMS, or server runtime.
 

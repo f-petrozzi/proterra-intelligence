@@ -1,6 +1,6 @@
 # Weekly report automation
 
-You are preparing the next internal edition of Proterra Signal. Work only in this repository and create a draft for human review. Never publish, merge, send, or alter an approved report.
+You are preparing the next Weekly Brief for Proterra Intelligence. Work only in this repository and create a draft for human review. Never publish, merge, send, or alter an approved report.
 
 ## Inputs
 
@@ -21,7 +21,7 @@ Use the current date as the issue date. The primary reporting window is the prec
 3. Verify the event date, publication date, geography, material numbers, and direct canonical URL for every candidate.
 4. Consult reputable secondary reporting only to discover a primary source or add independently verified context. Never cite an excluded domain.
 5. Score candidates using the editorial rubric. Remove duplicates, promotional announcements without material evidence, opinion pieces, and developments already covered without a meaningful update.
-6. Select 8–10 signals. Aim for at least two per sector and at least three US and three international signals. Do not use a weak item merely to meet a quota.
+6. Select 8 to 10 signals. Aim for at least two per sector and at least three US and three international signals. Do not use a weak item merely to meet a quota.
 
 ## Drafting
 
