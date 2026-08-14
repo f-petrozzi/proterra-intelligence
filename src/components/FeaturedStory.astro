@@ -1,4 +1,5 @@
 ---
+import SignalBadge from "./SignalBadge.astro";
 import { sectorLabel, type SignalItem } from "../lib/content";
 
 interface Props {
@@ -13,9 +14,12 @@ const { item, href, primary = false } = Astro.props;
 <a class:list={["featured-story", { primary }]} href={href}>
   <div class="featured-topline">
     <span class="rank">{String(item.rank).padStart(2, "0")}</span>
-    <span class="story-sector">{item.sectors.map(sectorLabel).join(" · ")}</span>
+    <SignalBadge signal={item.signal} />
   </div>
-  <p class="story-region">{item.regions.join(" · ")}</p>
+  <div class="tag-list" aria-label="Categories">
+    {item.sectors.map((sector) => <span>{sectorLabel(sector)}</span>)}
+    {item.regions.map((region) => <span>{region}</span>)}
+  </div>
   <div class="featured-copy">
     <h3>{item.headline}</h3>
     <p>{item.summary}</p>

@@ -8,9 +8,9 @@ import { formatDate, reports, sectorLabel, sectors } from "../lib/content";
 
 <BaseLayout title="Archive" description={`Approved ${site.name} Weekly Briefs.`}>
   <PageHeader
-    label="Report history"
-    title="Briefing archive"
-    description="Approved Weekly Briefs, preserved with their original evidence and editorial status."
+    label="Past issues"
+    title="Weekly brief archive"
+    description="Every approved issue remains available with its original sources and publication date."
   />
 
   <section class="archive-shell reveal delay-1">
@@ -35,7 +35,7 @@ import { formatDate, reports, sectorLabel, sectors } from "../lib/content";
               <h2>{formatDate(report.publishedAt)}</h2>
               <p>{report.executiveSummary}</p>
             </div>
-            <ArrowLink href={`/reports/${report.slug}`} label="Open issue" />
+            <ArrowLink href={`/reports/${report.slug}`} label={`Open Issue ${String(report.issueNumber).padStart(2, "0")}`} />
           </article>
         );
       }) : (

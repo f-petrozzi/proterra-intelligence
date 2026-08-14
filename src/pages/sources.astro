@@ -1,41 +1,30 @@
 ---
-import ArrowLink from "../components/ArrowLink.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
+import SourceCard from "../components/SourceCard.astro";
 import { site } from "../config/site";
-import { sectorLabel, sources } from "../lib/content";
+import { sources } from "../lib/content";
 ---
 
 <BaseLayout title="Sources" description={`The approved ${site.name} source registry.`}>
   <PageHeader
-    label="Source governance"
-    title="Approved source registry"
-    description="Discovery is restricted to reviewed publishers. Exact articles, reports, and datasets are cited inside every issue."
+    label="Evidence"
+    title="Approved sources"
+    description="Every story links to the exact report, dataset, or announcement used as evidence. This directory defines which publishers may be cited."
   />
 
-  <section class="source-key reveal delay-1" aria-label="Source tier definitions">
-    <div><strong>A</strong><span>Official, intergovernmental, or recognized evaluation authority</span></div>
-    <div><strong>B</strong><span>Established academic, extension, or trade analysis</span></div>
-    <div><strong>C</strong><span>Company or industry announcement requiring context</span></div>
+  <section class="source-standard reveal delay-1" aria-labelledby="source-standard-title">
+    <h2 id="source-standard-title">What approval means</h2>
+    <p>The directory is limited to official agencies, intergovernmental bodies, and recognized evaluation authorities. Approval does not validate every claim; each report still checks and links to the exact publication.</p>
   </section>
 
-  <section class="source-list reveal delay-2">
-    {sources.map((source) => (
-      <article class="source-row">
-        <div class="source-tier" aria-label={`Tier ${source.tier}`}>{source.tier}</div>
-        <div class="source-main">
-          <div class="tag-list">
-            {source.sectors.map((sector) => <span>{sectorLabel(sector)}</span>)}
-            {source.regions.map((region) => <span>{region}</span>)}
-          </div>
-          <h2>{source.name}</h2>
-          <p>{source.notes}</p>
-        </div>
-        <div class="source-meta">
-          <span>{source.cadence}</span>
-          <ArrowLink href={source.url} label="Visit source" external />
-        </div>
-      </article>
-    ))}
+  <section class="source-directory reveal delay-2" aria-labelledby="source-directory-title">
+    <header>
+      <h2 id="source-directory-title">Source directory</h2>
+      <p>{sources.length} approved sources</p>
+    </header>
+    <div class="source-grid">
+      {sources.map((source) => <SourceCard source={source} />)}
+    </div>
   </section>
 </BaseLayout>

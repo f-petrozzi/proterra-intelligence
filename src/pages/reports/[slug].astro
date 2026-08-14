@@ -1,5 +1,4 @@
 ---
-import ArrowLink from "../../components/ArrowLink.astro";
 import IssueSummary from "../../components/IssueSummary.astro";
 import ReportCard from "../../components/ReportCard.astro";
 import WeekDashboard from "../../components/WeekDashboard.astro";
@@ -56,15 +55,30 @@ const { report } = Astro.props as Props;
               <p>{item.watchNext}</p>
             </div>
             <div>
-              <span class="evidence-label">Sources · {item.confidence} confidence</span>
-              <ol>
-                {item.citations.map((citation) => (
-                  <li>
-                    <span>{sourceById.get(citation.sourceId)?.name}</span>
-                    <ArrowLink href={citation.url} label={citation.title} external />
-                  </li>
-                ))}
-              </ol>
+              <div class="evidence-heading">
+                <span class="evidence-label">Sources</span>
+                <span class="confidence-label">{item.confidence} confidence</span>
+              </div>
+              <ul class="citation-list">
+                {item.citations.map((citation) => {
+                  const isPdf = new URL(citation.url).pathname.toLowerCase().endsWith(".pdf");
+                  return (
+                    <li>
+                      <a class="citation-link" href={citation.url} target="_blank" rel="noreferrer">
+                        <span class="citation-meta">
+                          <span>{sourceById.get(citation.sourceId)?.name}</span>
+                          <time datetime={citation.publishedAt}>{formatDate(citation.publishedAt, { month: "short" })}</time>
+                        </span>
+                        <strong>{citation.title}</strong>
+                        <span class="citation-action">
+                          {isPdf ? "Open PDF" : "Open source"}
+                          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5"></path></svg>
+                        </span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           </div>
         </div>

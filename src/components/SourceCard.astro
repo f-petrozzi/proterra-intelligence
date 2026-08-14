@@ -1,0 +1,35 @@
+---
+import ArrowLink from "./ArrowLink.astro";
+import { sectorLabel, type Source } from "../lib/content";
+
+interface Props {
+  source: Source;
+}
+
+const { source } = Astro.props;
+const hostname = new URL(source.url).hostname.replace(/^www\./, "");
+---
+
+<article class="source-card">
+  <header>
+    <h2>{source.name}</h2>
+    <ArrowLink href={source.url} label={`Open ${hostname}`} external />
+  </header>
+
+  <p>{source.notes}</p>
+
+  <dl>
+    <div>
+      <dt>Coverage</dt>
+      <dd>{source.sectors.map(sectorLabel).join(", ")}</dd>
+    </div>
+    <div>
+      <dt>Geography</dt>
+      <dd>{source.regions.join(", ")}</dd>
+    </div>
+    <div>
+      <dt>Updates</dt>
+      <dd>{source.cadence}</dd>
+    </div>
+  </dl>
+</article>
