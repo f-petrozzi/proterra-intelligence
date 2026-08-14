@@ -25,7 +25,8 @@ const citationSchema = z.object({
   sourceId: z.string(),
   title: z.string().min(5),
   url: z.url(),
-  publishedAt: z.string().regex(datePattern)
+  publishedAt: z.string().regex(datePattern),
+  sourceNote: z.string().min(20)
 });
 
 const itemSchema = z.object({
@@ -35,10 +36,29 @@ const itemSchema = z.object({
   regions: z.array(z.string().min(2)).min(1),
   signal: z.enum(signals),
   summary: z.string().min(40),
+  keyPoints: z.array(z.string().min(15)).min(2).max(4),
   whyItMatters: z.string().min(30),
+  proterraRelevance: z.string().min(30).optional(),
+  uncertainty: z.string().min(30).optional(),
   watchNext: z.string().min(15),
   confidence: z.enum(["high", "medium"]),
   citations: z.array(citationSchema).min(1)
+}).superRefine((item, context) => {
+  if (item.rank <= 3 && !item.proterraRelevance) {
+    context.addIssue({
+      code: "custom",
+      path: ["proterraRelevance"],
+      message: "Lead items (ranks 1 to 3) require Proterra-specific relevance."
+    });
+  }
+
+  if (item.rank <= 3 && !item.uncertainty) {
+    context.addIssue({
+      code: "custom",
+      path: ["uncertainty"],
+      message: "Lead items (ranks 1 to 3) require an uncertainty statement."
+    });
+  }
 });
 
 const itemRankSchema = z.number().int().positive();

@@ -15,6 +15,8 @@ interface Props {
 }
 
 const { report } = Astro.props as Props;
+const leadItems = report.items.slice(0, 3);
+const otherItems = report.items.slice(3);
 ---
 
 <BaseLayout title={`Issue ${report.issueNumber}`} description={report.executiveSummary}>
@@ -42,15 +44,31 @@ const { report } = Astro.props as Props;
       </div>
     )}
 
-    <section class="report-items reveal delay-2" aria-labelledby="report-items-title">
+    <section class="report-items reveal delay-2" aria-labelledby="lead-analysis-title">
       <header class="report-items-heading">
         <div>
-          <span>{report.items.length} developments</span>
-          <h2 id="report-items-title">The full brief</h2>
+          <span>{leadItems.length} priority developments</span>
+          <h2 id="lead-analysis-title">Lead analysis</h2>
         </div>
-        <p>Ordered by relevance, evidence, and likely business impact.</p>
+        <p>Key facts, business implications, and the limits of the available evidence.</p>
       </header>
-      {report.items.map((item) => (
+      {leadItems.map((item) => (
+        <div class="report-item lead-item" id={`item-${item.rank}`}>
+          <ReportCard item={item} />
+          <EvidenceDisclosure item={item} />
+        </div>
+      ))}
+    </section>
+
+    <section class="report-items supporting-items reveal" aria-labelledby="other-developments-title">
+      <header class="report-items-heading">
+        <div>
+          <span>{otherItems.length} additional developments</span>
+          <h2 id="other-developments-title">Other developments</h2>
+        </div>
+        <p>Concise coverage with key facts, implications, and direct evidence.</p>
+      </header>
+      {otherItems.map((item) => (
         <div class="report-item" id={`item-${item.rank}`}>
           <ReportCard item={item} />
           <EvidenceDisclosure item={item} />

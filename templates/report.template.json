@@ -78,5 +78,32 @@
       }
     ]
   },
-  "items": []
+  "items": [
+    {
+      "rank": 1,
+      "headline": "Concise, neutral development headline",
+      "sectors": ["bovine-genetics"],
+      "regions": ["United States"],
+      "signal": "new",
+      "summary": "Two or three sentences explaining what happened without interpretation or promotional language.",
+      "keyPoints": [
+        "A concrete fact, number, date, or methodology change supported by the citation.",
+        "A second concrete fact that helps the reader understand the development."
+      ],
+      "whyItMatters": "The broader industry implication supported by the available evidence.",
+      "proterraRelevance": "Required for ranks one through three: the specific relevance to Proterra's genetics, customers, positioning, or commercial decisions.",
+      "uncertainty": "Required for ranks one through three: what the available evidence does not yet establish.",
+      "watchNext": "The next release, result, metric, or decision that would confirm or change the interpretation.",
+      "confidence": "high",
+      "citations": [
+        {
+          "sourceId": "approved-source-id",
+          "title": "Exact publication title",
+          "url": "https://approved.example/exact-publication",
+          "publishedAt": "YYYY-MM-DD",
+          "sourceNote": "One or two sentences explaining what this document contributes to the story."
+        }
+      ]
+    }
+  ]
 }

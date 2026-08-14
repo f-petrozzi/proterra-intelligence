@@ -92,7 +92,15 @@
       "regions": ["United States", "International"],
       "signal": "new",
       "summary": "CDCB's August evaluation introduced resistance measures for calf respiratory disease and diarrhea, plus First Service to Conception. It also revised four existing fertility evaluations.",
+      "keyPoints": [
+        "Resistance to Respiratory Problems and Resistance to Diarrhea are the first U.S. national selection traits focused on calf health.",
+        "The calf-health evaluations draw on more than 768,000 respiratory records and more than 260,000 diarrhea records across breeds.",
+        "First Service to Conception is expressed in days and separates fertility performance from herd-level voluntary waiting periods.",
+        "CDCB revised Daughter Pregnancy Rate, Cow Conception Rate, Heifer Conception Rate, and Early First Calving to better distinguish genetic and management effects."
+      ],
       "whyItMatters": "The additions broaden selection for health and fertility and may change how bulls, embryos, and breeding programs are compared and marketed.",
+      "proterraRelevance": "Proterra can evaluate whether promoted sires changed position under the revised fertility models and decide how the new calf-health traits fit customer selection goals. Sales materials will need to distinguish FSC, which is measured in days, from percentage-based fertility traits.",
+      "uncertainty": "The CDCB release defines the traits and methodology but does not establish which Proterra animals moved materially or how quickly customers and selection indexes will adopt the new measures.",
       "watchNext": "Track breed-specific reliabilities, ranking changes, and how quickly customers use the new traits in selection indexes.",
       "confidence": "high",
       "citations": [
@@ -100,13 +108,15 @@
           "sourceId": "cdcb",
           "title": "August 2026 evaluations",
           "url": "https://uscdcb.com/august-2026-evaluations/",
-          "publishedAt": "2026-08-11"
+          "publishedAt": "2026-08-11",
+          "sourceNote": "Defines the new calf-health and conception traits, documents their data foundations, and explains the revisions to four fertility evaluations."
         },
         {
           "sourceId": "cdcb",
           "title": "CDCB evaluation types and release dates",
           "url": "https://uscdcb.com/evaluation-types/",
-          "publishedAt": "2026-08-11"
+          "publishedAt": "2026-08-11",
+          "sourceNote": "Confirms that August 11 was a triannual evaluation covering all animals and identifies when rankings and summary statistics are updated."
         }
       ]
     },
@@ -117,7 +127,14 @@
       "regions": ["United States"],
       "signal": "easing",
       "summary": "USDA held 2026 milk production steady but lowered the all-milk price to $19.85 per hundredweight. Cheese and whey forecasts rose while butter and nonfat dry milk forecasts fell.",
+      "keyPoints": [
+        "USDA lowered its 2026 all-milk price forecast to $19.85 per hundredweight.",
+        "The agency left its 2026 milk production forecast unchanged.",
+        "Cheese and whey price forecasts increased while butter and nonfat dry milk forecasts declined."
+      ],
       "whyItMatters": "A lower milk price pressures farm margins, while the split among products creates different conditions for Class III and Class IV milk markets.",
+      "proterraRelevance": "Lower expected milk revenue can make customers more selective about genetics spending and increase demand for clearly demonstrated health, fertility, and efficiency value. The difference between product classes also means the pressure will not be uniform across customer herds.",
+      "uncertainty": "The USDA figure is a national forecast rather than a realized farm price. It does not capture regional basis, individual milk checks, feed costs, or the product mix of a specific customer operation.",
       "watchNext": "Watch milk per cow, cow numbers, component values, and whether cheese strength offsets weaker butter and powder prices.",
       "confidence": "high",
       "citations": [
@@ -125,7 +142,8 @@
           "sourceId": "usda-waob",
           "title": "World Agricultural Supply and Demand Estimates, August 2026",
           "url": "https://www.usda.gov/oce/commodity/wasde/wasde0826.pdf",
-          "publishedAt": "2026-08-12"
+          "publishedAt": "2026-08-12",
+          "sourceNote": "Provides USDA's August milk-production and product-price forecasts, including the revised national all-milk price outlook."
         }
       ]
     },
@@ -136,7 +154,14 @@
       "regions": ["United States", "International"],
       "signal": "continuing",
       "summary": "USDA lowered its 2026 beef production forecast because steer, heifer, and cow slaughter are running slower. It raised imports for the rest of 2026 on strong U.S. demand and available Oceania supplies.",
+      "keyPoints": [
+        "USDA reduced expected 2026 beef production as steer, heifer, and cow slaughter ran below its previous assumptions.",
+        "The agency raised its import forecast for the remainder of 2026 because of strong U.S. demand and available supplies from Oceania.",
+        "USDA also lowered cattle price forecasts, citing weaker demand for fed cattle."
+      ],
       "whyItMatters": "Tight domestic supply continues to support reliance on imported beef, even as USDA lowered cattle price forecasts on weaker fed cattle demand.",
+      "proterraRelevance": "The combination of constrained domestic beef output and greater import reliance matters to customers serving beef and beef-on-dairy markets. It supports monitoring replacement decisions and semen demand, but the lower cattle-price forecast argues against assuming uniformly stronger producer economics.",
+      "uncertainty": "The national forecast does not show how long tighter supply will persist or how regional feeder availability, carcass weights, imports, and customer margins will differ.",
       "watchNext": "Follow weekly slaughter, carcass weights, Oceania shipments, and whether cattle prices stabilize after the forecast revision.",
       "confidence": "high",
       "citations": [
@@ -144,7 +169,8 @@
           "sourceId": "usda-waob",
           "title": "World Agricultural Supply and Demand Estimates, August 2026",
           "url": "https://www.usda.gov/oce/commodity/wasde/wasde0826.pdf",
-          "publishedAt": "2026-08-12"
+          "publishedAt": "2026-08-12",
+          "sourceNote": "Supplies USDA's revised beef production, import, and cattle-price forecasts and the assumptions behind the August changes."
         }
       ]
     },
@@ -155,6 +181,11 @@
       "regions": ["International"],
       "signal": "easing",
       "summary": "FAO's dairy price index fell 0.7 percent in July and stood 24.8 percent below a year earlier. Milk powder and butter declined, while cheese rose for the first time since July 2025.",
+      "keyPoints": [
+        "The FAO Dairy Price Index averaged 116.2 points in July, down 0.7 percent from June and 24.8 percent from July 2025.",
+        "Skim milk powder fell 3.3 percent, whole milk powder fell 3.1 percent, and butter fell 2.4 percent month over month.",
+        "Cheese increased 1.7 percent, its first monthly gain since July 2025, as tighter seasonal milk supplies supported European quotations."
+      ],
       "whyItMatters": "Weak global dairy values can limit export returns and producer income, although the cheese increase may be an early sign of firmer demand.",
       "watchNext": "Watch whether cheese gains continue and whether powder demand improves in Asia and other major import markets.",
       "confidence": "high",
@@ -163,7 +194,8 @@
           "sourceId": "fao-faostat",
           "title": "FAO Food Price Index, July 2026",
           "url": "https://www.fao.org/worldfoodsituation/foodpricesindex/en",
-          "publishedAt": "2026-08-07"
+          "publishedAt": "2026-08-07",
+          "sourceNote": "Reports July international dairy quotations by product and identifies weaker powder demand, greater export competition, and the return of cheese price growth."
         }
       ]
     },
@@ -174,6 +206,11 @@
       "regions": ["United States"],
       "signal": "continuing",
       "summary": "June butter production rose 8.5 percent from a year earlier and nonfat dry milk rose 14.2 percent. Skim milk powder fell 46.8 percent, showing a sharp shift within the powder market.",
+      "keyPoints": [
+        "U.S. butter production increased 8.5 percent from June 2025.",
+        "Nonfat dry milk output increased 14.2 percent year over year.",
+        "Skim milk powder production fell 46.8 percent, indicating a substantial change in the powder product mix."
+      ],
       "whyItMatters": "Rising butter and nonfat dry milk output adds supply pressure, while the fall in skim milk powder points to a different export and product mix.",
       "watchNext": "Compare July production with inventories, export volumes, and the widening difference between domestic and export powder demand.",
       "confidence": "high",
@@ -182,7 +219,8 @@
           "sourceId": "usda-nass",
           "title": "Dairy Products, August 2026",
           "url": "https://www.nass.usda.gov/Publications/Todays_Reports/reports/dary0826.pdf",
-          "publishedAt": "2026-08-06"
+          "publishedAt": "2026-08-06",
+          "sourceNote": "Provides official June production volumes and year-over-year comparisons for butter, nonfat dry milk, and skim milk powder."
         }
       ]
     },
@@ -193,6 +231,11 @@
       "regions": ["International"],
       "signal": "easing",
       "summary": "FAO's meat price index fell 2.8 percent in July, its first monthly decline this year. Poultry, pork, and bovine meat eased, while ovine meat reached a record high.",
+      "keyPoints": [
+        "The FAO Meat Price Index averaged 127.7 points in July, down 2.8 percent from June but still 0.8 percent above July 2025.",
+        "July was the first monthly decline of 2026, with poultry, pork, and bovine meat quotations all moving lower.",
+        "Ovine meat moved in the opposite direction and reached a record high because exportable supplies remained tight."
+      ],
       "whyItMatters": "The decline suggests softer demand or greater supply in several protein markets, but the ovine record shows that the move is not uniform.",
       "watchNext": "Monitor Asian beef demand, Brazilian poultry exports, European pork supply, and whether the July decline extends into August.",
       "confidence": "high",
@@ -201,7 +244,8 @@
           "sourceId": "fao-faostat",
           "title": "FAO Food Price Index, July 2026",
           "url": "https://www.fao.org/worldfoodsituation/foodpricesindex/en",
-          "publishedAt": "2026-08-07"
+          "publishedAt": "2026-08-07",
+          "sourceNote": "Reports July international meat-price changes and attributes the decline to product-specific supply, demand, trade, and quota conditions."
         }
       ]
     },
@@ -212,15 +256,21 @@
       "regions": ["United States"],
       "signal": "continuing",
       "summary": "USDA counted 28.5 million beef cows on July 1, down 1 percent from a year earlier, and projected a 32.5 million head calf crop, down 2 percent. Cattle on feed rose 2 percent.",
+      "keyPoints": [
+        "USDA counted 94.2 million cattle and calves on U.S. farms as of July 1, 2026.",
+        "The beef cow inventory fell 1 percent year over year to 28.5 million head, while milk cows increased to 9.65 million.",
+        "The projected calf crop fell 2 percent to 32.5 million head even as cattle on feed increased 2 percent to 13.2 million."
+      ],
       "whyItMatters": "Fewer beef cows and calves point to limited feeder cattle and beef supplies ahead, even with more animals currently concentrated in feedlots.",
       "watchNext": "Watch heifer retention, cow slaughter, placement weights, and signs that producers are beginning to rebuild the breeding herd.",
       "confidence": "high",
       "citations": [
         {
           "sourceId": "usda-nass",
-          "title": "United States cattle inventory down slightly",
+          "title": "United States cattle inventory up slightly",
           "url": "https://www.nass.usda.gov/Newsroom/2026/07-24-2026.php",
-          "publishedAt": "2026-07-24"
+          "publishedAt": "2026-07-24",
+          "sourceNote": "Provides the official July 1 cattle inventory, beef and milk cow counts, annual calf-crop estimate, and cattle-on-feed comparison."
         }
       ]
     },
@@ -231,6 +281,11 @@
       "regions": ["United States", "Mexico"],
       "signal": "new",
       "summary": "USDA plans to reopen the Douglas, Arizona, port to Mexican cattle on August 24, subject to continued joint disease controls. Each animal will be inspected for New World screwworm.",
+      "keyPoints": [
+        "USDA scheduled the Douglas, Arizona, port to reopen to cattle trade beginning August 24, 2026.",
+        "The reopening is contingent on Mexico continuing to follow the joint New World screwworm action plan.",
+        "Every animal entering through the reopened ports must receive a full USDA inspection for signs of screwworm."
+      ],
       "whyItMatters": "A controlled reopening could restore part of the cross-border cattle flow while preserving safeguards against a costly livestock disease.",
       "watchNext": "Confirm the port opens on schedule, then track inspection results, weekly cattle volumes, and any change in screwworm detections.",
       "confidence": "high",
@@ -239,13 +294,15 @@
           "sourceId": "usda-aphis",
           "title": "USDA announces phased reopening of southern ports for livestock trade",
           "url": "https://direct.aphis.usda.gov/news/agency-announcements/usda-announces-phased-reopening-southern-ports-livestock-trade-0",
-          "publishedAt": "2026-07-24"
+          "publishedAt": "2026-07-24",
+          "sourceNote": "Sets the planned Douglas reopening date, the conditions attached to it, and the USDA inspection requirement for each entering animal."
         },
         {
           "sourceId": "usda-waob",
           "title": "World Agricultural Supply and Demand Estimates, August 2026",
           "url": "https://www.usda.gov/oce/commodity/wasde/wasde0826.pdf",
-          "publishedAt": "2026-08-12"
+          "publishedAt": "2026-08-12",
+          "sourceNote": "Provides the later USDA outlook context used to assess how a phased border reopening may affect available cattle supplies."
         }
       ]
     },
@@ -256,6 +313,11 @@
       "regions": ["International"],
       "signal": "new",
       "summary": "Interbull's calendar lists August 11 or 12 national evaluation releases for the United States, Canada, the United Kingdom, Germany, Italy, France, the Netherlands, and other major cattle markets.",
+      "keyPoints": [
+        "The United States, Canada, Germany, Italy, and the United Kingdom scheduled major national evaluation releases for August 11.",
+        "France, the Netherlands, and several other participating markets scheduled releases for August 12.",
+        "The calendar covers multiple trait groups and breeds, but it reports release timing rather than animal-level results."
+      ],
       "whyItMatters": "Synchronized releases can change international breeding value comparisons and the relative position of bulls marketed across countries.",
       "watchNext": "Review published rankings and country-specific changes before drawing conclusions about individual animals or genetic lines.",
       "confidence": "medium",
@@ -264,7 +326,8 @@
           "sourceId": "interbull",
           "title": "National and Interbull evaluation release dates",
           "url": "https://interbull.org/ib/releasedates",
-          "publishedAt": "2026-08-11"
+          "publishedAt": "2026-08-11",
+          "sourceNote": "Confirms country, breed, trait-group, and release timing across participating evaluation systems; it does not report ranking outcomes."
         }
       ]
     }
