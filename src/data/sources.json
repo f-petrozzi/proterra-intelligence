@@ -60,6 +60,19 @@
     "notes": "Official global agricultural production, market, and trade reporting."
   },
   {
+    "id": "usda-waob",
+    "name": "USDA World Agricultural Outlook Board",
+    "domain": "usda.gov",
+    "url": "https://www.usda.gov/oce/commodity/wasde",
+    "allowedPaths": ["/oce/commodity/wasde/"],
+    "tier": "A",
+    "status": "approved",
+    "regions": ["United States", "International"],
+    "sectors": ["dairy", "meat"],
+    "cadence": "Monthly",
+    "notes": "Official USDA supply, demand, trade, and price forecasts for major agricultural commodities."
+  },
+  {
     "id": "usda-aphis",
     "name": "USDA Animal and Plant Health Inspection Service",
     "domain": "aphis.usda.gov",

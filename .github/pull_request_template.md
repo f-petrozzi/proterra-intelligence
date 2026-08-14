@@ -1,6 +1,6 @@
 ## Editorial review
 
-- [ ] The report contains 8 to 10 distinct, decision-relevant signals.
+- [ ] The report contains 8 to 10 distinct, relevant developments.
 - [ ] Every factual claim and material number is supported by a direct source link.
 - [ ] Sources are in the approved registry and their publication dates were checked.
 - [ ] The reporting window, US/international balance, and sector coverage are correct.

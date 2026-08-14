@@ -11,6 +11,7 @@ const sourceSchema = z.object({
   name: z.string().min(3),
   domain: z.string().min(3),
   url: z.url(),
+  allowedPaths: z.array(z.string().startsWith("/")).min(1).optional(),
   tier: z.enum(["A", "B", "C"]),
   status: z.enum(["approved", "probationary", "blocked"]),
   regions: z.array(z.string()).min(1),
@@ -88,6 +89,13 @@ function assertReportIntegrity(report: Report, path: string) {
       if (hostname !== approvedDomain && !hostname.endsWith(`.${approvedDomain}`)) {
         throw new Error(
           `${path}: citation host "${hostname}" does not match source "${approvedDomain}".`
+        );
+      }
+
+      const pathname = new URL(citation.url).pathname;
+      if (source.allowedPaths && !source.allowedPaths.some((prefix) => pathname.startsWith(prefix))) {
+        throw new Error(
+          `${path}: citation path "${pathname}" is not approved for source "${source.id}".`
         );
       }
     }

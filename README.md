@@ -1,6 +1,6 @@
 # Proterra Intelligence
 
-An internal decision-intelligence platform covering the dairy industry, meat industry, and bovine genetics in the US and internationally. Its primary publication is the human-reviewed Weekly Brief.
+An internal weekly research publication covering dairy, meat, and bovine genetics in the US and internationally.
 
 The proof of concept is deliberately small: a static Astro site, structured JSON reports, an approved source registry, automated validation, Cloudflare preview deployments, and human approval before publication. It has no database, CMS, or server runtime.
 
