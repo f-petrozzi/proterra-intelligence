@@ -1,0 +1,73 @@
+---
+import SourceBriefCard from "./SourceBriefCard.astro";
+import { isLatinAmericaRegion, type Report, type SignalItem } from "../lib/content";
+
+interface Props {
+  report: Report;
+}
+
+const { report } = Astro.props;
+const groupedItems = Array.from(
+  report.items.reduce((groups, item) => {
+    const key = item.citations[0].url;
+    groups.set(key, [...(groups.get(key) ?? []), item]);
+    return groups;
+  }, new Map<string, SignalItem[]>()).values()
+);
+const priorityGroups = groupedItems.filter((group) => group.some((item) => item.rank <= 3));
+const priorityUrls = new Set(priorityGroups.map((group) => group[0].citations[0].url));
+const regionalGroups = groupedItems.filter(
+  (group) => !priorityUrls.has(group[0].citations[0].url) && group.some((item) => isLatinAmericaRegion(item.regions))
+);
+const regionalUrls = new Set(regionalGroups.map((group) => group[0].citations[0].url));
+const remainingGroups = groupedItems.filter((group) => {
+  const url = group[0].citations[0].url;
+  return !priorityUrls.has(url) && !regionalUrls.has(url);
+});
+---
+
+<section class="source-briefing reveal delay-2" aria-labelledby="source-briefing-title">
+  <header class="source-briefing-heading">
+    <div>
+      <span>Source briefing</span>
+      <h2 id="source-briefing-title">This week's reading list</h2>
+    </div>
+    <p>{groupedItems.length} reviewed publications covering {report.items.length} developments. Open any source to read the original.</p>
+  </header>
+
+  <section class="source-lane" aria-labelledby="priority-sources-title">
+    <header class="source-lane-heading">
+      <h3 id="priority-sources-title">Priority reads</h3>
+      <span>The publications to open first</span>
+    </header>
+    <div class="source-brief-grid priority-grid">
+      {priorityGroups.map((items) => <SourceBriefCard items={items} priority />)}
+    </div>
+  </section>
+
+  <section class="source-lane regional-lane" aria-labelledby="regional-sources-title">
+    <header class="source-lane-heading">
+      <h3 id="regional-sources-title">Latin America &amp; Puerto Rico</h3>
+      <span>Regional markets, trade, animal health, and genetics</span>
+    </header>
+    {regionalGroups.length > 0 ? (
+      <div class="source-brief-grid">
+        {regionalGroups.map((items) => <SourceBriefCard items={items} />)}
+      </div>
+    ) : (
+      <p class="coverage-note">No regional publication cleared the evidence threshold this week.</p>
+    )}
+  </section>
+
+  {remainingGroups.length > 0 && (
+    <section class="source-lane" aria-labelledby="more-sources-title">
+      <header class="source-lane-heading">
+        <h3 id="more-sources-title">More from this week</h3>
+        <span>Dairy, meat, and bovine genetics in the U.S. and worldwide</span>
+      </header>
+      <div class="source-brief-grid">
+        {remainingGroups.map((items) => <SourceBriefCard items={items} />)}
+      </div>
+    </section>
+  )}
+</section>

@@ -8,6 +8,10 @@
     "end": "YYYY-MM-DD"
   },
   "publishedAt": "YYYY-MM-DD",
+  "scope": {
+    "basis": "public-sources-only",
+    "disclosure": "This brief uses public industry sources and does not assess Proterra-owned animals, customers, sales, or commercial performance."
+  },
   "executiveSummary": "Replace with a concise summary of the week's most important developments and how they relate to the larger industry picture.",
   "editorNote": "Optional editorial context.",
   "overview": {
@@ -76,12 +80,29 @@
         "basis": "Comparison period or forecast date",
         "itemRank": 3
       }
+    ],
+    "charts": [
+      {
+        "id": "comparison-name",
+        "title": "Plain-language comparison title",
+        "description": "Exact period and comparison basis",
+        "unit": "percent",
+        "itemRanks": [1],
+        "sourceIds": ["approved-source-id"],
+        "values": [
+          { "label": "First measure", "value": -1.2, "displayValue": "−1.2%" },
+          { "label": "Second measure", "value": 2.4, "displayValue": "+2.4%" }
+        ]
+      }
     ]
   },
   "items": [
     {
       "rank": 1,
       "headline": "Concise, neutral development headline",
+      "documentType": "report",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "official-site",
       "sectors": ["bovine-genetics"],
       "regions": ["United States"],
       "signal": "new",
@@ -91,8 +112,8 @@
         "A second concrete fact that helps the reader understand the development."
       ],
       "whyItMatters": "The broader industry implication supported by the available evidence.",
-      "proterraRelevance": "Required for ranks one through three: the specific relevance to Proterra's genetics, customers, positioning, or commercial decisions.",
-      "uncertainty": "Required for ranks one through three: what the available evidence does not yet establish.",
+      "businessRelevance": "Optional: a conditional business implication when it materially helps interpret the source.",
+      "uncertainty": "Optional: what the available evidence does not yet establish.",
       "watchNext": "The next release, result, metric, or decision that would confirm or change the interpretation.",
       "confidence": "high",
       "citations": [

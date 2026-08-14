@@ -30,15 +30,15 @@ const isLead = item.rank <= 3;
     </ul>
   </section>
 
-  <div class:list={["story-analysis", { "with-proterra": item.proterraRelevance }]}>
+  <div class:list={["story-analysis", { "with-business-context": item.businessRelevance }]}>
     <section>
       <h4>Industry impact</h4>
       <p>{item.whyItMatters}</p>
     </section>
-    {item.proterraRelevance && (
-      <section class="proterra-relevance">
-        <h4>Relevance to Proterra</h4>
-        <p>{item.proterraRelevance}</p>
+    {item.businessRelevance && (
+      <section class="business-relevance">
+        <h4>Business relevance</h4>
+        <p>{item.businessRelevance}</p>
       </section>
     )}
   </div>

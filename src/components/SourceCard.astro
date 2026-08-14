@@ -30,6 +30,10 @@ const hostname = new URL(source.url).hostname.replace(/^www\./, "");
       <dt>Cadence</dt>
       <dd>{source.cadence}</dd>
     </div>
+    <div>
+      <dt>Status</dt>
+      <dd class={`source-status status-${source.status}`}>{source.status}</dd>
+    </div>
   </dl>
 
   <ArrowLink href={source.url} label="Visit source" external />

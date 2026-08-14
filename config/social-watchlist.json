@@ -1,0 +1,13 @@
+{
+  "linkedin": {
+    "mode": "manual-only",
+    "accounts": [],
+    "rules": [
+      "Do not scrape LinkedIn or use unauthorized automation to collect posts.",
+      "Accept reviewer-submitted links from official company, association, university, or agency accounts as discovery leads.",
+      "Link to an official organization post only as an attributed announcement, never as independent verification.",
+      "Verify material statistics, research findings, regulatory claims, and market claims with an approved primary source.",
+      "Do not copy post images or reproduce post text beyond a short factual paraphrase."
+    ]
+  }
+}

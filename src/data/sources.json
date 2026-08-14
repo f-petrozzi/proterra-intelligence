@@ -42,7 +42,7 @@
     "url": "https://www.nass.usda.gov",
     "tier": "A",
     "status": "approved",
-    "regions": ["United States"],
+    "regions": ["United States", "Puerto Rico"],
     "sectors": ["dairy", "meat"],
     "cadence": "Varies",
     "notes": "Official inventories, production, slaughter, and agricultural statistics."
@@ -155,5 +155,67 @@
     "sectors": ["dairy", "meat"],
     "cadence": "Varies",
     "notes": "EU milk and meat market observatories, dashboards, and policy analysis."
+  },
+  {
+    "id": "pr-agriculture",
+    "name": "Puerto Rico Department of Agriculture",
+    "domain": "agricultura.pr.gov",
+    "url": "https://www.agricultura.pr.gov/",
+    "tier": "A",
+    "status": "approved",
+    "regions": ["Puerto Rico", "Latin America & Caribbean"],
+    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "cadence": "Event-driven",
+    "notes": "Official source for Puerto Rico agricultural policy, programs, notices, and sector news."
+  },
+  {
+    "id": "fao-americas",
+    "name": "FAO Regional Office for Latin America and the Caribbean",
+    "domain": "fao.org",
+    "url": "https://www.fao.org/americas/news/news-detail/en",
+    "allowedPaths": ["/americas/"],
+    "tier": "A",
+    "status": "approved",
+    "regions": ["Latin America & Caribbean", "Puerto Rico"],
+    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "cadence": "Event-driven",
+    "notes": "Regional FAO reporting on livestock, food systems, trade, animal health, and agricultural policy."
+  },
+  {
+    "id": "oirsa",
+    "name": "International Regional Organization for Agricultural Health",
+    "domain": "web.oirsa.org",
+    "url": "https://web.oirsa.org/en/",
+    "tier": "A",
+    "status": "approved",
+    "regions": ["Mexico", "Central America", "Dominican Republic", "Latin America & Caribbean"],
+    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "cadence": "Event-driven",
+    "notes": "Official regional source for animal health, quarantine, traceability, and livestock disease programs."
+  },
+  {
+    "id": "iica",
+    "name": "Inter-American Institute for Cooperation on Agriculture",
+    "domain": "iica.int",
+    "url": "https://iica.int/en/news",
+    "tier": "A",
+    "status": "approved",
+    "regions": ["Latin America & Caribbean", "Puerto Rico", "International"],
+    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "cadence": "Event-driven",
+    "notes": "Inter-American reporting on agricultural trade, innovation, policy, sustainability, and rural development."
+  },
+  {
+    "id": "linkedin-org-post",
+    "name": "LinkedIn: Official Organization Posts",
+    "domain": "linkedin.com",
+    "url": "https://www.linkedin.com/",
+    "allowedPaths": ["/posts/", "/feed/update/"],
+    "tier": "B",
+    "status": "probationary",
+    "regions": ["United States", "Latin America & Caribbean", "Puerto Rico", "International"],
+    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "cadence": "Manual submission",
+    "notes": "Manually submitted posts from verified organization accounts; announcements require clear attribution and material claims require primary corroboration."
   }
 ]

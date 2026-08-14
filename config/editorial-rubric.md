@@ -4,11 +4,11 @@ Use this rubric to rank candidate signals. Score each dimension from 0 to 5, mul
 
 | Dimension | Weight | What earns a high score |
 | --- | ---: | --- |
-| Business impact | 30% | Meaningful effect on producers, processors, breeding programs, trade, cost, supply, or demand |
-| Evidence strength | 25% | Primary or authoritative evidence, supported by exact dates and direct links |
-| Timeliness | 15% | New development in the reporting window or a material change to an active trend |
-| Strategic relevance | 15% | Useful to Proterra Genetics and its owners, customers, or partners |
-| Breadth | 10% | Relevant across a material geography, segment, or population |
+| Source authority | 25% | Primary or authoritative publisher, exact publication date, and a direct canonical link |
+| Materiality | 25% | Meaningful effect on producers, processors, breeding programs, trade, cost, supply, or demand |
+| Timeliness | 20% | New publication in the reporting window or a material update to an active development |
+| Specificity | 15% | Concrete facts, methods, dates, or figures that can be summarized without speculation |
+| Coverage value | 10% | Adds useful sector or geographic breadth, including Latin America and Puerto Rico |
 | Novelty | 5% | Adds information not already covered in recent reports |
 
 ## Selection rules
@@ -16,9 +16,11 @@ Use this rubric to rank candidate signals. Score each dimension from 0 to 5, mul
 - Publish 8 to 10 signals only when the evidence supports them.
 - Cover dairy, meat, and bovine genetics; aim for at least two signals per sector.
 - Include both US and international developments; aim for at least three of each.
+- Run a dedicated Latin America and Puerto Rico search every week. Select regional items only when they meet the same threshold as the rest of the list.
 - Consolidate articles about the same underlying development into one signal.
 - Prefer primary sources. Use reputable trade or financial reporting only when it adds verified context.
 - Treat press releases as claims by the issuing organization, not independent validation.
+- Treat LinkedIn as manual discovery only. Do not scrape it. Official organization posts may support attributed announcements, but material claims require approved primary evidence.
 - Do not infer causation, commercial impact, or scientific consensus beyond the evidence.
 - Compare candidates with the previous eight reports to avoid repetition.
 

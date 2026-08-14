@@ -1,8 +1,6 @@
 ---
-import IssueSummary from "../../components/IssueSummary.astro";
-import ReportCard from "../../components/ReportCard.astro";
-import WeekDashboard from "../../components/WeekDashboard.astro";
-import EvidenceDisclosure from "../../components/EvidenceDisclosure.astro";
+import IssueCharts from "../../components/IssueCharts.astro";
+import SourceBriefing from "../../components/SourceBriefing.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { formatDate, reports, type Report } from "../../lib/content";
 
@@ -15,8 +13,6 @@ interface Props {
 }
 
 const { report } = Astro.props as Props;
-const leadItems = report.items.slice(0, 3);
-const otherItems = report.items.slice(3);
 ---
 
 <BaseLayout title={`Issue ${report.issueNumber}`} description={report.executiveSummary}>
@@ -30,50 +26,15 @@ const otherItems = report.items.slice(3);
       <div class="report-period">
         Reporting period: {formatDate(report.period.start, { month: "short" })} to {formatDate(report.period.end, { month: "short" })}
       </div>
+      <p class="report-scope">{report.scope.disclosure}</p>
     </header>
 
-    <IssueSummary
-      overview={report.overview}
-      fallback={report.executiveSummary}
-      editorNote={report.editorNote}
-    />
+    <SourceBriefing report={report} />
 
-    {report.dashboard && (
-      <div class="report-dashboard reveal delay-1">
-        <WeekDashboard dashboard={report.dashboard} reportHref={`/reports/${report.slug}`} />
+    {report.dashboard?.charts && (
+      <div class="data-appendix report-data-appendix reveal">
+        <IssueCharts charts={report.dashboard.charts} items={report.items} reportHref={`/reports/${report.slug}`} />
       </div>
     )}
-
-    <section class="report-items reveal delay-2" aria-labelledby="lead-analysis-title">
-      <header class="report-items-heading">
-        <div>
-          <span>{leadItems.length} priority developments</span>
-          <h2 id="lead-analysis-title">Lead analysis</h2>
-        </div>
-        <p>Key facts, business implications, and the limits of the available evidence.</p>
-      </header>
-      {leadItems.map((item) => (
-        <div class="report-item lead-item" id={`item-${item.rank}`}>
-          <ReportCard item={item} />
-          <EvidenceDisclosure item={item} />
-        </div>
-      ))}
-    </section>
-
-    <section class="report-items supporting-items reveal" aria-labelledby="other-developments-title">
-      <header class="report-items-heading">
-        <div>
-          <span>{otherItems.length} additional developments</span>
-          <h2 id="other-developments-title">Other developments</h2>
-        </div>
-        <p>Concise coverage with key facts, implications, and direct evidence.</p>
-      </header>
-      {otherItems.map((item) => (
-        <div class="report-item" id={`item-${item.rank}`}>
-          <ReportCard item={item} />
-          <EvidenceDisclosure item={item} />
-        </div>
-      ))}
-    </section>
   </article>
 </BaseLayout>

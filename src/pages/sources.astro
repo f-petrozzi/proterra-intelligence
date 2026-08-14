@@ -4,24 +4,27 @@ import PageHeader from "../components/PageHeader.astro";
 import SourceCard from "../components/SourceCard.astro";
 import { site } from "../config/site";
 import { sources } from "../lib/content";
+
+const approvedCount = sources.filter((source) => source.status === "approved").length;
+const probationaryCount = sources.filter((source) => source.status === "probationary").length;
 ---
 
 <BaseLayout title="Sources" description={`The approved ${site.name} source registry.`}>
   <PageHeader
     label="Evidence"
-    title="Approved sources"
-    description="Every story links to the exact report, dataset, or announcement used as evidence. This directory defines which publishers may be cited."
+    title="Source directory"
+    description="Every digest links to the exact report, dataset, announcement, or official post used. The status below defines how each source may be cited."
   />
 
   <section class="source-standard reveal delay-1" aria-labelledby="source-standard-title">
     <h2 id="source-standard-title">What approval means</h2>
-    <p>The directory is limited to official agencies, intergovernmental bodies, and recognized evaluation authorities. Approval does not validate every claim; each report still checks and links to the exact publication.</p>
+    <p>Approved sources can support factual claims directly. LinkedIn organization posts are probationary: they are reviewed only when submitted manually, used as attributed announcements, and corroborated for material claims.</p>
   </section>
 
   <section class="source-directory reveal delay-2" aria-labelledby="source-directory-title">
     <header>
       <h2 id="source-directory-title">Source directory</h2>
-      <p>{sources.length} approved sources</p>
+      <p>{approvedCount} approved · {probationaryCount} probationary</p>
     </header>
     <div class="source-grid">
       {sources.map((source) => <SourceCard source={source} />)}

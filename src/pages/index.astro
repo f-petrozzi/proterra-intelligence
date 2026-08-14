@@ -1,9 +1,8 @@
 ---
 import ArrowLink from "../components/ArrowLink.astro";
-import FeaturedStory from "../components/FeaturedStory.astro";
-import IssueSummary from "../components/IssueSummary.astro";
+import IssueCharts from "../components/IssueCharts.astro";
 import SectionLabel from "../components/SectionLabel.astro";
-import WeekDashboard from "../components/WeekDashboard.astro";
+import SourceBriefing from "../components/SourceBriefing.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { formatDate, reports } from "../lib/content";
 
@@ -13,9 +12,9 @@ const latest = reports[0];
 <BaseLayout>
   <section class="hero reveal">
     <SectionLabel>Weekly Brief</SectionLabel>
-    <h1>This week in livestock and genetics.</h1>
+    <h1>The sources worth reading this week.</h1>
     <p class="hero-summary">
-      A concise weekly view of dairy, meat, and bovine genetics, with every development linked to its evidence.
+      Reviewed coverage of dairy, meat, and bovine genetics across the U.S., Latin America, Puerto Rico, and global markets.
     </p>
   </section>
 
@@ -24,37 +23,18 @@ const latest = reports[0];
       <section class="latest-heading reveal delay-1">
         <div>
           <SectionLabel>Issue {String(latest.issueNumber).padStart(2, "0")}</SectionLabel>
-          <h2>{formatDate(latest.publishedAt)}</h2>
+          <h2>Week of {formatDate(latest.publishedAt)}</h2>
         </div>
-        <ArrowLink href={`/reports/${latest.slug}`} label="Read Weekly Brief" />
+        <ArrowLink href={`/reports/${latest.slug}`} label="Open issue page" />
       </section>
 
-      <IssueSummary overview={latest.overview} fallback={latest.executiveSummary} />
+      <SourceBriefing report={latest} />
 
-      {latest.dashboard && (
-        <div class="reveal delay-2">
-          <WeekDashboard dashboard={latest.dashboard} reportHref={`/reports/${latest.slug}`} />
+      {latest.dashboard?.charts && (
+        <div class="data-appendix reveal">
+          <IssueCharts charts={latest.dashboard.charts} items={latest.items} reportHref={`/reports/${latest.slug}`} />
         </div>
       )}
-
-      <section class="leading-stories reveal delay-3" aria-labelledby="leading-stories-title">
-        <header class="content-section-heading">
-          <div>
-            <span>Ranked developments</span>
-            <h2 id="leading-stories-title">Start here</h2>
-          </div>
-          <ArrowLink href={`/reports/${latest.slug}`} label={`View all ${latest.items.length} stories`} />
-        </header>
-        <div class="featured-grid">
-          {latest.items.slice(0, 3).map((item, index) => (
-            <FeaturedStory
-              item={item}
-              href={`/reports/${latest.slug}#item-${item.rank}`}
-              primary={index === 0}
-            />
-          ))}
-        </div>
-      </section>
     </>
   ) : (
     <section class="empty-issue reveal delay-2">
@@ -78,15 +58,15 @@ const latest = reports[0];
     <div class="principle-list">
       <article>
         <span>01</span>
-        <div><h3>Approved sources</h3><p>Research begins with a reviewed registry of authoritative publishers.</p></div>
+        <div><h3>Source first</h3><p>Every digest starts with a named publisher, publication date, and direct link.</p></div>
       </article>
       <article>
         <span>02</span>
-        <div><h3>Consistent ranking</h3><p>Impact, evidence, timeliness, relevance, breadth, and novelty determine selection.</p></div>
+        <div><h3>Useful context</h3><p>Short summaries and key points help readers decide what deserves a closer look.</p></div>
       </article>
       <article>
         <span>03</span>
-        <div><h3>Human review</h3><p>Every claim links to evidence, and every issue requires approval.</p></div>
+        <div><h3>Human reviewed</h3><p>Automated discovery supports the process; a person approves every weekly issue.</p></div>
       </article>
     </div>
   </section>

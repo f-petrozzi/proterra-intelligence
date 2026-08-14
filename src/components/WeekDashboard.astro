@@ -1,12 +1,14 @@
 ---
 import { sectorLabel, type Report } from "../lib/content";
+import IssueCharts from "./IssueCharts.astro";
 
 interface Props {
   dashboard: NonNullable<Report["dashboard"]>;
+  items: Report["items"];
   reportHref: string;
 }
 
-const { dashboard, reportHref } = Astro.props;
+const { dashboard, items, reportHref } = Astro.props;
 const directionLabels = {
   up: "Up",
   down: "Down",
@@ -73,4 +75,8 @@ const directionMarks = {
       ))}
     </div>
   </div>
+
+  {dashboard.charts && (
+    <IssueCharts charts={dashboard.charts} items={items} reportHref={reportHref} />
+  )}
 </section>
