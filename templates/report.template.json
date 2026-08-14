@@ -10,5 +10,56 @@
   "publishedAt": "YYYY-MM-DD",
   "executiveSummary": "Replace with a concise synthesis of the week's most consequential developments and their relationship to the larger industry picture.",
   "editorNote": "Optional editorial context.",
+  "dashboard": {
+    "sectorPulses": [
+      {
+        "sector": "dairy",
+        "label": "Metric name",
+        "value": "Value",
+        "basis": "Comparison period",
+        "direction": "up",
+        "note": "One factual sentence explaining the movement and its context.",
+        "itemRank": 1
+      },
+      {
+        "sector": "meat",
+        "label": "Metric name",
+        "value": "Value",
+        "basis": "Comparison period",
+        "direction": "down",
+        "note": "One factual sentence explaining the movement and its context.",
+        "itemRank": 2
+      },
+      {
+        "sector": "bovine-genetics",
+        "label": "Metric or release name",
+        "value": "Value",
+        "basis": "Evaluation or comparison period",
+        "direction": "new",
+        "note": "One factual sentence explaining the release and its context.",
+        "itemRank": 3
+      }
+    ],
+    "keyMetrics": [
+      {
+        "label": "Metric name",
+        "value": "Value",
+        "basis": "Comparison period or forecast date",
+        "itemRank": 1
+      },
+      {
+        "label": "Metric name",
+        "value": "Value",
+        "basis": "Comparison period or forecast date",
+        "itemRank": 2
+      },
+      {
+        "label": "Metric name",
+        "value": "Value",
+        "basis": "Comparison period or forecast date",
+        "itemRank": 3
+      }
+    ]
+  },
   "items": []
 }

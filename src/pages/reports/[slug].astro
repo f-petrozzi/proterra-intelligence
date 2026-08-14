@@ -1,6 +1,7 @@
 ---
 import ArrowLink from "../../components/ArrowLink.astro";
 import ReportCard from "../../components/ReportCard.astro";
+import WeekDashboard from "../../components/WeekDashboard.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { formatDate, reports, sourceById, type Report } from "../../lib/content";
 
@@ -29,6 +30,12 @@ const { report } = Astro.props as Props;
       </div>
     </header>
 
+    {report.dashboard && (
+      <div class="report-dashboard reveal delay-1">
+        <WeekDashboard dashboard={report.dashboard} reportHref={`/reports/${report.slug}`} />
+      </div>
+    )}
+
     <section class="report-summary reveal delay-1">
       <span>Executive summary</span>
       <p>{report.executiveSummary}</p>
@@ -37,7 +44,7 @@ const { report } = Astro.props as Props;
 
     <section class="report-items reveal delay-2" aria-label="Ranked developments">
       {report.items.map((item) => (
-        <div class="report-item">
+        <div class="report-item" id={`item-${item.rank}`}>
           <ReportCard item={item} />
           <div class="evidence-panel">
             <div>

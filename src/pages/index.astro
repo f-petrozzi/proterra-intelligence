@@ -1,7 +1,8 @@
 ---
 import ArrowLink from "../components/ArrowLink.astro";
-import ReportCard from "../components/ReportCard.astro";
+import FeaturedStory from "../components/FeaturedStory.astro";
 import SectionLabel from "../components/SectionLabel.astro";
+import WeekDashboard from "../components/WeekDashboard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { formatDate, reports, sources } from "../lib/content";
 
@@ -33,13 +34,34 @@ const approvedSourceCount = sources.filter((source) => source.status === "approv
         <ArrowLink href={`/reports/${latest.slug}`} label="Read Weekly Brief" />
       </section>
 
+      {latest.dashboard && (
+        <div class="reveal delay-2">
+          <WeekDashboard dashboard={latest.dashboard} reportHref={`/reports/${latest.slug}`} />
+        </div>
+      )}
+
       <section class="executive-summary reveal delay-2">
         <span>Executive summary</span>
         <p>{latest.executiveSummary}</p>
       </section>
 
-      <section class="signal-grid reveal delay-3" aria-label="Leading signals">
-        {latest.items.slice(0, 3).map((item) => <ReportCard item={item} compact />)}
+      <section class="leading-stories reveal delay-3" aria-labelledby="leading-stories-title">
+        <header class="content-section-heading">
+          <div>
+            <SectionLabel>Leading developments</SectionLabel>
+            <h2 id="leading-stories-title">Start here</h2>
+          </div>
+          <ArrowLink href={`/reports/${latest.slug}`} label="View all developments" />
+        </header>
+        <div class="featured-grid">
+          {latest.items.slice(0, 3).map((item, index) => (
+            <FeaturedStory
+              item={item}
+              href={`/reports/${latest.slug}#item-${item.rank}`}
+              primary={index === 0}
+            />
+          ))}
+        </div>
       </section>
     </>
   ) : (

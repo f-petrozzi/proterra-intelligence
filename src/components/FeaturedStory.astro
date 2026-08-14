@@ -1,0 +1,31 @@
+---
+import SignalBadge from "./SignalBadge.astro";
+import { sectorLabel, type SignalItem } from "../lib/content";
+
+interface Props {
+  item: SignalItem;
+  href: string;
+  primary?: boolean;
+}
+
+const { item, href, primary = false } = Astro.props;
+---
+
+<a class:list={["featured-story", { primary }]} href={href}>
+  <div class="featured-topline">
+    <span class="rank">{String(item.rank).padStart(2, "0")}</span>
+    <SignalBadge signal={item.signal} />
+  </div>
+  <div class="tag-list" aria-label="Categories">
+    {item.sectors.map((sector) => <span>{sectorLabel(sector)}</span>)}
+    {item.regions.map((region) => <span>{region}</span>)}
+  </div>
+  <div class="featured-copy">
+    <h3>{item.headline}</h3>
+    <p>{item.summary}</p>
+  </div>
+  <span class="featured-link">
+    Read item {String(item.rank).padStart(2, "0")}
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5"></path></svg>
+  </span>
+</a>

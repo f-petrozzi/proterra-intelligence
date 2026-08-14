@@ -6,10 +6,11 @@ All report changes use a branch and pull request. Do not commit generated resear
 
 1. Copy `templates/report.template.json` to `src/data/reports/YYYY-MM-DD.json`.
 2. Use only source IDs registered in `src/data/sources.json`.
-3. Keep the report in `draft` while editing and reviewing the preview.
-4. Run `npm run verify` before requesting review.
-5. Complete the editorial checklist in the pull request.
-6. Change the status to `approved` only after human review.
+3. Build dashboard figures from selected items and retain the original comparison period for each number.
+4. Keep the report in `draft` while editing and reviewing the preview.
+5. Run `npm run verify` before requesting review.
+6. Complete the editorial checklist in the pull request.
+7. Change the status to `approved` only after human review.
 
 ## Sources
 

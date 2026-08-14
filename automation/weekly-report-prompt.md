@@ -29,10 +29,15 @@ Create `src/data/reports/YYYY-MM-DD.json` from the template with:
 
 - `status` set to `draft`;
 - concise, neutral headlines;
-- a factual summary, decision-relevant “why it matters,” and a specific “watch next” for each signal;
+- a factual summary, a specific explanation of business relevance, and a specific “watch next” for each signal;
+- one dashboard pulse for each sector and three to five key metrics, all taken from selected items;
+- an explicit comparison basis for every dashboard number, such as month over month, year over year, or forecast date;
+- an `itemRank` on every dashboard entry that points to its supporting report item;
 - `high` or `medium` confidence based on the rubric;
 - direct citations whose `sourceId` exists in `src/data/sources.json` and whose URL belongs to that registered domain;
 - no unsupported claims, invented data, vague citations, marketing language, or confidential information.
+
+Do not infer a dashboard direction from tone. Use `up`, `down`, `new`, or `stable` only when the cited item establishes that direction. Avoid repeating a sector-pulse number in the key-metrics strip unless it is essential to the issue.
 
 If fewer than eight signals meet the threshold, do not create a schema-invalid report. Instead, write a short run summary explaining the coverage gaps and the strongest verified candidates.
 

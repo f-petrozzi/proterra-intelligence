@@ -3,6 +3,7 @@ import rawSources from "../data/sources.json";
 
 export const sectors = ["dairy", "meat", "bovine-genetics"] as const;
 export const signals = ["new", "continuing", "accelerating", "easing"] as const;
+export const dashboardDirections = ["up", "down", "new", "stable"] as const;
 
 const datePattern = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -40,6 +41,26 @@ const itemSchema = z.object({
   citations: z.array(citationSchema).min(1)
 });
 
+const itemRankSchema = z.number().int().positive();
+
+const dashboardSchema = z.object({
+  sectorPulses: z.array(z.object({
+    sector: z.enum(sectors),
+    label: z.string().min(3),
+    value: z.string().min(1),
+    basis: z.string().min(3),
+    direction: z.enum(dashboardDirections),
+    note: z.string().min(20),
+    itemRank: itemRankSchema
+  })).length(3),
+  keyMetrics: z.array(z.object({
+    label: z.string().min(3),
+    value: z.string().min(1),
+    basis: z.string().min(3),
+    itemRank: itemRankSchema
+  })).min(3).max(5)
+});
+
 const reportSchema = z.object({
   slug: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   issueNumber: z.number().int().positive(),
@@ -52,6 +73,7 @@ const reportSchema = z.object({
   publishedAt: z.string().regex(datePattern),
   executiveSummary: z.string().min(60),
   editorNote: z.string().optional(),
+  dashboard: dashboardSchema.optional(),
   items: z.array(itemSchema).min(8).max(10)
 });
 
@@ -72,6 +94,25 @@ function assertReportIntegrity(report: Report, path: string) {
 
   if (JSON.stringify(ranks) !== JSON.stringify(expectedRanks)) {
     throw new Error(`${path}: item ranks must be consecutive and start at 1.`);
+  }
+
+  if (report.dashboard) {
+    const pulseSectors = report.dashboard.sectorPulses.map((pulse) => pulse.sector);
+    if (new Set(pulseSectors).size !== sectors.length) {
+      throw new Error(`${path}: dashboard must contain one pulse for each sector.`);
+    }
+
+    const dashboardReferences = [
+      ...report.dashboard.sectorPulses,
+      ...report.dashboard.keyMetrics
+    ];
+    for (const reference of dashboardReferences) {
+      if (!ranks.includes(reference.itemRank)) {
+        throw new Error(
+          `${path}: dashboard references missing item rank ${reference.itemRank}.`
+        );
+      }
+    }
   }
 
   for (const item of report.items) {

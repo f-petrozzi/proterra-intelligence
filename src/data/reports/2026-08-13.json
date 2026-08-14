@@ -9,7 +9,64 @@
   },
   "publishedAt": "2026-08-13",
   "executiveSummary": "Genetic evaluations were the week's clearest strategic change, with new U.S. measures for calf health and conception arriving alongside the international August evaluation cycle. Dairy signals remain mixed: U.S. butter and nonfat dry milk output rose, global dairy prices stayed well below last year, and USDA lowered its milk price outlook. Beef supply remains tight in the United States, while imports and a planned reopening of one Mexican cattle crossing may provide limited relief.",
-  "editorNote": "First supervised draft. Items 7 and 8 use official releases from July 24 as 30-day context. Item 8 covers an August 24 reopening referenced again in the August 12 USDA outlook. Item 9 is based on the published evaluation schedule, not ranking results.",
+  "editorNote": "First supervised issue. Items 7 and 8 use official releases from July 24 as 30-day context. Item 8 covers an August 24 reopening referenced again in the August 12 USDA outlook. Item 9 is based on the published evaluation schedule, not ranking results.",
+  "dashboard": {
+    "sectorPulses": [
+      {
+        "sector": "dairy",
+        "label": "Global dairy prices",
+        "value": "-0.7%",
+        "basis": "July, month over month",
+        "direction": "down",
+        "note": "The index remains 24.8% below last year, although cheese prices increased.",
+        "itemRank": 4
+      },
+      {
+        "sector": "meat",
+        "label": "Global meat prices",
+        "value": "-2.8%",
+        "basis": "July, month over month",
+        "direction": "down",
+        "note": "The first monthly decline of 2026 affected poultry, pork, and bovine meat.",
+        "itemRank": 6
+      },
+      {
+        "sector": "bovine-genetics",
+        "label": "U.S. dairy evaluations",
+        "value": "3 traits",
+        "basis": "August evaluation",
+        "direction": "new",
+        "note": "Two calf health traits and a conception measure expand selection criteria.",
+        "itemRank": 1
+      }
+    ],
+    "keyMetrics": [
+      {
+        "label": "2026 all-milk forecast",
+        "value": "$19.85/cwt",
+        "basis": "USDA August outlook",
+        "itemRank": 2
+      },
+      {
+        "label": "U.S. butter output",
+        "value": "+8.5%",
+        "basis": "June, year over year",
+        "itemRank": 5
+      },
+      {
+        "label": "U.S. beef cow inventory",
+        "value": "-1.0%",
+        "basis": "July 1, year over year",
+        "itemRank": 7
+      },
+      {
+        "label": "U.S. calf crop",
+        "value": "-2.0%",
+        "basis": "2026, year over year",
+        "itemRank": 7
+      }
+    ]
+  },
   "items": [
     {
       "rank": 1,
