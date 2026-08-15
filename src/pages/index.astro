@@ -1,10 +1,9 @@
 ---
 import ArrowLink from "../components/ArrowLink.astro";
-import IssueCharts from "../components/IssueCharts.astro";
+import NewsReel from "../components/NewsReel.astro";
 import SectionLabel from "../components/SectionLabel.astro";
-import SourceBriefing from "../components/SourceBriefing.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { formatDate, reports } from "../lib/content";
+import { reports } from "../lib/content";
 
 const latest = reports[0];
 ---
@@ -12,29 +11,15 @@ const latest = reports[0];
 <BaseLayout>
   <section class="hero reveal">
     <SectionLabel>Weekly Brief</SectionLabel>
-    <h1>The sources worth reading this week.</h1>
+    <h1>This week in livestock and genetics.</h1>
     <p class="hero-summary">
-      Reviewed coverage of dairy, meat, and bovine genetics across the U.S., Latin America, Puerto Rico, and global markets.
+      The important stories, the useful context, and the original sources.
     </p>
   </section>
 
   {latest ? (
     <>
-      <section class="latest-heading reveal delay-1">
-        <div>
-          <SectionLabel>Issue {String(latest.issueNumber).padStart(2, "0")}</SectionLabel>
-          <h2>Week of {formatDate(latest.publishedAt)}</h2>
-        </div>
-        <ArrowLink href={`/reports/${latest.slug}`} label="Open issue page" />
-      </section>
-
-      <SourceBriefing report={latest} />
-
-      {latest.dashboard?.charts && (
-        <div class="data-appendix reveal">
-          <IssueCharts charts={latest.dashboard.charts} items={latest.items} reportHref={`/reports/${latest.slug}`} />
-        </div>
-      )}
+      <div class="reveal delay-1"><NewsReel report={latest} /></div>
     </>
   ) : (
     <section class="empty-issue reveal delay-2">
@@ -51,23 +36,4 @@ const latest = reports[0];
     </section>
   )}
 
-  <section class="principles reveal" aria-labelledby="how-it-works-title">
-    <div class="section-intro">
-      <h2 id="how-it-works-title">Built for a quick, trusted read</h2>
-    </div>
-    <div class="principle-list">
-      <article>
-        <span>01</span>
-        <div><h3>Source first</h3><p>Every digest starts with a named publisher, publication date, and direct link.</p></div>
-      </article>
-      <article>
-        <span>02</span>
-        <div><h3>Useful context</h3><p>Short summaries and key points help readers decide what deserves a closer look.</p></div>
-      </article>
-      <article>
-        <span>03</span>
-        <div><h3>Human reviewed</h3><p>Automated discovery supports the process; a person approves every weekly issue.</p></div>
-      </article>
-    </div>
-  </section>
 </BaseLayout>

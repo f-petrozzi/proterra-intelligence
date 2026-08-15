@@ -1,0 +1,106 @@
+---
+import type { HistoryChart as HistoryChartType } from "../lib/history";
+
+interface Props {
+  chart: HistoryChartType;
+}
+
+const { chart } = Astro.props;
+const width = 760;
+const height = 300;
+const margin = { top: 18, right: 22, bottom: 38, left: 56 };
+const innerWidth = width - margin.left - margin.right;
+const innerHeight = height - margin.top - margin.bottom;
+const allValues = chart.series.flatMap((series) => series.points.map((point) => point.value));
+const rawMin = Math.min(...allValues);
+const rawMax = Math.max(...allValues);
+const padding = Math.max((rawMax - rawMin) * 0.12, rawMax * 0.025, 0.5);
+const min = rawMin - padding;
+const max = rawMax + padding;
+const y = (value: number) => margin.top + ((max - value) / (max - min)) * innerHeight;
+const x = (index: number, count: number) => margin.left + (index / Math.max(count - 1, 1)) * innerWidth;
+const yTicks = Array.from({ length: 5 }, (_, index) => min + ((max - min) * index) / 4).reverse();
+const datePoints = chart.series[0].points;
+const xStep = Math.max(Math.ceil(datePoints.length / 6), 1);
+const formatValue = (value: number) => value.toFixed(1);
+---
+
+<article class="history-chart" aria-labelledby={`${chart.id}-title`}>
+  <header class="history-chart-header">
+    <div>
+      <span>{chart.period}</span>
+      <h2 id={`${chart.id}-title`}>{chart.title}</h2>
+      <p>{chart.description}</p>
+    </div>
+    <div class="history-legend" aria-label="Latest values">
+      {chart.series.map((series) => {
+        const first = series.points[0].value;
+        const latest = series.points.at(-1)!.value;
+        const change = ((latest - first) / first) * 100;
+        return (
+          <div>
+            <span><i style={`--series-color:${series.color}`}></i>{series.label}</span>
+            <strong>{formatValue(latest)}</strong>
+            <small class:list={{ positive: change > 0, negative: change < 0 }}>
+              {change > 0 ? "+" : ""}{change.toFixed(1)}% over period
+            </small>
+          </div>
+        );
+      })}
+    </div>
+  </header>
+
+  <div class="history-plot">
+    <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-labelledby={`${chart.id}-svg-title ${chart.id}-svg-desc`}>
+      <title id={`${chart.id}-svg-title`}>{chart.title}</title>
+      <desc id={`${chart.id}-svg-desc`}>{chart.description}. Values are also available in the table below.</desc>
+
+      {yTicks.map((tick) => (
+        <g>
+          <line x1={margin.left} x2={width - margin.right} y1={y(tick)} y2={y(tick)} class="chart-grid-line" />
+          <text x={margin.left - 10} y={y(tick) + 4} text-anchor="end" class="chart-axis-label">{formatValue(tick)}</text>
+        </g>
+      ))}
+
+      {datePoints.map((point, index) => (index % xStep === 0 || index === datePoints.length - 1) && (
+        <text x={x(index, datePoints.length)} y={height - 10} text-anchor="middle" class="chart-axis-label">{point.label}</text>
+      ))}
+
+      {chart.series.map((series) => {
+        const path = series.points.map((point, index) => `${index === 0 ? "M" : "L"} ${x(index, series.points.length)} ${y(point.value)}`).join(" ");
+        return (
+          <g style={`--series-color:${series.color}`}>
+            <path d={path} class="history-line" />
+            {series.points.map((point, index) => (
+              <circle cx={x(index, series.points.length)} cy={y(point.value)} r="4" class="history-point">
+                <title>{series.label}, {point.label}: {formatValue(point.value)} {chart.unit}</title>
+              </circle>
+            ))}
+          </g>
+        );
+      })}
+    </svg>
+  </div>
+
+  <footer class="history-chart-footer">
+    <p>{chart.note}</p>
+    <a href={chart.sourceUrl} target="_blank" rel="noreferrer">{chart.sourceTitle}</a>
+  </footer>
+
+  <details class="history-data-table">
+    <summary>View data table</summary>
+    <div>
+      <table>
+        <caption>{chart.title}, {chart.unit}</caption>
+        <thead>
+          <tr><th scope="col">Period</th>{chart.series.map((series) => <th scope="col">{series.label}</th>)}</tr>
+        </thead>
+        <tbody>
+          {datePoints.map((point, index) => (
+            <tr><th scope="row">{point.label}</th>{chart.series.map((series) => <td>{formatValue(series.points[index].value)}</td>)}</tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </details>
+</article>

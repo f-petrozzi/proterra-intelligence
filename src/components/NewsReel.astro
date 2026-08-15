@@ -1,0 +1,190 @@
+---
+import ArrowLink from "./ArrowLink.astro";
+import { formatDate, isLatinAmericaRegion, sectorLabel, sourceById, type Report, type SignalItem } from "../lib/content";
+
+interface Props {
+  report: Report;
+}
+
+type ImageAsset = { src: string; alt: string };
+const { report } = Astro.props;
+const groups = Array.from(
+  report.items.reduce((map, item) => {
+    const key = item.citations[0].url;
+    map.set(key, [...(map.get(key) ?? []), item]);
+    return map;
+  }, new Map<string, SignalItem[]>()).values()
+);
+const leadGroup = groups[0];
+const regionalGroups = groups.slice(1).filter((group) => group.some((item) => isLatinAmericaRegion(item.regions)));
+const regionalUrls = new Set(regionalGroups.map((group) => group[0].citations[0].url));
+const feedGroups = groups.slice(1).filter((group) => !regionalUrls.has(group[0].citations[0].url));
+
+function imageFor(items: SignalItem[]): ImageAsset {
+  const regions = items.flatMap((item) => item.regions);
+  const sectors = new Set(items.flatMap((item) => item.sectors));
+  if (isLatinAmericaRegion(regions)) {
+    return { src: "/images/editorial/border-cattle.webp", alt: "Cattle moving through a livestock inspection corridor in an arid border region" };
+  }
+  if (sectors.has("bovine-genetics") && !sectors.has("dairy")) {
+    return { src: "/images/editorial/genetics-lab.webp", alt: "Livestock genetics samples being reviewed at an agricultural laboratory workstation" };
+  }
+  if (sectors.has("meat")) {
+    return { src: "/images/editorial/beef-herd.webp", alt: "Commercial beef cattle herd in an open pasture" };
+  }
+  return { src: "/images/editorial/dairy-calf.webp", alt: "Young Holstein calf standing in a modern dairy barn" };
+}
+
+function tagsFor(items: SignalItem[]) {
+  return [
+    ...new Set([
+      ...items.flatMap((item) => item.sectors.map(sectorLabel)),
+      ...items.flatMap((item) => item.regions)
+    ])
+  ];
+}
+
+function publisherFor(items: SignalItem[]) {
+  return sourceById.get(items[0].citations[0].sourceId)?.name ?? items[0].citations[0].sourceId;
+}
+
+function supportingFor(items: SignalItem[]) {
+  const primaryUrl = items[0].citations[0].url;
+  return items.flatMap((item) => item.citations)
+    .filter((citation) => citation.url !== primaryUrl)
+    .filter((citation, index, citations) => citations.findIndex((candidate) => candidate.url === citation.url) === index);
+}
+
+const leadImage = imageFor(leadGroup);
+const leadCitation = leadGroup[0].citations[0];
+---
+
+<section class="news-reel" aria-labelledby="news-reel-title">
+  <header class="news-reel-header">
+    <div>
+      <span>Issue {String(report.issueNumber).padStart(2, "0")} · {formatDate(report.publishedAt)}</span>
+      <h2 id="news-reel-title">This week</h2>
+    </div>
+    <nav aria-label="Issue sections">
+      <a href={`#item-${leadGroup[0].rank}`}>Top story</a>
+      <a href="#latest-news">Latest</a>
+      <a href="#latin-america">Latin America &amp; PR</a>
+      <a href="/history">History</a>
+    </nav>
+  </header>
+
+  <article class="lead-news" id={`item-${leadGroup[0].rank}`}>
+    <figure>
+      <img src={leadImage.src} alt={leadImage.alt} width="1280" height="720" loading="eager" fetchpriority="high" />
+      <figcaption>Editorial image · not supplied by the source</figcaption>
+    </figure>
+    <div class="lead-news-copy">
+      <div class="news-meta">
+        <span>{publisherFor(leadGroup)}</span>
+        <time datetime={leadCitation.publishedAt}>{formatDate(leadCitation.publishedAt)}</time>
+      </div>
+      <h3>{leadGroup[0].headline}</h3>
+      <p>{leadGroup[0].summary}</p>
+      <ul>
+        {leadGroup[0].keyPoints.slice(0, 3).map((point) => <li>{point}</li>)}
+      </ul>
+      <div class="lead-news-footer">
+        <a href={leadCitation.url} target="_blank" rel="noreferrer">
+          <span>Read the source</span>
+          <strong>{leadCitation.title}</strong>
+        </a>
+        <div>{tagsFor(leadGroup).map((tag) => <span>{tag}</span>)}</div>
+      </div>
+    </div>
+  </article>
+
+  <div class="news-columns">
+    <section class="latest-news" id="latest-news" aria-labelledby="latest-news-title">
+      <header class="news-section-heading">
+        <h3 id="latest-news-title">Latest briefing</h3>
+        <span>{feedGroups.length} sources</span>
+      </header>
+
+      <div class="news-feed">
+        {feedGroups.map((items) => {
+          const citation = items[0].citations[0];
+          const image = imageFor(items);
+          const supporting = supportingFor(items);
+          return (
+            <article class="news-row" id={`item-${items[0].rank}`}>
+              {items.slice(1).map((item) => <span class="source-anchor" id={`item-${item.rank}`} aria-hidden="true"></span>)}
+              <a class="news-row-image" href={citation.url} target="_blank" rel="noreferrer" aria-label={`Open source: ${citation.title}`}>
+                <img src={image.src} alt={image.alt} width="1280" height="720" loading="lazy" />
+                <span>Editorial image</span>
+              </a>
+              <div class="news-row-copy">
+                <div class="news-meta">
+                  <span>{publisherFor(items)}</span>
+                  <time datetime={citation.publishedAt}>{formatDate(citation.publishedAt, { month: "short" })}</time>
+                </div>
+                {items.map((item, index) => (
+                  <section class:list={{ "related-topic": index > 0 }}>
+                    {index === 0 ? <h3>{item.headline}</h3> : <h4>{item.headline}</h4>}
+                    <p>{item.summary}</p>
+                  </section>
+                ))}
+                <div class="news-row-actions">
+                  <details>
+                    <summary>Key points</summary>
+                    <div>
+                      {items.map((item) => (
+                        <section>
+                          {items.length > 1 && <strong>{item.headline}</strong>}
+                          <ul>{item.keyPoints.map((point) => <li>{point}</li>)}</ul>
+                        </section>
+                      ))}
+                    </div>
+                  </details>
+                  <a href={citation.url} target="_blank" rel="noreferrer">Open source</a>
+                </div>
+                <div class="news-row-bottom">
+                  <div>{tagsFor(items).map((tag) => <span>{tag}</span>)}</div>
+                  {supporting.length > 0 && <span>{supporting.length} supporting source{supporting.length === 1 ? "" : "s"}</span>}
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+
+    <aside class="regional-news" id="latin-america" aria-labelledby="regional-news-title">
+      <header class="news-section-heading">
+        <div>
+          <span>Regional watch</span>
+          <h3 id="regional-news-title">Latin America &amp; Puerto Rico</h3>
+        </div>
+      </header>
+      {regionalGroups.length > 0 ? regionalGroups.map((items) => {
+        const citation = items[0].citations[0];
+        const image = imageFor(items);
+        return (
+          <article class="regional-story" id={`item-${items[0].rank}`}>
+            <img src={image.src} alt={image.alt} width="1280" height="720" loading="lazy" />
+            <span class="regional-publisher">{publisherFor(items)} · {formatDate(citation.publishedAt, { month: "short" })}</span>
+            <h4>{items[0].headline}</h4>
+            <p>{items[0].summary}</p>
+            <a href={citation.url} target="_blank" rel="noreferrer">Open source</a>
+          </article>
+        );
+      }) : (
+        <p class="regional-empty">No regional source cleared the evidence threshold this week.</p>
+      )}
+      <p class="regional-policy">Puerto Rico is checked every week. A story appears only when it meets the same standard as the rest of the issue.</p>
+    </aside>
+  </div>
+
+  <section class="history-callout" aria-labelledby="history-callout-title">
+    <div>
+      <span>Data history</span>
+      <h3 id="history-callout-title">See what changed over time</h3>
+      <p>Track the FAO dairy and meat price indices and U.S. cattle supply on consistent reporting periods.</p>
+    </div>
+    <ArrowLink href="/history" label="View historical charts" />
+  </section>
+</section>

@@ -1,0 +1,91 @@
+{
+  "updatedAt": "2026-08-07",
+  "charts": [
+    {
+      "id": "global-price-indices",
+      "title": "Global dairy and meat prices",
+      "description": "FAO monthly commodity price indices, August 2025 to July 2026",
+      "period": "12 months",
+      "unit": "index points",
+      "sourceId": "fao-faostat",
+      "sourceUrl": "https://www.fao.org/media/docs/worldfoodsituationlibraries/default-document-library/food_price_indices_data.csv?download=true&sfvrsn=523ebd2a_82",
+      "sourceTitle": "FAO Food Price Index monthly data",
+      "note": "The latest FAO dataset includes revisions to previously published monthly estimates, particularly for meat.",
+      "series": [
+        {
+          "label": "Dairy",
+          "color": "#2f6d56",
+          "points": [
+            { "date": "2025-08", "label": "Aug 2025", "value": 152.2 },
+            { "date": "2025-09", "label": "Sep", "value": 147.2 },
+            { "date": "2025-10", "label": "Oct", "value": 141.7 },
+            { "date": "2025-11", "label": "Nov", "value": 136.2 },
+            { "date": "2025-12", "label": "Dec", "value": 128.2 },
+            { "date": "2026-01", "label": "Jan 2026", "value": 120.9 },
+            { "date": "2026-02", "label": "Feb", "value": 119.4 },
+            { "date": "2026-03", "label": "Mar", "value": 121.2 },
+            { "date": "2026-04", "label": "Apr", "value": 119.7 },
+            { "date": "2026-05", "label": "May", "value": 119.1 },
+            { "date": "2026-06", "label": "Jun", "value": 117.0 },
+            { "date": "2026-07", "label": "Jul", "value": 116.2 }
+          ]
+        },
+        {
+          "label": "Meat",
+          "color": "#89583f",
+          "points": [
+            { "date": "2025-08", "label": "Aug 2025", "value": 127.8 },
+            { "date": "2025-09", "label": "Sep", "value": 127.9 },
+            { "date": "2025-10", "label": "Oct", "value": 125.0 },
+            { "date": "2025-11", "label": "Nov", "value": 125.5 },
+            { "date": "2025-12", "label": "Dec", "value": 124.8 },
+            { "date": "2026-01", "label": "Jan 2026", "value": 124.9 },
+            { "date": "2026-02", "label": "Feb", "value": 126.5 },
+            { "date": "2026-03", "label": "Mar", "value": 128.0 },
+            { "date": "2026-04", "label": "Apr", "value": 130.4 },
+            { "date": "2026-05", "label": "May", "value": 131.3 },
+            { "date": "2026-06", "label": "Jun", "value": 131.3 },
+            { "date": "2026-07", "label": "Jul", "value": 127.7 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "us-cattle-snapshots",
+      "title": "U.S. cattle supply",
+      "description": "July 1 inventory and annual calf crop, 2025 and 2026",
+      "period": "Annual snapshots",
+      "unit": "million head",
+      "sourceId": "usda-nass",
+      "sourceUrl": "https://data.nass.usda.gov/Newsroom/2026/07-24-2026.php",
+      "sourceTitle": "USDA NASS cattle inventory releases",
+      "note": "July cattle inventory reporting was not conducted in 2024. The chart begins with the resumed July 2025 release.",
+      "series": [
+        {
+          "label": "Beef cows",
+          "color": "#89583f",
+          "points": [
+            { "date": "2025-07", "label": "Jul 2025", "value": 28.7 },
+            { "date": "2026-07", "label": "Jul 2026", "value": 28.5 }
+          ]
+        },
+        {
+          "label": "Calf crop",
+          "color": "#526884",
+          "points": [
+            { "date": "2025-07", "label": "2025", "value": 33.1 },
+            { "date": "2026-07", "label": "2026", "value": 32.5 }
+          ]
+        },
+        {
+          "label": "Cattle on feed",
+          "color": "#2f6d56",
+          "points": [
+            { "date": "2025-07", "label": "Jul 2025", "value": 13.0 },
+            { "date": "2026-07", "label": "Jul 2026", "value": 13.2 }
+          ]
+        }
+      ]
+    }
+  ]
+}

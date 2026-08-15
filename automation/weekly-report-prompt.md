@@ -10,8 +10,9 @@ Before researching, read:
 2. `config/excluded-domains.json`
 3. `src/data/sources.json`
 4. `config/social-watchlist.json`
-5. `templates/report.template.json`
-6. The eight most recent files in `src/data/reports/`
+5. `src/data/history.json`
+6. `templates/report.template.json`
+7. The eight most recent files in `src/data/reports/`
 
 Use the current date as the issue date. The primary reporting window is the preceding seven calendar days. Use the preceding 30 days only to establish context or confirm that a trend is accelerating, easing, or continuing.
 
@@ -52,6 +53,8 @@ Treat `keyPoints` as reported facts, not interpretation. Treat `businessRelevanc
 This automation uses public sources. Do not imply access to Proterra's catalog, animals, customers, sales, rankings, strategy, or commercial performance. Do not write phrases such as “Proterra animals,” “Proterra customers,” or “Proterra sales” unless the report scope explicitly declares internal data and the reviewer supplies that evidence. The brief is prepared for Proterra; it is not a report about Proterra.
 
 Charts are a secondary appendix, not the lead presentation. They must compare like with like, show the period in the description, preserve the sign of each value, and identify supporting `itemRanks` and `sourceIds`. Do not convert a single observation into a trend line. If honest comparison data is unavailable, omit charts rather than filling the space.
+
+Update `src/data/history.json` only when an approved recurring dataset publishes a new observation for an existing series. Preserve the chart's unit, cadence, and comparison basis; apply official revisions when the source updates earlier values and explain the revision policy in the chart note. Never interpolate a missing period or combine monthly and annual observations in one chart. A new series requires at least two comparable observations and a direct registered source URL.
 
 If fewer than eight signals meet the threshold, do not create a schema-invalid report. Instead, write a short run summary explaining the coverage gaps and the strongest verified candidates.
 

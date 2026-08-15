@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HistoryChart from "../components/HistoryChart.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { formatDate } from "../lib/content";
+import { history } from "../lib/history";
+---
+
+<BaseLayout title="History" description="Tracked livestock and dairy market indicators over time.">
+  <PageHeader
+    label="Tracked data"
+    title="Market history"
+    description="A small set of recurring measures, kept on a consistent basis and linked to the original datasets."
+  />
+
+  <div class="history-update reveal delay-1">
+    <span>Updated {formatDate(history.updatedAt)}</span>
+    <p>Periods differ by source cadence. Monthly and annual series are not combined into a single trend.</p>
+  </div>
+
+  <section class="history-chart-list reveal delay-2" aria-label="Historical metric charts">
+    {history.charts.map((chart) => <HistoryChart chart={chart} />)}
+  </section>
+</BaseLayout>

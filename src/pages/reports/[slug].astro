@@ -1,6 +1,5 @@
 ---
-import IssueCharts from "../../components/IssueCharts.astro";
-import SourceBriefing from "../../components/SourceBriefing.astro";
+import NewsReel from "../../components/NewsReel.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { formatDate, reports, type Report } from "../../lib/content";
 
@@ -17,24 +16,11 @@ const { report } = Astro.props as Props;
 
 <BaseLayout title={`Issue ${report.issueNumber}`} description={report.executiveSummary}>
   <article class="report-page">
-    <header class="report-header reveal">
-      <div class="report-kicker">
-        <span>Weekly Brief</span>
-        <span>Issue {String(report.issueNumber).padStart(2, "0")}{report.status === "draft" ? " · Draft preview" : ""}</span>
-      </div>
-      <h1>{formatDate(report.publishedAt)}</h1>
-      <div class="report-period">
-        Reporting period: {formatDate(report.period.start, { month: "short" })} to {formatDate(report.period.end, { month: "short" })}
-      </div>
-      <p class="report-scope">{report.scope.disclosure}</p>
+    <header class="issue-page-heading reveal">
+      <span>Weekly Brief · Issue {String(report.issueNumber).padStart(2, "0")}</span>
+      <h1>Week of {formatDate(report.publishedAt)}</h1>
+      <p>{formatDate(report.period.start, { month: "short" })} to {formatDate(report.period.end, { month: "short" })}</p>
     </header>
-
-    <SourceBriefing report={report} />
-
-    {report.dashboard?.charts && (
-      <div class="data-appendix report-data-appendix reveal">
-        <IssueCharts charts={report.dashboard.charts} items={report.items} reportHref={`/reports/${report.slug}`} />
-      </div>
-    )}
+    <NewsReel report={report} />
   </article>
 </BaseLayout>
