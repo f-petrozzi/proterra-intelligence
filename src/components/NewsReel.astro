@@ -142,7 +142,17 @@ const reportHref = `/reports/${report.slug}`;
                       ))}
                     </div>
                   </details>
-                  <a href={citation.url} target="_blank" rel="noreferrer">Open source</a>
+                  <details class="relevance-details">
+                    <summary>Why it matters to Proterra</summary>
+                    <div>
+                      {items.map((item) => (
+                        <section>
+                          {items.length > 1 && <strong>{item.headline}</strong>}
+                          <p>{item.businessRelevance}</p>
+                        </section>
+                      ))}
+                    </div>
+                  </details>
                 </div>
                 <div class="news-row-bottom">
                   <div>{tagsFor(items).map((tag) => <span>{tag}</span>)}</div>
@@ -176,7 +186,16 @@ const reportHref = `/reports/${report.slug}`;
             <span class="regional-publisher">{publisherFor(items)} · {formatDate(citation.publishedAt, { month: "short" })}</span>
             <h4><a href={citation.url} target="_blank" rel="noreferrer">{items[0].headline}</a></h4>
             <p>{items[0].summary}</p>
-            <a href={citation.url} target="_blank" rel="noreferrer">Open source</a>
+            <div class="news-row-actions regional-story-actions">
+              <details>
+                <summary>Key points</summary>
+                <div><ul>{items[0].keyPoints.map((point) => <li>{point}</li>)}</ul></div>
+              </details>
+              <details class="relevance-details">
+                <summary>Why it matters to Proterra</summary>
+                <div><p>{items[0].businessRelevance}</p></div>
+              </details>
+            </div>
           </article>
         );
       }) : (

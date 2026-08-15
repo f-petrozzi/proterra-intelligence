@@ -46,7 +46,7 @@ const itemSchema = z.object({
   summary: z.string().min(40),
   keyPoints: z.array(z.string().min(15)).min(2).max(4),
   whyItMatters: z.string().min(30),
-  businessRelevance: z.string().min(30).optional(),
+  businessRelevance: z.string().min(30),
   uncertainty: z.string().min(30).optional(),
   watchNext: z.string().min(15),
   confidence: z.enum(["high", "medium"]),

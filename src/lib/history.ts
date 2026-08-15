@@ -13,6 +13,8 @@ const historyChartSchema = z.object({
   title: z.string().min(5),
   description: z.string().min(15),
   period: z.string().min(3),
+  cadence: z.string().min(3),
+  basis: z.string().min(20),
   unit: z.string().min(3),
   sourceId: z.string(),
   sourceUrl: z.url(),
@@ -20,6 +22,7 @@ const historyChartSchema = z.object({
   note: z.string().min(20),
   series: z.array(z.object({
     label: z.string().min(3),
+    definition: z.string().min(20),
     color: z.string().regex(/^#[0-9a-f]{6}$/i),
     points: z.array(historyPointSchema).min(2)
   })).min(1).max(4)

@@ -113,7 +113,7 @@
         "A second concrete fact that helps the reader understand the development."
       ],
       "whyItMatters": "The broader industry implication supported by the available evidence.",
-      "businessRelevance": "Optional: a conditional business implication when it materially helps interpret the source.",
+      "businessRelevance": "A concise, conditional explanation of why this development matters to Proterra, grounded only in public evidence.",
       "uncertainty": "Optional: what the available evidence does not yet establish.",
       "watchNext": "The next release, result, metric, or decision that would confirm or change the interpretation.",
       "confidence": "high",

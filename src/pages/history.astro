@@ -6,6 +6,14 @@ import PageHeader from "../components/PageHeader.astro";
 import { formatDate } from "../lib/content";
 import { history } from "../lib/history";
 
+function formatMonth(value: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC"
+  }).format(new Date(`${value}-01T00:00:00Z`));
+}
+
 function getSeries(chartId: string, label: string) {
   const chart = history.charts.find((candidate) => candidate.id === chartId);
   const series = chart?.series.find((candidate) => candidate.label === label);
@@ -17,15 +25,17 @@ function getSeries(chartId: string, label: string) {
     series,
     latest,
     change: ((latest.value - first.value) / first.value) * 100,
-    period: `${first.label} to ${latest.label}`
+    latestPeriod: formatMonth(latest.date),
+    firstPeriod: formatMonth(first.date),
+    period: `${formatMonth(first.date)} to ${formatMonth(latest.date)}`
   };
 }
 
 const dashboardMetrics = [
-  { label: "FAO dairy index", ...getSeries("global-price-indices", "Dairy"), suffix: "" },
-  { label: "FAO meat index", ...getSeries("global-price-indices", "Meat"), suffix: "" },
-  { label: "U.S. beef cows", ...getSeries("us-cattle-snapshots", "Beef cows"), suffix: "M" },
-  { label: "U.S. calf crop", ...getSeries("us-cattle-snapshots", "Calf crop"), suffix: "M" }
+  { label: "FAO dairy price index", ...getSeries("global-price-indices", "Dairy") },
+  { label: "FAO meat price index", ...getSeries("global-price-indices", "Meat") },
+  { label: "U.S. beef cows", ...getSeries("us-cattle-snapshots", "Beef cows") },
+  { label: "U.S. calf crop", ...getSeries("us-cattle-snapshots", "Calf crop") }
 ];
 const largestChange = Math.max(...dashboardMetrics.map((metric) => Math.abs(metric.change)));
 ---
@@ -44,19 +54,26 @@ const largestChange = Math.max(...dashboardMetrics.map((metric) => Math.abs(metr
 
   <section class="dashboard-summary reveal delay-2" aria-labelledby="dashboard-summary-title">
     <header>
-      <span>Latest readings</span>
-      <h2 id="dashboard-summary-title">At a glance</h2>
+      <div>
+        <span>Latest readings</span>
+        <h2 id="dashboard-summary-title">At a glance</h2>
+      </div>
+      <p>FAO values are monthly index points, not dollars. USDA cattle values are national estimates in millions of head.</p>
     </header>
     <div class="dashboard-kpi-grid">
       {dashboardMetrics.map((metric) => (
         <article class="dashboard-kpi">
           <span>{metric.label}</span>
-          <strong>{metric.latest.value.toFixed(1)}{metric.suffix}</strong>
+          <div class="dashboard-kpi-value">
+            <strong>{metric.latest.value.toFixed(1)}</strong>
+            <span>{metric.chart.unit}</span>
+          </div>
+          <div class="dashboard-kpi-period"><span>{metric.latestPeriod}</span><span>{metric.chart.cadence}</span></div>
           <MetricSparkline points={metric.series.points} label={metric.label} color={metric.series.color} />
           <p class:list={{ positive: metric.change > 0, negative: metric.change < 0 }}>
-            {metric.change > 0 ? "+" : ""}{metric.change.toFixed(1)}% over period
+            {metric.change > 0 ? "+" : ""}{metric.change.toFixed(1)}% since {metric.firstPeriod}
           </p>
-          <small>{metric.period}</small>
+          <small class="dashboard-kpi-definition">{metric.series.definition}</small>
           <a href={metric.chart.sourceUrl} target="_blank" rel="noreferrer">{metric.chart.sourceTitle}</a>
         </article>
       ))}
@@ -67,7 +84,7 @@ const largestChange = Math.max(...dashboardMetrics.map((metric) => Math.abs(metr
           <span>Period change</span>
           <h3>Direction and scale</h3>
         </div>
-        <p>Percentage change from the first reading shown to the latest.</p>
+        <p>Percentage change over each stated period. The largest absolute change sets the visual scale.</p>
       </header>
       <ol>
         {dashboardMetrics.map((metric) => {

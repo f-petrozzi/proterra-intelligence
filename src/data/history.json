@@ -6,6 +6,8 @@
       "title": "Global dairy and meat prices",
       "description": "FAO monthly commodity price indices, August 2025 to July 2026",
       "period": "12 months",
+      "cadence": "Monthly",
+      "basis": "International commodity price index, with the 2014-2016 average equal to 100. These values are not dollar prices.",
       "unit": "index points",
       "sourceId": "fao-faostat",
       "sourceUrl": "https://www.fao.org/media/docs/worldfoodsituationlibraries/default-document-library/food_price_indices_data.csv?download=true&sfvrsn=523ebd2a_82",
@@ -14,6 +16,7 @@
       "series": [
         {
           "label": "Dairy",
+          "definition": "Monthly movement in international quotations for butter, cheese, skim milk powder, and whole milk powder.",
           "color": "#2f6d56",
           "points": [
             { "date": "2025-08", "label": "Aug 2025", "value": 152.2 },
@@ -32,6 +35,7 @@
         },
         {
           "label": "Meat",
+          "definition": "Monthly movement in international quotations for bovine, ovine, pig, and poultry meat.",
           "color": "#89583f",
           "points": [
             { "date": "2025-08", "label": "Aug 2025", "value": 127.8 },
@@ -55,6 +59,8 @@
       "title": "U.S. cattle supply",
       "description": "July 1 inventory and annual calf crop, 2025 and 2026",
       "period": "Annual snapshots",
+      "cadence": "Annual",
+      "basis": "USDA national estimates in millions of animals. Beef cows are a July 1 inventory; calf crop covers the calendar year.",
       "unit": "million head",
       "sourceId": "usda-nass",
       "sourceUrl": "https://data.nass.usda.gov/Newsroom/2026/07-24-2026.php",
@@ -63,6 +69,7 @@
       "series": [
         {
           "label": "Beef cows",
+          "definition": "Cows and heifers that have calved and are kept for beef production, estimated on July 1.",
           "color": "#89583f",
           "points": [
             { "date": "2025-07", "label": "Jul 2025", "value": 28.7 },
@@ -71,6 +78,7 @@
         },
         {
           "label": "Calf crop",
+          "definition": "Calves born during the calendar year, reported as USDA's annual national estimate.",
           "color": "#526884",
           "points": [
             { "date": "2025-07", "label": "2025", "value": 33.1 },
@@ -79,6 +87,7 @@
         },
         {
           "label": "Cattle on feed",
+          "definition": "Cattle being fed a concentrated ration for slaughter in U.S. feedlots on the reporting date.",
           "color": "#2f6d56",
           "points": [
             { "date": "2025-07", "label": "Jul 2025", "value": 13.0 },

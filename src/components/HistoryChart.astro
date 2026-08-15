@@ -28,9 +28,10 @@ const formatValue = (value: number) => value.toFixed(1);
 <article class="history-chart" aria-labelledby={`${chart.id}-title`}>
   <header class="history-chart-header">
     <div>
-      <span>{chart.period}</span>
+      <span>{chart.period} · {chart.cadence}</span>
       <h2 id={`${chart.id}-title`}>{chart.title}</h2>
       <p>{chart.description}</p>
+      <small class="history-chart-basis">{chart.basis}</small>
     </div>
     <div class="history-legend" aria-label="Latest values">
       {chart.series.map((series) => {
@@ -40,7 +41,7 @@ const formatValue = (value: number) => value.toFixed(1);
         return (
           <div>
             <span><i style={`--series-color:${series.color}`}></i>{series.label}</span>
-            <strong>{formatValue(latest)}</strong>
+            <div class="history-legend-value"><strong>{formatValue(latest)}</strong><span>{chart.unit}</span></div>
             <small class:list={{ positive: change > 0, negative: change < 0 }}>
               {change > 0 ? "+" : ""}{change.toFixed(1)}% over period
             </small>

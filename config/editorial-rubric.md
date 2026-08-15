@@ -22,6 +22,7 @@ Use this rubric to rank candidate signals. Score each dimension from 0 to 5, mul
 - Treat press releases as claims by the issuing organization, not independent validation.
 - Treat LinkedIn as manual discovery only. Do not scrape it. Official organization posts may support attributed announcements, but material claims require approved primary evidence.
 - Do not infer causation, commercial impact, or scientific consensus beyond the evidence.
+- Explain why each selected development matters to Proterra using conditional language and public market context. Do not imply knowledge of Proterra animals, customers, sales, or performance.
 - Compare candidates with the previous eight reports to avoid repetition.
 
 ## Confidence labels
