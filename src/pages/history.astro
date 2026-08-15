@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HistoryChart from "../components/HistoryChart.astro";
+import MetricSparkline from "../components/MetricSparkline.astro";
 import PageHeader from "../components/PageHeader.astro";
 import { formatDate } from "../lib/content";
 import { history } from "../lib/history";
@@ -13,6 +14,7 @@ function getSeries(chartId: string, label: string) {
   const latest = series.points.at(-1)!;
   return {
     chart,
+    series,
     latest,
     change: ((latest.value - first.value) / first.value) * 100,
     period: `${first.label} to ${latest.label}`
@@ -25,6 +27,7 @@ const dashboardMetrics = [
   { label: "U.S. beef cows", ...getSeries("us-cattle-snapshots", "Beef cows"), suffix: "M" },
   { label: "U.S. calf crop", ...getSeries("us-cattle-snapshots", "Calf crop"), suffix: "M" }
 ];
+const largestChange = Math.max(...dashboardMetrics.map((metric) => Math.abs(metric.change)));
 ---
 
 <BaseLayout title="Data dashboard" description="Current readings and historical livestock and dairy market indicators.">
@@ -49,6 +52,7 @@ const dashboardMetrics = [
         <article class="dashboard-kpi">
           <span>{metric.label}</span>
           <strong>{metric.latest.value.toFixed(1)}{metric.suffix}</strong>
+          <MetricSparkline points={metric.series.points} label={metric.label} color={metric.series.color} />
           <p class:list={{ positive: metric.change > 0, negative: metric.change < 0 }}>
             {metric.change > 0 ? "+" : ""}{metric.change.toFixed(1)}% over period
           </p>
@@ -56,6 +60,29 @@ const dashboardMetrics = [
           <a href={metric.chart.sourceUrl} target="_blank" rel="noreferrer">{metric.chart.sourceTitle}</a>
         </article>
       ))}
+    </div>
+    <div class="dashboard-change-panel">
+      <header>
+        <div>
+          <span>Period change</span>
+          <h3>Direction and scale</h3>
+        </div>
+        <p>Percentage change from the first reading shown to the latest.</p>
+      </header>
+      <ol>
+        {dashboardMetrics.map((metric) => {
+          const width = `${Math.max((Math.abs(metric.change) / largestChange) * 50, 1)}%`;
+          return (
+            <li>
+              <span>{metric.label}</span>
+              <div class="dashboard-change-track" aria-hidden="true">
+                <i class:list={{ positive: metric.change > 0, negative: metric.change < 0 }} style={`--change-width:${width};--change-color:${metric.series.color}`}></i>
+              </div>
+              <strong>{metric.change > 0 ? "+" : ""}{metric.change.toFixed(1)}%</strong>
+            </li>
+          );
+        })}
+      </ol>
     </div>
   </section>
 
