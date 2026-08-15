@@ -428,9 +428,9 @@
     },
     {
       "rank": 10,
-      "headline": "ADSA highlights how colostrum quantity may shape calf immune development",
+      "headline": "Higher colostrum quantity shifts some immune-cell measures in beef-on-dairy calves",
       "imageId": "calf-health",
-      "documentType": "social-post",
+      "documentType": "report",
       "reviewStatus": "reviewed",
       "discoveryChannel": "linkedin",
       "sectors": ["dairy", "meat", "bovine-genetics"],
@@ -450,18 +450,18 @@
       "confidence": "medium",
       "citations": [
         {
-          "sourceId": "linkedin-org-post",
-          "title": "American Dairy Science Association on LinkedIn",
-          "url": "https://www.linkedin.com/company/adsaorg/posts/",
-          "publishedAt": "2026-08-13",
-          "sourceNote": "The official ADSA feed summarized the study's design and highlighted its breed, colostrum, calf-health, and lymphocyte findings during this issue window."
-        },
-        {
           "sourceId": "jds-communications",
           "title": "Effects of breed and colostrum replacer quantity on lymphocyte populations in calves",
           "url": "https://www.sciencedirect.com/science/article/pii/S2666910226000748",
           "publishedAt": "2026-04-09",
           "sourceNote": "Provides the peer-reviewed methods, sample size, immune measurements, health observations, statistical limitations, and conclusions behind the ADSA post."
+        },
+        {
+          "sourceId": "linkedin-org-post",
+          "title": "American Dairy Science Association on LinkedIn",
+          "url": "https://www.linkedin.com/company/adsaorg/posts/",
+          "publishedAt": "2026-08-13",
+          "sourceNote": "The public index exposed the official ADSA post during this issue window but not a stable activity URL, so this account-feed link is retained only as discovery context."
         }
       ]
     }
