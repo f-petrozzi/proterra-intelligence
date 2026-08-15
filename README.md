@@ -27,7 +27,7 @@ npm run verify
 4. Reviewers inspect the Cloudflare preview and complete the editorial checklist.
 5. Only reports marked `approved` appear in the production build.
 
-Reports live in `src/data/reports/`; the source registry lives in `src/data/sources.json`. Editorial rules are in `config/editorial-rubric.md`.
+Reports live in `src/data/reports/`; the source registry lives in `src/data/sources.json`. Approved, credited images live in `src/data/editorial-images.json`. Editorial rules are in `config/editorial-rubric.md`.
 
 ## Deployment
 

@@ -1,0 +1,65 @@
+[
+  {
+    "id": "calf-health",
+    "src": "/images/editorial/calf-health.webp",
+    "alt": "Young Holstein calf resting on straw in a dairy stall",
+    "creator": "Kirsten Strough, USDA",
+    "provider": "Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Animals_(20120720-KS-Reclamation-0036).jpg"
+  },
+  {
+    "id": "cattle-market",
+    "src": "/images/editorial/cattle-market.webp",
+    "alt": "A commercial cattle herd gathered in an open pasture",
+    "creator": "Keith Weller, USDA Agricultural Research Service",
+    "provider": "Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cattle_herd.jpg"
+  },
+  {
+    "id": "global-pasture",
+    "src": "/images/editorial/global-pasture.webp",
+    "alt": "Cattle grazing among trees in a managed pasture",
+    "creator": "USDA NRCS Texas",
+    "provider": "Wikimedia Commons",
+    "license": "CC BY 2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cattle_grazing_in_a_silvopasture._(25112780735).jpg"
+  },
+  {
+    "id": "dairy-parlor",
+    "src": "/images/editorial/dairy-parlor.webp",
+    "alt": "Dairy cows in a rotary milking parlor",
+    "creator": "USDA Rural Development",
+    "provider": "Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:20250813-USDA-RD-VA-JGP-0001_(54721557540).jpg"
+  },
+  {
+    "id": "butter-output",
+    "src": "/images/editorial/butter-output.webp",
+    "alt": "Stick of butter beside a silver butter knife",
+    "creator": "Renee Comet, National Cancer Institute",
+    "provider": "Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:NCI_butter.jpg"
+  },
+  {
+    "id": "cattle-loading",
+    "src": "/images/editorial/cattle-loading.webp",
+    "alt": "Cattle loading platform and holding pens on a grassland",
+    "creator": "National Park Service, National Trails Office",
+    "provider": "Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cattle_loading_platform_at_the_Cimarron_National_Grassland_(4957b4a646ff485a962df874a57d8d09).JPG"
+  },
+  {
+    "id": "genetics-lab",
+    "src": "/images/editorial/genetics-lab.webp",
+    "alt": "Laboratory technician pipetting a DNA sample",
+    "creator": "National Institute of Standards and Technology",
+    "provider": "Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Laboratory_Technician_Pipettes_Dirt_(10714910404).jpg"
+  }
+]

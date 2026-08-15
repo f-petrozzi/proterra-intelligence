@@ -1,12 +1,12 @@
 ---
 import ArrowLink from "./ArrowLink.astro";
 import { formatDate, isLatinAmericaRegion, sectorLabel, sourceById, type Report, type SignalItem } from "../lib/content";
+import { imageById, type EditorialImage } from "../lib/images";
 
 interface Props {
   report: Report;
 }
 
-type ImageAsset = { src: string; alt: string };
 const { report } = Astro.props;
 const groups = Array.from(
   report.items.reduce((map, item) => {
@@ -20,19 +20,10 @@ const regionalGroups = groups.slice(1).filter((group) => group.some((item) => is
 const regionalUrls = new Set(regionalGroups.map((group) => group[0].citations[0].url));
 const feedGroups = groups.slice(1).filter((group) => !regionalUrls.has(group[0].citations[0].url));
 
-function imageFor(items: SignalItem[]): ImageAsset {
-  const regions = items.flatMap((item) => item.regions);
-  const sectors = new Set(items.flatMap((item) => item.sectors));
-  if (isLatinAmericaRegion(regions)) {
-    return { src: "/images/editorial/border-cattle.webp", alt: "Cattle moving through a livestock inspection corridor in an arid border region" };
-  }
-  if (sectors.has("bovine-genetics") && !sectors.has("dairy")) {
-    return { src: "/images/editorial/genetics-lab.webp", alt: "Livestock genetics samples being reviewed at an agricultural laboratory workstation" };
-  }
-  if (sectors.has("meat")) {
-    return { src: "/images/editorial/beef-herd.webp", alt: "Commercial beef cattle herd in an open pasture" };
-  }
-  return { src: "/images/editorial/dairy-calf.webp", alt: "Young Holstein calf standing in a modern dairy barn" };
+function imageFor(items: SignalItem[]): EditorialImage {
+  const image = imageById.get(items[0].imageId);
+  if (!image) throw new Error(`Missing editorial image "${items[0].imageId}".`);
+  return image;
 }
 
 function tagsFor(items: SignalItem[]) {
@@ -57,6 +48,7 @@ function supportingFor(items: SignalItem[]) {
 
 const leadImage = imageFor(leadGroup);
 const leadCitation = leadGroup[0].citations[0];
+const reportHref = `/reports/${report.slug}`;
 ---
 
 <section class="news-reel" aria-labelledby="news-reel-title">
@@ -69,21 +61,25 @@ const leadCitation = leadGroup[0].citations[0];
       <a href={`#item-${leadGroup[0].rank}`}>Top story</a>
       <a href="#latest-news">Latest</a>
       <a href="#latin-america">Latin America &amp; PR</a>
-      <a href="/history">History</a>
+      <a href="/history">Dashboard</a>
     </nav>
   </header>
 
   <article class="lead-news" id={`item-${leadGroup[0].rank}`}>
     <figure>
       <img src={leadImage.src} alt={leadImage.alt} width="1280" height="720" loading="eager" fetchpriority="high" />
-      <figcaption>Editorial image · not supplied by the source</figcaption>
+      <figcaption>
+        <a href={leadImage.sourceUrl} target="_blank" rel="noreferrer">
+          {leadImage.creator} · {leadImage.license}
+        </a>
+      </figcaption>
     </figure>
     <div class="lead-news-copy">
       <div class="news-meta">
         <span>{publisherFor(leadGroup)}</span>
         <time datetime={leadCitation.publishedAt}>{formatDate(leadCitation.publishedAt)}</time>
       </div>
-      <h3>{leadGroup[0].headline}</h3>
+      <h3><a href={leadCitation.url} target="_blank" rel="noreferrer">{leadGroup[0].headline}</a></h3>
       <p>{leadGroup[0].summary}</p>
       <ul>
         {leadGroup[0].keyPoints.slice(0, 3).map((point) => <li>{point}</li>)}
@@ -113,10 +109,14 @@ const leadCitation = leadGroup[0].citations[0];
           return (
             <article class="news-row" id={`item-${items[0].rank}`}>
               {items.slice(1).map((item) => <span class="source-anchor" id={`item-${item.rank}`} aria-hidden="true"></span>)}
-              <a class="news-row-image" href={citation.url} target="_blank" rel="noreferrer" aria-label={`Open source: ${citation.title}`}>
-                <img src={image.src} alt={image.alt} width="1280" height="720" loading="lazy" />
-                <span>Editorial image</span>
-              </a>
+              <figure class="news-row-image">
+                <a href={citation.url} target="_blank" rel="noreferrer" aria-label={`Open source: ${citation.title}`}>
+                  <img src={image.src} alt={image.alt} width="1280" height="720" loading="lazy" />
+                </a>
+                <figcaption>
+                  <a href={image.sourceUrl} target="_blank" rel="noreferrer">Photo: {image.creator}</a>
+                </figcaption>
+              </figure>
               <div class="news-row-copy">
                 <div class="news-meta">
                   <span>{publisherFor(items)}</span>
@@ -124,7 +124,9 @@ const leadCitation = leadGroup[0].citations[0];
                 </div>
                 {items.map((item, index) => (
                   <section class:list={{ "related-topic": index > 0 }}>
-                    {index === 0 ? <h3>{item.headline}</h3> : <h4>{item.headline}</h4>}
+                    {index === 0
+                      ? <h3><a href={item.citations[0].url} target="_blank" rel="noreferrer">{item.headline}</a></h3>
+                      : <h4><a href={item.citations[0].url} target="_blank" rel="noreferrer">{item.headline}</a></h4>}
                     <p>{item.summary}</p>
                   </section>
                 ))}
@@ -157,7 +159,7 @@ const leadCitation = leadGroup[0].citations[0];
       <header class="news-section-heading">
         <div>
           <span>Regional watch</span>
-          <h3 id="regional-news-title">Latin America &amp; Puerto Rico</h3>
+          <h3 id="regional-news-title"><a href={`${reportHref}#latin-america`}>Latin America &amp; Puerto Rico</a></h3>
         </div>
       </header>
       {regionalGroups.length > 0 ? regionalGroups.map((items) => {
@@ -165,9 +167,14 @@ const leadCitation = leadGroup[0].citations[0];
         const image = imageFor(items);
         return (
           <article class="regional-story" id={`item-${items[0].rank}`}>
-            <img src={image.src} alt={image.alt} width="1280" height="720" loading="lazy" />
+            <figure>
+              <a href={citation.url} target="_blank" rel="noreferrer" aria-label={`Open source: ${citation.title}`}>
+                <img src={image.src} alt={image.alt} width="1280" height="720" loading="lazy" />
+              </a>
+              <figcaption><a href={image.sourceUrl} target="_blank" rel="noreferrer">Photo: {image.creator}</a></figcaption>
+            </figure>
             <span class="regional-publisher">{publisherFor(items)} · {formatDate(citation.publishedAt, { month: "short" })}</span>
-            <h4>{items[0].headline}</h4>
+            <h4><a href={citation.url} target="_blank" rel="noreferrer">{items[0].headline}</a></h4>
             <p>{items[0].summary}</p>
             <a href={citation.url} target="_blank" rel="noreferrer">Open source</a>
           </article>
@@ -181,10 +188,10 @@ const leadCitation = leadGroup[0].citations[0];
 
   <section class="history-callout" aria-labelledby="history-callout-title">
     <div>
-      <span>Data history</span>
-      <h3 id="history-callout-title">See what changed over time</h3>
-      <p>Track the FAO dairy and meat price indices and U.S. cattle supply on consistent reporting periods.</p>
+      <span>Data dashboard</span>
+      <h3 id="history-callout-title">Track the market over time</h3>
+      <p>Current readings and historical context for global dairy and meat prices and U.S. cattle supply.</p>
     </div>
-    <ArrowLink href="/history" label="View historical charts" />
+    <ArrowLink href="/history" label="Open dashboard" />
   </section>
 </section>

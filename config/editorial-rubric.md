@@ -30,3 +30,10 @@ Use this rubric to rank candidate signals. Score each dimension from 0 to 5, mul
 - **Medium:** credible evidence with a material limitation, an early-stage development, or only one reliable source.
 
 Low-confidence candidates do not enter the published report.
+
+## Editorial images
+
+- Choose an image ID from `src/data/editorial-images.json` for every selected story.
+- Match the image to the specific subject of the headline, not only to its sector.
+- Use only assets with a recorded creator, license, and original file page.
+- Treat an editorial image as presentation, never as evidence for the story.

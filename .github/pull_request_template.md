@@ -5,6 +5,7 @@
 - [ ] Sources are in the approved registry and their publication dates were checked.
 - [ ] The reporting window, US/international balance, and sector coverage are correct.
 - [ ] Dashboard figures preserve their comparison periods and link to supporting items.
+- [ ] Each story uses a relevant registered image with an intact creator, license, and source-page credit.
 - [ ] Duplicate coverage of the same underlying event has been consolidated.
 - [ ] “Why it matters” explains business relevance without overstating the evidence.
 - [ ] Confidence labels reflect source quality and corroboration.

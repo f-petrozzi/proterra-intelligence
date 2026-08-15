@@ -1,5 +1,6 @@
 import { z } from "astro/zod";
 import rawSources from "../data/sources.json";
+import { imageById } from "./images";
 
 export const sectors = ["dairy", "meat", "bovine-genetics"] as const;
 export const signals = ["new", "continuing", "accelerating", "easing"] as const;
@@ -35,6 +36,7 @@ const citationSchema = z.object({
 const itemSchema = z.object({
   rank: z.number().int().positive(),
   headline: z.string().min(12),
+  imageId: z.string().regex(/^[a-z0-9-]+$/),
   documentType: z.enum(documentTypes),
   reviewStatus: z.enum(reviewStatuses),
   discoveryChannel: z.enum(discoveryChannels),
@@ -188,6 +190,10 @@ function assertReportIntegrity(report: Report, path: string) {
   }
 
   for (const item of report.items) {
+    if (!imageById.has(item.imageId)) {
+      throw new Error(`${path}: item ${item.rank} references unknown editorial image "${item.imageId}".`);
+    }
+
     const citesLinkedIn = item.citations.some((citation) => citation.sourceId === "linkedin-org-post");
     const primaryIsLinkedIn = item.citations[0].sourceId === "linkedin-org-post";
     if (item.discoveryChannel === "linkedin" && !citesLinkedIn) {

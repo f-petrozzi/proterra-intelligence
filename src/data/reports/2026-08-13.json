@@ -134,6 +134,7 @@
     {
       "rank": 1,
       "headline": "U.S. dairy evaluations add calf health and conception traits",
+      "imageId": "calf-health",
       "documentType": "evaluation",
       "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
@@ -172,6 +173,7 @@
     {
       "rank": 2,
       "headline": "USDA trims its milk price outlook as product markets separate",
+      "imageId": "dairy-parlor",
       "documentType": "report",
       "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
@@ -202,6 +204,7 @@
     {
       "rank": 3,
       "headline": "USDA cuts beef output outlook and raises 2026 imports",
+      "imageId": "cattle-market",
       "documentType": "report",
       "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
@@ -232,6 +235,7 @@
     {
       "rank": 4,
       "headline": "Global dairy prices remain far below last year despite firmer cheese",
+      "imageId": "global-pasture",
       "documentType": "dataset",
       "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
@@ -260,6 +264,7 @@
     {
       "rank": 5,
       "headline": "U.S. plants lift butter and nonfat dry milk output",
+      "imageId": "butter-output",
       "documentType": "report",
       "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
@@ -288,6 +293,7 @@
     {
       "rank": 6,
       "headline": "Global meat prices record their first monthly decline of 2026",
+      "imageId": "global-pasture",
       "documentType": "dataset",
       "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
@@ -316,6 +322,7 @@
     {
       "rank": 7,
       "headline": "U.S. calf crop shrinks as beef cow numbers fall",
+      "imageId": "cattle-market",
       "documentType": "report",
       "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
@@ -344,6 +351,7 @@
     {
       "rank": 8,
       "headline": "Arizona cattle crossing is set to reopen under screwworm controls",
+      "imageId": "cattle-loading",
       "documentType": "announcement",
       "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
@@ -379,6 +387,7 @@
     {
       "rank": 9,
       "headline": "August evaluation releases refresh breeding values across major markets",
+      "imageId": "genetics-lab",
       "documentType": "calendar",
       "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
