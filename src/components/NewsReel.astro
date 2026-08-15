@@ -92,6 +92,10 @@ const reportHref = `/reports/${report.slug}`;
       <ul>
         {leadGroup[0].keyPoints.slice(0, 3).map((point) => <li>{point}</li>)}
       </ul>
+      <details class="lead-relevance">
+        <summary>Why it matters to Proterra</summary>
+        <p>{leadGroup[0].businessRelevance}</p>
+      </details>
       <div class="lead-news-footer">
         <a href={leadCitation.url} target="_blank" rel="noreferrer">
           <span>Read the source</span>
