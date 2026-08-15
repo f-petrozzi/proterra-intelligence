@@ -1,0 +1,63 @@
+name: Source review
+description: Propose a publisher for the approved source registry.
+title: "Source review: "
+labels: ["source-review"]
+body:
+  - type: input
+    id: publisher
+    attributes:
+      label: Publisher
+      description: Use the organization or publication's official name.
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Canonical URL
+      description: Link to the publisher's official reports, data, or news page.
+    validations:
+      required: true
+  - type: dropdown
+    id: authority
+    attributes:
+      label: Source type
+      options:
+        - Government or intergovernmental
+        - Industry standards or evaluation body
+        - University or research institution
+        - Trade publication
+        - Company or association
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    id: sectors
+    attributes:
+      label: Coverage
+      options:
+        - label: Dairy
+        - label: Meat
+        - label: Bovine genetics
+    validations:
+      required: true
+  - type: textarea
+    id: geography
+    attributes:
+      label: Geography
+      description: List the countries or regions covered, including Puerto Rico when applicable.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Why this source should be trusted
+      description: Note authorship, methodology, publication history, corrections policy, and whether it publishes primary evidence.
+    validations:
+      required: true
+  - type: textarea
+    id: examples
+    attributes:
+      label: Example publications
+      description: Provide two or three direct links that show the source's value.
+    validations:
+      required: true

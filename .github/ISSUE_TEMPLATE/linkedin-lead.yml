@@ -1,0 +1,44 @@
+name: LinkedIn lead
+description: Submit an organization post for the next supervised research pass.
+title: "LinkedIn lead: "
+labels: ["linkedin-lead"]
+body:
+  - type: input
+    id: organization
+    attributes:
+      label: Organization
+      description: Name the company, association, university, or agency that published the post.
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: LinkedIn post URL
+    validations:
+      required: true
+  - type: input
+    id: published
+    attributes:
+      label: Publication date
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true
+  - type: textarea
+    id: claim
+    attributes:
+      label: What should be checked
+      description: Summarize the announcement or claim in your own words. Do not paste the full post.
+    validations:
+      required: true
+  - type: textarea
+    id: primary
+    attributes:
+      label: Possible primary source
+      description: Add an official report, release, dataset, or company page if one is available.
+  - type: checkboxes
+    id: acknowledgment
+    attributes:
+      label: Review condition
+      options:
+        - label: I understand that the post is a discovery lead and material claims require separate verification.
+          required: true

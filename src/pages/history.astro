@@ -52,7 +52,13 @@ const largestChange = Math.max(...dashboardMetrics.map((metric) => Math.abs(metr
     <p>Each measure keeps its source reporting period. Monthly and annual series are shown separately.</p>
   </div>
 
-  <section class="dashboard-summary reveal delay-2" aria-labelledby="dashboard-summary-title">
+  <nav class="page-section-nav reveal delay-1" aria-label="Dashboard sections">
+    <a href="#latest-readings">Latest readings</a>
+    <a href="#period-change">Period change</a>
+    <a href="#trend-charts">Trend charts</a>
+  </nav>
+
+  <section class="dashboard-summary reveal delay-2" id="latest-readings" aria-labelledby="dashboard-summary-title">
     <header>
       <div>
         <span>Latest readings</span>
@@ -78,7 +84,7 @@ const largestChange = Math.max(...dashboardMetrics.map((metric) => Math.abs(metr
         </article>
       ))}
     </div>
-    <div class="dashboard-change-panel">
+    <div class="dashboard-change-panel" id="period-change">
       <header>
         <div>
           <span>Period change</span>
@@ -103,7 +109,11 @@ const largestChange = Math.max(...dashboardMetrics.map((metric) => Math.abs(metr
     </div>
   </section>
 
-  <section class="history-chart-list reveal delay-3" aria-label="Historical metric charts">
+  <section class="history-chart-list reveal delay-3" id="trend-charts" aria-labelledby="trend-charts-title">
+    <header class="history-list-heading">
+      <div><span>Historical context</span><h2 id="trend-charts-title">Trend charts</h2></div>
+      <p>Hover or focus chart points for exact values. Every series includes its original dataset and a data table.</p>
+    </header>
     {history.charts.map((chart) => <HistoryChart chart={chart} />)}
   </section>
 </BaseLayout>

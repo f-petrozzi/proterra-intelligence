@@ -8,11 +8,22 @@ interface Props {
 
 const { source } = Astro.props;
 const hostname = new URL(source.url).hostname.replace(/^www\./, "");
+const reviewUrl = "https://github.com/f-petrozzi/proterra-signal/edit/main/src/data/sources.json";
 ---
 
-<article class="source-card">
+<article
+  class="source-card"
+  id={`source-${source.id}`}
+  data-source-card
+  data-status={source.status}
+  data-sectors={source.sectors.join(" ")}
+  data-search={`${source.name} ${hostname} ${source.notes} ${source.regions.join(" ")}`.toLowerCase()}
+>
   <div class="source-identity">
-    <span class="source-domain">{hostname}</span>
+    <div class="source-card-topline">
+      <span class="source-domain">{hostname}</span>
+      <span class={`source-status status-${source.status}`}>{source.status}</span>
+    </div>
     <h2>{source.name}</h2>
     <p>{source.notes}</p>
   </div>
@@ -30,11 +41,10 @@ const hostname = new URL(source.url).hostname.replace(/^www\./, "");
       <dt>Cadence</dt>
       <dd>{source.cadence}</dd>
     </div>
-    <div>
-      <dt>Status</dt>
-      <dd class={`source-status status-${source.status}`}>{source.status}</dd>
-    </div>
   </dl>
 
-  <ArrowLink href={source.url} label="Visit source" external />
+  <footer class="source-card-actions">
+    <ArrowLink href={source.url} label="Visit source" external />
+    <a href={reviewUrl} target="_blank" rel="noreferrer">Review entry</a>
+  </footer>
 </article>

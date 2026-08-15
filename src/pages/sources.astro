@@ -1,33 +1,168 @@
 ---
+import ArrowLink from "../components/ArrowLink.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
 import SourceCard from "../components/SourceCard.astro";
+import excludedDomains from "../../config/excluded-domains.json";
 import { site } from "../config/site";
-import { sources } from "../lib/content";
+import { sectorLabel, sectors, sources } from "../lib/content";
+import { linkedinAccounts } from "../lib/social";
 
 const approvedCount = sources.filter((source) => source.status === "approved").length;
 const probationaryCount = sources.filter((source) => source.status === "probationary").length;
+const proposalUrl = "https://github.com/f-petrozzi/proterra-signal/issues/new?template=source-review.yml";
+const linkedinUrl = "https://github.com/f-petrozzi/proterra-signal/issues/new?template=linkedin-lead.yml";
+const registryUrl = "https://github.com/f-petrozzi/proterra-signal/edit/main/src/data/sources.json";
+const watchlistUrl = "https://github.com/f-petrozzi/proterra-signal/edit/main/config/social-watchlist.json";
 ---
 
-<BaseLayout title="Sources" description={`The approved ${site.name} source registry.`}>
+<BaseLayout title="Source review" description={`Review and maintain the ${site.name} source registry.`}>
   <PageHeader
-    label="Evidence"
-    title="Source directory"
-    description="Every digest links to the exact report, dataset, announcement, or official post used. The status below defines how each source may be cited."
+    label="Evidence governance"
+    title="Source review"
+    description="Approve reliable publishers, hold uncertain sources for review, and keep weak evidence out of the weekly brief."
   />
 
-  <section class="source-standard reveal delay-1" aria-labelledby="source-standard-title">
-    <h2 id="source-standard-title">What approval means</h2>
-    <p>Approved sources can support factual claims directly. LinkedIn organization posts are probationary: they are reviewed only when submitted manually, used as attributed announcements, and corroborated for material claims.</p>
-  </section>
-
-  <section class="source-directory reveal delay-2" aria-labelledby="source-directory-title">
-    <header>
-      <h2 id="source-directory-title">Source directory</h2>
-      <p>{approvedCount} approved · {probationaryCount} probationary</p>
-    </header>
-    <div class="source-grid">
-      {sources.map((source) => <SourceCard source={source} />)}
+  <section class="source-review-overview reveal delay-1" aria-labelledby="source-review-title">
+    <div class="source-review-intro">
+      <span>Registry workflow</span>
+      <h2 id="source-review-title">Every source change is reviewed in GitHub</h2>
+      <p>This site is static, so approval is intentionally handled as a small pull request. That keeps the decision, reviewer, and exact registry change visible in history.</p>
+      <div class="source-review-actions">
+        <a class="primary-action" href={proposalUrl} target="_blank" rel="noreferrer">Propose a source</a>
+        <a href={linkedinUrl} target="_blank" rel="noreferrer">Submit LinkedIn lead</a>
+        <a href={registryUrl} target="_blank" rel="noreferrer">Edit registry</a>
+      </div>
+    </div>
+    <div class="source-status-grid" aria-label="Source status summary">
+      <article><strong>{approvedCount}</strong><span>Approved</span><p>May support factual claims directly.</p></article>
+      <article><strong>{probationaryCount}</strong><span>Probationary</span><p>Requires corroboration and closer review.</p></article>
+      <article><strong>{excludedDomains.domains.length}</strong><span>Excluded domains</span><p>Useful for discovery only, never evidence.</p></article>
     </div>
   </section>
+
+  <section class="source-review-flow reveal delay-2" aria-labelledby="source-review-flow-title">
+    <header>
+      <span>Approval path</span>
+      <h2 id="source-review-flow-title">Propose, verify, decide</h2>
+    </header>
+    <ol>
+      <li><span>01</span><div><strong>Propose</strong><p>Submit the publisher, canonical URL, sector, geography, and reason it belongs.</p></div></li>
+      <li><span>02</span><div><strong>Verify</strong><p>Check ownership, publication history, primary evidence, corrections, and citation stability.</p></div></li>
+      <li><span>03</span><div><strong>Decide</strong><p>Merge as approved or probationary, or record the domain as excluded with a reason.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="linkedin-watchlist reveal" aria-labelledby="linkedin-watchlist-title">
+    <header>
+      <div>
+        <span>B2B discovery</span>
+        <h2 id="linkedin-watchlist-title">LinkedIn watchlist</h2>
+        <p>Curated accounts worth checking for announcements and research leads. Account links are references only; posts still require source verification.</p>
+      </div>
+      <div>
+        <a href={linkedinUrl} target="_blank" rel="noreferrer">Submit a post</a>
+        <a href={watchlistUrl} target="_blank" rel="noreferrer">Edit watchlist</a>
+      </div>
+    </header>
+    <div class="linkedin-watch-grid">
+      {linkedinAccounts.map((account) => (
+        <article>
+          <div class="linkedin-watch-topline"><span>{account.category}</span><small>Discovery only</small></div>
+          <h3><a href={account.url} target="_blank" rel="noreferrer">{account.name}</a></h3>
+          <p>{account.reason}</p>
+          <div class="linkedin-watch-tags">
+            {account.sectors.map((sector) => <span>{sectorLabel(sector)}</span>)}
+            {account.regions.map((region) => <span>{region}</span>)}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="source-directory reveal" aria-labelledby="source-directory-title">
+    <header>
+      <div>
+        <span>Current registry</span>
+        <h2 id="source-directory-title">Review publishers</h2>
+      </div>
+      <p id="source-results" aria-live="polite">{sources.length} sources</p>
+    </header>
+
+    <div class="source-controls" role="search">
+      <label>
+        <span>Search</span>
+        <input id="source-search" type="search" placeholder="Publisher, domain, region" autocomplete="off" />
+      </label>
+      <label>
+        <span>Status</span>
+        <select id="source-status">
+          <option value="all">All statuses</option>
+          <option value="approved">Approved</option>
+          <option value="probationary">Probationary</option>
+          <option value="blocked">Blocked</option>
+        </select>
+      </label>
+      <label>
+        <span>Sector</span>
+        <select id="source-sector">
+          <option value="all">All sectors</option>
+          {sectors.map((sector) => <option value={sector}>{sectorLabel(sector)}</option>)}
+        </select>
+      </label>
+    </div>
+
+    <div class="source-grid" id="source-grid">
+      {sources.map((source) => <SourceCard source={source} />)}
+    </div>
+    <p class="source-filter-empty" id="source-filter-empty" hidden>No sources match those filters.</p>
+  </section>
+
+  <section class="excluded-source-panel reveal" aria-labelledby="excluded-source-title">
+    <div>
+      <span>Discovery only</span>
+      <h2 id="excluded-source-title">Excluded domains</h2>
+      <p>These sites may surface a lead, but they cannot support a published claim without an approved primary source.</p>
+    </div>
+    <details>
+      <summary>View {excludedDomains.domains.length} domains</summary>
+      <ul>{excludedDomains.domains.map((domain) => <li>{domain}</li>)}</ul>
+    </details>
+  </section>
+
+  <section class="methodology-callout reveal">
+    <div><span>Editorial policy</span><h2>See how sources become stories</h2><p>The methodology covers ranking, verification, LinkedIn handling, and human publication approval.</p></div>
+    <ArrowLink href="/methodology" label="View methodology" />
+  </section>
+
+  <script>
+    const search = document.querySelector<HTMLInputElement>("#source-search");
+    const status = document.querySelector<HTMLSelectElement>("#source-status");
+    const sector = document.querySelector<HTMLSelectElement>("#source-sector");
+    const cards = [...document.querySelectorAll<HTMLElement>("[data-source-card]")];
+    const results = document.querySelector<HTMLElement>("#source-results");
+    const empty = document.querySelector<HTMLElement>("#source-filter-empty");
+
+    function filterSources() {
+      const query = search?.value.trim().toLowerCase() ?? "";
+      const selectedStatus = status?.value ?? "all";
+      const selectedSector = sector?.value ?? "all";
+      let visible = 0;
+
+      cards.forEach((card) => {
+        const matchesQuery = !query || (card.dataset.search ?? "").includes(query);
+        const matchesStatus = selectedStatus === "all" || card.dataset.status === selectedStatus;
+        const matchesSector = selectedSector === "all" || (card.dataset.sectors ?? "").split(" ").includes(selectedSector);
+        card.hidden = !(matchesQuery && matchesStatus && matchesSector);
+        if (!card.hidden) visible += 1;
+      });
+
+      if (results) results.textContent = `${visible} source${visible === 1 ? "" : "s"}`;
+      if (empty) empty.hidden = visible !== 0;
+    }
+
+    search?.addEventListener("input", filterSources);
+    status?.addEventListener("change", filterSources);
+    sector?.addEventListener("change", filterSources);
+  </script>
 </BaseLayout>

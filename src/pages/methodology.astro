@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ArrowLink from "../components/ArrowLink.astro";
 import PageHeader from "../components/PageHeader.astro";
 import SectionLabel from "../components/SectionLabel.astro";
 import { site } from "../config/site";
@@ -9,14 +10,28 @@ import { site } from "../config/site";
   <PageHeader
     label="Editorial methodology"
     title="How each development is selected"
-    description="A consistent process for finding, checking, and presenting publications worth reading."
+    description="The operating rules behind discovery, source approval, ranking, and publication."
   />
 
   <section class="method-grid reveal delay-1">
     <article><span>01</span><h2>Discover</h2><p>Search approved publishers from the previous seven days, including a dedicated Latin America and Puerto Rico pass.</p></article>
     <article><span>02</span><h2>Verify</h2><p>Trace every key point to an exact publication and keep reported facts separate from interpretation.</p></article>
     <article><span>03</span><h2>Rank</h2><p>Score publications for source authority, materiality, timeliness, specificity, coverage value, and novelty.</p></article>
-    <article><span>04</span><h2>Review</h2><p>Check links, dates, summaries, key points, and regional balance before publication.</p></article>
+    <article><span>04</span><h2>Review</h2><p>Check links, dates, summaries, Proterra relevance, and regional balance in a preview before publication.</p></article>
+  </section>
+
+  <section class="human-review-panel reveal delay-2" aria-labelledby="human-review-title">
+    <div>
+      <span>Human control</span>
+      <h2 id="human-review-title">The model drafts. A reviewer publishes.</h2>
+      <p>The weekly run opens a draft change. A person reviews the source links and preview, resolves caveats, changes the issue status to approved, and merges it.</p>
+    </div>
+    <ol>
+      <li><span>Draft</span><p>Automation creates structured report data.</p></li>
+      <li><span>Preview</span><p>GitHub and Cloudflare show the exact issue.</p></li>
+      <li><span>Approve</span><p>A reviewer accepts or requests changes.</p></li>
+      <li><span>Publish</span><p>Merging updates the production site.</p></li>
+    </ol>
   </section>
 
   <section class="rubric reveal delay-2">
@@ -25,13 +40,28 @@ import { site } from "../config/site";
       <h2>How stories are ranked</h2>
     </div>
     <div class="rubric-table">
-      <div><span>Source authority</span><strong>25%</strong></div>
-      <div><span>Materiality</span><strong>25%</strong></div>
-      <div><span>Timeliness</span><strong>20%</strong></div>
-      <div><span>Specificity</span><strong>15%</strong></div>
-      <div><span>Coverage value</span><strong>10%</strong></div>
-      <div><span>Novelty</span><strong>5%</strong></div>
+      <div><span>Source authority</span><i style="--rubric-width:100%"></i><strong>25%</strong></div>
+      <div><span>Materiality</span><i style="--rubric-width:100%"></i><strong>25%</strong></div>
+      <div><span>Timeliness</span><i style="--rubric-width:80%"></i><strong>20%</strong></div>
+      <div><span>Specificity</span><i style="--rubric-width:60%"></i><strong>15%</strong></div>
+      <div><span>Coverage value</span><i style="--rubric-width:40%"></i><strong>10%</strong></div>
+      <div><span>Novelty</span><i style="--rubric-width:20%"></i><strong>5%</strong></div>
     </div>
+  </section>
+
+  <section class="linkedin-method reveal" aria-labelledby="linkedin-method-title">
+    <div class="linkedin-method-copy">
+      <span>LinkedIn and B2B</span>
+      <h2 id="linkedin-method-title">Use posts as leads, not proof</h2>
+      <p>A submitted organization post can alert the model to a product release, event, partnership, or research announcement. The model extracts the claim, finds the underlying release or dataset, and keeps the LinkedIn post as attributed context.</p>
+      <ArrowLink href="/sources" label="Submit or review a lead" />
+    </div>
+    <ol>
+      <li><span>01</span><div><strong>Submit</strong><p>A reviewer supplies the organization, post URL, date, and claim to check.</p></div></li>
+      <li><span>02</span><div><strong>Parse</strong><p>The model identifies entities, dates, claims, geography, and sector.</p></div></li>
+      <li><span>03</span><div><strong>Verify</strong><p>Material claims are traced to an approved primary publication.</p></div></li>
+      <li><span>04</span><div><strong>Decide</strong><p>A human accepts, rejects, or holds the lead for more evidence.</p></div></li>
+    </ol>
   </section>
 
   <section class="guardrails reveal">
@@ -46,7 +76,7 @@ import { site } from "../config/site";
       <li><span>3+</span> primarily international items</li>
       <li><span>Weekly</span> Latin America and Puerto Rico search</li>
       <li><span>100%</span> exact source attribution</li>
-      <li><span>Manual</span> LinkedIn leads only</li>
+      <li><span>Submitted</span> LinkedIn leads only</li>
       <li><span>Required</span> human approval before publishing</li>
     </ul>
   </section>

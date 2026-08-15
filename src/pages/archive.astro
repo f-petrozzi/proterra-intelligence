@@ -4,16 +4,29 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
 import { site } from "../config/site";
 import { formatDate, reports, sectorLabel, sectors } from "../lib/content";
+
+const latestReport = reports[0];
+const coveredSectors = new Set(reports.flatMap((report) => report.items.flatMap((item) => item.sectors))).size;
 ---
 
 <BaseLayout title="Archive" description={`Approved ${site.name} Weekly Briefs.`}>
   <PageHeader
     label="Past issues"
-    title="Weekly brief archive"
-    description="Every approved issue remains available with its original sources and publication date."
+    title="Briefing archive"
+    description="Browse every reviewed weekly issue with its original publication date, coverage, and sources."
   />
 
   <section class="archive-shell reveal delay-1">
+    <div class="archive-summary" aria-label="Archive summary">
+      <article><strong>{reports.length}</strong><span>Published issue{reports.length === 1 ? "" : "s"}</span></article>
+      <article><strong>{latestReport ? formatDate(latestReport.publishedAt, { month: "short", day: "numeric" }) : "None"}</strong><span>Latest publication</span></article>
+      <article><strong>{coveredSectors}</strong><span>Sectors covered</span></article>
+    </div>
+
+    <header class="archive-toolbar">
+      <div><span>Issue library</span><h2>All briefings</h2></div>
+      <p>Filter by the sectors included in each issue.</p>
+    </header>
     <div class="filter-bar" role="group" aria-label="Filter reports">
       <button type="button" class="active" data-filter="all" aria-pressed="true">All</button>
       {sectors.map((sector) => (
@@ -26,13 +39,13 @@ import { formatDate, reports, sectorLabel, sectors } from "../lib/content";
         const reportSectors = [...new Set(report.items.flatMap((item) => item.sectors))];
         return (
           <article class="archive-row" data-sectors={reportSectors.join(" ")}>
-            <div class="issue-index">{String(report.issueNumber).padStart(2, "0")}</div>
+            <div class="issue-index"><span>Issue</span><strong>{String(report.issueNumber).padStart(2, "0")}</strong></div>
             <div class="archive-copy">
               <div class="tag-list">
                 {reportSectors.map((sector) => <span>{sectorLabel(sector)}</span>)}
                 {report.status === "draft" && <span class="draft-tag">Draft preview</span>}
               </div>
-              <h2>{formatDate(report.publishedAt)}</h2>
+              <h3><a href={`/reports/${report.slug}`}>{formatDate(report.publishedAt)}</a></h3>
               <p>{report.executiveSummary}</p>
             </div>
             <ArrowLink href={`/reports/${report.slug}`} label={`Open Issue ${String(report.issueNumber).padStart(2, "0")}`} />

@@ -1,7 +1,62 @@
 {
   "linkedin": {
     "mode": "manual-only",
-    "accounts": [],
+    "accounts": [
+      {
+        "id": "cdcb-linkedin",
+        "name": "Council on Dairy Cattle Breeding",
+        "url": "https://www.linkedin.com/company/council-on-dairy-cattle-breeding",
+        "category": "Genetic evaluation",
+        "sectors": ["dairy", "bovine-genetics"],
+        "regions": ["United States", "International"],
+        "reason": "Evaluation releases, trait changes, technical presentations, and dairy genetics research."
+      },
+      {
+        "id": "interbull-linkedin",
+        "name": "Interbull Centre",
+        "url": "https://www.linkedin.com/company/interbull-centre/",
+        "category": "International evaluation",
+        "sectors": ["dairy", "meat", "bovine-genetics"],
+        "regions": ["International"],
+        "reason": "International breeding-value releases, technical meetings, methods, and participating-country updates."
+      },
+      {
+        "id": "adsa-linkedin",
+        "name": "American Dairy Science Association",
+        "url": "https://www.linkedin.com/company/adsaorg",
+        "category": "Research association",
+        "sectors": ["dairy", "bovine-genetics"],
+        "regions": ["United States", "International"],
+        "reason": "New dairy science papers, conference sessions, calf health, reproduction, and genetics research."
+      },
+      {
+        "id": "hoards-linkedin",
+        "name": "Hoard's Dairyman",
+        "url": "https://www.linkedin.com/company/hoardsdairyman",
+        "category": "Trade publication",
+        "sectors": ["dairy", "bovine-genetics"],
+        "regions": ["United States"],
+        "reason": "Industry reporting that can surface dairy management, market, and genetic-evaluation leads."
+      },
+      {
+        "id": "select-sires-member-linkedin",
+        "name": "Select Sires Member Cooperative",
+        "url": "https://www.linkedin.com/company/ssmcoop",
+        "category": "Genetics business",
+        "sectors": ["dairy", "meat", "bovine-genetics"],
+        "regions": ["United States"],
+        "reason": "Commercial genetics, reproduction, herd-management, and cooperative announcements."
+      },
+      {
+        "id": "peak-genetics-linkedin",
+        "name": "PEAK",
+        "url": "https://www.linkedin.com/company/peakgenetics",
+        "category": "Genetics business",
+        "sectors": ["dairy", "meat", "bovine-genetics"],
+        "regions": ["United States", "International"],
+        "reason": "Bovine genetics, reproductive technology, animal care, and product-development announcements."
+      }
+    ],
     "rules": [
       "Do not scrape LinkedIn or use unauthorized automation to collect posts.",
       "Accept reviewer-submitted links from official company, association, university, or agency accounts as discovery leads.",

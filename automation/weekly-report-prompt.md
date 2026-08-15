@@ -25,7 +25,9 @@ Use the current date as the issue date. The primary reporting window is the prec
 5. Score candidates using the editorial rubric. Remove duplicates, promotional announcements without material evidence, opinion pieces, and developments already covered without a meaningful update.
 6. Select 8 to 10 publications that a reader may reasonably want to open. Aim for at least two per sector and at least three US and three international items. Include relevant Latin America or Puerto Rico coverage when it clears the same evidence threshold; do not use a weak item merely to meet a quota.
 
-LinkedIn is a manual discovery channel, not a feed to scrape. Do not use bots, crawlers, browser automation, or unauthorized APIs to collect LinkedIn content. Review only links supplied by a person or accounts explicitly listed in `config/social-watchlist.json`. An official organization post may be cited with `sourceId: "linkedin-org-post"`, `documentType: "social-post"`, and `discoveryChannel: "linkedin"` as an attributed announcement, but it does not independently verify its own claims. Trace statistics, research findings, regulatory claims, and market claims to an approved primary source. Do not copy LinkedIn images or reproduce post text beyond a short factual paraphrase.
+LinkedIn is a submitted discovery channel, not a feed to scrape. Do not use bots, crawlers, browser automation, or unauthorized APIs to collect LinkedIn content. Review links supplied by a person or open GitHub issues labeled `linkedin-lead` when repository issue access is available. The accounts in `config/social-watchlist.json` are a reference for human reviewers and targeted searches of those organizations' official websites; inclusion does not authorize automated access to LinkedIn. Parse the submitted organization name, date, entities, geography, sector, and claims, then search for the underlying official release, report, or dataset. An official organization post may be cited with `sourceId: "linkedin-org-post"`, `documentType: "social-post"`, and `discoveryChannel: "linkedin"` as an attributed announcement, but it does not independently verify its own claims. Trace statistics, research findings, regulatory claims, and market claims to an approved primary source. Do not copy LinkedIn images or reproduce post text beyond a short factual paraphrase.
+
+Use the official LinkedIn API only if a reviewer has separately configured an approved LinkedIn application, valid access token, and the required organization permissions. API access must remain limited to organizations and actions authorized by LinkedIn. The absence of approved API access never permits scraping.
 
 ## Drafting
 
@@ -35,7 +37,7 @@ Create `src/data/reports/YYYY-MM-DD.json` from the template with:
 - a `documentType`, `reviewStatus`, and `discoveryChannel` for every selected item;
 - concise, neutral headlines;
 - a two- or three-sentence factual summary, two to four source-supported key points, a specific explanation of industry relevance, and a specific “watch next” for each publication;
-- optional business context or uncertainty only when it materially helps the reader interpret the source;
+- a concise `businessRelevance` for every item, explaining why the development matters to Proterra using conditional language and public market context;
 - one plain-language overview headline and three labeled overview points;
 - one dashboard pulse for each sector and three to five key metrics, all taken from selected items;
 - an explicit comparison basis for every dashboard number, such as month over month, year over year, or forecast date;
@@ -48,7 +50,7 @@ Create `src/data/reports/YYYY-MM-DD.json` from the template with:
 
 Do not infer a dashboard direction from tone. Use `up`, `down`, `new`, or `stable` only when the cited item establishes that direction. Avoid repeating a sector-pulse number in the key-metrics strip unless it is essential to the issue.
 
-Treat `keyPoints` as reported facts, not interpretation. Treat `businessRelevance` as optional conditional editorial analysis about the market or decisions an industry business may need to monitor. Use `uncertainty` when needed to prevent a source announcement, forecast, or calendar from being presented as an observed outcome. Target 130 to 220 words across all visible digest fields so the source list remains easy to scan.
+Treat `keyPoints` as reported facts, not interpretation. Treat `businessRelevance` as conditional editorial analysis, not evidence of internal Proterra conditions. Use `uncertainty` when needed to prevent a source announcement, forecast, or calendar from being presented as an observed outcome. Target 130 to 220 words across all visible digest fields so the source list remains easy to scan.
 
 This automation uses public sources. Do not imply access to Proterra's catalog, animals, customers, sales, rankings, strategy, or commercial performance. Do not write phrases such as “Proterra animals,” “Proterra customers,” or “Proterra sales” unless the report scope explicitly declares internal data and the reviewer supplies that evidence. The brief is prepared for Proterra; it is not a report about Proterra.
 
