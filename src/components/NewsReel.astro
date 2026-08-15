@@ -36,7 +36,14 @@ function tagsFor(items: SignalItem[]) {
 }
 
 function publisherFor(items: SignalItem[]) {
-  return sourceById.get(items[0].citations[0].sourceId)?.name ?? items[0].citations[0].sourceId;
+  const citation = items[0].citations[0];
+  if (citation.sourceId === "linkedin-org-post") return `${citation.title} · LinkedIn`;
+  return sourceById.get(citation.sourceId)?.name ?? citation.sourceId;
+}
+
+function citationLabel(sourceId: string, title: string) {
+  if (sourceId === "linkedin-org-post") return title;
+  return sourceById.get(sourceId)?.name ?? title;
 }
 
 function supportingFor(items: SignalItem[]) {
@@ -48,6 +55,7 @@ function supportingFor(items: SignalItem[]) {
 
 const leadImage = imageFor(leadGroup);
 const leadCitation = leadGroup[0].citations[0];
+const leadSupporting = supportingFor(leadGroup);
 const reportHref = `/reports/${report.slug}`;
 ---
 
@@ -89,7 +97,17 @@ const reportHref = `/reports/${report.slug}`;
           <span>Read the source</span>
           <strong>{leadCitation.title}</strong>
         </a>
-        <div>{tagsFor(leadGroup).map((tag) => <span>{tag}</span>)}</div>
+        {leadSupporting.length > 0 && (
+          <div class="lead-supporting-links" aria-label="Supporting sources">
+            <span>Also:</span>
+            {leadSupporting.map((citation) => (
+              <a href={citation.url} target="_blank" rel="noreferrer">
+                {citationLabel(citation.sourceId, citation.title)}
+              </a>
+            ))}
+          </div>
+        )}
+        <div class="lead-news-tags">{tagsFor(leadGroup).map((tag) => <span>{tag}</span>)}</div>
       </div>
     </div>
   </article>
@@ -155,8 +173,17 @@ const reportHref = `/reports/${report.slug}`;
                   </details>
                 </div>
                 <div class="news-row-bottom">
-                  <div>{tagsFor(items).map((tag) => <span>{tag}</span>)}</div>
-                  {supporting.length > 0 && <span>{supporting.length} supporting source{supporting.length === 1 ? "" : "s"}</span>}
+                  <div class="news-tags">{tagsFor(items).map((tag) => <span>{tag}</span>)}</div>
+                  {supporting.length > 0 && (
+                    <div class="news-supporting-links" aria-label="Supporting sources">
+                      <span>Also:</span>
+                      {supporting.map((supportingCitation) => (
+                        <a href={supportingCitation.url} target="_blank" rel="noreferrer">
+                          {citationLabel(supportingCitation.sourceId, supportingCitation.title)}
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </article>

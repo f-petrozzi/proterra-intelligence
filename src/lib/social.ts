@@ -14,7 +14,7 @@ const accountSchema = z.object({
 
 const watchlistSchema = z.object({
   linkedin: z.object({
-    mode: z.literal("manual-only"),
+    mode: z.enum(["manual-only", "public-index-and-manual"]),
     accounts: z.array(accountSchema),
     rules: z.array(z.string().min(10)).min(1)
   })

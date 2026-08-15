@@ -7,7 +7,7 @@
       "description": "FAO monthly commodity price indices, August 2025 to July 2026",
       "period": "12 months",
       "cadence": "Monthly",
-      "basis": "International commodity price index, with the 2014-2016 average equal to 100. These values are not dollar prices.",
+      "basis": "International commodity price index, with the 2014-2016 average equal to 100.",
       "unit": "index points",
       "sourceId": "fao-faostat",
       "sourceUrl": "https://www.fao.org/media/docs/worldfoodsituationlibraries/default-document-library/food_price_indices_data.csv?download=true&sfvrsn=523ebd2a_82",

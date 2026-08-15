@@ -13,7 +13,7 @@
     "disclosure": "This brief uses public industry sources and does not assess Proterra-owned animals, customers, sales, or commercial performance."
   },
   "executiveSummary": "CDCB added three dairy cattle traits for calf health and conception. Global dairy and meat prices declined in July, while U.S. butter and nonfat dry milk output increased. U.S. beef supplies remain tight, although higher imports and a planned Arizona border reopening may add some supply.",
-  "editorNote": "First supervised issue. Items 7 and 8 use official releases from July 24 as 30-day context. Item 8 covers an August 24 reopening referenced again in the August 12 USDA outlook. Item 9 is based on the published evaluation schedule, not ranking results.",
+  "editorNote": "First supervised issue. Items 7 and 8 use official releases from July 24 as 30-day context. Item 8 covers an August 24 reopening referenced again in the August 12 USDA outlook. Item 9 is based on the published evaluation schedule, not ranking results. Item 10 surfaced through ADSA's public LinkedIn feed and is verified against the peer-reviewed study.",
   "overview": {
     "headline": "New genetic evaluations lead the week.",
     "points": [
@@ -167,6 +167,13 @@
           "url": "https://uscdcb.com/evaluation-types/",
           "publishedAt": "2026-08-11",
           "sourceNote": "Confirms that August 11 was a triannual evaluation covering all animals and identifies when rankings and summary statistics are updated."
+        },
+        {
+          "sourceId": "linkedin-org-post",
+          "title": "Council on Dairy Cattle Breeding on LinkedIn",
+          "url": "https://www.linkedin.com/company/council-on-dairy-cattle-breeding/posts/",
+          "publishedAt": "2026-08-11",
+          "sourceNote": "The official CDCB feed announced the completed August release and highlighted the three new traits; CDCB's website remains the primary evidence."
         }
       ]
     },
@@ -416,6 +423,45 @@
           "url": "https://interbull.org/ib/releasedates",
           "publishedAt": "2026-08-11",
           "sourceNote": "Confirms country, breed, trait-group, and release timing across participating evaluation systems; it does not report ranking outcomes."
+        }
+      ]
+    },
+    {
+      "rank": 10,
+      "headline": "ADSA highlights how colostrum quantity may shape calf immune development",
+      "imageId": "calf-health",
+      "documentType": "social-post",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "linkedin",
+      "sectors": ["dairy", "meat", "bovine-genetics"],
+      "regions": ["International", "Canada"],
+      "signal": "new",
+      "summary": "An ADSA LinkedIn post resurfaced a peer-reviewed study of Holstein and Holstein × Angus calves. Higher colostrum-replacer quantity changed some B-cell proportions, while breed did not produce a clear difference in lymphocyte profiles.",
+      "keyPoints": [
+        "The study enrolled 20 male calves: 10 Holstein and 10 Holstein × Angus animals.",
+        "Calves receiving the higher colostrum-replacer quantity had greater serum IgG and tended to have higher proportions of selected B-cell populations.",
+        "Health outcomes were similar between breed and colostrum groups during the study.",
+        "The authors found no clear breed effect on the overall lymphocyte profile and described the immune findings as suggestive rather than definitive."
+      ],
+      "whyItMatters": "The study adds useful evidence to beef-on-dairy calf management, but it does not support a broad claim that crossbred calves require different colostrum protocols solely because of breed.",
+      "businessRelevance": "For Proterra, the practical value is in separating genetic background from early-life management when discussing calf performance. The small study supports careful colostrum management, not a new genetic selection claim.",
+      "uncertainty": "This was a small exploratory study with 20 male calves. Several findings were statistical tendencies, and the similar observed health outcomes limit conclusions about commercial disease reduction.",
+      "watchNext": "Look for larger trials connecting colostrum quantity, breed, immune markers, morbidity, growth, and later beef performance.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "linkedin-org-post",
+          "title": "American Dairy Science Association on LinkedIn",
+          "url": "https://www.linkedin.com/company/adsaorg/posts/",
+          "publishedAt": "2026-08-13",
+          "sourceNote": "The official ADSA feed summarized the study's design and highlighted its breed, colostrum, calf-health, and lymphocyte findings during this issue window."
+        },
+        {
+          "sourceId": "jds-communications",
+          "title": "Effects of breed and colostrum replacer quantity on lymphocyte populations in calves",
+          "url": "https://www.sciencedirect.com/science/article/pii/S2666910226000748",
+          "publishedAt": "2026-04-09",
+          "sourceNote": "Provides the peer-reviewed methods, sample size, immune measurements, health observations, statistical limitations, and conclusions behind the ADSA post."
         }
       ]
     }

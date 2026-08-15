@@ -1,6 +1,6 @@
 {
   "linkedin": {
-    "mode": "manual-only",
+    "mode": "public-index-and-manual",
     "accounts": [
       {
         "id": "cdcb-linkedin",
@@ -59,7 +59,7 @@
     ],
     "rules": [
       "Do not scrape LinkedIn or use unauthorized automation to collect posts.",
-      "Accept reviewer-submitted links from official company, association, university, or agency accounts as discovery leads.",
+      "Search publicly indexed official company, association, university, and agency feeds, and accept reviewer-submitted post links as discovery leads.",
       "Link to an official organization post only as an attributed announcement, never as independent verification.",
       "Verify material statistics, research findings, regulatory claims, and market claims with an approved primary source.",
       "Do not copy post images or reproduce post text beyond a short factual paraphrase."

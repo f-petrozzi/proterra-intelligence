@@ -210,12 +210,25 @@
     "name": "LinkedIn: Official Organization Posts",
     "domain": "linkedin.com",
     "url": "https://www.linkedin.com/",
-    "allowedPaths": ["/posts/", "/feed/update/"],
+    "allowedPaths": ["/posts/", "/feed/update/", "/company/"],
     "tier": "B",
     "status": "probationary",
     "regions": ["United States", "Latin America & Caribbean", "Puerto Rico", "International"],
     "sectors": ["dairy", "meat", "bovine-genetics"],
-    "cadence": "Manual submission",
-    "notes": "Manually submitted posts from verified organization accounts; announcements require clear attribution and material claims require primary corroboration."
+    "cadence": "Weekly indexed search and manual submission",
+    "notes": "Publicly indexed posts and feeds from official organizations; announcements require clear attribution and material claims require primary corroboration."
+  },
+  {
+    "id": "jds-communications",
+    "name": "JDS Communications",
+    "domain": "sciencedirect.com",
+    "url": "https://www.sciencedirect.com/journal/jds-communications",
+    "allowedPaths": ["/science/article/", "/journal/jds-communications"],
+    "tier": "A",
+    "status": "approved",
+    "regions": ["United States", "International"],
+    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "cadence": "Continuous",
+    "notes": "Peer-reviewed, open-access dairy science research published for the American Dairy Science Association."
   }
 ]
