@@ -33,6 +33,10 @@ Reports live in `src/data/reports/`; the source registry lives in `src/data/sour
 
 Use Cloudflare Pages with GitHub integration, `npm run build`, and output directory `dist`. Protect production and preview URLs with Cloudflare Access while the brief is internal. See `docs/cloudflare-pages.md` for the complete setup.
 
+## Weekly email
+
+The repository includes a responsive React Email edition of every approved brief. Render it locally with `npm run email:preview`; test and production delivery use Gmail through a guarded GitHub Actions workflow. See `docs/weekly-email.md` for setup and operating instructions.
+
 ## Design principles
 
 - A useful 30-second scan before deeper reading

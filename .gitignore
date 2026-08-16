@@ -4,6 +4,7 @@ node_modules/
 # build output
 dist/
 .astro/
+email-preview/
 
 # local environment
 .env

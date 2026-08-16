@@ -1,0 +1,119 @@
+name: Weekly email
+
+on:
+  workflow_dispatch:
+    inputs:
+      report:
+        description: Issue date in YYYY-MM-DD format
+        required: true
+        type: string
+      mode:
+        description: Render, test, or send the issue
+        required: true
+        default: preview
+        type: choice
+        options:
+          - preview
+          - test
+          - send
+      confirmation:
+        description: For a production send, enter the same issue date again
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: weekly-email-${{ inputs.report }}-${{ inputs.mode }}
+  cancel-in-progress: false
+
+jobs:
+  preview:
+    name: Render and validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Render email
+        env:
+          INPUT_REPORT: ${{ inputs.report }}
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: npm run email:preview -- --report "$INPUT_REPORT"
+
+      - name: Upload preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-email-${{ inputs.report }}
+          path: email-preview/
+          if-no-files-found: error
+          retention-days: 14
+
+  test:
+    name: Send test email
+    if: inputs.mode == 'test'
+    needs: preview
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Send test
+        env:
+          INPUT_REPORT: ${{ inputs.report }}
+          SITE_URL: ${{ vars.SITE_URL }}
+          GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          EMAIL_TEST_RECIPIENT: ${{ secrets.EMAIL_TEST_RECIPIENT }}
+        run: npm run email:send -- --report "$INPUT_REPORT" --mode test
+
+  send:
+    name: Send production email
+    if: inputs.mode == 'send'
+    needs: preview
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: email-production
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Send approved issue
+        env:
+          INPUT_REPORT: ${{ inputs.report }}
+          INPUT_CONFIRMATION: ${{ inputs.confirmation }}
+          SITE_URL: ${{ vars.SITE_URL }}
+          GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
+        run: npm run email:send -- --report "$INPUT_REPORT" --mode send --confirm "$INPUT_CONFIRMATION"

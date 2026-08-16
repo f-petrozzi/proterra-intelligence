@@ -8,17 +8,28 @@
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
     "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
-    "verify": "npm run check && npm run build"
+    "email:preview": "node --import tsx scripts/email/render-weekly-email.ts",
+    "email:check": "node --import tsx scripts/email/render-weekly-email.ts --check",
+    "email:send": "node --import tsx scripts/email/send-weekly-email.ts",
+    "verify": "npm run check && npm run email:check && npm run build"
   },
   "engines": {
     "node": ">=22.19"
   },
   "dependencies": {
-    "@awesome.me/webawesome": "^3.2.1"
+    "@awesome.me/webawesome": "^3.2.1",
+    "nodemailer": "^9.0.5",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-email": "^6.9.2"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
+    "@types/nodemailer": "^8.0.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
     "astro": "7.2.2",
+    "tsx": "^4.23.12",
     "typescript": "5.9.3"
   },
   "overrides": {
