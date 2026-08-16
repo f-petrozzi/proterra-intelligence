@@ -79,16 +79,18 @@ export function WeeklyBriefEmail({ report, siteUrl, images }: WeeklyBriefEmailPr
           </Section>
 
           {report.dashboard?.sectorPulses && (
-            <Section style={pulseSection}>
-              <Row>
-                {report.dashboard.sectorPulses.map((pulse) => (
-                  <Column key={pulse.sector} style={pulseColumn}>
-                    <Text style={pulseLabel}>{sectorNames[pulse.sector]}</Text>
-                    <Text style={pulseValue}>{pulse.value}</Text>
-                    <Text style={pulseBasis}>{pulse.basis}</Text>
-                  </Column>
-                ))}
-              </Row>
+            <Section style={pulseWrapper}>
+              <Section style={pulseSection}>
+                <Row>
+                  {report.dashboard.sectorPulses.map((pulse) => (
+                    <Column key={pulse.sector} style={pulseColumn}>
+                      <Text style={pulseLabel}>{sectorNames[pulse.sector]}</Text>
+                      <Text style={pulseValue}>{pulse.value}</Text>
+                      <Text style={pulseBasis}>{pulse.basis}</Text>
+                    </Column>
+                  ))}
+                </Row>
+              </Section>
             </Section>
           )}
 
@@ -147,10 +149,12 @@ export function WeeklyBriefEmail({ report, siteUrl, images }: WeeklyBriefEmailPr
             })}
           </Section>
 
-          <Section style={ctaSection}>
-            <Heading as="h2" style={ctaHeading}>Continue with the full brief</Heading>
-            <Text style={ctaText}>Review every source, expand the key points, and open the current dashboard on Proterra Intelligence.</Text>
-            <Button href={onlineUrl} style={primaryButton}>Open the weekly brief</Button>
+          <Section style={ctaWrapper}>
+            <Section style={ctaSection}>
+              <Heading as="h2" style={ctaHeading}>Continue with the full brief</Heading>
+              <Text style={ctaText}>Review every source, expand the key points, and open the current dashboard on Proterra Intelligence.</Text>
+              <Button href={onlineUrl} style={primaryButton}>Open the weekly brief</Button>
+            </Section>
           </Section>
 
           <Section style={footer}>
@@ -189,7 +193,8 @@ const utilityLink: React.CSSProperties = { color: colors.green, fontSize: "12px"
 const intro: React.CSSProperties = { padding: "34px 24px 26px" };
 const h1: React.CSSProperties = { margin: "0 0 14px", color: colors.ink, fontSize: "32px", lineHeight: "38px", letterSpacing: "-0.6px" };
 const lead: React.CSSProperties = { margin: 0, color: "#43514c", fontSize: "16px", lineHeight: "25px" };
-const pulseSection: React.CSSProperties = { margin: "0 24px 32px", backgroundColor: colors.greenSoft, borderRadius: "8px" };
+const pulseWrapper: React.CSSProperties = { padding: "0 24px 32px" };
+const pulseSection: React.CSSProperties = { width: "100%", backgroundColor: colors.greenSoft, borderRadius: "8px" };
 const pulseColumn: React.CSSProperties = { width: "33.333%", padding: "16px 10px", textAlign: "center", verticalAlign: "top" };
 const pulseLabel: React.CSSProperties = { margin: "0 0 6px", color: colors.muted, fontSize: "10px", fontWeight: 700, letterSpacing: "0.5px", textTransform: "uppercase" };
 const pulseValue: React.CSSProperties = { margin: "0 0 3px", color: colors.ink, fontSize: "22px", fontWeight: 700, lineHeight: "26px" };
@@ -214,7 +219,8 @@ const storyDivider: React.CSSProperties = { margin: "24px 0", borderColor: color
 const compactSummary: React.CSSProperties = { margin: "0 0 8px", color: "#53605c", fontSize: "14px", lineHeight: "22px" };
 const sourceLine: React.CSSProperties = { margin: 0, fontSize: "12px", lineHeight: "18px" };
 const sourceLink: React.CSSProperties = { color: colors.green, fontWeight: 700, textDecoration: "none" };
-const ctaSection: React.CSSProperties = { margin: "0 24px 28px", padding: "25px", backgroundColor: colors.greenSoft, borderRadius: "8px", textAlign: "center" };
+const ctaWrapper: React.CSSProperties = { padding: "0 24px 28px" };
+const ctaSection: React.CSSProperties = { width: "100%", padding: "25px", backgroundColor: colors.greenSoft, borderRadius: "8px", textAlign: "center" };
 const ctaHeading: React.CSSProperties = { margin: "0 0 8px", color: colors.ink, fontSize: "21px", lineHeight: "27px" };
 const ctaText: React.CSSProperties = { margin: "0 auto 18px", color: "#53605c", fontSize: "14px", lineHeight: "21px" };
 const footer: React.CSSProperties = { padding: "24px", backgroundColor: "#edf1ef", borderTop: `1px solid ${colors.line}` };
