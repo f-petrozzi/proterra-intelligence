@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HistoryChart from "../components/HistoryChart.astro";
-import MetricSparkline from "../components/MetricSparkline.astro";
+import MetricBars from "../components/MetricBars.astro";
 import PageHeader from "../components/PageHeader.astro";
 import { formatDate } from "../lib/content";
 import { history } from "../lib/history";
@@ -55,7 +55,7 @@ const largestChange = Math.max(...dashboardMetrics.map((metric) => Math.abs(metr
   <nav class="page-section-nav reveal delay-1" aria-label="Dashboard sections">
     <a href="#latest-readings">Latest readings</a>
     <a href="#period-change">Period change</a>
-    <a href="#trend-charts">Trend charts</a>
+    <a href="#historical-bars">Historical bars</a>
   </nav>
 
   <section class="dashboard-summary reveal delay-2" id="latest-readings" aria-labelledby="dashboard-summary-title">
@@ -75,7 +75,7 @@ const largestChange = Math.max(...dashboardMetrics.map((metric) => Math.abs(metr
             <span>{metric.chart.unit}</span>
           </div>
           <div class="dashboard-kpi-period"><span>{metric.latestPeriod}</span><span>{metric.chart.cadence}</span></div>
-          <MetricSparkline points={metric.series.points} label={metric.label} color={metric.series.color} />
+          <MetricBars points={metric.series.points} label={metric.label} color={metric.series.color} />
           <p class:list={{ positive: metric.change > 0, negative: metric.change < 0 }}>
             {metric.change > 0 ? "+" : ""}{metric.change.toFixed(1)}% since {metric.firstPeriod}
           </p>
@@ -109,10 +109,10 @@ const largestChange = Math.max(...dashboardMetrics.map((metric) => Math.abs(metr
     </div>
   </section>
 
-  <section class="history-chart-list reveal delay-3" id="trend-charts" aria-labelledby="trend-charts-title">
+  <section class="history-chart-list reveal delay-3" id="historical-bars" aria-labelledby="historical-bars-title">
     <header class="history-list-heading">
-      <div><span>Historical context</span><h2 id="trend-charts-title">Trend charts</h2></div>
-      <p>Hover or focus chart points for exact values. Every series includes its original dataset and a data table.</p>
+      <div><span>Historical context</span><h2 id="historical-bars-title">Period-by-period history</h2></div>
+      <p>Monthly series show one bar per month; annual series show one bar per reporting year. Exact values remain available in each data table.</p>
     </header>
     {history.charts.map((chart) => <HistoryChart chart={chart} />)}
   </section>

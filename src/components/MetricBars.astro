@@ -1,0 +1,61 @@
+---
+interface Point {
+  label: string;
+  value: number;
+}
+
+interface Props {
+  points: Point[];
+  label: string;
+  color: string;
+}
+
+const { points, label, color } = Astro.props;
+const width = 240;
+const height = 86;
+const chartTop = 5;
+const baseline = 66;
+const max = Math.max(...points.map((point) => point.value), 0.1);
+const step = width / points.length;
+const barWidth = Math.min(step * 0.58, 32);
+const x = (index: number) => step * index + (step - barWidth) / 2;
+const barHeight = (value: number) => Math.max((value / max) * (baseline - chartTop), 1);
+const shortLabel = (value: string) => value.split(" ")[0];
+const latest = points.at(-1)!;
+---
+
+<svg
+  class="metric-period-bars"
+  viewBox={`0 0 ${width} ${height}`}
+  role="img"
+  aria-label={`${label} values by reporting period, from ${points[0].label} to ${latest.label}`}
+  style={`--bar-color:${color}`}
+>
+  <line x1="0" x2={width} y1={baseline} y2={baseline} class="metric-period-baseline" />
+  {points.map((point, index) => {
+    const renderedHeight = barHeight(point.value);
+    const isLatest = index === points.length - 1;
+    return (
+      <g>
+        <rect
+          x={x(index)}
+          y={baseline - renderedHeight}
+          width={barWidth}
+          height={renderedHeight}
+          rx="2"
+          class:list={{ "metric-period-bar": true, latest: isLatest }}
+        >
+          <title>{point.label}: {point.value.toFixed(1)}</title>
+        </rect>
+        <text
+          x={x(index) + barWidth / 2}
+          y="80"
+          text-anchor="middle"
+          class:list={{ "metric-period-label": true, latest: isLatest }}
+        >
+          {shortLabel(point.label)}
+        </text>
+      </g>
+    );
+  })}
+</svg>

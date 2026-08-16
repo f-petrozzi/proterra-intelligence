@@ -845,10 +845,12 @@
   .dashboard-kpi-value span { color: var(--ink-muted); font-size: 0.6rem; line-height: 1.2; }
   .dashboard-kpi-period { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.65rem; }
   .dashboard-kpi-period span { padding: 0.18rem 0.38rem; border-radius: 999px; background: var(--paper-deep); color: var(--ink-muted); font-size: 0.54rem; }
-  .metric-sparkline { width: 100%; height: 4.25rem; margin-top: 1rem; overflow: visible; }
-  .metric-sparkline-area { fill: var(--spark-color); fill-opacity: 0.1; }
-  .metric-sparkline-line { fill: none; stroke: var(--spark-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.25; vector-effect: non-scaling-stroke; }
-  .metric-sparkline-point { fill: var(--surface); stroke: var(--spark-color); stroke-width: 2.25; vector-effect: non-scaling-stroke; }
+  .metric-period-bars { width: 100%; height: 5.35rem; margin-top: 1rem; overflow: visible; }
+  .metric-period-baseline { stroke: var(--line-strong); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .metric-period-bar { fill: var(--bar-color); opacity: 0.58; }
+  .metric-period-bar.latest { opacity: 1; }
+  .metric-period-label { fill: var(--ink-muted); font-family: var(--sans); font-size: 7px; }
+  .metric-period-label.latest { fill: var(--ink); font-weight: 700; }
   .dashboard-kpi > p { margin-top: 0.75rem; color: var(--ink-muted); font-size: 0.68rem; font-weight: 700; }
   .dashboard-kpi > p.positive { color: var(--forest); }
   .dashboard-kpi > p.negative { color: var(--meat); }
@@ -882,7 +884,7 @@
   .history-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)); gap: 0.75rem; }
   .history-legend > div { padding-left: 0.75rem; border-left: 1px solid var(--line); }
   .history-legend span { display: flex; align-items: center; gap: 0.4rem; color: var(--ink-muted); font-size: 0.61rem; }
-  .history-legend i { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--series-color); }
+  .history-legend i { width: 0.45rem; height: 0.45rem; border-radius: 0.1rem; background: var(--series-color); }
   .history-legend strong { display: block; margin-top: 0.45rem; font-size: 1.45rem; font-weight: 560; line-height: 1; }
   .history-legend-value { display: flex; align-items: baseline; gap: 0.35rem; }
   .history-legend-value > span { color: var(--ink-muted); font-size: 0.52rem; }
@@ -893,8 +895,9 @@
   .history-plot svg { width: 100%; min-width: 38rem; height: auto; }
   .chart-grid-line { stroke: var(--line); stroke-width: 1; }
   .chart-axis-label { fill: var(--ink-muted); font-family: var(--sans); font-size: 9px; }
-  .history-line { fill: none; stroke: var(--series-color); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-  .history-point { fill: var(--surface); stroke: var(--series-color); stroke-width: 2.5; }
+  .chart-axis-label.latest { fill: var(--ink); font-weight: 700; }
+  .history-bar { fill: var(--series-color); opacity: 0.72; }
+  .history-bar.latest { opacity: 1; }
   .history-chart-footer { display: flex; align-items: start; justify-content: space-between; gap: 2rem; padding: 1rem clamp(1.5rem, 3vw, 2.25rem); border-top: 1px solid var(--line); color: var(--ink-muted); font-size: 0.65rem; }
   .history-chart-footer p { max-width: 48rem; }
   .history-chart-footer a { flex: none; color: var(--forest); font-weight: 700; }
