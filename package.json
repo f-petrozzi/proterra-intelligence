@@ -8,6 +8,7 @@
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
     "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "data:refresh-dashboard": "node --import tsx scripts/data/refresh-dashboard.ts --write",
     "email:preview": "node --import tsx scripts/email/render-weekly-email.ts",
     "email:check": "node --import tsx scripts/email/render-weekly-email.ts --check",
     "email:send": "node --import tsx scripts/email/send-weekly-email.ts",
@@ -18,6 +19,7 @@
   },
   "dependencies": {
     "@awesome.me/webawesome": "^3.2.1",
+    "@observablehq/plot": "^0.6.17",
     "nodemailer": "^9.0.5",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

@@ -29,6 +29,16 @@ npm run verify
 
 Reports live in `src/data/reports/`; the source registry lives in `src/data/sources.json`. Approved, credited images live in `src/data/editorial-images.json`. Editorial rules are in `config/editorial-rubric.md`.
 
+## Market dashboard
+
+The dashboard is intentionally separate from the weekly article feed. Recurring official FAO and USDA datasets power the historical charts; reviewed articles provide interpretation in the weekly brief. Refresh the normalized dashboard data with:
+
+```sh
+npm run data:refresh-dashboard
+```
+
+The scheduled dashboard workflow runs the same command, validates the site, and opens a review pull request when official values change. It never publishes newly fetched data directly to production.
+
 ## Deployment
 
 Use Cloudflare Pages with GitHub integration, `npm run build`, and output directory `dist`. Protect production and preview URLs with Cloudflare Access while the brief is internal. See `docs/cloudflare-pages.md` for the complete setup.

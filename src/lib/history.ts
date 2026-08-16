@@ -10,12 +10,17 @@ const historyPointSchema = z.object({
 
 const historyChartSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
+  sector: z.string().min(3),
+  region: z.string().min(3),
   title: z.string().min(5),
+  question: z.string().min(15),
   description: z.string().min(15),
   period: z.string().min(3),
   cadence: z.string().min(3),
   basis: z.string().min(20),
   unit: z.string().min(3),
+  format: z.enum(["integer", "decimal-1", "currency-2"]),
+  updatedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   sourceId: z.string(),
   sourceUrl: z.url(),
   sourceTitle: z.string().min(5),

@@ -1,0 +1,72 @@
+name: Refresh dashboard data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 11 * * 3"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: refresh-dashboard-data
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch official dashboard data
+        run: npm run data:refresh-dashboard
+
+      - name: Stop when values are unchanged
+        id: changes
+        run: |
+          if git diff --quiet -- src/data/history.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validate refreshed site
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run verify
+
+      - name: Open or update review pull request
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="automation/dashboard-data"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin "$branch:refs/remotes/origin/$branch" || true
+          git checkout -B "$branch"
+          git add src/data/history.json
+          git commit -m "data: refresh market dashboard"
+          git push --force-with-lease origin "HEAD:$branch"
+          pull_request="$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')"
+          if [ -z "$pull_request" ]; then
+            gh pr create \
+              --base main \
+              --head "$branch" \
+              --title "Refresh market dashboard data" \
+              --body "Automated refresh from the registered FAO and USDA datasets. Review the values and Cloudflare preview before merging."
+          fi

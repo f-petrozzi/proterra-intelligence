@@ -1,119 +1,119 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import HistoryChart from "../components/HistoryChart.astro";
+import InteractiveHistoryChart from "../components/InteractiveHistoryChart.astro";
 import MetricBars from "../components/MetricBars.astro";
 import PageHeader from "../components/PageHeader.astro";
-import { formatDate } from "../lib/content";
+import { formatDate, reports } from "../lib/content";
 import { history } from "../lib/history";
 
-function formatMonth(value: string) {
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC"
-  }).format(new Date(`${value}-01T00:00:00Z`));
-}
-
-function getSeries(chartId: string, label: string) {
+function getMetric(chartId: string, label: string, displayLabel: string) {
   const chart = history.charts.find((candidate) => candidate.id === chartId);
   const series = chart?.series.find((candidate) => candidate.label === label);
   if (!chart || !series) throw new Error(`Dashboard series not found: ${chartId}/${label}`);
-  const first = series.points[0];
   const latest = series.points.at(-1)!;
-  return {
-    chart,
-    series,
-    latest,
-    change: ((latest.value - first.value) / first.value) * 100,
-    latestPeriod: formatMonth(latest.date),
-    firstPeriod: formatMonth(first.date),
-    period: `${formatMonth(first.date)} to ${formatMonth(latest.date)}`
-  };
+  const comparisonOffset = chart.cadence === "Monthly" && series.points.length > 12 ? 12
+    : chart.cadence === "Quarterly" && series.points.length > 4 ? 4
+    : 1;
+  const comparison = series.points.at(-(comparisonOffset + 1)) ?? series.points[0];
+  const change = comparison.value === 0 ? 0 : ((latest.value - comparison.value) / comparison.value) * 100;
+  const basis = comparisonOffset === 1 ? "from prior period" : "from one year earlier";
+  const visiblePoints = series.points.slice(-12);
+  return { chart, series, latest, comparison, change, basis, visiblePoints, displayLabel };
+}
+
+function formatMetric(metric: ReturnType<typeof getMetric>) {
+  if (metric.chart.format === "currency-2") return `$${metric.latest.value.toFixed(2)}`;
+  if (metric.chart.format === "integer") return Math.round(metric.latest.value).toLocaleString("en-US");
+  return metric.latest.value.toFixed(1);
 }
 
 const dashboardMetrics = [
-  { label: "FAO dairy price index", ...getSeries("global-price-indices", "Dairy") },
-  { label: "FAO meat price index", ...getSeries("global-price-indices", "Meat") },
-  { label: "U.S. beef cows", ...getSeries("us-cattle-snapshots", "Beef cows") },
-  { label: "U.S. calf crop", ...getSeries("us-cattle-snapshots", "Calf crop") }
+  getMetric("global-price-indices", "Dairy", "Global dairy prices"),
+  getMetric("global-price-indices", "Meat", "Global meat prices"),
+  getMetric("us-all-milk-price", "All-milk price", "U.S. all-milk price"),
+  getMetric("us-milk-production", "Milk production", "U.S. milk production"),
+  getMetric("us-beef-retail-values", "All-fresh beef", "U.S. retail beef"),
+  getMetric("us-cattle-snapshots", "Beef cows", "U.S. beef cows")
 ];
-const largestChange = Math.max(...dashboardMetrics.map((metric) => Math.abs(metric.change)));
+
+const latestReport = reports[0];
+const geneticsItems = latestReport?.items.filter((item) => item.sectors.includes("bovine-genetics")).slice(0, 2) ?? [];
+const groupedCharts = [
+  { id: "global-markets", label: "Global markets", charts: history.charts.filter((chart) => chart.region === "International") },
+  { id: "us-dairy", label: "U.S. dairy", charts: history.charts.filter((chart) => chart.region === "United States" && chart.sector === "Dairy") },
+  { id: "us-beef", label: "U.S. beef", charts: history.charts.filter((chart) => chart.region === "United States" && chart.sector === "Meat") }
+];
 ---
 
-<BaseLayout title="Data dashboard" description="Current readings and historical livestock and dairy market indicators.">
+<BaseLayout title="Market dashboard" description="Interactive global and U.S. livestock, dairy, and bovine genetics indicators for Proterra business owners.">
   <PageHeader
     label="Market dashboard"
-    title="Livestock data dashboard"
-    description="Current readings, recent direction, and historical context from recurring industry datasets."
+    title="Market conditions at a glance"
+    description="Track the recurring indicators behind the weekly brief, then use the news to understand what changed."
   />
 
   <div class="history-update reveal delay-1">
-    <span>Updated {formatDate(history.updatedAt)}</span>
-    <p>Each measure keeps its source reporting period. Monthly and annual series are shown separately.</p>
+    <span>Dashboard refreshed {formatDate(history.updatedAt)}</span>
+    <p>Official recurring datasets only. Article claims are kept in the weekly brief, not blended into these series.</p>
   </div>
 
   <nav class="page-section-nav reveal delay-1" aria-label="Dashboard sections">
-    <a href="#latest-readings">Latest readings</a>
-    <a href="#period-change">Period change</a>
-    <a href="#historical-bars">Historical bars</a>
+    <a href="#snapshot">Snapshot</a>
+    <a href="#global-markets">Global markets</a>
+    <a href="#us-dairy">U.S. dairy</a>
+    <a href="#us-beef">U.S. beef</a>
+    <a href="#genetics-watch">Genetics watch</a>
   </nav>
 
-  <section class="dashboard-summary reveal delay-2" id="latest-readings" aria-labelledby="dashboard-summary-title">
+  <section class="dashboard-summary reveal delay-2" id="snapshot" aria-labelledby="dashboard-summary-title">
     <header>
-      <div>
-        <span>Latest readings</span>
-        <h2 id="dashboard-summary-title">At a glance</h2>
-      </div>
-      <p>FAO values are monthly international price index points. USDA cattle values are national estimates in millions of head.</p>
+      <div><span>Latest available</span><h2 id="dashboard-summary-title">Owner snapshot</h2></div>
+      <p>Each tile states its unit and reporting period. Comparisons use the prior year where available.</p>
     </header>
     <div class="dashboard-kpi-grid">
       {dashboardMetrics.map((metric) => (
         <article class="dashboard-kpi">
-          <span>{metric.label}</span>
-          <div class="dashboard-kpi-value">
-            <strong>{metric.latest.value.toFixed(1)}</strong>
-            <span>{metric.chart.unit}</span>
-          </div>
-          <div class="dashboard-kpi-period"><span>{metric.latestPeriod}</span><span>{metric.chart.cadence}</span></div>
-          <MetricBars points={metric.series.points} label={metric.label} color={metric.series.color} />
+          <div class="dashboard-kpi-topline"><span>{metric.displayLabel}</span><i style={`--metric-color:${metric.series.color}`}></i></div>
+          <div class="dashboard-kpi-value"><strong>{formatMetric(metric)}</strong><span>{metric.chart.unit}</span></div>
+          <div class="dashboard-kpi-period"><span>{metric.latest.label}</span><span>{metric.chart.cadence}</span></div>
+          <MetricBars points={metric.visiblePoints} label={metric.displayLabel} color={metric.series.color} />
           <p class:list={{ positive: metric.change > 0, negative: metric.change < 0 }}>
-            {metric.change > 0 ? "+" : ""}{metric.change.toFixed(1)}% since {metric.firstPeriod}
+            {metric.change > 0 ? "+" : ""}{metric.change.toFixed(1)}% {metric.basis}
           </p>
-          <small class="dashboard-kpi-definition">{metric.series.definition}</small>
-          <a href={metric.chart.sourceUrl} target="_blank" rel="noreferrer">{metric.chart.sourceTitle}</a>
+          <a href={`#${metric.chart.id}`}>Explore history</a>
         </article>
       ))}
     </div>
-    <div class="dashboard-change-panel" id="period-change">
-      <header>
-        <div>
-          <span>Period change</span>
-          <h3>Direction and scale</h3>
-        </div>
-        <p>Percentage change over each stated period. The largest absolute change sets the visual scale.</p>
-      </header>
-      <ol>
-        {dashboardMetrics.map((metric) => {
-          const width = `${Math.max((Math.abs(metric.change) / largestChange) * 50, 1)}%`;
-          return (
-            <li>
-              <span>{metric.label}</span>
-              <div class="dashboard-change-track" aria-hidden="true">
-                <i class:list={{ positive: metric.change > 0, negative: metric.change < 0 }} style={`--change-width:${width};--change-color:${metric.series.color}`}></i>
-              </div>
-              <strong>{metric.change > 0 ? "+" : ""}{metric.change.toFixed(1)}%</strong>
-            </li>
-          );
-        })}
-      </ol>
-    </div>
   </section>
 
-  <section class="history-chart-list reveal delay-3" id="historical-bars" aria-labelledby="historical-bars-title">
+  <section class="history-chart-list reveal delay-3" aria-labelledby="historical-bars-title">
     <header class="history-list-heading">
-      <div><span>Historical context</span><h2 id="historical-bars-title">Period-by-period history</h2></div>
-      <p>Monthly series show one bar per month; annual series show one bar per reporting year. Exact values remain available in each data table.</p>
+      <div><span>Interactive history</span><h2 id="historical-bars-title">See the move, then inspect the value</h2></div>
+      <p>Choose a range, hover or tap a bar for its source value, and switch to Change when the raw movement is hard to see.</p>
     </header>
-    {history.charts.map((chart) => <HistoryChart chart={chart} />)}
+
+    {groupedCharts.map((group) => (
+      <section class="dashboard-chart-group" id={group.id} aria-labelledby={`${group.id}-title`}>
+        <header><span>{group.label}</span><h2 id={`${group.id}-title`}>{group.label}</h2></header>
+        {group.charts.map((chart) => <InteractiveHistoryChart chart={chart} />)}
+      </section>
+    ))}
+  </section>
+
+  <section class="genetics-watch" id="genetics-watch" aria-labelledby="genetics-watch-title">
+    <header>
+      <div><span>Event-driven tracker</span><h2 id="genetics-watch-title">Bovine genetics watch</h2></div>
+      <p>Genetic evaluations change on release schedules, not in a clean monthly market series. The latest reviewed releases stay visible here.</p>
+    </header>
+    <div>
+      {geneticsItems.map((item) => (
+        <article>
+          <div><span>{item.documentType.replace("-", " ")}</span><span>{formatDate(item.citations[0].publishedAt, { month: "short", day: "numeric", year: "numeric" })}</span></div>
+          <h3><a href={item.citations[0].url} target="_blank" rel="noreferrer">{item.headline}</a></h3>
+          <p>{item.summary}</p>
+          <footer><span>{item.citations[0].sourceNote}</span><a href={`/reports/${latestReport.slug}#item-${item.rank}`}>Read in weekly brief</a></footer>
+        </article>
+      ))}
+    </div>
   </section>
 </BaseLayout>

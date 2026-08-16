@@ -1,88 +1,1893 @@
 {
-  "updatedAt": "2026-08-07",
+  "updatedAt": "2026-08-16",
   "charts": [
     {
       "id": "global-price-indices",
+      "sector": "Global markets",
+      "region": "International",
       "title": "Global dairy and meat prices",
-      "description": "FAO monthly commodity price indices, August 2025 to July 2026",
-      "period": "12 months",
+      "question": "Are international dairy and meat markets strengthening or easing?",
+      "description": "FAO monthly commodity price indices over the last ten years.",
+      "period": "10 years",
       "cadence": "Monthly",
-      "basis": "International commodity price index, with the 2014-2016 average equal to 100.",
+      "basis": "International commodity price index, with the 2014–2016 average equal to 100.",
       "unit": "index points",
+      "format": "decimal-1",
+      "updatedAt": "2026-08-16",
       "sourceId": "fao-faostat",
-      "sourceUrl": "https://www.fao.org/media/docs/worldfoodsituationlibraries/default-document-library/food_price_indices_data.csv?download=true&sfvrsn=523ebd2a_82",
+      "sourceUrl": "https://www.fao.org/media/docs/worldfoodsituationlibraries/default-document-library/food_price_indices_data.csv?download=true",
       "sourceTitle": "FAO Food Price Index monthly data",
-      "note": "The latest FAO dataset includes revisions to previously published monthly estimates, particularly for meat.",
+      "note": "FAO can revise previously published values. The dashboard retains the latest values in the current official file.",
       "series": [
         {
           "label": "Dairy",
-          "definition": "Monthly movement in international quotations for butter, cheese, skim milk powder, and whole milk powder.",
+          "definition": "International quotations for butter, cheese, skim milk powder, and whole milk powder.",
           "color": "#2f6d56",
           "points": [
-            { "date": "2025-08", "label": "Aug 2025", "value": 152.2 },
-            { "date": "2025-09", "label": "Sep", "value": 147.2 },
-            { "date": "2025-10", "label": "Oct", "value": 141.7 },
-            { "date": "2025-11", "label": "Nov", "value": 136.2 },
-            { "date": "2025-12", "label": "Dec", "value": 128.2 },
-            { "date": "2026-01", "label": "Jan 2026", "value": 120.9 },
-            { "date": "2026-02", "label": "Feb", "value": 119.4 },
-            { "date": "2026-03", "label": "Mar", "value": 121.2 },
-            { "date": "2026-04", "label": "Apr", "value": 119.7 },
-            { "date": "2026-05", "label": "May", "value": 119.1 },
-            { "date": "2026-06", "label": "Jun", "value": 117.0 },
-            { "date": "2026-07", "label": "Jul", "value": 116.2 }
+            {
+              "date": "2016-08",
+              "label": "Aug 2016",
+              "value": 81.8
+            },
+            {
+              "date": "2016-09",
+              "label": "Sep 2016",
+              "value": 90.9
+            },
+            {
+              "date": "2016-10",
+              "label": "Oct 2016",
+              "value": 93.8
+            },
+            {
+              "date": "2016-11",
+              "label": "Nov 2016",
+              "value": 94.5
+            },
+            {
+              "date": "2016-12",
+              "label": "Dec 2016",
+              "value": 96.2
+            },
+            {
+              "date": "2017-01",
+              "label": "Jan 2017",
+              "value": 98.6
+            },
+            {
+              "date": "2017-02",
+              "label": "Feb 2017",
+              "value": 99.2
+            },
+            {
+              "date": "2017-03",
+              "label": "Mar 2017",
+              "value": 100.6
+            },
+            {
+              "date": "2017-04",
+              "label": "Apr 2017",
+              "value": 100
+            },
+            {
+              "date": "2017-05",
+              "label": "May 2017",
+              "value": 104.8
+            },
+            {
+              "date": "2017-06",
+              "label": "Jun 2017",
+              "value": 109.7
+            },
+            {
+              "date": "2017-07",
+              "label": "Jul 2017",
+              "value": 113.9
+            },
+            {
+              "date": "2017-08",
+              "label": "Aug 2017",
+              "value": 116.9
+            },
+            {
+              "date": "2017-09",
+              "label": "Sep 2017",
+              "value": 118.4
+            },
+            {
+              "date": "2017-10",
+              "label": "Oct 2017",
+              "value": 115.4
+            },
+            {
+              "date": "2017-11",
+              "label": "Nov 2017",
+              "value": 111.4
+            },
+            {
+              "date": "2017-12",
+              "label": "Dec 2017",
+              "value": 107.3
+            },
+            {
+              "date": "2018-01",
+              "label": "Jan 2018",
+              "value": 106
+            },
+            {
+              "date": "2018-02",
+              "label": "Feb 2018",
+              "value": 108.8
+            },
+            {
+              "date": "2018-03",
+              "label": "Mar 2018",
+              "value": 111.3
+            },
+            {
+              "date": "2018-04",
+              "label": "Apr 2018",
+              "value": 110
+            },
+            {
+              "date": "2018-05",
+              "label": "May 2018",
+              "value": 111.4
+            },
+            {
+              "date": "2018-06",
+              "label": "Jun 2018",
+              "value": 112.3
+            },
+            {
+              "date": "2018-07",
+              "label": "Jul 2018",
+              "value": 110.1
+            },
+            {
+              "date": "2018-08",
+              "label": "Aug 2018",
+              "value": 108.5
+            },
+            {
+              "date": "2018-09",
+              "label": "Sep 2018",
+              "value": 108.3
+            },
+            {
+              "date": "2018-10",
+              "label": "Oct 2018",
+              "value": 102.8
+            },
+            {
+              "date": "2018-11",
+              "label": "Nov 2018",
+              "value": 100
+            },
+            {
+              "date": "2018-12",
+              "label": "Dec 2018",
+              "value": 97.8
+            },
+            {
+              "date": "2019-01",
+              "label": "Jan 2019",
+              "value": 100.9
+            },
+            {
+              "date": "2019-02",
+              "label": "Feb 2019",
+              "value": 103.8
+            },
+            {
+              "date": "2019-03",
+              "label": "Mar 2019",
+              "value": 105.6
+            },
+            {
+              "date": "2019-04",
+              "label": "Apr 2019",
+              "value": 106.1
+            },
+            {
+              "date": "2019-05",
+              "label": "May 2019",
+              "value": 106.6
+            },
+            {
+              "date": "2019-06",
+              "label": "Jun 2019",
+              "value": 102.9
+            },
+            {
+              "date": "2019-07",
+              "label": "Jul 2019",
+              "value": 101.1
+            },
+            {
+              "date": "2019-08",
+              "label": "Aug 2019",
+              "value": 100.3
+            },
+            {
+              "date": "2019-09",
+              "label": "Sep 2019",
+              "value": 99.6
+            },
+            {
+              "date": "2019-10",
+              "label": "Oct 2019",
+              "value": 100.8
+            },
+            {
+              "date": "2019-11",
+              "label": "Nov 2019",
+              "value": 102.5
+            },
+            {
+              "date": "2019-12",
+              "label": "Dec 2019",
+              "value": 103.5
+            },
+            {
+              "date": "2020-01",
+              "label": "Jan 2020",
+              "value": 103.8
+            },
+            {
+              "date": "2020-02",
+              "label": "Feb 2020",
+              "value": 102.8
+            },
+            {
+              "date": "2020-03",
+              "label": "Mar 2020",
+              "value": 101.6
+            },
+            {
+              "date": "2020-04",
+              "label": "Apr 2020",
+              "value": 95.9
+            },
+            {
+              "date": "2020-05",
+              "label": "May 2020",
+              "value": 94.5
+            },
+            {
+              "date": "2020-06",
+              "label": "Jun 2020",
+              "value": 98.3
+            },
+            {
+              "date": "2020-07",
+              "label": "Jul 2020",
+              "value": 101.8
+            },
+            {
+              "date": "2020-08",
+              "label": "Aug 2020",
+              "value": 102.1
+            },
+            {
+              "date": "2020-09",
+              "label": "Sep 2020",
+              "value": 102.3
+            },
+            {
+              "date": "2020-10",
+              "label": "Oct 2020",
+              "value": 104.5
+            },
+            {
+              "date": "2020-11",
+              "label": "Nov 2020",
+              "value": 105.4
+            },
+            {
+              "date": "2020-12",
+              "label": "Dec 2020",
+              "value": 108.7
+            },
+            {
+              "date": "2021-01",
+              "label": "Jan 2021",
+              "value": 111.1
+            },
+            {
+              "date": "2021-02",
+              "label": "Feb 2021",
+              "value": 112.8
+            },
+            {
+              "date": "2021-03",
+              "label": "Mar 2021",
+              "value": 117.2
+            },
+            {
+              "date": "2021-04",
+              "label": "Apr 2021",
+              "value": 119
+            },
+            {
+              "date": "2021-05",
+              "label": "May 2021",
+              "value": 121.2
+            },
+            {
+              "date": "2021-06",
+              "label": "Jun 2021",
+              "value": 120.1
+            },
+            {
+              "date": "2021-07",
+              "label": "Jul 2021",
+              "value": 117.2
+            },
+            {
+              "date": "2021-08",
+              "label": "Aug 2021",
+              "value": 117.2
+            },
+            {
+              "date": "2021-09",
+              "label": "Sep 2021",
+              "value": 119.2
+            },
+            {
+              "date": "2021-10",
+              "label": "Oct 2021",
+              "value": 122.6
+            },
+            {
+              "date": "2021-11",
+              "label": "Nov 2021",
+              "value": 127.2
+            },
+            {
+              "date": "2021-12",
+              "label": "Dec 2021",
+              "value": 130.4
+            },
+            {
+              "date": "2022-01",
+              "label": "Jan 2022",
+              "value": 134.3
+            },
+            {
+              "date": "2022-02",
+              "label": "Feb 2022",
+              "value": 145
+            },
+            {
+              "date": "2022-03",
+              "label": "Mar 2022",
+              "value": 149.6
+            },
+            {
+              "date": "2022-04",
+              "label": "Apr 2022",
+              "value": 150.7
+            },
+            {
+              "date": "2022-05",
+              "label": "May 2022",
+              "value": 149.7
+            },
+            {
+              "date": "2022-06",
+              "label": "Jun 2022",
+              "value": 158.2
+            },
+            {
+              "date": "2022-07",
+              "label": "Jul 2022",
+              "value": 155.6
+            },
+            {
+              "date": "2022-08",
+              "label": "Aug 2022",
+              "value": 153.1
+            },
+            {
+              "date": "2022-09",
+              "label": "Sep 2022",
+              "value": 152.8
+            },
+            {
+              "date": "2022-10",
+              "label": "Oct 2022",
+              "value": 149.2
+            },
+            {
+              "date": "2022-11",
+              "label": "Nov 2022",
+              "value": 147.4
+            },
+            {
+              "date": "2022-12",
+              "label": "Dec 2022",
+              "value": 148.6
+            },
+            {
+              "date": "2023-01",
+              "label": "Jan 2023",
+              "value": 144.7
+            },
+            {
+              "date": "2023-02",
+              "label": "Feb 2023",
+              "value": 138.7
+            },
+            {
+              "date": "2023-03",
+              "label": "Mar 2023",
+              "value": 135.3
+            },
+            {
+              "date": "2023-04",
+              "label": "Apr 2023",
+              "value": 129.3
+            },
+            {
+              "date": "2023-05",
+              "label": "May 2023",
+              "value": 121.7
+            },
+            {
+              "date": "2023-06",
+              "label": "Jun 2023",
+              "value": 119.9
+            },
+            {
+              "date": "2023-07",
+              "label": "Jul 2023",
+              "value": 119.1
+            },
+            {
+              "date": "2023-08",
+              "label": "Aug 2023",
+              "value": 114.3
+            },
+            {
+              "date": "2023-09",
+              "label": "Sep 2023",
+              "value": 112
+            },
+            {
+              "date": "2023-10",
+              "label": "Oct 2023",
+              "value": 114.6
+            },
+            {
+              "date": "2023-11",
+              "label": "Nov 2023",
+              "value": 116.5
+            },
+            {
+              "date": "2023-12",
+              "label": "Dec 2023",
+              "value": 118.7
+            },
+            {
+              "date": "2024-01",
+              "label": "Jan 2024",
+              "value": 118.7
+            },
+            {
+              "date": "2024-02",
+              "label": "Feb 2024",
+              "value": 120.7
+            },
+            {
+              "date": "2024-03",
+              "label": "Mar 2024",
+              "value": 124
+            },
+            {
+              "date": "2024-04",
+              "label": "Apr 2024",
+              "value": 123.8
+            },
+            {
+              "date": "2024-05",
+              "label": "May 2024",
+              "value": 126.3
+            },
+            {
+              "date": "2024-06",
+              "label": "Jun 2024",
+              "value": 127.9
+            },
+            {
+              "date": "2024-07",
+              "label": "Jul 2024",
+              "value": 127.8
+            },
+            {
+              "date": "2024-08",
+              "label": "Aug 2024",
+              "value": 131.3
+            },
+            {
+              "date": "2024-09",
+              "label": "Sep 2024",
+              "value": 136.5
+            },
+            {
+              "date": "2024-10",
+              "label": "Oct 2024",
+              "value": 138.6
+            },
+            {
+              "date": "2024-11",
+              "label": "Nov 2024",
+              "value": 139.8
+            },
+            {
+              "date": "2024-12",
+              "label": "Dec 2024",
+              "value": 141.2
+            },
+            {
+              "date": "2025-01",
+              "label": "Jan 2025",
+              "value": 143.1
+            },
+            {
+              "date": "2025-02",
+              "label": "Feb 2025",
+              "value": 147.7
+            },
+            {
+              "date": "2025-03",
+              "label": "Mar 2025",
+              "value": 148.7
+            },
+            {
+              "date": "2025-04",
+              "label": "Apr 2025",
+              "value": 151.7
+            },
+            {
+              "date": "2025-05",
+              "label": "May 2025",
+              "value": 153.6
+            },
+            {
+              "date": "2025-06",
+              "label": "Jun 2025",
+              "value": 155.5
+            },
+            {
+              "date": "2025-07",
+              "label": "Jul 2025",
+              "value": 154.6
+            },
+            {
+              "date": "2025-08",
+              "label": "Aug 2025",
+              "value": 152.2
+            },
+            {
+              "date": "2025-09",
+              "label": "Sep 2025",
+              "value": 147.2
+            },
+            {
+              "date": "2025-10",
+              "label": "Oct 2025",
+              "value": 141.7
+            },
+            {
+              "date": "2025-11",
+              "label": "Nov 2025",
+              "value": 136.2
+            },
+            {
+              "date": "2025-12",
+              "label": "Dec 2025",
+              "value": 128.2
+            },
+            {
+              "date": "2026-01",
+              "label": "Jan 2026",
+              "value": 120.9
+            },
+            {
+              "date": "2026-02",
+              "label": "Feb 2026",
+              "value": 119.4
+            },
+            {
+              "date": "2026-03",
+              "label": "Mar 2026",
+              "value": 121.2
+            },
+            {
+              "date": "2026-04",
+              "label": "Apr 2026",
+              "value": 119.7
+            },
+            {
+              "date": "2026-05",
+              "label": "May 2026",
+              "value": 119.1
+            },
+            {
+              "date": "2026-06",
+              "label": "Jun 2026",
+              "value": 117
+            },
+            {
+              "date": "2026-07",
+              "label": "Jul 2026",
+              "value": 116.2
+            }
           ]
         },
         {
           "label": "Meat",
-          "definition": "Monthly movement in international quotations for bovine, ovine, pig, and poultry meat.",
+          "definition": "International quotations for bovine, ovine, pig, and poultry meat.",
           "color": "#89583f",
           "points": [
-            { "date": "2025-08", "label": "Aug 2025", "value": 127.8 },
-            { "date": "2025-09", "label": "Sep", "value": 127.9 },
-            { "date": "2025-10", "label": "Oct", "value": 125.0 },
-            { "date": "2025-11", "label": "Nov", "value": 125.5 },
-            { "date": "2025-12", "label": "Dec", "value": 124.8 },
-            { "date": "2026-01", "label": "Jan 2026", "value": 124.9 },
-            { "date": "2026-02", "label": "Feb", "value": 126.5 },
-            { "date": "2026-03", "label": "Mar", "value": 128.0 },
-            { "date": "2026-04", "label": "Apr", "value": 130.4 },
-            { "date": "2026-05", "label": "May", "value": 131.3 },
-            { "date": "2026-06", "label": "Jun", "value": 131.3 },
-            { "date": "2026-07", "label": "Jul", "value": 127.7 }
+            {
+              "date": "2016-08",
+              "label": "Aug 2016",
+              "value": 96.4
+            },
+            {
+              "date": "2016-09",
+              "label": "Sep 2016",
+              "value": 94.9
+            },
+            {
+              "date": "2016-10",
+              "label": "Oct 2016",
+              "value": 93
+            },
+            {
+              "date": "2016-11",
+              "label": "Nov 2016",
+              "value": 93.9
+            },
+            {
+              "date": "2016-12",
+              "label": "Dec 2016",
+              "value": 91.2
+            },
+            {
+              "date": "2017-01",
+              "label": "Jan 2017",
+              "value": 92.2
+            },
+            {
+              "date": "2017-02",
+              "label": "Feb 2017",
+              "value": 94
+            },
+            {
+              "date": "2017-03",
+              "label": "Mar 2017",
+              "value": 95.4
+            },
+            {
+              "date": "2017-04",
+              "label": "Apr 2017",
+              "value": 97.3
+            },
+            {
+              "date": "2017-05",
+              "label": "May 2017",
+              "value": 99.3
+            },
+            {
+              "date": "2017-06",
+              "label": "Jun 2017",
+              "value": 100.1
+            },
+            {
+              "date": "2017-07",
+              "label": "Jul 2017",
+              "value": 100.6
+            },
+            {
+              "date": "2017-08",
+              "label": "Aug 2017",
+              "value": 100
+            },
+            {
+              "date": "2017-09",
+              "label": "Sep 2017",
+              "value": 98.6
+            },
+            {
+              "date": "2017-10",
+              "label": "Oct 2017",
+              "value": 98.2
+            },
+            {
+              "date": "2017-11",
+              "label": "Nov 2017",
+              "value": 98
+            },
+            {
+              "date": "2017-12",
+              "label": "Dec 2017",
+              "value": 96
+            },
+            {
+              "date": "2018-01",
+              "label": "Jan 2018",
+              "value": 95.3
+            },
+            {
+              "date": "2018-02",
+              "label": "Feb 2018",
+              "value": 96.6
+            },
+            {
+              "date": "2018-03",
+              "label": "Mar 2018",
+              "value": 96.6
+            },
+            {
+              "date": "2018-04",
+              "label": "Apr 2018",
+              "value": 95.4
+            },
+            {
+              "date": "2018-05",
+              "label": "May 2018",
+              "value": 94.9
+            },
+            {
+              "date": "2018-06",
+              "label": "Jun 2018",
+              "value": 94.7
+            },
+            {
+              "date": "2018-07",
+              "label": "Jul 2018",
+              "value": 94.3
+            },
+            {
+              "date": "2018-08",
+              "label": "Aug 2018",
+              "value": 95.4
+            },
+            {
+              "date": "2018-09",
+              "label": "Sep 2018",
+              "value": 93.4
+            },
+            {
+              "date": "2018-10",
+              "label": "Oct 2018",
+              "value": 91.9
+            },
+            {
+              "date": "2018-11",
+              "label": "Nov 2018",
+              "value": 92.1
+            },
+            {
+              "date": "2018-12",
+              "label": "Dec 2018",
+              "value": 92.3
+            },
+            {
+              "date": "2019-01",
+              "label": "Jan 2019",
+              "value": 91.6
+            },
+            {
+              "date": "2019-02",
+              "label": "Feb 2019",
+              "value": 92.5
+            },
+            {
+              "date": "2019-03",
+              "label": "Mar 2019",
+              "value": 94
+            },
+            {
+              "date": "2019-04",
+              "label": "Apr 2019",
+              "value": 97.3
+            },
+            {
+              "date": "2019-05",
+              "label": "May 2019",
+              "value": 100.2
+            },
+            {
+              "date": "2019-06",
+              "label": "Jun 2019",
+              "value": 101.2
+            },
+            {
+              "date": "2019-07",
+              "label": "Jul 2019",
+              "value": 102.3
+            },
+            {
+              "date": "2019-08",
+              "label": "Aug 2019",
+              "value": 101.6
+            },
+            {
+              "date": "2019-09",
+              "label": "Sep 2019",
+              "value": 100.6
+            },
+            {
+              "date": "2019-10",
+              "label": "Oct 2019",
+              "value": 100.9
+            },
+            {
+              "date": "2019-11",
+              "label": "Nov 2019",
+              "value": 105.4
+            },
+            {
+              "date": "2019-12",
+              "label": "Dec 2019",
+              "value": 106
+            },
+            {
+              "date": "2020-01",
+              "label": "Jan 2020",
+              "value": 103.5
+            },
+            {
+              "date": "2020-02",
+              "label": "Feb 2020",
+              "value": 101
+            },
+            {
+              "date": "2020-03",
+              "label": "Mar 2020",
+              "value": 99.5
+            },
+            {
+              "date": "2020-04",
+              "label": "Apr 2020",
+              "value": 96.5
+            },
+            {
+              "date": "2020-05",
+              "label": "May 2020",
+              "value": 95.4
+            },
+            {
+              "date": "2020-06",
+              "label": "Jun 2020",
+              "value": 94.5
+            },
+            {
+              "date": "2020-07",
+              "label": "Jul 2020",
+              "value": 91.4
+            },
+            {
+              "date": "2020-08",
+              "label": "Aug 2020",
+              "value": 91.4
+            },
+            {
+              "date": "2020-09",
+              "label": "Sep 2020",
+              "value": 91.2
+            },
+            {
+              "date": "2020-10",
+              "label": "Oct 2020",
+              "value": 91.6
+            },
+            {
+              "date": "2020-11",
+              "label": "Nov 2020",
+              "value": 93.1
+            },
+            {
+              "date": "2020-12",
+              "label": "Dec 2020",
+              "value": 94.7
+            },
+            {
+              "date": "2021-01",
+              "label": "Jan 2021",
+              "value": 95.9
+            },
+            {
+              "date": "2021-02",
+              "label": "Feb 2021",
+              "value": 97.7
+            },
+            {
+              "date": "2021-03",
+              "label": "Mar 2021",
+              "value": 100.5
+            },
+            {
+              "date": "2021-04",
+              "label": "Apr 2021",
+              "value": 104.4
+            },
+            {
+              "date": "2021-05",
+              "label": "May 2021",
+              "value": 108.1
+            },
+            {
+              "date": "2021-06",
+              "label": "Jun 2021",
+              "value": 110.9
+            },
+            {
+              "date": "2021-07",
+              "label": "Jul 2021",
+              "value": 113.3
+            },
+            {
+              "date": "2021-08",
+              "label": "Aug 2021",
+              "value": 113.1
+            },
+            {
+              "date": "2021-09",
+              "label": "Sep 2021",
+              "value": 112.1
+            },
+            {
+              "date": "2021-10",
+              "label": "Oct 2021",
+              "value": 111.6
+            },
+            {
+              "date": "2021-11",
+              "label": "Nov 2021",
+              "value": 112.4
+            },
+            {
+              "date": "2021-12",
+              "label": "Dec 2021",
+              "value": 110.5
+            },
+            {
+              "date": "2022-01",
+              "label": "Jan 2022",
+              "value": 111.7
+            },
+            {
+              "date": "2022-02",
+              "label": "Feb 2022",
+              "value": 113.7
+            },
+            {
+              "date": "2022-03",
+              "label": "Mar 2022",
+              "value": 119.3
+            },
+            {
+              "date": "2022-04",
+              "label": "Apr 2022",
+              "value": 121.3
+            },
+            {
+              "date": "2022-05",
+              "label": "May 2022",
+              "value": 122.5
+            },
+            {
+              "date": "2022-06",
+              "label": "Jun 2022",
+              "value": 125.4
+            },
+            {
+              "date": "2022-07",
+              "label": "Jul 2022",
+              "value": 123.3
+            },
+            {
+              "date": "2022-08",
+              "label": "Aug 2022",
+              "value": 120.3
+            },
+            {
+              "date": "2022-09",
+              "label": "Sep 2022",
+              "value": 119.9
+            },
+            {
+              "date": "2022-10",
+              "label": "Oct 2022",
+              "value": 116.5
+            },
+            {
+              "date": "2022-11",
+              "label": "Nov 2022",
+              "value": 114.1
+            },
+            {
+              "date": "2022-12",
+              "label": "Dec 2022",
+              "value": 111.9
+            },
+            {
+              "date": "2023-01",
+              "label": "Jan 2023",
+              "value": 110.5
+            },
+            {
+              "date": "2023-02",
+              "label": "Feb 2023",
+              "value": 112.1
+            },
+            {
+              "date": "2023-03",
+              "label": "Mar 2023",
+              "value": 114.1
+            },
+            {
+              "date": "2023-04",
+              "label": "Apr 2023",
+              "value": 116
+            },
+            {
+              "date": "2023-05",
+              "label": "May 2023",
+              "value": 117.4
+            },
+            {
+              "date": "2023-06",
+              "label": "Jun 2023",
+              "value": 118.6
+            },
+            {
+              "date": "2023-07",
+              "label": "Jul 2023",
+              "value": 117.9
+            },
+            {
+              "date": "2023-08",
+              "label": "Aug 2023",
+              "value": 114.5
+            },
+            {
+              "date": "2023-09",
+              "label": "Sep 2023",
+              "value": 113.4
+            },
+            {
+              "date": "2023-10",
+              "label": "Oct 2023",
+              "value": 112
+            },
+            {
+              "date": "2023-11",
+              "label": "Nov 2023",
+              "value": 111.6
+            },
+            {
+              "date": "2023-12",
+              "label": "Dec 2023",
+              "value": 111.2
+            },
+            {
+              "date": "2024-01",
+              "label": "Jan 2024",
+              "value": 108.9
+            },
+            {
+              "date": "2024-02",
+              "label": "Feb 2024",
+              "value": 112.5
+            },
+            {
+              "date": "2024-03",
+              "label": "Mar 2024",
+              "value": 114.9
+            },
+            {
+              "date": "2024-04",
+              "label": "Apr 2024",
+              "value": 116.6
+            },
+            {
+              "date": "2024-05",
+              "label": "May 2024",
+              "value": 116.7
+            },
+            {
+              "date": "2024-06",
+              "label": "Jun 2024",
+              "value": 118.1
+            },
+            {
+              "date": "2024-07",
+              "label": "Jul 2024",
+              "value": 120
+            },
+            {
+              "date": "2024-08",
+              "label": "Aug 2024",
+              "value": 122
+            },
+            {
+              "date": "2024-09",
+              "label": "Sep 2024",
+              "value": 119.9
+            },
+            {
+              "date": "2024-10",
+              "label": "Oct 2024",
+              "value": 119.2
+            },
+            {
+              "date": "2024-11",
+              "label": "Nov 2024",
+              "value": 118.7
+            },
+            {
+              "date": "2024-12",
+              "label": "Dec 2024",
+              "value": 119.6
+            },
+            {
+              "date": "2025-01",
+              "label": "Jan 2025",
+              "value": 116.6
+            },
+            {
+              "date": "2025-02",
+              "label": "Feb 2025",
+              "value": 116.9
+            },
+            {
+              "date": "2025-03",
+              "label": "Mar 2025",
+              "value": 118.3
+            },
+            {
+              "date": "2025-04",
+              "label": "Apr 2025",
+              "value": 121.6
+            },
+            {
+              "date": "2025-05",
+              "label": "May 2025",
+              "value": 122.8
+            },
+            {
+              "date": "2025-06",
+              "label": "Jun 2025",
+              "value": 126
+            },
+            {
+              "date": "2025-07",
+              "label": "Jul 2025",
+              "value": 126.6
+            },
+            {
+              "date": "2025-08",
+              "label": "Aug 2025",
+              "value": 127.8
+            },
+            {
+              "date": "2025-09",
+              "label": "Sep 2025",
+              "value": 127.9
+            },
+            {
+              "date": "2025-10",
+              "label": "Oct 2025",
+              "value": 125
+            },
+            {
+              "date": "2025-11",
+              "label": "Nov 2025",
+              "value": 125.5
+            },
+            {
+              "date": "2025-12",
+              "label": "Dec 2025",
+              "value": 124.8
+            },
+            {
+              "date": "2026-01",
+              "label": "Jan 2026",
+              "value": 124.9
+            },
+            {
+              "date": "2026-02",
+              "label": "Feb 2026",
+              "value": 126.5
+            },
+            {
+              "date": "2026-03",
+              "label": "Mar 2026",
+              "value": 128
+            },
+            {
+              "date": "2026-04",
+              "label": "Apr 2026",
+              "value": 130.4
+            },
+            {
+              "date": "2026-05",
+              "label": "May 2026",
+              "value": 131.3
+            },
+            {
+              "date": "2026-06",
+              "label": "Jun 2026",
+              "value": 131.3
+            },
+            {
+              "date": "2026-07",
+              "label": "Jul 2026",
+              "value": 127.7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "us-all-milk-price",
+      "sector": "Dairy",
+      "region": "United States",
+      "title": "U.S. all-milk price",
+      "question": "How has the national milk-price environment changed?",
+      "description": "Monthly average price received by U.S. producers for all milk at the average milk-fat test.",
+      "period": "13 months",
+      "cadence": "Monthly",
+      "basis": "National dollars per hundredweight. This is an industry average, not an individual producer’s milk check.",
+      "unit": "dollars per hundredweight",
+      "format": "currency-2",
+      "updatedAt": "2026-08-16",
+      "sourceId": "usda-ers-dairy",
+      "sourceUrl": "https://www.ers.usda.gov/media/5501/us-dairy-situation-at-a-glance-monthly-and-annual.csv?v=54172",
+      "sourceTitle": "USDA ERS U.S. dairy situation at a glance",
+      "note": "Monthly prices are national averages and do not include regional basis, component premiums, deductions, or individual farm costs.",
+      "series": [
+        {
+          "label": "All-milk price",
+          "definition": "Average price received by U.S. producers for all milk sold during the month.",
+          "color": "#2f6d56",
+          "points": [
+            {
+              "date": "2025-06",
+              "label": "Jun 2025",
+              "value": 21.3
+            },
+            {
+              "date": "2025-07",
+              "label": "Jul 2025",
+              "value": 20.8
+            },
+            {
+              "date": "2025-08",
+              "label": "Aug 2025",
+              "value": 20.9
+            },
+            {
+              "date": "2025-09",
+              "label": "Sep 2025",
+              "value": 20.4
+            },
+            {
+              "date": "2025-10",
+              "label": "Oct 2025",
+              "value": 19.9
+            },
+            {
+              "date": "2025-11",
+              "label": "Nov 2025",
+              "value": 19.6
+            },
+            {
+              "date": "2025-12",
+              "label": "Dec 2025",
+              "value": 19
+            },
+            {
+              "date": "2026-01",
+              "label": "Jan 2026",
+              "value": 17.5
+            },
+            {
+              "date": "2026-02",
+              "label": "Feb 2026",
+              "value": 18.3
+            },
+            {
+              "date": "2026-03",
+              "label": "Mar 2026",
+              "value": 19.7
+            },
+            {
+              "date": "2026-04",
+              "label": "Apr 2026",
+              "value": 20.8
+            },
+            {
+              "date": "2026-05",
+              "label": "May 2026",
+              "value": 21.3
+            },
+            {
+              "date": "2026-06",
+              "label": "Jun 2026",
+              "value": 21.1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "us-milk-production",
+      "sector": "Dairy",
+      "region": "United States",
+      "title": "U.S. milk production",
+      "question": "Is the national milk supply expanding or contracting?",
+      "description": "Quarterly U.S. milk production over the last ten years, including the recurring seasonal pattern.",
+      "period": "10 years",
+      "cadence": "Quarterly",
+      "basis": "National production in millions of pounds. Quarter-to-quarter comparisons are seasonal; year-over-year change is the cleaner signal.",
+      "unit": "million pounds",
+      "format": "integer",
+      "updatedAt": "2026-08-16",
+      "sourceId": "usda-ers-dairy",
+      "sourceUrl": "https://www.ers.usda.gov/media/5503/us-milk-production-and-related-data-quarterly-and-annual.csv?v=49334",
+      "sourceTitle": "USDA ERS quarterly U.S. milk production data",
+      "note": "Use year-over-year change to separate underlying supply movement from normal seasonal production patterns. Quarterly totals are not directly comparable with monthly totals.",
+      "series": [
+        {
+          "label": "Milk production",
+          "definition": "Total milk produced in the United States during the reporting quarter.",
+          "color": "#526884",
+          "points": [
+            {
+              "date": "2016-03",
+              "label": "Q1 2016",
+              "value": 52975
+            },
+            {
+              "date": "2016-06",
+              "label": "Q2 2016",
+              "value": 54344
+            },
+            {
+              "date": "2016-09",
+              "label": "Q3 2016",
+              "value": 52581
+            },
+            {
+              "date": "2016-12",
+              "label": "Q4 2016",
+              "value": 52551
+            },
+            {
+              "date": "2017-03",
+              "label": "Q1 2017",
+              "value": 53596
+            },
+            {
+              "date": "2017-06",
+              "label": "Q2 2017",
+              "value": 55388
+            },
+            {
+              "date": "2017-09",
+              "label": "Q3 2017",
+              "value": 53438
+            },
+            {
+              "date": "2017-12",
+              "label": "Q4 2017",
+              "value": 53105
+            },
+            {
+              "date": "2018-03",
+              "label": "Q1 2018",
+              "value": 54408
+            },
+            {
+              "date": "2018-06",
+              "label": "Q2 2018",
+              "value": 55822
+            },
+            {
+              "date": "2018-09",
+              "label": "Q3 2018",
+              "value": 53975
+            },
+            {
+              "date": "2018-12",
+              "label": "Q4 2018",
+              "value": 53379
+            },
+            {
+              "date": "2019-03",
+              "label": "Q1 2019",
+              "value": 54423
+            },
+            {
+              "date": "2019-06",
+              "label": "Q2 2019",
+              "value": 55722
+            },
+            {
+              "date": "2019-09",
+              "label": "Q3 2019",
+              "value": 54261
+            },
+            {
+              "date": "2019-12",
+              "label": "Q4 2019",
+              "value": 54038
+            },
+            {
+              "date": "2020-03",
+              "label": "Q1 2020",
+              "value": 56170
+            },
+            {
+              "date": "2020-06",
+              "label": "Q2 2020",
+              "value": 56042
+            },
+            {
+              "date": "2020-09",
+              "label": "Q3 2020",
+              "value": 55399
+            },
+            {
+              "date": "2020-12",
+              "label": "Q4 2020",
+              "value": 55671
+            },
+            {
+              "date": "2021-03",
+              "label": "Q1 2021",
+              "value": 56854
+            },
+            {
+              "date": "2021-06",
+              "label": "Q2 2021",
+              "value": 58136
+            },
+            {
+              "date": "2021-09",
+              "label": "Q3 2021",
+              "value": 55833
+            },
+            {
+              "date": "2021-12",
+              "label": "Q4 2021",
+              "value": 55415
+            },
+            {
+              "date": "2022-03",
+              "label": "Q1 2022",
+              "value": 56289
+            },
+            {
+              "date": "2022-06",
+              "label": "Q2 2022",
+              "value": 57811
+            },
+            {
+              "date": "2022-09",
+              "label": "Q3 2022",
+              "value": 56418
+            },
+            {
+              "date": "2022-12",
+              "label": "Q4 2022",
+              "value": 55898
+            },
+            {
+              "date": "2023-03",
+              "label": "Q1 2023",
+              "value": 56856
+            },
+            {
+              "date": "2023-06",
+              "label": "Q2 2023",
+              "value": 58012
+            },
+            {
+              "date": "2023-09",
+              "label": "Q3 2023",
+              "value": 55965
+            },
+            {
+              "date": "2023-12",
+              "label": "Q4 2023",
+              "value": 55478
+            },
+            {
+              "date": "2024-03",
+              "label": "Q1 2024",
+              "value": 56954
+            },
+            {
+              "date": "2024-06",
+              "label": "Q2 2024",
+              "value": 57342
+            },
+            {
+              "date": "2024-09",
+              "label": "Q3 2024",
+              "value": 56094
+            },
+            {
+              "date": "2024-12",
+              "label": "Q4 2024",
+              "value": 55499
+            },
+            {
+              "date": "2025-03",
+              "label": "Q1 2025",
+              "value": 56865
+            },
+            {
+              "date": "2025-06",
+              "label": "Q2 2025",
+              "value": 58783
+            },
+            {
+              "date": "2025-09",
+              "label": "Q3 2025",
+              "value": 58208
+            },
+            {
+              "date": "2025-12",
+              "label": "Q4 2025",
+              "value": 57802
+            },
+            {
+              "date": "2026-03",
+              "label": "Q1 2026",
+              "value": 58603
+            },
+            {
+              "date": "2026-06",
+              "label": "Q2 2026",
+              "value": 60194
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "us-beef-retail-values",
+      "sector": "Meat",
+      "region": "United States",
+      "title": "U.S. retail beef values",
+      "question": "How quickly are national beef values moving at retail?",
+      "description": "Monthly national Choice and all-fresh beef retail values over the available two-year window.",
+      "period": "24 months",
+      "cadence": "Monthly",
+      "basis": "National average dollars per pound of retail equivalent, converted from the source series reported in cents per pound.",
+      "unit": "dollars per pound",
+      "format": "currency-2",
+      "updatedAt": "2026-08-16",
+      "sourceId": "usda-ers-livestock",
+      "sourceUrl": "https://www.ers.usda.gov/media/5020/choice-beef-values-and-spreads-and-the-all-fresh-retail-value.csv?v=89708",
+      "sourceTitle": "USDA ERS Choice beef values and spreads",
+      "note": "The source combines BLS retail data with USDA AMS livestock and wholesale market reporting. Values are national averages.",
+      "series": [
+        {
+          "label": "Choice beef",
+          "definition": "Retail-equivalent value for Choice-grade beef from a standardized animal and cutting profile.",
+          "color": "#89583f",
+          "points": [
+            {
+              "date": "2024-08",
+              "label": "Aug 2024",
+              "value": 8.515
+            },
+            {
+              "date": "2024-09",
+              "label": "Sep 2024",
+              "value": 8.408
+            },
+            {
+              "date": "2024-10",
+              "label": "Oct 2024",
+              "value": 8.107000000000001
+            },
+            {
+              "date": "2024-11",
+              "label": "Nov 2024",
+              "value": 8.324
+            },
+            {
+              "date": "2024-12",
+              "label": "Dec 2024",
+              "value": 8.379
+            },
+            {
+              "date": "2025-01",
+              "label": "Jan 2025",
+              "value": 8.526
+            },
+            {
+              "date": "2025-02",
+              "label": "Feb 2025",
+              "value": 8.637
+            },
+            {
+              "date": "2025-03",
+              "label": "Mar 2025",
+              "value": 8.745
+            },
+            {
+              "date": "2025-04",
+              "label": "Apr 2025",
+              "value": 8.832
+            },
+            {
+              "date": "2025-05",
+              "label": "May 2025",
+              "value": 8.811
+            },
+            {
+              "date": "2025-06",
+              "label": "Jun 2025",
+              "value": 9.266
+            },
+            {
+              "date": "2025-07",
+              "label": "Jul 2025",
+              "value": 9.69
+            },
+            {
+              "date": "2025-08",
+              "label": "Aug 2025",
+              "value": 9.852
+            },
+            {
+              "date": "2025-09",
+              "label": "Sep 2025",
+              "value": 9.92
+            },
+            {
+              "date": "2025-10",
+              "label": "Oct 2025",
+              "value": 10.113
+            },
+            {
+              "date": "2025-11",
+              "label": "Nov 2025",
+              "value": 10.083
+            },
+            {
+              "date": "2025-12",
+              "label": "Dec 2025",
+              "value": 10.084
+            },
+            {
+              "date": "2026-01",
+              "label": "Jan 2026",
+              "value": 9.925
+            },
+            {
+              "date": "2026-02",
+              "label": "Feb 2026",
+              "value": 10.123
+            },
+            {
+              "date": "2026-03",
+              "label": "Mar 2026",
+              "value": 10.085
+            },
+            {
+              "date": "2026-04",
+              "label": "Apr 2026",
+              "value": 10.472999999999999
+            },
+            {
+              "date": "2026-05",
+              "label": "May 2026",
+              "value": 10.347000000000001
+            },
+            {
+              "date": "2026-06",
+              "label": "Jun 2026",
+              "value": 10.45
+            },
+            {
+              "date": "2026-07",
+              "label": "Jul 2026",
+              "value": 10.487
+            }
+          ]
+        },
+        {
+          "label": "All-fresh beef",
+          "definition": "BLS-derived average retail value for fresh beef sold to U.S. consumers.",
+          "color": "#b28664",
+          "points": [
+            {
+              "date": "2024-08",
+              "label": "Aug 2024",
+              "value": 8.155
+            },
+            {
+              "date": "2024-09",
+              "label": "Sep 2024",
+              "value": 8.208
+            },
+            {
+              "date": "2024-10",
+              "label": "Oct 2024",
+              "value": 8.075
+            },
+            {
+              "date": "2024-11",
+              "label": "Nov 2024",
+              "value": 8.056000000000001
+            },
+            {
+              "date": "2024-12",
+              "label": "Dec 2024",
+              "value": 8.078
+            },
+            {
+              "date": "2025-01",
+              "label": "Jan 2025",
+              "value": 8.15
+            },
+            {
+              "date": "2025-02",
+              "label": "Feb 2025",
+              "value": 8.316
+            },
+            {
+              "date": "2025-03",
+              "label": "Mar 2025",
+              "value": 8.422
+            },
+            {
+              "date": "2025-04",
+              "label": "Apr 2025",
+              "value": 8.501
+            },
+            {
+              "date": "2025-05",
+              "label": "May 2025",
+              "value": 8.406
+            },
+            {
+              "date": "2025-06",
+              "label": "Jun 2025",
+              "value": 8.631
+            },
+            {
+              "date": "2025-07",
+              "label": "Jul 2025",
+              "value": 8.902999999999999
+            },
+            {
+              "date": "2025-08",
+              "label": "Aug 2025",
+              "value": 9.183
+            },
+            {
+              "date": "2025-09",
+              "label": "Sep 2025",
+              "value": 9.271
+            },
+            {
+              "date": "2025-10",
+              "label": "Oct 2025",
+              "value": 9.381
+            },
+            {
+              "date": "2025-11",
+              "label": "Nov 2025",
+              "value": 9.524
+            },
+            {
+              "date": "2025-12",
+              "label": "Dec 2025",
+              "value": 9.551
+            },
+            {
+              "date": "2026-01",
+              "label": "Jan 2026",
+              "value": 9.466000000000001
+            },
+            {
+              "date": "2026-02",
+              "label": "Feb 2026",
+              "value": 9.685
+            },
+            {
+              "date": "2026-03",
+              "label": "Mar 2026",
+              "value": 9.594
+            },
+            {
+              "date": "2026-04",
+              "label": "Apr 2026",
+              "value": 9.996
+            },
+            {
+              "date": "2026-05",
+              "label": "May 2026",
+              "value": 9.519
+            },
+            {
+              "date": "2026-06",
+              "label": "Jun 2026",
+              "value": 9.642999999999999
+            },
+            {
+              "date": "2026-07",
+              "label": "Jul 2026",
+              "value": 9.753
+            }
           ]
         }
       ]
     },
     {
       "id": "us-cattle-snapshots",
+      "sector": "Meat",
+      "region": "United States",
       "title": "U.S. cattle supply",
-      "description": "July 1 inventory and annual calf crop, 2025 and 2026",
+      "question": "What is changing in the domestic cattle base?",
+      "description": "July 1 inventory and annual calf-crop estimates for 2025 and 2026.",
       "period": "Annual snapshots",
       "cadence": "Annual",
       "basis": "USDA national estimates in millions of animals. Beef cows are a July 1 inventory; calf crop covers the calendar year.",
       "unit": "million head",
+      "format": "decimal-1",
+      "updatedAt": "2026-08-16",
       "sourceId": "usda-nass",
       "sourceUrl": "https://data.nass.usda.gov/Newsroom/2026/07-24-2026.php",
       "sourceTitle": "USDA NASS cattle inventory releases",
-      "note": "July cattle inventory reporting was not conducted in 2024. The chart begins with the resumed July 2025 release.",
+      "note": "July cattle inventory reporting was not conducted in 2024. No value is interpolated for that missing release.",
       "series": [
         {
           "label": "Beef cows",
           "definition": "Cows and heifers that have calved and are kept for beef production, estimated on July 1.",
           "color": "#89583f",
           "points": [
-            { "date": "2025-07", "label": "Jul 2025", "value": 28.7 },
-            { "date": "2026-07", "label": "Jul 2026", "value": 28.5 }
+            {
+              "date": "2025-07",
+              "label": "Jul 2025",
+              "value": 28.7
+            },
+            {
+              "date": "2026-07",
+              "label": "Jul 2026",
+              "value": 28.5
+            }
           ]
         },
         {
           "label": "Calf crop",
-          "definition": "Calves born during the calendar year, reported as USDA's annual national estimate.",
+          "definition": "Calves born during the calendar year, reported as USDA’s annual national estimate.",
           "color": "#526884",
           "points": [
-            { "date": "2025-07", "label": "2025", "value": 33.1 },
-            { "date": "2026-07", "label": "2026", "value": 32.5 }
+            {
+              "date": "2025-07",
+              "label": "Jul 2025",
+              "value": 33.1
+            },
+            {
+              "date": "2026-07",
+              "label": "Jul 2026",
+              "value": 32.5
+            }
           ]
         },
         {
@@ -90,8 +1895,16 @@
           "definition": "Cattle being fed a concentrated ration for slaughter in U.S. feedlots on the reporting date.",
           "color": "#2f6d56",
           "points": [
-            { "date": "2025-07", "label": "Jul 2025", "value": 13.0 },
-            { "date": "2026-07", "label": "Jul 2026", "value": 13.2 }
+            {
+              "date": "2025-07",
+              "label": "Jul 2025",
+              "value": 13
+            },
+            {
+              "date": "2026-07",
+              "label": "Jul 2026",
+              "value": 13.2
+            }
           ]
         }
       ]
