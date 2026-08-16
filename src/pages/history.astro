@@ -67,7 +67,7 @@ const groupedCharts = [
 
   <section class="dashboard-summary reveal delay-2" id="snapshot" aria-labelledby="dashboard-summary-title">
     <header>
-      <div><span>Latest available</span><h2 id="dashboard-summary-title">Owner snapshot</h2></div>
+      <div><span>Latest available</span><h2 id="dashboard-summary-title">Market snapshot</h2></div>
       <p>Each tile states its unit and reporting period. Comparisons use the prior year where available.</p>
     </header>
     <div class="dashboard-kpi-grid">
@@ -76,7 +76,13 @@ const groupedCharts = [
           <div class="dashboard-kpi-topline"><span>{metric.displayLabel}</span><i style={`--metric-color:${metric.series.color}`}></i></div>
           <div class="dashboard-kpi-value"><strong>{formatMetric(metric)}</strong><span>{metric.chart.unit}</span></div>
           <div class="dashboard-kpi-period"><span>{metric.latest.label}</span><span>{metric.chart.cadence}</span></div>
-          <MetricBars points={metric.visiblePoints} label={metric.displayLabel} color={metric.series.color} />
+          <MetricBars
+            points={metric.visiblePoints}
+            label={metric.displayLabel}
+            color={metric.series.color}
+            format={metric.chart.format}
+            unit={metric.chart.unit}
+          />
           <p class:list={{ positive: metric.change > 0, negative: metric.change < 0 }}>
             {metric.change > 0 ? "+" : ""}{metric.change.toFixed(1)}% {metric.basis}
           </p>

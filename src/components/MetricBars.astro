@@ -8,9 +8,11 @@ interface Props {
   points: Point[];
   label: string;
   color: string;
+  format: "integer" | "decimal-1" | "currency-2";
+  unit: string;
 }
 
-const { points, label, color } = Astro.props;
+const { points, label, color, format, unit } = Astro.props;
 const width = 240;
 const height = 86;
 const chartTop = 5;
@@ -22,40 +24,83 @@ const x = (index: number) => step * index + (step - barWidth) / 2;
 const barHeight = (value: number) => Math.max((value / max) * (baseline - chartTop), 1);
 const shortLabel = (value: string) => value.split(" ")[0];
 const latest = points.at(-1)!;
+const formatValue = (value: number) => format === "currency-2"
+  ? `$${value.toFixed(2)}`
+  : format === "integer"
+    ? Math.round(value).toLocaleString("en-US")
+    : value.toFixed(1);
 ---
 
-<svg
-  class="metric-period-bars"
-  viewBox={`0 0 ${width} ${height}`}
-  role="img"
-  aria-label={`${label} values by reporting period, from ${points[0].label} to ${latest.label}`}
-  style={`--bar-color:${color}`}
->
-  <line x1="0" x2={width} y1={baseline} y2={baseline} class="metric-period-baseline" />
-  {points.map((point, index) => {
-    const renderedHeight = barHeight(point.value);
-    const isLatest = index === points.length - 1;
-    return (
-      <g>
-        <rect
-          x={x(index)}
-          y={baseline - renderedHeight}
-          width={barWidth}
-          height={renderedHeight}
-          rx="2"
-          class:list={{ "metric-period-bar": true, latest: isLatest }}
-        >
-          <title>{point.label}: {point.value.toFixed(1)}</title>
-        </rect>
-        <text
-          x={x(index) + barWidth / 2}
-          y="80"
-          text-anchor="middle"
-          class:list={{ "metric-period-label": true, latest: isLatest }}
-        >
-          {shortLabel(point.label)}
-        </text>
-      </g>
-    );
-  })}
-</svg>
+<div class="metric-bars-widget" style={`--bar-color:${color};--tooltip-color:${color}`}>
+  <svg
+    class="metric-period-bars"
+    viewBox={`0 0 ${width} ${height}`}
+    role="img"
+    aria-label={`${label} values by reporting period, from ${points[0].label} to ${latest.label}`}
+  >
+    <line x1="0" x2={width} y1={baseline} y2={baseline} class="metric-period-baseline" />
+    {points.map((point, index) => {
+      const renderedHeight = barHeight(point.value);
+      const isLatest = index === points.length - 1;
+      return (
+        <g>
+          <rect
+            x={x(index)}
+            y={baseline - renderedHeight}
+            width={barWidth}
+            height={renderedHeight}
+            rx="2"
+            class:list={{ "metric-period-bar": true, latest: isLatest }}
+            data-period={point.label}
+            data-value={formatValue(point.value)}
+            data-unit={unit}
+          />
+          <text
+            x={x(index) + barWidth / 2}
+            y="80"
+            text-anchor="middle"
+            class:list={{ "metric-period-label": true, latest: isLatest }}
+          >
+            {shortLabel(point.label)}
+          </text>
+        </g>
+      );
+    })}
+  </svg>
+  <div class="dashboard-tooltip metric-bars-tooltip" role="tooltip" hidden>
+    <span></span><strong></strong><small></small>
+  </div>
+</div>
+
+<script>
+  function positionTooltip(tooltip: HTMLElement, clientX: number, clientY: number) {
+    tooltip.hidden = false;
+    const bounds = tooltip.getBoundingClientRect();
+    const left = Math.min(clientX + 14, window.innerWidth - bounds.width - 10);
+    const top = clientY - bounds.height - 14 > 8 ? clientY - bounds.height - 14 : clientY + 14;
+    tooltip.style.left = `${Math.max(8, left)}px`;
+    tooltip.style.top = `${Math.max(8, top)}px`;
+  }
+
+  document.querySelectorAll<HTMLElement>(".metric-bars-widget").forEach((widget) => {
+    if (widget.dataset.ready) return;
+    widget.dataset.ready = "true";
+    const tooltip = widget.querySelector<HTMLElement>(".metric-bars-tooltip");
+    if (!tooltip) return;
+    const period = tooltip.querySelector<HTMLElement>("span");
+    const value = tooltip.querySelector<HTMLElement>("strong");
+    const unit = tooltip.querySelector<HTMLElement>("small");
+    widget.querySelectorAll<SVGRectElement>(".metric-period-bar").forEach((bar) => {
+      const show = (event: PointerEvent) => {
+        if (period) period.textContent = bar.dataset.period ?? "";
+        if (value) value.textContent = bar.dataset.value ?? "";
+        if (unit) unit.textContent = bar.dataset.unit ?? "";
+        positionTooltip(tooltip, event.clientX, event.clientY);
+      };
+      bar.addEventListener("pointerenter", show);
+      bar.addEventListener("pointermove", show);
+      bar.addEventListener("pointerdown", show);
+      bar.addEventListener("pointerleave", () => { tooltip.hidden = true; });
+    });
+  });
+</script>

@@ -18,7 +18,9 @@ const rangeOptions = (chart.cadence === "Annual" ? [] : [
 ]).filter((option) => monthSpan >= option.months - 1);
 const defaultRange = chart.cadence === "Quarterly" && rangeOptions.some((option) => option.months === 60)
   ? 60
-  : rangeOptions[0]?.months ?? monthSpan;
+  : rangeOptions[0]?.months ?? "all";
+const largestNamedRange = rangeOptions.at(-1)?.months ?? 0;
+const showFullRange = rangeOptions.length > 0 && monthSpan > largestNamedRange;
 const chartPayload = JSON.stringify(chart).replaceAll("<", "\\u003c");
 
 function formatValue(value: number) {
@@ -59,16 +61,18 @@ function formatValue(value: number) {
     </div>
   </header>
 
-  <div class="history-chart-toolbar" aria-label={`${chart.title} chart controls`}>
-    <fieldset class="history-range-control">
-      <legend>Time range</legend>
-      <div>
-        {rangeOptions.map((option) => (
-          <button type="button" data-range={option.months} aria-pressed={option.months === defaultRange ? "true" : "false"}>{option.label}</button>
-        ))}
-        <button type="button" data-range="all" aria-pressed={rangeOptions.length === 0 ? "true" : "false"}>All</button>
-      </div>
-    </fieldset>
+  <div class:list={["history-chart-toolbar", { "single-control": rangeOptions.length === 0 }]} aria-label={`${chart.title} chart controls`}>
+    {rangeOptions.length > 0 && (
+      <fieldset class="history-range-control">
+        <legend>Time range</legend>
+        <div>
+          {rangeOptions.map((option) => (
+            <button type="button" data-range={option.months} aria-pressed={option.months === defaultRange ? "true" : "false"}>{option.label}</button>
+          ))}
+          {showFullRange && <button type="button" data-range="all" aria-pressed="false">Full</button>}
+        </div>
+      </fieldset>
+    )}
     <fieldset class="history-view-control">
       <legend>View</legend>
       <div>
@@ -79,6 +83,9 @@ function formatValue(value: number) {
   </div>
 
   <div class="history-plot" role="img" aria-label={`${chart.title}. Use the controls to change the period and view.`}></div>
+  <div class="dashboard-tooltip history-hover-tooltip" role="tooltip" hidden>
+    <span data-tooltip-period></span><strong data-tooltip-value></strong><small data-tooltip-series></small><small data-tooltip-change hidden></small>
+  </div>
 
   <div class="history-insights" aria-live="polite">
     <div><span>Range change</span><strong data-insight="change">Loading</strong></div>
@@ -144,12 +151,23 @@ function formatValue(value: number) {
     if (!dataElement || !plotElement) return;
     const plotContainer = plotElement;
     const chart = JSON.parse(dataElement.textContent ?? "") as Chart;
+    const tooltip = root.querySelector<HTMLElement>(".history-hover-tooltip");
     let range = root.dataset.defaultRange ?? "all";
     let view = "value";
     let resizeTimer = 0;
 
     const rangeButtons = [...root.querySelectorAll<HTMLButtonElement>("[data-range]")];
     const viewButtons = [...root.querySelectorAll<HTMLButtonElement>("[data-view]")];
+
+    function positionTooltip(clientX: number, clientY: number) {
+      if (!tooltip) return;
+      tooltip.hidden = false;
+      const bounds = tooltip.getBoundingClientRect();
+      const left = Math.min(clientX + 14, window.innerWidth - bounds.width - 10);
+      const top = clientY - bounds.height - 14 > 8 ? clientY - bounds.height - 14 : clientY + 14;
+      tooltip.style.left = `${Math.max(8, left)}px`;
+      tooltip.style.top = `${Math.max(8, top)}px`;
+    }
 
     function render() {
       const latestMonth = Math.max(...chart.series.flatMap((series) => series.points.map((point) => monthNumber(point.date))));
@@ -215,13 +233,35 @@ function formatValue(value: number) {
             fill: "series",
             opacity: 0.88,
             rx: 2,
-            tip: true,
-            title: (row) => `${row.series}\n${row.period}\n${displayValue(chart, row.rawValue, "value")}${view === "change" ? `\n${displayValue(chart, row.plottedValue, "change")} from range start` : ""}`
+            className: "history-plot-bar"
           })
         ]
       });
       plot.setAttribute("aria-label", `${chart.title}, ${periods[0]?.[1] ?? ""} through ${periods.at(-1)?.[1] ?? ""}`);
       plotContainer.replaceChildren(plot);
+      const bars = [...plot.querySelectorAll<SVGRectElement>(".history-plot-bar rect, rect.history-plot-bar")];
+      bars.forEach((bar, index) => {
+        const row = rows[index];
+        if (!row || !tooltip) return;
+        const show = (event: PointerEvent) => {
+          const periodLabel = tooltip.querySelector<HTMLElement>("[data-tooltip-period]");
+          const valueLabel = tooltip.querySelector<HTMLElement>("[data-tooltip-value]");
+          const seriesLabel = tooltip.querySelector<HTMLElement>("[data-tooltip-series]");
+          const changeLabel = tooltip.querySelector<HTMLElement>("[data-tooltip-change]");
+          if (periodLabel) periodLabel.textContent = row.period;
+          if (valueLabel) valueLabel.textContent = displayValue(chart, row.rawValue, "value");
+          if (seriesLabel) seriesLabel.textContent = `${row.series} · ${chart.unit}`;
+          if (changeLabel) {
+            changeLabel.hidden = view !== "change";
+            changeLabel.textContent = `${displayValue(chart, row.plottedValue, "change")} from range start`;
+          }
+          tooltip.style.setProperty("--tooltip-color", chart.series.find((series) => series.label === row.series)?.color ?? "#173f32");
+          positionTooltip(event.clientX, event.clientY);
+        };
+        bar.addEventListener("pointerenter", show);
+        bar.addEventListener("pointermove", show);
+        bar.addEventListener("pointerdown", show);
+      });
 
       const allVisible = visibleSeries.flatMap((series) => series.points.map((point) => ({ ...point, series: series.label })));
       const latestChanges = visibleSeries.map((series) => {
@@ -258,6 +298,7 @@ function formatValue(value: number) {
       window.clearTimeout(resizeTimer);
       resizeTimer = window.setTimeout(render, 120);
     }).observe(plotContainer);
+    plotContainer.addEventListener("pointerleave", () => { if (tooltip) tooltip.hidden = true; });
     render();
   }
 
