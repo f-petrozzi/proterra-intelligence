@@ -28,6 +28,15 @@ function formatValue(value: number) {
   if (chart.format === "integer") return Math.round(value).toLocaleString("en-US");
   return value.toFixed(1);
 }
+
+function formatUpdateDate(value: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC"
+  }).format(new Date(`${value}T00:00:00Z`));
+}
 ---
 
 <article
@@ -80,6 +89,7 @@ function formatValue(value: number) {
         <button type="button" data-view="change" aria-pressed="false">Change</button>
       </div>
     </fieldset>
+    <div class="history-chart-type" aria-live="polite"><span>Chart</span><strong data-chart-type>Bars</strong></div>
   </div>
 
   <div class="history-plot" role="img" aria-label={`${chart.title}. Use the controls to change the period and view.`}></div>
@@ -95,7 +105,13 @@ function formatValue(value: number) {
 
   <div class="history-chart-context">
     <div><span>How to read it</span><p>{chart.basis}</p></div>
-    <div><span>Important context</span><p>{chart.note}</p></div>
+    <div>
+      <div class="history-context-heading">
+        <span>Important context</span>
+        <time datetime={chart.updatedAt}>Updated {formatUpdateDate(chart.updatedAt)}</time>
+      </div>
+      <p>{chart.note}</p>
+    </div>
   </div>
 
   <footer class="history-chart-footer">
@@ -152,6 +168,7 @@ function formatValue(value: number) {
     const plotContainer = plotElement;
     const chart = JSON.parse(dataElement.textContent ?? "") as Chart;
     const tooltip = root.querySelector<HTMLElement>(".history-hover-tooltip");
+    if (tooltip) document.body.append(tooltip);
     let range = root.dataset.defaultRange ?? "all";
     let view = "value";
     let resizeTimer = 0;
@@ -192,6 +209,7 @@ function formatValue(value: number) {
             period: point.label,
             rawValue: point.value,
             plottedValue,
+            x: index,
             x1: index - groupWidth / 2 + seriesIndex * barWidth,
             x2: index - groupWidth / 2 + (seriesIndex + 1) * barWidth - 0.025
           };
@@ -200,6 +218,27 @@ function formatValue(value: number) {
       const tickEvery = Math.max(1, Math.ceil(periods.length / (plotContainer.clientWidth < 600 ? 5 : 9)));
       const tickValues = periods.map((_, index) => index).filter((index) => index % tickEvery === 0 || index === periods.length - 1);
       const zeroBase = view === "value";
+      const useLine = range === "all" ? monthNumber(periods.at(-1)?.[0] ?? "0-01") - monthNumber(periods[0]?.[0] ?? "0-01") >= 24 : Number(range) > 24;
+      const chartTypeLabel = root.querySelector<HTMLElement>("[data-chart-type]");
+      if (chartTypeLabel) chartTypeLabel.textContent = useLine ? "Trend line" : "Bars";
+      const dataMarks = useLine
+        ? [
+            Plot.lineY(rows, { x: "x", y: "plottedValue", stroke: "series", z: "series", strokeWidth: 2.2 }),
+            Plot.dot(rows, { x: "x", y: "plottedValue", fill: "series", stroke: "#fafaf6", strokeWidth: 1.2, r: plotContainer.clientWidth < 600 ? 4.5 : 3.5, className: "history-plot-point" }),
+            Plot.dot(rows, { x: "x", y: "plottedValue", fill: "transparent", stroke: "transparent", r: 11, className: "history-plot-hit" })
+          ]
+        : [
+            Plot.rectY(rows, {
+              x1: "x1",
+              x2: "x2",
+              y1: 0,
+              y2: "plottedValue",
+              fill: "series",
+              opacity: 0.88,
+              rx: 2,
+              className: "history-plot-bar"
+            })
+          ];
       const plot = Plot.plot({
         width: Math.max(plotContainer.clientWidth, 320),
         height: plotContainer.clientWidth < 600 ? 300 : 360,
@@ -225,25 +264,22 @@ function formatValue(value: number) {
         },
         marks: [
           Plot.ruleY([0], { stroke: "#aeb5b0" }),
-          Plot.rectY(rows, {
-            x1: "x1",
-            x2: "x2",
-            y1: 0,
-            y2: "plottedValue",
-            fill: "series",
-            opacity: 0.88,
-            rx: 2,
-            className: "history-plot-bar"
-          })
+          ...dataMarks
         ]
       });
       plot.setAttribute("aria-label", `${chart.title}, ${periods[0]?.[1] ?? ""} through ${periods.at(-1)?.[1] ?? ""}`);
       plotContainer.replaceChildren(plot);
-      const bars = [...plot.querySelectorAll<SVGRectElement>(".history-plot-bar rect, rect.history-plot-bar")];
-      bars.forEach((bar, index) => {
+      const targets = useLine
+        ? [...plot.querySelectorAll<SVGCircleElement>(".history-plot-hit circle, circle.history-plot-hit")]
+        : [...plot.querySelectorAll<SVGRectElement>(".history-plot-bar rect, rect.history-plot-bar")];
+      targets.forEach((target, index) => {
         const row = rows[index];
         if (!row || !tooltip) return;
-        const show = (event: PointerEvent) => {
+        const show = (event: Event) => {
+          if (!(event instanceof PointerEvent)) return;
+          document.querySelectorAll<HTMLElement>(".dashboard-tooltip").forEach((candidate) => {
+            if (candidate !== tooltip) candidate.hidden = true;
+          });
           const periodLabel = tooltip.querySelector<HTMLElement>("[data-tooltip-period]");
           const valueLabel = tooltip.querySelector<HTMLElement>("[data-tooltip-value]");
           const seriesLabel = tooltip.querySelector<HTMLElement>("[data-tooltip-series]");
@@ -258,9 +294,9 @@ function formatValue(value: number) {
           tooltip.style.setProperty("--tooltip-color", chart.series.find((series) => series.label === row.series)?.color ?? "#173f32");
           positionTooltip(event.clientX, event.clientY);
         };
-        bar.addEventListener("pointerenter", show);
-        bar.addEventListener("pointermove", show);
-        bar.addEventListener("pointerdown", show);
+        target.addEventListener("pointerenter", show);
+        target.addEventListener("pointermove", show);
+        target.addEventListener("pointerdown", show);
       });
 
       const allVisible = visibleSeries.flatMap((series) => series.points.map((point) => ({ ...point, series: series.label })));
@@ -298,7 +334,9 @@ function formatValue(value: number) {
       window.clearTimeout(resizeTimer);
       resizeTimer = window.setTimeout(render, 120);
     }).observe(plotContainer);
-    plotContainer.addEventListener("pointerleave", () => { if (tooltip) tooltip.hidden = true; });
+    plotContainer.addEventListener("pointerleave", (event) => {
+      if (event.pointerType === "mouse" && tooltip) tooltip.hidden = true;
+    });
     render();
   }
 

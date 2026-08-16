@@ -67,7 +67,7 @@ const formatValue = (value: number) => format === "currency-2"
       );
     })}
   </svg>
-  <div class="dashboard-tooltip metric-bars-tooltip" role="tooltip" hidden>
+  <div class="dashboard-tooltip metric-bars-tooltip" role="tooltip" style={`--tooltip-color:${color}`} hidden>
     <span></span><strong></strong><small></small>
   </div>
 </div>
@@ -87,11 +87,15 @@ const formatValue = (value: number) => format === "currency-2"
     widget.dataset.ready = "true";
     const tooltip = widget.querySelector<HTMLElement>(".metric-bars-tooltip");
     if (!tooltip) return;
+    document.body.append(tooltip);
     const period = tooltip.querySelector<HTMLElement>("span");
     const value = tooltip.querySelector<HTMLElement>("strong");
     const unit = tooltip.querySelector<HTMLElement>("small");
     widget.querySelectorAll<SVGRectElement>(".metric-period-bar").forEach((bar) => {
       const show = (event: PointerEvent) => {
+        document.querySelectorAll<HTMLElement>(".dashboard-tooltip").forEach((candidate) => {
+          if (candidate !== tooltip) candidate.hidden = true;
+        });
         if (period) period.textContent = bar.dataset.period ?? "";
         if (value) value.textContent = bar.dataset.value ?? "";
         if (unit) unit.textContent = bar.dataset.unit ?? "";
@@ -100,7 +104,21 @@ const formatValue = (value: number) => format === "currency-2"
       bar.addEventListener("pointerenter", show);
       bar.addEventListener("pointermove", show);
       bar.addEventListener("pointerdown", show);
-      bar.addEventListener("pointerleave", () => { tooltip.hidden = true; });
+      bar.addEventListener("pointerleave", (event) => {
+        if (event.pointerType === "mouse") tooltip.hidden = true;
+      });
     });
   });
+
+  if (!document.documentElement.dataset.dashboardTooltipDismiss) {
+    document.documentElement.dataset.dashboardTooltipDismiss = "true";
+    document.addEventListener("pointerdown", (event) => {
+      const target = event.target;
+      if (target instanceof Element && target.closest(".metric-period-bar, .history-plot-bar, .history-plot-hit")) return;
+      document.querySelectorAll<HTMLElement>(".dashboard-tooltip").forEach((tooltip) => { tooltip.hidden = true; });
+    });
+    window.addEventListener("scroll", () => {
+      document.querySelectorAll<HTMLElement>(".dashboard-tooltip").forEach((tooltip) => { tooltip.hidden = true; });
+    }, { passive: true });
+  }
 </script>

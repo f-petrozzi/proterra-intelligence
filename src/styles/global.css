@@ -871,7 +871,7 @@
   .dashboard-chart-group > header { display: flex; align-items: baseline; gap: 0.8rem; padding-bottom: 0.65rem; border-bottom: 1px solid var(--line-strong); }
   .dashboard-chart-group > header > span { display: none; }
   .dashboard-chart-group > header h2 { font-size: 1.15rem; }
-  .history-chart { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-lg); background: rgba(250,250,246,0.82); box-shadow: var(--shadow-sm); }
+  .history-chart { overflow: hidden; scroll-margin-top: 4.75rem; border: 1px solid var(--line); border-radius: var(--radius-lg); background: rgba(250,250,246,0.82); box-shadow: var(--shadow-sm); }
   .history-chart-header { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr); gap: 2rem; padding: clamp(1.5rem, 3vw, 2.25rem); border-bottom: 1px solid var(--line); }
   .history-chart-kicker { display: flex; flex-wrap: wrap; gap: 0.4rem; }
   .history-chart-kicker span { padding: 0.2rem 0.45rem; border-radius: 999px; background: var(--paper-deep); color: var(--ink-muted); font-size: 0.55rem; font-weight: 680; }
@@ -896,11 +896,15 @@
   .history-chart-toolbar button:hover { color: var(--ink); background: var(--paper-deep); }
   .history-chart-toolbar button[aria-pressed="true"] { color: white; background: var(--forest); box-shadow: 0 1px 3px rgba(12,44,34,0.16); }
   .history-chart-toolbar button[aria-pressed="true"]:hover { color: white; background: var(--forest-deep); }
+  .history-chart-type { display: grid; min-width: 4.5rem; align-self: center; margin-left: auto; padding-left: 1rem; border-left: 1px solid var(--line); line-height: 1.2; }
+  .history-chart-type span { color: var(--ink-muted); font-size: 0.52rem; text-transform: uppercase; }
+  .history-chart-type strong { margin-top: 0.18rem; font-size: 0.62rem; font-weight: 720; white-space: nowrap; }
   .history-plot { min-height: 22rem; padding: 1rem 1.25rem 0.2rem; overflow: hidden; }
   .history-plot > svg { display: block; max-width: none; }
   .history-plot .grid line { stroke: var(--line); }
   .history-plot-bar rect, rect.history-plot-bar { cursor: crosshair; transition: opacity 120ms ease; }
   .history-plot-bar rect:hover, rect.history-plot-bar:hover { opacity: 1; }
+  .history-plot-hit circle, circle.history-plot-hit { cursor: crosshair; }
   .dashboard-tooltip { position: fixed; z-index: 1000; display: grid; min-width: 8.5rem; max-width: min(17rem, calc(100vw - 1rem)); gap: 0.12rem; padding: 0.65rem 0.75rem; border: 1px solid rgba(255,255,255,0.13); border-radius: 0.65rem; color: white; background: rgba(12,44,34,0.96); box-shadow: 0 12px 35px rgba(12,28,22,0.2); pointer-events: none; backdrop-filter: blur(10px); }
   .dashboard-tooltip[hidden] { display: none; }
   .dashboard-tooltip::before { position: absolute; top: 0.75rem; left: 0; width: 0.18rem; height: 1.25rem; border-radius: 0 2px 2px 0; background: var(--tooltip-color, var(--mint)); content: ""; }
@@ -918,6 +922,8 @@
   .history-chart-context > div { padding: 1rem clamp(1.5rem, 3vw, 2.25rem); }
   .history-chart-context > div + div { border-left: 1px solid var(--line); }
   .history-chart-context span { color: var(--forest); font-size: 0.58rem; font-weight: 720; text-transform: uppercase; }
+  .history-context-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+  .history-context-heading time { color: var(--ink-muted); font-size: 0.56rem; font-style: normal; white-space: nowrap; }
   .history-chart-context p { margin-top: 0.35rem; color: var(--ink-muted); font-size: 0.65rem; line-height: 1.5; }
   .history-chart-footer { display: flex; align-items: start; justify-content: space-between; gap: 2rem; padding: 1rem clamp(1.5rem, 3vw, 2.25rem); border-top: 1px solid var(--line); color: var(--ink-muted); font-size: 0.65rem; }
   .history-chart-footer p { max-width: 48rem; }
@@ -1372,6 +1378,7 @@
     .regional-story figure { height: auto; grid-row: auto; aspect-ratio: 16 / 9; }
     .history-chart-footer { flex-direction: column; gap: 0.75rem; }
     .history-chart-toolbar { align-items: flex-start; flex-direction: column; }
+    .history-chart-type { align-self: flex-start; margin-left: 0; padding: 0.5rem 0 0; border-top: 1px solid var(--line); border-left: 0; }
     .history-chart-context, .history-insights, .genetics-watch > div { grid-template-columns: 1fr; }
     .history-chart-context > div + div, .genetics-watch article + article { border-top: 1px solid var(--line); border-left: 0; }
     .history-insights > div { border-right: 0; border-bottom: 1px solid var(--line); }
