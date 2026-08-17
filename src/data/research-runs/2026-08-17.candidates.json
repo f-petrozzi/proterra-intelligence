@@ -6,7 +6,7 @@
     "end": "2026-08-17T04:00:00.000Z",
     "timezone": "America/New_York"
   },
-  "generatedAt": "2026-08-17T23:24:05.242Z",
+  "generatedAt": "2026-08-17T23:41:47.598Z",
   "candidates": [
     {
       "candidateId": "74de3b1a82528f20c020a46bafef7ebc07306f5a3a2fc5ce2ab5cb7e18ebc35b",
@@ -24,7 +24,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-17T23:23:49.726Z"
+      "retrievedAt": "2026-08-17T23:41:28.047Z"
     },
     {
       "candidateId": "d98d7591209927c41a835358ead355c43476b967ef983750045f5bb69a39d116",
@@ -42,7 +42,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-17T23:23:49.726Z"
+      "retrievedAt": "2026-08-17T23:41:28.047Z"
     },
     {
       "candidateId": "e47aee83a51ef3e29baad6fc20835d623e097daa038c66340c3dad4013fe2838",
@@ -60,7 +60,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-17T23:23:49.726Z"
+      "retrievedAt": "2026-08-17T23:41:28.047Z"
     },
     {
       "candidateId": "9c1971969312474cdef45b327466d61101f34c304e802bf1676a9351753b3545",
@@ -78,7 +78,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-17T23:23:49.726Z"
+      "retrievedAt": "2026-08-17T23:41:28.047Z"
     },
     {
       "candidateId": "bbabcac4a398174a92bf5c0c3f3b5b06a1f2059ea6262cb6423da49856e5342b",
@@ -96,7 +96,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-17T23:23:49.726Z"
+      "retrievedAt": "2026-08-17T23:41:28.047Z"
     }
   ]
 }
