@@ -12,6 +12,18 @@
     "notes": "Primary source for milk and dairy product supply, demand, and pricing."
   },
   {
+    "id": "usda-ams-livestock",
+    "name": "USDA Agricultural Marketing Service: Livestock, Poultry, and Grain Market News",
+    "domain": "ams.usda.gov",
+    "url": "https://www.ams.usda.gov/market-news/livestock-poultry-grain",
+    "tier": "A",
+    "status": "approved",
+    "regions": ["United States", "International"],
+    "sectors": ["meat"],
+    "cadence": "Daily and weekly",
+    "notes": "Primary source for cattle, beef, slaughter, import, and retail market prices and volumes."
+  },
+  {
     "id": "usda-ers-dairy",
     "name": "USDA Economic Research Service: Dairy",
     "domain": "ers.usda.gov",
@@ -95,6 +107,18 @@
     "sectors": ["dairy", "bovine-genetics"],
     "cadence": "Evaluation cycle",
     "notes": "U.S. dairy genetic and genomic evaluations, methods, and industry data."
+  },
+  {
+    "id": "holstein-usa",
+    "name": "Holstein Association USA",
+    "domain": "holsteinusa.com",
+    "url": "https://www.holsteinusa.com/genetic_evaluations/GenUpdateMain.html",
+    "tier": "A",
+    "status": "approved",
+    "regions": ["United States", "International"],
+    "sectors": ["dairy", "bovine-genetics"],
+    "cadence": "Evaluation cycle",
+    "notes": "Official Holstein evaluation schedules, ranking lists, pedigrees, and breed selection tools."
   },
   {
     "id": "interbull",

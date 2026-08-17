@@ -12,6 +12,15 @@
         "reason": "Evaluation releases, trait changes, technical presentations, and dairy genetics research."
       },
       {
+        "id": "holstein-usa-linkedin",
+        "name": "Holstein Association USA",
+        "url": "https://www.linkedin.com/company/holstein-association-usa",
+        "category": "Breed association",
+        "sectors": ["dairy", "bovine-genetics"],
+        "regions": ["United States", "International"],
+        "reason": "Official Holstein ranking releases, selection tools, evaluation changes, and breed data."
+      },
+      {
         "id": "interbull-linkedin",
         "name": "Interbull Centre",
         "url": "https://www.linkedin.com/company/interbull-centre/",

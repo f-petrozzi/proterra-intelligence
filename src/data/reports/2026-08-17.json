@@ -1,0 +1,426 @@
+{
+  "slug": "2026-08-17",
+  "issueNumber": 2,
+  "title": "Weekly Brief",
+  "status": "draft",
+  "period": {
+    "start": "2026-08-14",
+    "end": "2026-08-17"
+  },
+  "publishedAt": "2026-08-17",
+  "scope": {
+    "basis": "public-sources-only",
+    "disclosure": "This brief uses public industry sources and does not assess Proterra-owned animals, customers, sales, or commercial performance."
+  },
+  "executiveSummary": "U.S. nonfat dry milk and cheese markets strengthened while butter moved lower. Choice boxed beef rose more than Select, imported lean beef trading softened, and grocery promotion broadened. August Holstein rankings now show distinct leaders for TPI and the new Holstein Conformation Composite.",
+  "editorNote": "Supervised draft for review. The primary window is August 14 through 17, using reports released August 14 and August evaluation files available by August 11. A dedicated public LinkedIn search covered CDCB, Interbull, ADSA, Holstein USA, PEAK, Select Sires, and regional terms. No LinkedIn item passed both the novelty and primary-evidence tests, so none was forced into the issue. Puerto Rico sources were checked, but no new material signal was found. South America is represented through USDA's regional dairy reporting. No event or claim from Issue 1 is repeated.",
+  "overview": {
+    "headline": "Powder and beef values firm as new sire lists reset the field.",
+    "points": [
+      {
+        "label": "Dairy",
+        "text": "Nonfat dry milk posted the largest weekly gain while butter moved in the opposite direction."
+      },
+      {
+        "label": "Beef",
+        "text": "Choice boxed beef strengthened, even as imported lean-beef demand and pricing softened."
+      },
+      {
+        "label": "Genetics",
+        "text": "August TPI and HCC lists point to different leaders and different selection priorities."
+      }
+    ]
+  },
+  "dashboard": {
+    "sectorPulses": [
+      {
+        "sector": "dairy",
+        "label": "Nonfat dry milk",
+        "value": "+5.7%",
+        "basis": "weekly average change",
+        "direction": "up",
+        "note": "Grade A averaged $1.6570 per pound, up 8.95 cents from the prior week.",
+        "itemRank": 1
+      },
+      {
+        "sector": "meat",
+        "label": "Choice boxed beef",
+        "value": "+$6.73/cwt",
+        "basis": "week over week",
+        "direction": "up",
+        "note": "The weekly negotiated Choice cutout averaged $373.24 per hundredweight.",
+        "itemRank": 5
+      },
+      {
+        "sector": "bovine-genetics",
+        "label": "Top genomic young sire",
+        "value": "3,622 TPI",
+        "basis": "August evaluation",
+        "direction": "new",
+        "note": "Aurora GS Woodford led the August genomic young bull list by three TPI points.",
+        "itemRank": 8
+      }
+    ],
+    "keyMetrics": [
+      {
+        "label": "Block cheese average",
+        "value": "$1.6050/lb",
+        "basis": "week ending August 14",
+        "itemRank": 1
+      },
+      {
+        "label": "Choice boxed beef",
+        "value": "$373.24/cwt",
+        "basis": "weekly negotiated average",
+        "itemRank": 5
+      },
+      {
+        "label": "Beef retail feature rate",
+        "value": "96.0%",
+        "basis": "USDA surveyed outlets",
+        "itemRank": 7
+      },
+      {
+        "label": "Top HCC score",
+        "value": "3.08",
+        "basis": "August active bull list",
+        "itemRank": 9
+      }
+    ],
+    "charts": [
+      {
+        "id": "us-dairy-weekly-moves",
+        "title": "U.S. dairy weekly moves",
+        "description": "Change in CME weekly average through August 14",
+        "unit": "percent",
+        "itemRanks": [1],
+        "sourceIds": ["usda-ams-dairy"],
+        "values": [
+          { "label": "Nonfat dry milk", "value": 5.7, "displayValue": "+5.7%" },
+          { "label": "Block cheese", "value": 3.8, "displayValue": "+3.8%" },
+          { "label": "Butter", "value": -1.8, "displayValue": "−1.8%" },
+          { "label": "Dry whey", "value": -0.4, "displayValue": "−0.4%" }
+        ]
+      },
+      {
+        "id": "boxed-beef-weekly-moves",
+        "title": "Boxed beef weekly moves",
+        "description": "Change in negotiated weekly cutout averages",
+        "unit": "percent",
+        "itemRanks": [5],
+        "sourceIds": ["usda-ams-livestock"],
+        "values": [
+          { "label": "Choice", "value": 1.8, "displayValue": "+1.8%" },
+          { "label": "Select", "value": 0.6, "displayValue": "+0.6%" }
+        ]
+      },
+      {
+        "id": "beef-retail-promotion",
+        "title": "Beef retail promotion",
+        "description": "Change from the previous USDA survey week",
+        "unit": "percent",
+        "itemRanks": [7],
+        "sourceIds": ["usda-ams-livestock"],
+        "values": [
+          { "label": "Feature rate, points", "value": 15.8, "displayValue": "+15.8 pts" },
+          { "label": "Activity index", "value": 2.7, "displayValue": "+2.7%" }
+        ]
+      }
+    ]
+  },
+  "items": [
+    {
+      "rank": 1,
+      "headline": "Nonfat dry milk leads a split week in U.S. dairy markets",
+      "imageId": "butter-output",
+      "documentType": "report",
+      "reviewStatus": "shortlisted",
+      "discoveryChannel": "official-site",
+      "sectors": ["dairy"],
+      "regions": ["United States", "International"],
+      "signal": "accelerating",
+      "summary": "Grade A nonfat dry milk recorded the largest gain among major CME dairy products. Block cheese also strengthened, while butter and dry whey weekly averages declined.",
+      "keyPoints": [
+        "Grade A nonfat dry milk averaged $1.6570 per pound, up 8.95 cents from the previous weekly average.",
+        "Forty-pound cheese blocks averaged $1.6050 per pound, up 5.90 cents, while barrels gained 0.60 cent.",
+        "Grade AA butter averaged $1.4755 per pound, down 2.75 cents, and dry whey averaged $0.6895, down 0.25 cent."
+      ],
+      "whyItMatters": "The product split points to firmer Class III ingredients and powder values without a broad rise across the dairy complex.",
+      "businessRelevance": "Diverging product markets can change customer margin expectations by milk class and market exposure. Commercial conversations should distinguish stronger cheese and powder signals from weaker butter pricing.",
+      "uncertainty": "One weekly average can be volatile and does not establish a durable price trend. Futures, exports, inventories, and the next production report may change the direction.",
+      "watchNext": "Watch whether nonfat dry milk holds its gain and whether cheese demand absorbs active production.",
+      "confidence": "high",
+      "citations": [
+        {
+          "sourceId": "usda-ams-dairy",
+          "title": "Dairy Market News Weekly Report, August 10 through 14, 2026",
+          "url": "https://www.ams.usda.gov/mnreports/dywweeklyreport.pdf",
+          "publishedAt": "2026-08-14",
+          "sourceNote": "Provides CME weekly averages, changes, regional market commentary, and product supply and demand conditions."
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "headline": "School demand tightens some U.S. milk channels as western output stays uneven",
+      "imageId": "dairy-parlor",
+      "documentType": "report",
+      "reviewStatus": "shortlisted",
+      "discoveryChannel": "official-site",
+      "sectors": ["dairy"],
+      "regions": ["United States"],
+      "signal": "continuing",
+      "summary": "Class I demand increased as schools reopened, while cooler Midwest weather improved cow comfort. Western milk production remained mixed because of heat, fires, and smoke.",
+      "keyPoints": [
+        "Eastern and central Class I demand strengthened as school bottling resumed, but manufacturing milk remained generally sufficient.",
+        "Milder Midwest weather stabilized milk volumes, although spot supplies stayed tight and some Class III milk traded as high as $5 over class.",
+        "Western output varied by state, with tight Northwest supplies and long cream availability across parts of the region."
+      ],
+      "whyItMatters": "Regional weather and school calendars are changing where milk is available even when national supply appears steady.",
+      "businessRelevance": "Regional operating conditions shape producer cash flow and attention. A genetics business can use this context to time outreach without treating the U.S. dairy market as one uniform environment.",
+      "uncertainty": "The observations are based on weekly market contacts and can change quickly with weather, plant schedules, and school demand.",
+      "watchNext": "Follow regional milk discounts and premiums, heat conditions, and the August 21 Milk Production report.",
+      "confidence": "high",
+      "citations": [
+        {
+          "sourceId": "usda-ams-dairy",
+          "title": "Dairy Market News Weekly Report, August 10 through 14, 2026",
+          "url": "https://www.ams.usda.gov/mnreports/dywweeklyreport.pdf",
+          "publishedAt": "2026-08-14",
+          "sourceNote": "Summarizes regional fluid milk availability, class demand, weather effects, cream supply, and spot-market conditions."
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "headline": "Australian dairy exports rise while processing capacity keeps shifting",
+      "imageId": "global-pasture",
+      "documentType": "report",
+      "reviewStatus": "shortlisted",
+      "discoveryChannel": "official-site",
+      "sectors": ["dairy"],
+      "regions": ["Australia", "International"],
+      "signal": "accelerating",
+      "summary": "USDA Dairy Market News reported Australian dairy export volume of 163,341 metric tons for the year through June, 10.7 percent above the prior period, alongside continued plant closures and elevated imports.",
+      "keyPoints": [
+        "Australian dairy export volume reached 163,341 metric tons from July 2025 through June 2026, up 10.7 percent from a year earlier.",
+        "Plant closures are continuing, including one planned for the first quarter of 2027.",
+        "Imports remain above normal as the domestic processing footprint changes."
+      ],
+      "whyItMatters": "Higher exports and plant consolidation can coexist, creating a more concentrated and trade-dependent operating environment.",
+      "businessRelevance": "The Australian signal is relevant to international genetics demand because processor capacity, farm confidence, and export returns influence herd investment decisions.",
+      "uncertainty": "The weekly summary cites Dairy Australia data but does not break the total into product categories or identify how much plant capacity will leave the market.",
+      "watchNext": "Track product-level exports, milk collections, plant closure timing, and import volumes into 2027.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "usda-ams-dairy",
+          "title": "Dairy Market News Weekly Report, international overview",
+          "url": "https://www.ams.usda.gov/mnreports/dywweeklyreport.pdf",
+          "publishedAt": "2026-08-14",
+          "sourceNote": "Reports the Australian export total, year-over-year change, processing closures, and above-normal imports."
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "headline": "South American milk growth keeps pressure on powder markets",
+      "imageId": "cattle-loading",
+      "documentType": "report",
+      "reviewStatus": "shortlisted",
+      "discoveryChannel": "official-site",
+      "sectors": ["dairy"],
+      "regions": ["Latin America & Caribbean", "Argentina", "Chile"],
+      "signal": "continuing",
+      "summary": "Milk deliveries across South America remained above year-earlier levels, sustaining supply pressure on international powder values. Farm prices improved in Argentina but input costs continued to squeeze margins across the region.",
+      "keyPoints": [
+        "Regional milk deliveries remained above year-ago levels and continued to weigh on international powder values.",
+        "Argentina's nominal farm-gate milk price increased for a fifth consecutive month in July and was higher than a year earlier.",
+        "Chile's latest nominal farm-gate price eased slightly, and producers remained concerned that input costs would offset price gains."
+      ],
+      "whyItMatters": "More milk does not automatically mean better producer economics when powder prices and input costs move against farms.",
+      "businessRelevance": "For Latin American market planning, the combination of higher deliveries and tight margins favors specific return-on-investment messages over broad assumptions about sector growth.",
+      "uncertainty": "The report describes regional direction in nominal local currencies and does not provide one comparable margin measure across countries.",
+      "watchNext": "Monitor powder export prices, Argentina's farm-gate series, Chilean input costs, and regional milk collections.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "usda-ams-dairy",
+          "title": "Dairy Market News Weekly Report, South America overview",
+          "url": "https://www.ams.usda.gov/mnreports/dywweeklyreport.pdf",
+          "publishedAt": "2026-08-14",
+          "sourceNote": "Provides current regional milk-delivery, farm-gate price, powder-market, and producer-margin observations."
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "headline": "Choice boxed beef strengthens and widens its premium over Select",
+      "imageId": "cattle-market",
+      "documentType": "report",
+      "reviewStatus": "shortlisted",
+      "discoveryChannel": "official-site",
+      "sectors": ["meat"],
+      "regions": ["United States"],
+      "signal": "accelerating",
+      "summary": "The negotiated Choice cutout averaged $373.24 per hundredweight, up $6.73 from the prior week. Select gained $1.95, leaving a $23.06 Choice-Select spread.",
+      "keyPoints": [
+        "Choice boxed beef averaged $373.24 per hundredweight, a weekly increase of $6.73.",
+        "Select averaged $350.18, up $1.95, so Choice rose more than three times as much in dollar terms.",
+        "The Choice-Select spread reached $23.06 across 487 reported loads of cuts, trimmings, and grinds."
+      ],
+      "whyItMatters": "A widening quality spread raises the value of cattle that can consistently meet higher carcass specifications.",
+      "businessRelevance": "The quality premium supports conversations about terminal performance and carcass merit, while the weekly nature of the move argues for measured claims rather than extrapolation.",
+      "uncertainty": "The report covers negotiated boxed-beef sales and does not directly measure producer margins or the value of a particular genetic line.",
+      "watchNext": "Track whether the Choice-Select spread holds as slaughter volumes and seasonal rib demand change.",
+      "confidence": "high",
+      "citations": [
+        {
+          "sourceId": "usda-ams-livestock",
+          "title": "National Weekly Boxed Beef Cutout and Boxed Beef Cuts",
+          "url": "https://www.ams.usda.gov/mnreports/AMS_2461.pdf",
+          "publishedAt": "2026-08-14",
+          "sourceNote": "Provides negotiated Choice and Select weekly averages, prior-week changes, spread, volumes, and primal values."
+        }
+      ]
+    },
+    {
+      "rank": 6,
+      "headline": "Imported lean beef prices soften as trading slows",
+      "imageId": "cattle-loading",
+      "documentType": "report",
+      "reviewStatus": "shortlisted",
+      "discoveryChannel": "official-site",
+      "sectors": ["meat"],
+      "regions": ["United States", "Australia", "New Zealand", "Brazil", "Latin America & Caribbean"],
+      "signal": "easing",
+      "summary": "USDA reported mostly moderately lower imported-beef prices and slow trading. Weaker demand pressured lean beef and trimmings, while Brazilian arrivals fell short of expectations and Australia-New Zealand imports remained light.",
+      "keyPoints": [
+        "Imported beef prices were mostly moderately lower, with some quotations steady to weak.",
+        "Trading activity was slow as weaker demand pressured domestic and imported lean beef and trimmings.",
+        "Brazilian imports were below expectations in July, while Australia and New Zealand volumes remained light."
+      ],
+      "whyItMatters": "The softer spot tone qualifies the broader story of strong U.S. import needs and shows that demand is not firm across every beef channel.",
+      "businessRelevance": "Imported lean-beef conditions help frame beef and beef-on-dairy economics, particularly when customers are weighing cattle value against feed, replacement, and breeding costs.",
+      "uncertainty": "The report describes current market tests rather than a complete import-volume series, and several country flows can shift independently.",
+      "watchNext": "Watch weekly lean-trim quotations and the next country-level import data for Brazil and Oceania.",
+      "confidence": "high",
+      "citations": [
+        {
+          "sourceId": "usda-ams-livestock",
+          "title": "Import Beef Trade report",
+          "url": "https://www.ams.usda.gov/mnreports/ams_2823.pdf",
+          "publishedAt": "2026-08-14",
+          "sourceNote": "Reports current imported lean-beef and trim price ranges, trade activity, demand, and regional shipment observations."
+        }
+      ]
+    },
+    {
+      "rank": 7,
+      "headline": "U.S. grocers broaden beef promotion as wholesale values rise",
+      "imageId": "cattle-market",
+      "documentType": "report",
+      "reviewStatus": "shortlisted",
+      "discoveryChannel": "official-site",
+      "sectors": ["meat"],
+      "regions": ["United States"],
+      "signal": "accelerating",
+      "summary": "The beef feature rate across USDA's surveyed grocery outlets rose to 96.0 percent, 15.8 percentage points above the prior week. Promotional activity increased 2.7 percent, led by more space for chuck, loin, sirloin, ground beef, and deli items.",
+      "keyPoints": [
+        "The national feature rate reached 96.0 percent, up from 80.2 percent in the previous survey week.",
+        "The activity index increased 2.7 percent to 95,130, although it remained below 100,444 a year earlier.",
+        "Chuck, loin, sirloin, ground beef, and deli meat gained ad space while brisket, rib, and round lost space."
+      ],
+      "whyItMatters": "Broader promotion can support consumer movement, but the mix of featured cuts matters as much as the headline rate.",
+      "businessRelevance": "Retail promotion is a downstream demand signal for cattle markets. It helps separate wholesale price strength supported by merchandising from price moves driven only by constrained supply.",
+      "uncertainty": "Feature activity measures advertised placement, not realized sales volume, consumer response, or retailer margin.",
+      "watchNext": "Compare the next feature rate with boxed-beef values and scanner-based demand measures where available.",
+      "confidence": "high",
+      "citations": [
+        {
+          "sourceId": "usda-ams-livestock",
+          "title": "Weekly Grocery Store Beef Feature Activity",
+          "url": "https://www.ams.usda.gov/mnreports/ams_3228.pdf",
+          "publishedAt": "2026-08-14",
+          "sourceNote": "Provides national feature rate, activity index, year-over-year comparison, advertised prices, and changes in promotional mix."
+        }
+      ]
+    },
+    {
+      "rank": 8,
+      "headline": "August Holstein rankings place different sires atop active and genomic lists",
+      "imageId": "genetics-lab",
+      "documentType": "evaluation",
+      "reviewStatus": "shortlisted",
+      "discoveryChannel": "official-site",
+      "sectors": ["dairy", "bovine-genetics"],
+      "regions": ["United States", "International"],
+      "signal": "new",
+      "summary": "PEAK Powerhouse led active or limited proven bulls at 3,561 TPI, while Aurora GS Woodford led genomic young bulls at 3,622. The three-point genomic lead shows how closely packed the top of the young-sire list is.",
+      "keyPoints": [
+        "PEAK Powerhouse ranked first among active or limited proven bulls at 3,561 TPI, with 119 pounds of protein and 2,043 pounds of milk.",
+        "Aurora GS Woodford led genomic young bulls at 3,622 TPI, three points ahead of S-S-I Kingdom Formal.",
+        "The leading proven and genomic bulls show different balances across production, fertility, health, and conformation traits."
+      ],
+      "whyItMatters": "Official August rankings reset the competitive reference points used in sire selection, sales materials, and customer comparisons.",
+      "businessRelevance": "The updated lists provide a neutral benchmark for portfolio review. Individual bull positioning should be checked across multiple traits instead of relying on the headline TPI rank alone.",
+      "uncertainty": "Genomic young bulls have lower reliability than heavily proven sires, and rankings can change as daughters and new records enter later evaluations.",
+      "watchNext": "Track rank movement, reliability, semen availability, and customer response through the next evaluation cycle.",
+      "confidence": "high",
+      "citations": [
+        {
+          "sourceId": "holstein-usa",
+          "title": "Top 100 TPI Bulls, August 2026",
+          "url": "https://www.holsteinusa.com/pdf/bull_cow_lists/PreTop100Bulls.pdf",
+          "publishedAt": "2026-08-11",
+          "sourceNote": "Official August list for active or limited bulls meeting Holstein USA's production and type reliability requirements."
+        },
+        {
+          "sourceId": "holstein-usa",
+          "title": "Top 200 TPI Genomic Young Bulls, August 2026",
+          "url": "https://www.holsteinusa.com/pdf/bull_cow_lists/Top_200_TPI_Genomic_Young_Bulls.pdf",
+          "publishedAt": "2026-08-11",
+          "sourceNote": "Official August ranking of genomic young bulls, including production, health, conformation, HCC, and TPI values."
+        }
+      ]
+    },
+    {
+      "rank": 9,
+      "headline": "New HCC rankings separate functional conformation from overall TPI",
+      "imageId": "calf-health",
+      "documentType": "evaluation",
+      "reviewStatus": "shortlisted",
+      "discoveryChannel": "official-site",
+      "sectors": ["dairy", "bovine-genetics"],
+      "regions": ["United States", "International"],
+      "signal": "new",
+      "summary": "Holstein USA's August HCC list ranked Bomaz Rimrock first at 3.08, while the leading active TPI bull carried an HCC of negative 0.25. The contrast shows that the two indexes answer different selection questions.",
+      "keyPoints": [
+        "Bomaz Rimrock led the proven HCC list at 3.08 but ranked at 2,985 TPI, below many production-focused leaders.",
+        "PEAK Powerhouse, the top proven TPI bull at 3,561, had an HCC value of negative 0.25.",
+        "HCC is published alongside PTAT, udder, foot-and-leg, and TPI values rather than replacing those measures."
+      ],
+      "whyItMatters": "HCC makes the trade-off between balanced functional conformation and broad economic index ranking visible in the official lists.",
+      "businessRelevance": "The additional lens can improve mating and product discussions when durability and structural balance are priorities. It should be presented as a complementary tool, not as a universal replacement for TPI or trait-level review.",
+      "uncertainty": "HCC is new, so commercial adoption, customer understanding, and its influence on future TPI revisions are still developing.",
+      "watchNext": "Watch which organizations use HCC in selection criteria and whether Holstein USA later incorporates it into TPI.",
+      "confidence": "high",
+      "citations": [
+        {
+          "sourceId": "holstein-usa",
+          "title": "Top 200 HCC Bulls, August 2026",
+          "url": "https://www.holsteinusa.com/pdf/bull_cow_lists/Top_200_HCC_Bulls.pdf",
+          "publishedAt": "2026-08-11",
+          "sourceNote": "Official August HCC ranking with production, health, conformation, HCC, and TPI values for direct comparison."
+        },
+        {
+          "sourceId": "holstein-usa",
+          "title": "Top Ranking Animal Lists, August 2026",
+          "url": "https://www.holsteinusa.com/genetic_evaluations/bull_lists.html",
+          "publishedAt": "2026-08-11",
+          "sourceNote": "Confirms the August HCC, TPI, genomic, polled, international, and female ranking files published by Holstein USA."
+        }
+      ]
+    }
+  ]
+}
