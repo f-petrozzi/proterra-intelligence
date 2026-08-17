@@ -11,6 +11,7 @@ export type EditorialImage = {
   provider: string;
   license: string;
   sourceUrl: string;
+  subjects: string[];
 };
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
@@ -41,8 +42,8 @@ function assertReport(value: unknown, filename: string): asserts value is Report
   if (value.status !== "draft" && value.status !== "approved") {
     throw new Error(`${filename}: status must be draft or approved.`);
   }
-  if (!Array.isArray(value.items) || value.items.length < 8 || value.items.length > 10) {
-    throw new Error(`${filename}: report must contain 8 to 10 items.`);
+  if (!Array.isArray(value.items) || value.items.length < 5 || value.items.length > 10) {
+    throw new Error(`${filename}: report must contain 5 to 10 items.`);
   }
 
   value.items.forEach((candidate, index) => {
@@ -113,6 +114,9 @@ export function loadEditorialImages() {
       if (!isRecord(candidate)) throw new Error(`Editorial image ${index + 1} is invalid.`);
       for (const field of ["id", "src", "alt", "creator", "provider", "license", "sourceUrl"]) {
         requireText(candidate, field, `Editorial image ${index + 1}`);
+      }
+      if (!Array.isArray(candidate.subjects) || candidate.subjects.length < 2 || candidate.subjects.some((subject) => typeof subject !== "string" || !subject.trim())) {
+        throw new Error(`Editorial image ${index + 1}: "subjects" must contain at least two non-empty strings.`);
       }
       return [(candidate as EditorialImage).id, candidate as EditorialImage] as const;
     })

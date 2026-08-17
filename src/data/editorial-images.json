@@ -6,7 +6,8 @@
     "creator": "Kirsten Strough, USDA",
     "provider": "Wikimedia Commons",
     "license": "Public domain",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Animals_(20120720-KS-Reclamation-0036).jpg"
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Animals_(20120720-KS-Reclamation-0036).jpg",
+    "subjects": ["calf health", "young calf", "dairy calf"]
   },
   {
     "id": "cattle-market",
@@ -15,7 +16,8 @@
     "creator": "Keith Weller, USDA Agricultural Research Service",
     "provider": "Wikimedia Commons",
     "license": "Public domain",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cattle_herd.jpg"
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cattle_herd.jpg",
+    "subjects": ["cattle market", "live cattle", "cattle inventory", "cattle prices"]
   },
   {
     "id": "global-pasture",
@@ -24,7 +26,8 @@
     "creator": "USDA NRCS Texas",
     "provider": "Wikimedia Commons",
     "license": "CC BY 2.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cattle_grazing_in_a_silvopasture._(25112780735).jpg"
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cattle_grazing_in_a_silvopasture._(25112780735).jpg",
+    "subjects": ["international cattle", "global livestock", "pasture", "grazing"]
   },
   {
     "id": "dairy-parlor",
@@ -33,7 +36,8 @@
     "creator": "USDA Rural Development",
     "provider": "Wikimedia Commons",
     "license": "Public domain",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:20250813-USDA-RD-VA-JGP-0001_(54721557540).jpg"
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:20250813-USDA-RD-VA-JGP-0001_(54721557540).jpg",
+    "subjects": ["dairy farm", "milk production", "milk supply", "dairy cows"]
   },
   {
     "id": "butter-output",
@@ -42,7 +46,8 @@
     "creator": "Renee Comet, National Cancer Institute",
     "provider": "Wikimedia Commons",
     "license": "Public domain",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:NCI_butter.jpg"
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:NCI_butter.jpg",
+    "subjects": ["butter", "butter production", "butter prices"]
   },
   {
     "id": "cattle-loading",
@@ -51,7 +56,8 @@
     "creator": "National Park Service, National Trails Office",
     "provider": "Wikimedia Commons",
     "license": "Public domain",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cattle_loading_platform_at_the_Cimarron_National_Grassland_(4957b4a646ff485a962df874a57d8d09).JPG"
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cattle_loading_platform_at_the_Cimarron_National_Grassland_(4957b4a646ff485a962df874a57d8d09).JPG",
+    "subjects": ["cattle trade", "cattle transport", "border crossing", "cattle imports"]
   },
   {
     "id": "genetics-lab",
@@ -60,6 +66,47 @@
     "creator": "National Institute of Standards and Technology",
     "provider": "Wikimedia Commons",
     "license": "Public domain",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Laboratory_Technician_Pipettes_Dirt_(10714910404).jpg"
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Laboratory_Technician_Pipettes_Dirt_(10714910404).jpg",
+    "subjects": ["bovine genetics", "genomics", "breeding evaluation", "genetic ranking"]
+  },
+  {
+    "id": "milk-powder",
+    "src": "/images/editorial/milk-powder.webp",
+    "alt": "Milk powder with a measuring scoop",
+    "creator": "ProjectManhattan",
+    "provider": "Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Milk_powder_cropped.jpg",
+    "subjects": ["milk powder", "nonfat dry milk", "skim milk powder", "dairy powder"]
+  },
+  {
+    "id": "beef-retail",
+    "src": "/images/editorial/beef-retail.webp",
+    "alt": "Packages of ground beef displayed in a United States grocery store",
+    "creator": "Lance Cheung, USDA",
+    "provider": "Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:110303_CNPP_LSC_0158_(13065042035).jpg",
+    "subjects": ["grocery beef", "retail beef", "beef promotion", "ground beef"]
+  },
+  {
+    "id": "beef-processing",
+    "src": "/images/editorial/beef-processing.webp",
+    "alt": "A meat cutter preparing bone-in beef cuts at an Iowa butcher shop",
+    "creator": "Lance Cheung, USDA",
+    "provider": "Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Agriculture_Secretary_Vilsack_at_Rustic_Cuts_growing_in_Iowa_(20210709-OSEC-LSC-0228).jpg",
+    "subjects": ["boxed beef", "beef cuts", "wholesale beef", "meat processing"]
+  },
+  {
+    "id": "calf-feeding",
+    "src": "/images/editorial/calf-feeding.webp",
+    "alt": "A farmer bottle-feeding a young Holstein calf",
+    "creator": "Preston Keres, USDA",
+    "provider": "Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:20220517-USDA-OC-PSD-0260_Agriculture_in_the_United_States.jpg",
+    "subjects": ["colostrum", "calf feeding", "calf nutrition", "calf immunity"]
   }
 ]

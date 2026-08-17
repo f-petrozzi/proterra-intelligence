@@ -176,7 +176,7 @@
     {
       "rank": 1,
       "headline": "Nonfat dry milk leads a split week in U.S. dairy markets",
-      "imageId": "butter-output",
+      "imageId": "milk-powder",
       "documentType": "report",
       "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
@@ -320,7 +320,7 @@
     {
       "rank": 5,
       "headline": "Choice boxed beef strengthens and widens its premium over Select",
-      "imageId": "cattle-market",
+      "imageId": "beef-processing",
       "documentType": "report",
       "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
@@ -355,7 +355,7 @@
     {
       "rank": 6,
       "headline": "Imported lean beef prices soften as trading slows",
-      "imageId": "cattle-loading",
+      "imageId": "cattle-market",
       "documentType": "report",
       "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
@@ -394,7 +394,7 @@
     {
       "rank": 7,
       "headline": "U.S. grocers broaden beef promotion as wholesale values rise",
-      "imageId": "cattle-market",
+      "imageId": "beef-retail",
       "documentType": "report",
       "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",

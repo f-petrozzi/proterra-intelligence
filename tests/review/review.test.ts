@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { escapeHtml, reviewShell } from "../../review-worker/src/html";
 import { fallbackStoryReviewId, reviewAnchor } from "../../src/lib/review";
+import { assertEditorialImageAssignments } from "../../src/lib/image-policy";
 import { assertWeeklyDiff } from "../../scripts/review/assert-weekly-diff";
 import {
   assertQueueMayDraft, buildDraftPrompt, chatGptOnlyEnvironment, matchesReconciliation, type DraftReceipt
@@ -173,4 +174,45 @@ test("malformed collection output triggers every failure cleanup path", async ()
   assert.match(workflow, /scripts\/collection\/validate-output\.ts/);
   assert.equal(workflow.match(/steps\.manifest\.outcome == 'failure'/g)?.length, 3);
   assert.equal(workflow.match(/steps\.collector\.outcome == 'failure'/g)?.length, 3);
+});
+
+test("automated reports use unique, headline-specific editorial images", async () => {
+  const registry = JSON.parse(await readFile("src/data/editorial-images.json", "utf8")) as Array<{
+    id: string;
+    subjects: string[];
+  }>;
+  assert.ok(registry.length >= 10);
+  assert.equal(new Set(registry.map((image) => image.id)).size, registry.length);
+  assert.ok(registry.every((image) => image.subjects.length >= 2));
+  assert.ok(registry.some((image) => image.id === "milk-powder" && image.subjects.includes("nonfat dry milk")));
+  assert.ok(registry.some((image) => image.id === "beef-retail" && image.subjects.includes("beef promotion")));
+  assert.ok(registry.some((image) => image.id === "beef-processing" && image.subjects.includes("boxed beef")));
+
+  const issue = JSON.parse(await readFile("src/data/reports/2026-08-17.json", "utf8")) as {
+    items: Array<{ rank: number; imageId: string }>;
+  };
+  const imagesByRank = new Map(issue.items.map((item) => [item.rank, item.imageId]));
+  assert.equal(imagesByRank.get(1), "milk-powder");
+  assert.equal(imagesByRank.get(5), "beef-processing");
+  assert.equal(imagesByRank.get(7), "beef-retail");
+  assert.equal(new Set(issue.items.map((item) => item.imageId)).size, issue.items.length);
+
+  const policy = await readFile("automation/weekly-report-prompt.md", "utf8");
+  assert.match(policy, /src\/data\/editorial-images\.json/);
+  assert.match(policy, /one unique editorial `imageId` per story/);
+
+  const policyImages = new Map([
+    ["milk-powder", { subjects: ["nonfat dry milk", "milk powder"] }],
+    ["butter-output", { subjects: ["butter", "butter prices"] }]
+  ]);
+  assert.doesNotThrow(() => assertEditorialImageAssignments([
+    { rank: 1, headline: "Nonfat dry milk leads the week", imageId: "milk-powder" }
+  ], policyImages, "test-report"));
+  assert.throws(() => assertEditorialImageAssignments([
+    { rank: 1, headline: "Nonfat dry milk leads the week", imageId: "butter-output" }
+  ], policyImages, "test-report"), /does not match a declared subject/);
+  assert.throws(() => assertEditorialImageAssignments([
+    { rank: 1, headline: "Nonfat dry milk leads the week", imageId: "milk-powder" },
+    { rank: 2, headline: "Milk powder exports rise", imageId: "milk-powder" }
+  ], policyImages, "test-report"), /different editorial image/);
 });
