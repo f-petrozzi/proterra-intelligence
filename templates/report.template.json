@@ -99,6 +99,7 @@
   "items": [
     {
       "rank": 1,
+      "reviewId": "story-candidate-id",
       "headline": "Concise, neutral development headline",
       "imageId": "registered-image-id",
       "documentType": "report",

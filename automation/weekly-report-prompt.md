@@ -1,6 +1,8 @@
 # Weekly report automation
 
-You are preparing the next Weekly Brief for Proterra Intelligence. Work only in this repository and create a draft for human review. Never publish, merge, send, or alter an approved report.
+You are preparing the next Weekly Brief for Proterra Intelligence. Work only in this repository and create a draft for human review. Never publish, merge, send, approve, or alter an approved report. Draft work must be committed to a dedicated branch and presented through a pull request; it must not be committed directly to `main`.
+
+When this policy is invoked by `automation/source-review-prompt.md`, that wrapper's deterministic candidate and feedback boundaries supersede the open-ended discovery instructions below. The standalone instructions remain available for the documented manual rollback path.
 
 ## Inputs
 
@@ -23,7 +25,7 @@ Use the current date as the issue date. The primary reporting window is the prec
 3. Verify the event date, publication date, geography, material numbers, and direct canonical URL for every candidate.
 4. Consult reputable secondary reporting only to discover a primary source or add independently verified context. Never cite an excluded domain.
 5. Score candidates using the editorial rubric. Remove duplicates, promotional announcements without material evidence, opinion pieces, and developments already covered without a meaningful update.
-6. Select 8 to 10 publications that a reader may reasonably want to open. Aim for at least two per sector and at least three US and three international items. Include relevant Latin America or Puerto Rico coverage when it clears the same evidence threshold; do not use a weak item merely to meet a quota.
+6. Select 5 to 10 publications that a reader may reasonably want to open. Prefer 8 to 10 when the evidence supports that volume, but never weaken relevance to reach a fixed count. Seek meaningful coverage across all three sectors and both US and international developments. Include relevant Latin America or Puerto Rico coverage when it clears the same evidence threshold; do not use a weak item merely to meet a quota.
 
 LinkedIn is a controlled discovery channel, not an unrestricted feed. For each account in `config/social-watchlist.json`, run targeted public-web searches for posts or account updates published during the reporting window. Also review links supplied by a person or open GitHub issues labeled `linkedin-lead` when repository issue access is available. Extract only the organization, public title or opening claim, publication date, public URL when indexed, entities, geography, and sector needed to evaluate the lead. Do not sign in, reuse session cookies, bypass access controls, solve CAPTCHAs, call private endpoints, or use bots, crawlers, browser automation, or unauthorized APIs against LinkedIn. Stop when content is gated.
 
@@ -36,6 +38,7 @@ Use the official LinkedIn API only if a reviewer has separately configured an ap
 Create `src/data/reports/YYYY-MM-DD.json` from the template with:
 
 - `status` set to `draft`;
+- a persistent `reviewId` for every story, using `story-` plus the first 16 characters of its accepted candidate ID; preserve an existing `reviewId` during revisions even if its citation URL changes;
 - a `documentType`, `reviewStatus`, and `discoveryChannel` for every selected item;
 - concise, neutral headlines;
 - a two- or three-sentence factual summary, two to four source-supported key points, a specific explanation of industry relevance, and a specific “watch next” for each publication;
@@ -60,7 +63,7 @@ Charts are a secondary appendix, not the lead presentation. They must compare li
 
 Update `src/data/history.json` only when an approved recurring dataset publishes a new observation for an existing series. Preserve the chart's unit, cadence, and comparison basis; apply official revisions when the source updates earlier values and explain the revision policy in the chart note. Never interpolate a missing period or combine monthly and annual observations in one chart. A new series requires at least two comparable observations and a direct registered source URL.
 
-If fewer than eight signals meet the threshold, do not create a schema-invalid report. Instead, write a short run summary explaining the coverage gaps and the strongest verified candidates.
+If fewer than five signals meet the threshold, do not create a schema-invalid report. Instead, write a short run summary explaining the coverage gaps and the strongest verified candidates.
 
 ## Validation and handoff
 
@@ -75,3 +78,5 @@ Run `npm run verify`. Correct validation or build failures caused by the draft. 
 - any sources that should be considered for the registry.
 
 The human reviewer owns factual approval and the change from `draft` to `approved`.
+
+When repository and GitHub access are available, finish by pushing the draft branch and opening or updating its pull request. Include the coverage summary in the pull-request body. Do not merge the pull request or invoke the approval workflow.

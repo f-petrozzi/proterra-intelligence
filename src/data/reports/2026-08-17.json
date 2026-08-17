@@ -2,7 +2,7 @@
   "slug": "2026-08-17",
   "issueNumber": 2,
   "title": "Weekly Brief",
-  "status": "draft",
+  "status": "approved",
   "period": {
     "start": "2026-08-14",
     "end": "2026-08-17"
@@ -93,13 +93,33 @@
         "title": "U.S. dairy weekly moves",
         "description": "Change in CME weekly average through August 14",
         "unit": "percent",
-        "itemRanks": [1],
-        "sourceIds": ["usda-ams-dairy"],
+        "itemRanks": [
+          1
+        ],
+        "sourceIds": [
+          "usda-ams-dairy"
+        ],
         "values": [
-          { "label": "Nonfat dry milk", "value": 5.7, "displayValue": "+5.7%" },
-          { "label": "Block cheese", "value": 3.8, "displayValue": "+3.8%" },
-          { "label": "Butter", "value": -1.8, "displayValue": "−1.8%" },
-          { "label": "Dry whey", "value": -0.4, "displayValue": "−0.4%" }
+          {
+            "label": "Nonfat dry milk",
+            "value": 5.7,
+            "displayValue": "+5.7%"
+          },
+          {
+            "label": "Block cheese",
+            "value": 3.8,
+            "displayValue": "+3.8%"
+          },
+          {
+            "label": "Butter",
+            "value": -1.8,
+            "displayValue": "−1.8%"
+          },
+          {
+            "label": "Dry whey",
+            "value": -0.4,
+            "displayValue": "−0.4%"
+          }
         ]
       },
       {
@@ -107,11 +127,23 @@
         "title": "Boxed beef weekly moves",
         "description": "Change in negotiated weekly cutout averages",
         "unit": "percent",
-        "itemRanks": [5],
-        "sourceIds": ["usda-ams-livestock"],
+        "itemRanks": [
+          5
+        ],
+        "sourceIds": [
+          "usda-ams-livestock"
+        ],
         "values": [
-          { "label": "Choice", "value": 1.8, "displayValue": "+1.8%" },
-          { "label": "Select", "value": 0.6, "displayValue": "+0.6%" }
+          {
+            "label": "Choice",
+            "value": 1.8,
+            "displayValue": "+1.8%"
+          },
+          {
+            "label": "Select",
+            "value": 0.6,
+            "displayValue": "+0.6%"
+          }
         ]
       },
       {
@@ -119,11 +151,23 @@
         "title": "Beef retail promotion",
         "description": "Change from the previous USDA survey week",
         "unit": "percent",
-        "itemRanks": [7],
-        "sourceIds": ["usda-ams-livestock"],
+        "itemRanks": [
+          7
+        ],
+        "sourceIds": [
+          "usda-ams-livestock"
+        ],
         "values": [
-          { "label": "Feature rate, points", "value": 15.8, "displayValue": "+15.8 pts" },
-          { "label": "Activity index", "value": 2.7, "displayValue": "+2.7%" }
+          {
+            "label": "Feature rate, points",
+            "value": 15.8,
+            "displayValue": "+15.8 pts"
+          },
+          {
+            "label": "Activity index",
+            "value": 2.7,
+            "displayValue": "+2.7%"
+          }
         ]
       }
     ]
@@ -134,10 +178,15 @@
       "headline": "Nonfat dry milk leads a split week in U.S. dairy markets",
       "imageId": "butter-output",
       "documentType": "report",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
-      "sectors": ["dairy"],
-      "regions": ["United States", "International"],
+      "sectors": [
+        "dairy"
+      ],
+      "regions": [
+        "United States",
+        "International"
+      ],
       "signal": "accelerating",
       "summary": "Grade A nonfat dry milk recorded the largest gain among major CME dairy products. Block cheese also strengthened, while butter and dry whey weekly averages declined.",
       "keyPoints": [
@@ -165,10 +214,14 @@
       "headline": "School demand tightens some U.S. milk channels as western output stays uneven",
       "imageId": "dairy-parlor",
       "documentType": "report",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
-      "sectors": ["dairy"],
-      "regions": ["United States"],
+      "sectors": [
+        "dairy"
+      ],
+      "regions": [
+        "United States"
+      ],
       "signal": "continuing",
       "summary": "Class I demand increased as schools reopened, while cooler Midwest weather improved cow comfort. Western milk production remained mixed because of heat, fires, and smoke.",
       "keyPoints": [
@@ -196,10 +249,15 @@
       "headline": "Australian dairy exports rise while processing capacity keeps shifting",
       "imageId": "global-pasture",
       "documentType": "report",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
-      "sectors": ["dairy"],
-      "regions": ["Australia", "International"],
+      "sectors": [
+        "dairy"
+      ],
+      "regions": [
+        "Australia",
+        "International"
+      ],
       "signal": "accelerating",
       "summary": "USDA Dairy Market News reported Australian dairy export volume of 163,341 metric tons for the year through June, 10.7 percent above the prior period, alongside continued plant closures and elevated imports.",
       "keyPoints": [
@@ -227,10 +285,16 @@
       "headline": "South American milk growth keeps pressure on powder markets",
       "imageId": "cattle-loading",
       "documentType": "report",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
-      "sectors": ["dairy"],
-      "regions": ["Latin America & Caribbean", "Argentina", "Chile"],
+      "sectors": [
+        "dairy"
+      ],
+      "regions": [
+        "Latin America & Caribbean",
+        "Argentina",
+        "Chile"
+      ],
       "signal": "continuing",
       "summary": "Milk deliveries across South America remained above year-earlier levels, sustaining supply pressure on international powder values. Farm prices improved in Argentina but input costs continued to squeeze margins across the region.",
       "keyPoints": [
@@ -258,10 +322,14 @@
       "headline": "Choice boxed beef strengthens and widens its premium over Select",
       "imageId": "cattle-market",
       "documentType": "report",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
-      "sectors": ["meat"],
-      "regions": ["United States"],
+      "sectors": [
+        "meat"
+      ],
+      "regions": [
+        "United States"
+      ],
       "signal": "accelerating",
       "summary": "The negotiated Choice cutout averaged $373.24 per hundredweight, up $6.73 from the prior week. Select gained $1.95, leaving a $23.06 Choice-Select spread.",
       "keyPoints": [
@@ -289,10 +357,18 @@
       "headline": "Imported lean beef prices soften as trading slows",
       "imageId": "cattle-loading",
       "documentType": "report",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
-      "sectors": ["meat"],
-      "regions": ["United States", "Australia", "New Zealand", "Brazil", "Latin America & Caribbean"],
+      "sectors": [
+        "meat"
+      ],
+      "regions": [
+        "United States",
+        "Australia",
+        "New Zealand",
+        "Brazil",
+        "Latin America & Caribbean"
+      ],
       "signal": "easing",
       "summary": "USDA reported mostly moderately lower imported-beef prices and slow trading. Weaker demand pressured lean beef and trimmings, while Brazilian arrivals fell short of expectations and Australia-New Zealand imports remained light.",
       "keyPoints": [
@@ -320,10 +396,14 @@
       "headline": "U.S. grocers broaden beef promotion as wholesale values rise",
       "imageId": "cattle-market",
       "documentType": "report",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
-      "sectors": ["meat"],
-      "regions": ["United States"],
+      "sectors": [
+        "meat"
+      ],
+      "regions": [
+        "United States"
+      ],
       "signal": "accelerating",
       "summary": "The beef feature rate across USDA's surveyed grocery outlets rose to 96.0 percent, 15.8 percentage points above the prior week. Promotional activity increased 2.7 percent, led by more space for chuck, loin, sirloin, ground beef, and deli items.",
       "keyPoints": [
@@ -351,10 +431,16 @@
       "headline": "August Holstein rankings place different sires atop active and genomic lists",
       "imageId": "genetics-lab",
       "documentType": "evaluation",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
-      "sectors": ["dairy", "bovine-genetics"],
-      "regions": ["United States", "International"],
+      "sectors": [
+        "dairy",
+        "bovine-genetics"
+      ],
+      "regions": [
+        "United States",
+        "International"
+      ],
       "signal": "new",
       "summary": "PEAK Powerhouse led active or limited proven bulls at 3,561 TPI, while Aurora GS Woodford led genomic young bulls at 3,622. The three-point genomic lead shows how closely packed the top of the young-sire list is.",
       "keyPoints": [
@@ -389,10 +475,16 @@
       "headline": "New HCC rankings separate functional conformation from overall TPI",
       "imageId": "calf-health",
       "documentType": "evaluation",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "official-site",
-      "sectors": ["dairy", "bovine-genetics"],
-      "regions": ["United States", "International"],
+      "sectors": [
+        "dairy",
+        "bovine-genetics"
+      ],
+      "regions": [
+        "United States",
+        "International"
+      ],
       "signal": "new",
       "summary": "Holstein USA's August HCC list ranked Bomaz Rimrock first at 3.08, while the leading active TPI bull carried an HCC of negative 0.25. The contrast shows that the two indexes answer different selection questions.",
       "keyPoints": [

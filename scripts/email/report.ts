@@ -132,7 +132,7 @@ export function hasFlag(name: string) {
 }
 
 export function getSiteUrl() {
-  const value = process.env.SITE_URL?.trim() || "https://proterra-signal.pages.dev";
+  const value = process.env.SITE_URL?.trim() || "https://proterra-intelligence.pages.dev";
   const url = new URL(value);
   if (url.protocol !== "https:" && url.hostname !== "localhost") {
     throw new Error("SITE_URL must use HTTPS unless it points to localhost.");

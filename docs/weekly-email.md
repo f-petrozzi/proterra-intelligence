@@ -26,7 +26,7 @@ Add these repository secrets:
 | `EMAIL_TEST_RECIPIENT` | Your own address for test messages |
 | `EMAIL_RECIPIENTS` | Approved recipients separated by commas, semicolons, or new lines |
 
-Under **Variables**, add `SITE_URL` with the production Cloudflare Pages URL. If it is omitted, the sender falls back to `https://proterra-signal.pages.dev`.
+Under **Variables**, add `SITE_URL` with the production Cloudflare Pages URL. If it is omitted, the sender falls back to `https://proterra-intelligence.pages.dev`.
 
 Create a GitHub environment named `email-production` under **Settings → Environments**. Add you or your coworker as a required reviewer if that control is available for the repository. The issue-date confirmation remains required either way.
 
@@ -43,7 +43,7 @@ The production message is sent to the Gmail account and BCCs the approved recipi
 
 ## Local preview
 
-Use Node.js 22.19 or newer.
+Use Node.js 24.19 or newer.
 
 ```sh
 npm run email:preview -- --report 2026-08-13

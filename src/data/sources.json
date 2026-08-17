@@ -206,6 +206,27 @@
     "notes": "Regional FAO reporting on livestock, food systems, trade, animal health, and agricultural policy."
   },
   {
+    "id": "fao-newsroom",
+    "name": "FAO Newsroom",
+    "domain": "fao.org",
+    "url": "https://www.fao.org/newsroom/archive/en",
+    "allowedPaths": [
+      "/newsroom/"
+    ],
+    "tier": "A",
+    "status": "approved",
+    "regions": [
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
+    "cadence": "Event-driven",
+    "notes": "Global FAO newsroom releases on food markets, livestock, animal health, trade, and agricultural policy."
+  },
+  {
     "id": "oirsa",
     "name": "International Regional Organization for Agricultural Health",
     "domain": "web.oirsa.org",

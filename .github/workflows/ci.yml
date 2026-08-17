@@ -1,6 +1,7 @@
 name: Verify
 
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches: [main]
@@ -20,7 +21,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 24.19.0
           cache: npm
 
       - name: Install dependencies
@@ -28,3 +29,9 @@ jobs:
 
       - name: Validate and build
         run: npm run verify
+
+      - name: Validate branch preview
+        if: github.event_name == 'pull_request'
+        env:
+          CF_PAGES_BRANCH: pull-request
+        run: npm run build

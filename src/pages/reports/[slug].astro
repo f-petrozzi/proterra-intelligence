@@ -2,6 +2,7 @@
 import NewsReel from "../../components/NewsReel.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { formatDate, reports, type Report } from "../../lib/content";
+import { reviewAttributes } from "../../lib/review";
 
 export function getStaticPaths() {
   return reports.map((report) => ({ params: { slug: report.slug }, props: { report } }));
@@ -12,10 +13,16 @@ interface Props {
 }
 
 const { report } = Astro.props as Props;
+const pageReview = reviewAttributes({
+  issueDate: report.slug,
+  storyReviewId: "story-report-general",
+  fieldPath: "report.general",
+  label: "General issue feedback"
+});
 ---
 
-<BaseLayout title={`Issue ${report.issueNumber}`} description={report.executiveSummary}>
-  <article class="report-page">
+<BaseLayout title={`${report.status === "draft" ? "Draft · " : ""}Issue ${report.issueNumber}`} description={report.executiveSummary}>
+  <article class="report-page" {...pageReview}>
     <header class="issue-page-heading reveal">
       <span>Weekly Brief · Issue {String(report.issueNumber).padStart(2, "0")}</span>
       <h1>Week of {formatDate(report.publishedAt)}</h1>

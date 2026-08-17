@@ -6,6 +6,8 @@ import { site } from "../config/site";
 import { formatDate, reports, sectorLabel, sectors } from "../lib/content";
 
 const latestReport = reports[0];
+const approvedReports = reports.filter((report) => report.status === "approved");
+const draftReports = reports.filter((report) => report.status === "draft");
 const coveredSectors = new Set(reports.flatMap((report) => report.items.flatMap((item) => item.sectors))).size;
 ---
 
@@ -13,13 +15,17 @@ const coveredSectors = new Set(reports.flatMap((report) => report.items.flatMap(
   <PageHeader
     label="Past issues"
     title="Briefing archive"
-    description="Browse every reviewed weekly issue with its original publication date, coverage, and sources."
+    description={draftReports.length > 0
+      ? "Review the current draft alongside previously published weekly issues."
+      : "Browse every reviewed weekly issue with its original publication date, coverage, and sources."}
   />
 
   <section class="archive-shell reveal delay-1">
     <div class="archive-summary" aria-label="Archive summary">
-      <article><strong>{reports.length}</strong><span>Published issue{reports.length === 1 ? "" : "s"}</span></article>
-      <article><strong>{latestReport ? formatDate(latestReport.publishedAt, { month: "short", day: "numeric" }) : "None"}</strong><span>Latest publication</span></article>
+      <article><strong>{approvedReports.length}</strong><span>Published issue{approvedReports.length === 1 ? "" : "s"}</span></article>
+      {draftReports.length > 0
+        ? <article><strong>{draftReports.length}</strong><span>Awaiting approval</span></article>
+        : <article><strong>{latestReport ? formatDate(latestReport.publishedAt, { month: "short", day: "numeric" }) : "None"}</strong><span>Latest publication</span></article>}
       <article><strong>{coveredSectors}</strong><span>Sectors covered</span></article>
     </div>
 

@@ -4,3 +4,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
   X-Robots-Tag: noindex, nofollow
+
+/reports/*
+  ! X-Frame-Options
+  Content-Security-Policy: frame-ancestors https://proterra-intelligence-review.petrozzi.workers.dev
