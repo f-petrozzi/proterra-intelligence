@@ -1,6 +1,7 @@
 import { z } from "astro/zod";
 import rawSources from "../data/sources.json";
 import { imageById } from "./images";
+import { assertEditorialImageAssignments } from "./image-policy";
 
 export const sectors = ["dairy", "meat", "bovine-genetics"] as const;
 export const signals = ["new", "continuing", "accelerating", "easing"] as const;
@@ -150,6 +151,13 @@ function assertReportIntegrity(report: Report, path: string) {
     throw new Error(`${path}: story reviewId values must be unique within an issue.`);
   }
 
+  const automatedReport = reviewIds.length > 0;
+  if (automatedReport && reviewIds.length !== report.items.length) {
+    throw new Error(`${path}: automated reports must preserve a reviewId on every story.`);
+  }
+
+  if (automatedReport) assertEditorialImageAssignments(report.items, imageById, path);
+
   if (report.status === "approved" && report.items.some((item) => item.reviewStatus !== "reviewed")) {
     throw new Error(`${path}: every item in an approved report must be reviewed.`);
   }
@@ -200,7 +208,8 @@ function assertReportIntegrity(report: Report, path: string) {
   }
 
   for (const item of report.items) {
-    if (!imageById.has(item.imageId)) {
+    const image = imageById.get(item.imageId);
+    if (!image) {
       throw new Error(`${path}: item ${item.rank} references unknown editorial image "${item.imageId}".`);
     }
 

@@ -35,6 +35,8 @@ Low-confidence candidates do not enter the published report.
 ## Editorial images
 
 - Choose an image ID from `src/data/editorial-images.json` for every selected story.
-- Match the image to the specific subject of the headline, not only to its sector.
+- Match the image to the specific subject of the headline using the registry's `subjects`, not only to its sector or to a secondary detail in the summary.
+- Use each image ID at most once per automated report. A different story in the same sector needs a different, still-relevant image.
+- Product images are literal: `butter-output` is only for a butter-led headline, while milk-powder stories use `milk-powder`.
 - Use only assets with a recorded creator, license, and original file page.
 - Treat an editorial image as presentation, never as evidence for the story.

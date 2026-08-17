@@ -14,7 +14,8 @@ Before researching, read:
 4. `config/social-watchlist.json`
 5. `src/data/history.json`
 6. `templates/report.template.json`
-7. The eight most recent files in `src/data/reports/`
+7. `src/data/editorial-images.json`
+8. The eight most recent files in `src/data/reports/`
 
 Use the current date as the issue date. The primary reporting window is the preceding seven calendar days. Use the preceding 30 days only to establish context or confirm that a trend is accelerating, easing, or continuing.
 
@@ -50,6 +51,7 @@ Create `src/data/reports/YYYY-MM-DD.json` from the template with:
 - one to three comparison charts only when every value has an explicit basis, a supporting item, and a cited approved source;
 - `high` or `medium` confidence based on the rubric;
 - direct citations whose `sourceId` exists in `src/data/sources.json` and whose URL belongs to that registered domain;
+- one unique editorial `imageId` per story, selected by matching the story headline to the registry's `subjects`; never select an image merely because a secondary detail appears elsewhere in the story;
 - a one- or two-sentence `sourceNote` for every citation that explains exactly what the document contributes and, when useful, what it does not establish;
 - no unsupported claims, invented data, vague citations, marketing language, or confidential information.
 
