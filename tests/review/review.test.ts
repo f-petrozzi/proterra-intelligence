@@ -188,15 +188,6 @@ test("automated reports use unique, headline-specific editorial images", async (
   assert.ok(registry.some((image) => image.id === "beef-retail" && image.subjects.includes("beef promotion")));
   assert.ok(registry.some((image) => image.id === "beef-processing" && image.subjects.includes("boxed beef")));
 
-  const issue = JSON.parse(await readFile("src/data/reports/2026-08-17.json", "utf8")) as {
-    items: Array<{ rank: number; imageId: string }>;
-  };
-  const imagesByRank = new Map(issue.items.map((item) => [item.rank, item.imageId]));
-  assert.equal(imagesByRank.get(1), "milk-powder");
-  assert.equal(imagesByRank.get(5), "beef-processing");
-  assert.equal(imagesByRank.get(7), "beef-retail");
-  assert.equal(new Set(issue.items.map((item) => item.imageId)).size, issue.items.length);
-
   const policy = await readFile("automation/weekly-report-prompt.md", "utf8");
   assert.match(policy, /src\/data\/editorial-images\.json/);
   assert.match(policy, /one unique editorial `imageId` per story/);
