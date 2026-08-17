@@ -1,0 +1,76 @@
+name: Send review notification
+
+on:
+  workflow_dispatch:
+    inputs:
+      kind:
+        description: Notification kind
+        required: true
+        type: choice
+        options: [changes-requested, preview-ready, published, failed]
+      issue_date:
+        description: Issue date
+        required: true
+        type: string
+      link:
+        description: Review or publication link
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: review-notification-${{ inputs.kind }}-${{ inputs.issue_date }}-${{ inputs.link }}
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24.19.0
+          cache: npm
+      - run: npm ci
+      - name: Select message and recipients
+        id: message
+        env:
+          KIND: ${{ inputs.kind }}
+          ISSUE_DATE: ${{ inputs.issue_date }}
+          OPERATOR: ${{ secrets.AUTOMATION_OPERATOR_EMAIL }}
+          REVIEWERS: ${{ secrets.AUTOMATION_REVIEWER_EMAILS }}
+        run: |
+          case "$KIND" in
+            changes-requested)
+              echo "subject=Proterra Intelligence changes requested" >> "$GITHUB_OUTPUT"
+              echo "text=Review feedback for $ISSUE_DATE is ready. On the homelab, run: npm run weekly:draft" >> "$GITHUB_OUTPUT"
+              echo "recipients=$OPERATOR" >> "$GITHUB_OUTPUT"
+              ;;
+            preview-ready)
+              echo "subject=Proterra Intelligence draft ready" >> "$GITHUB_OUTPUT"
+              echo "text=The validated $ISSUE_DATE draft preview is ready for review." >> "$GITHUB_OUTPUT"
+              echo "recipients=$REVIEWERS" >> "$GITHUB_OUTPUT"
+              ;;
+            published)
+              echo "subject=Proterra Intelligence issue published" >> "$GITHUB_OUTPUT"
+              echo "text=The approved $ISSUE_DATE issue has deployed successfully." >> "$GITHUB_OUTPUT"
+              echo "recipients=$REVIEWERS" >> "$GITHUB_OUTPUT"
+              ;;
+            failed)
+              echo "subject=Proterra Intelligence automation needs attention" >> "$GITHUB_OUTPUT"
+              echo "text=Automation for $ISSUE_DATE failed. Open the linked run for details." >> "$GITHUB_OUTPUT"
+              echo "recipients=$OPERATOR" >> "$GITHUB_OUTPUT"
+              ;;
+          esac
+      - name: Send through existing Gmail SMTP
+        env:
+          GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          AUTOMATION_RECIPIENTS: ${{ steps.message.outputs.recipients }}
+          SUBJECT: ${{ steps.message.outputs.subject }}
+          TEXT: ${{ steps.message.outputs.text }}
+          LINK: ${{ inputs.link }}
+        run: npm run email:automation -- --subject "$SUBJECT" --text "$TEXT" --link "$LINK"

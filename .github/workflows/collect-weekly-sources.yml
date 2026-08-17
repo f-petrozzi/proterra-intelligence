@@ -1,0 +1,269 @@
+name: Collect weekly sources
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue_date:
+        description: Issue date in YYYY-MM-DD format; blank uses today in New York
+        required: false
+        type: string
+  schedule:
+    - cron: "0 11 * * 1"
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: weekly-source-collection-${{ inputs.issue_date || 'scheduled' }}
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    if: github.event_name == 'workflow_dispatch' || vars.WEEKLY_COLLECTION_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24.19.0
+          cache: npm
+
+      - name: Resolve issue and branch
+        id: issue
+        env:
+          INPUT_ISSUE_DATE: ${{ inputs.issue_date }}
+        run: |
+          issue_date="$INPUT_ISSUE_DATE"
+          if [ -z "$issue_date" ]; then
+            issue_date="$(TZ=America/New_York date +%F)"
+          fi
+          if ! [[ "$issue_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+            echo "Issue date must use YYYY-MM-DD." >&2
+            exit 1
+          fi
+          branch="research-$issue_date"
+          echo "issue_date=$issue_date" >> "$GITHUB_OUTPUT"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Resume or create issue branch
+        env:
+          BRANCH: ${{ steps.issue.outputs.branch }}
+        run: |
+          if git fetch origin "$BRANCH:refs/remotes/origin/$BRANCH"; then
+            git switch -C "$BRANCH" "origin/$BRANCH"
+          else
+            git switch -c "$BRANCH"
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Remove stale issue artifacts
+        env:
+          ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
+        run: rm -f "src/data/research-runs/$ISSUE_DATE.candidates.json" "src/data/research-runs/$ISSUE_DATE.run.json"
+
+      - name: Collect source candidates
+        id: collector
+        continue-on-error: true
+        env:
+          ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
+        run: npm run research:collect -- --issue-date "$ISSUE_DATE"
+
+      - name: Validate generated files
+        id: manifest
+        if: always()
+        env:
+          ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
+        run: |
+          candidates="src/data/research-runs/$ISSUE_DATE.candidates.json"
+          manifest="src/data/research-runs/$ISSUE_DATE.run.json"
+          if [ ! -s "$candidates" ] || [ ! -s "$manifest" ]; then
+            echo "status=failed" >> "$GITHUB_OUTPUT"
+            echo "Collector did not produce both required artifacts." >&2
+            exit 0
+          fi
+          validation="$(node --import tsx scripts/collection/validate-output.ts "$ISSUE_DATE" "$candidates" "$manifest")"
+          printf '%s\n' "$validation" >> "$GITHUB_OUTPUT"
+
+      - name: Commit queue
+        if: steps.manifest.outputs.status != 'failed'
+        id: commit
+        env:
+          ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
+          BRANCH: ${{ steps.issue.outputs.branch }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "src/data/research-runs/$ISSUE_DATE.candidates.json" "src/data/research-runs/$ISSUE_DATE.run.json"
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "research: collect sources for $ISSUE_DATE"
+            git push origin "HEAD:$BRANCH"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open or update source-review pull request
+        if: steps.manifest.outputs.status != 'failed'
+        id: pull_request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
+          BRANCH: ${{ steps.issue.outputs.branch }}
+        run: |
+          for label in source-review-ready collection-partial collection-coverage-gap codex-reviewing brief-review-ready changes-requested approved-for-publish collection-failed; do
+            gh label create "$label" --force --color "2F6B55" --description "Proterra Intelligence weekly workflow state" >/dev/null
+          done
+          pr="$(gh pr list --head "$BRANCH" --base main --state open --json number --jq '.[0].number')"
+          manifest="src/data/research-runs/$ISSUE_DATE.run.json"
+          status="$(jq -r .status "$manifest")"
+          readiness="$(jq -r .editorialReadiness "$manifest")"
+          count="$(jq -r .candidateCount "$manifest")"
+          gaps="$(jq -r '.coverageGaps | join(" ")' "$manifest")"
+          if [ "$readiness" = "ready" ]; then
+            next_step="Run \`npm run weekly:draft\` on the homelab to prepare the editorial draft."
+          else
+            next_step="Codex is blocked to conserve usage. Add a defensible manual lead and rerun collection, or have the editorial lead explicitly override with \`npm run weekly:draft -- --allow-coverage-gap\`."
+          fi
+          body="Deterministic source collection for **$ISSUE_DATE** produced **$count** relevant candidates with run status **$status** and editorial readiness **$readiness**. $gaps $next_step"
+          if [ -z "$pr" ]; then
+            url="$(gh pr create --draft --base main --head "$BRANCH" --title "Source review ready: $ISSUE_DATE" --body "$body")"
+            pr="${url##*/}"
+          else
+            gh pr edit "$pr" --title "Source review ready: $ISSUE_DATE" --body "$body"
+          fi
+          gh pr edit "$pr" --remove-label codex-reviewing --remove-label brief-review-ready --remove-label changes-requested --remove-label collection-failed 2>/dev/null || true
+          gh pr edit "$pr" --add-label source-review-ready
+          if [ "$status" = "partial" ]; then gh pr edit "$pr" --add-label collection-partial; else gh pr edit "$pr" --remove-label collection-partial 2>/dev/null || true; fi
+          if [ "$readiness" = "coverage-gap" ]; then gh pr edit "$pr" --add-label collection-coverage-gap; else gh pr edit "$pr" --remove-label collection-coverage-gap 2>/dev/null || true; fi
+          if [ -n "${{ vars.WEEKLY_REVIEWER }}" ]; then gh pr edit "$pr" --add-assignee "${{ vars.WEEKLY_REVIEWER }}"; fi
+          url="$(gh pr view "$pr" --json url --jq .url)"
+          echo "number=$pr" >> "$GITHUB_OUTPUT"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Register source queue with stable review service
+        if: steps.manifest.outputs.status != 'failed'
+        env:
+          REVIEW_API_URL: ${{ vars.REVIEW_API_URL }}
+          ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
+          PULL_REQUEST: ${{ steps.pull_request.outputs.number }}
+          BRANCH: ${{ steps.issue.outputs.branch }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_ACCESS_CLIENT_SECRET }}
+          REVIEW_SERVICE_KEY: ${{ secrets.REVIEW_SERVICE_KEY }}
+        run: |
+          jq -n --arg issueDate "$ISSUE_DATE" --argjson pullRequest "$PULL_REQUEST" --arg branch "$BRANCH" --arg draftSha "$(git rev-parse HEAD)" \
+            '{issueDate:$issueDate,pullRequest:$pullRequest,branch:$branch,draftSha:$draftSha}' \
+            | curl --fail --silent --show-error -X POST \
+              -H "Content-Type: application/json" \
+              -H "CF-Access-Client-Id: $CF_ACCESS_CLIENT_ID" \
+              -H "CF-Access-Client-Secret: $CF_ACCESS_CLIENT_SECRET" \
+              -H "X-Review-Service-Key: $REVIEW_SERVICE_KEY" \
+              --data-binary @- "$REVIEW_API_URL/api/internal/issues/upsert"
+
+      - name: Add action summary
+        if: steps.manifest.outputs.status != 'failed'
+        env:
+          ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
+          PR_URL: ${{ steps.pull_request.outputs.url }}
+        run: |
+          manifest="src/data/research-runs/$ISSUE_DATE.run.json"
+          {
+            echo "## Weekly source collection"
+            echo
+            echo "- Issue: $ISSUE_DATE"
+            echo "- Status: $(jq -r .status "$manifest")"
+            echo "- Editorial readiness: $(jq -r .editorialReadiness "$manifest")"
+            echo "- Candidates: $(jq -r .candidateCount "$manifest")"
+            echo "- Failed adapters: $(jq '[.adapters[] | select(.status == "failed")] | length' "$manifest")"
+            echo "- Pull request: $PR_URL"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Email source-ready notification
+        if: steps.manifest.outputs.status != 'failed'
+        env:
+          GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          AUTOMATION_RECIPIENTS: ${{ secrets.AUTOMATION_OPERATOR_EMAIL }}
+          ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
+          PR_URL: ${{ steps.pull_request.outputs.url }}
+        run: |
+          manifest="src/data/research-runs/$ISSUE_DATE.run.json"
+          count="$(jq -r .candidateCount "$manifest")"
+          status="$(jq -r .status "$manifest")"
+          readiness="$(jq -r .editorialReadiness "$manifest")"
+          warnings="$(jq -r '.warnings | join(" ")' "$manifest")"
+          gaps="$(jq -r '.coverageGaps | join(" ")' "$manifest")"
+          if [ "$readiness" = "ready" ]; then
+            next_step="On the homelab, run: npm run weekly:draft"
+          else
+            next_step="Codex will not run by default. Add a defensible manual lead and rerun collection, or have the editorial lead deliberately run: npm run weekly:draft -- --allow-coverage-gap"
+          fi
+          text="The $ISSUE_DATE deterministic source queue has $count relevant candidates (status: $status; readiness: $readiness). $gaps $warnings $next_step"
+          npm run email:automation -- --subject "Proterra Intelligence sources: $readiness" --text "$text" --link "$PR_URL"
+
+      - name: Record failed collection
+        if: always() && (steps.manifest.outputs.status == 'failed' || steps.collector.outcome == 'failure' || steps.manifest.outcome == 'failure')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
+          BRANCH: ${{ steps.issue.outputs.branch }}
+          REVIEW_API_URL: ${{ vars.REVIEW_API_URL }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_ACCESS_CLIENT_SECRET }}
+          REVIEW_SERVICE_KEY: ${{ secrets.REVIEW_SERVICE_KEY }}
+        run: |
+          gh label create collection-failed --force --color "B42318" --description "Weekly source collection did not produce a trustworthy queue" >/dev/null
+          run_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          payload="$(jq -n --arg branch "$BRANCH" --arg reason "Collector did not produce a trustworthy queue" \
+            --arg runUrl "$run_url" --arg idempotencyKey "collection-failed:$GITHUB_REPOSITORY_ID:$GITHUB_RUN_ID:$GITHUB_RUN_ATTEMPT" \
+            '{branch:$branch,reason:$reason,runUrl:$runUrl,idempotencyKey:$idempotencyKey}')"
+          api_status=0
+          curl --fail --silent --show-error -X POST \
+            -H "Content-Type: application/json" \
+            -H "CF-Access-Client-Id: $CF_ACCESS_CLIENT_ID" \
+            -H "CF-Access-Client-Secret: $CF_ACCESS_CLIENT_SECRET" \
+            -H "X-Review-Service-Key: $REVIEW_SERVICE_KEY" \
+            --data-binary "$payload" "$REVIEW_API_URL/api/internal/issues/$ISSUE_DATE/collection-failed" || api_status=$?
+
+          pr="$(gh pr list --head "$BRANCH" --base main --state open --json number --jq '.[0].number')"
+          github_status=0
+          if [ -n "$pr" ]; then
+            labels="$(gh pr view "$pr" --json labels --jq '.labels[].name')" || github_status=$?
+            if printf '%s\n' "$labels" | grep -Fxq source-review-ready; then
+              gh pr edit "$pr" --remove-label source-review-ready || github_status=$?
+            fi
+            gh pr edit "$pr" --add-label collection-failed || github_status=$?
+          fi
+
+          existing="$(gh issue list --state open --label collection-failed --search "$ISSUE_DATE in:title" --json number --jq '.[0].number')"
+          body="The deterministic collection for $ISSUE_DATE did not produce a trustworthy queue. Inspect workflow run $run_url. Any previous source-ready queue has been invalidated."
+          if [ -n "$existing" ]; then gh issue comment "$existing" --body "$body"; else gh issue create --title "Collection failed: $ISSUE_DATE" --label collection-failed --body "$body"; fi
+          if [ "$api_status" -ne 0 ] || [ "$github_status" -ne 0 ]; then
+            echo "Failed to invalidate the previous queue in every control plane." >&2
+            exit 1
+          fi
+
+      - name: Email collection failure
+        if: always() && (steps.manifest.outputs.status == 'failed' || steps.collector.outcome == 'failure' || steps.manifest.outcome == 'failure')
+        env:
+          GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          AUTOMATION_RECIPIENTS: ${{ secrets.AUTOMATION_OPERATOR_EMAIL }}
+          ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
+        run: npm run email:automation -- --subject "Proterra Intelligence collection failed" --text "The deterministic collection for $ISSUE_DATE did not produce a trustworthy queue. Review the workflow log." --link "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+
+      - name: Fail after recording an unusable run
+        if: always() && (steps.manifest.outputs.status == 'failed' || steps.collector.outcome == 'failure' || steps.manifest.outcome == 'failure')
+        run: exit 1

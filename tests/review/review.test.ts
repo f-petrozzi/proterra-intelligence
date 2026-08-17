@@ -1,0 +1,176 @@
+import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
+import { readFile } from "node:fs/promises";
+import test from "node:test";
+import { escapeHtml, reviewShell } from "../../review-worker/src/html";
+import { fallbackStoryReviewId, reviewAnchor } from "../../src/lib/review";
+import { assertWeeklyDiff } from "../../scripts/review/assert-weekly-diff";
+import {
+  assertQueueMayDraft, buildDraftPrompt, chatGptOnlyEnvironment, matchesReconciliation, type DraftReceipt
+} from "../../scripts/review/weekly-draft";
+import { validateCollectionOutput } from "../../scripts/collection/validate-output";
+
+test("persistent review anchors do not depend on a citation URL after assignment", () => {
+  const assigned = fallbackStoryReviewId("https://example.org/first-url");
+  assert.match(assigned, /^story-[a-f0-9]{16}$/);
+  assert.equal(reviewAnchor("2026-08-24", assigned, "summary"), `2026-08-24:${assigned}:summary`);
+});
+
+test("weekly setup helper is shell-valid, discoverable, and non-mutating by default", async () => {
+  execFileSync("bash", ["-n", "scripts/setup/weekly-automation.sh"]);
+  const script = await readFile("scripts/setup/weekly-automation.sh", "utf8");
+  const packageJson = JSON.parse(await readFile("package.json", "utf8"));
+  assert.equal(packageJson.scripts["weekly:setup"], "bash scripts/setup/weekly-automation.sh");
+  assert.match(script, /The default command is read-only/);
+  assert.match(script, /--init-env/);
+  assert.match(script, /--online/);
+  assert.match(script, /--verify/);
+  assert.doesNotMatch(script, /gh (?:secret|variable).*\bset\b/);
+  assert.doesNotMatch(script, /git (?:commit|push)\b/);
+});
+
+test("the stable review shell escapes database and identity values", () => {
+  assert.equal(escapeHtml(`<script>alert("x")</script>`), "&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;");
+  const html = reviewShell({
+    issueDate: "2026-08-24", previewUrl: "https://preview.example/reports/2026-08-24",
+    previewSha: "a".repeat(40), state: `<img src=x onerror=alert(1)>`, csrf: "safe", email: "reviewer@example.org"
+  });
+  assert.doesNotMatch(html, /<img src=x/);
+  assert.match(html, /&lt;img src=x onerror=alert\(1\)&gt;/);
+});
+
+test("D1 schema includes immutable feedback snapshots, optimistic versions, and a durable outbox", async () => {
+  const initial = await readFile("review-worker/migrations/0001_initial.sql", "utf8");
+  const atomic = await readFile("review-worker/migrations/0002_atomic_outbox.sql", "utf8");
+  assert.match(initial, /CREATE TABLE review_batch_items/);
+  assert.match(initial, /field_value_hash TEXT NOT NULL/);
+  assert.match(initial, /version INTEGER NOT NULL DEFAULT 1/);
+  assert.match(atomic, /CREATE TABLE notification_outbox/);
+  assert.match(atomic, /transition_key/);
+  assert.match(atomic, /ALTER TABLE approvals ADD COLUMN transition_key/);
+  assert.match(atomic, /ALTER TABLE review_comments ADD COLUMN transition_key/);
+});
+
+test("weekly approval accepts only the three issue-specific files", () => {
+  const allowed = [
+    "A\tsrc/data/research-runs/2026-08-24.candidates.json",
+    "A\tsrc/data/research-runs/2026-08-24.run.json",
+    "A\tsrc/data/reports/2026-08-24.json"
+  ].join("\n");
+  assert.equal(assertWeeklyDiff("2026-08-24", allowed).length, 3);
+  assert.throws(() => assertWeeklyDiff("2026-08-24", `${allowed}\nM\t.github/workflows/ci.yml`), /unsafe or incomplete/);
+  assert.throws(() => assertWeeklyDiff("2026-08-24", allowed.replace("A\tsrc/data/reports", "D\tsrc/data/reports")), /Invalid entries/);
+});
+
+test("Codex execution strips every API-key override and matches a resumable receipt", () => {
+  assert.deepEqual(chatGptOnlyEnvironment({ OPENAI_API_KEY: "one", CODEX_API_KEY: "two", SAFE: "yes" }), { SAFE: "yes" });
+  const receipt: DraftReceipt = {
+    schemaVersion: 1,
+    issueDate: "2026-08-24",
+    pullRequest: 42,
+    branch: "research-2026-08-24",
+    previousSha: "a".repeat(40),
+    expectedVersion: 3,
+    newSha: "b".repeat(40),
+    idempotencyKey: "123e4567-e89b-42d3-a456-426614174000",
+    responses: [],
+    summary: "Prepared draft",
+    createdAt: "2026-08-24T12:00:00.000Z"
+  };
+  assert.equal(matchesReconciliation(receipt, {
+    number: 42, headRefName: receipt.branch, headRefOid: receipt.newSha
+  }, { issue: { draft_sha: receipt.previousSha, version: 3 } }), true);
+  assert.equal(matchesReconciliation(receipt, {
+    number: 42, headRefName: receipt.branch, headRefOid: "c".repeat(40)
+  }, { issue: { draft_sha: receipt.previousSha, version: 3 } }), false);
+});
+
+test("review shell exposes comment editing and orphaned-anchor warnings", () => {
+  const html = reviewShell({
+    issueDate: "2026-08-24", previewUrl: "https://preview.example/reports/2026-08-24",
+    previewSha: "a".repeat(40), state: "in-review", csrf: "safe", email: "reviewer@example.org"
+  });
+  assert.match(html, /Edit this instruction before submission/);
+  assert.match(html, /anchor no longer appears in the current preview/);
+  assert.match(html, /proterra-review-anchor-inventory/);
+  assert.match(html, /idempotencyKey:crypto\.randomUUID\(\)/);
+});
+
+test("collection deletes stale issue artifacts before a rerun", async () => {
+  const workflow = await readFile(".github/workflows/collect-weekly-sources.yml", "utf8");
+  const removal = workflow.indexOf("Remove stale issue artifacts");
+  const collection = workflow.indexOf("Collect source candidates");
+  assert.ok(removal > 0 && collection > removal);
+  assert.match(workflow, /rm -f .*\.candidates\.json.*\.run\.json/);
+});
+
+test("runner retains its receipt until checked idempotent GitHub finalization succeeds", async () => {
+  const runner = await readFile("scripts/review/weekly-draft.ts", "utf8");
+  assert.match(runner, /await requireCommand\("gh", editArguments\)/);
+  assert.match(runner, /proterra-draft-ready:\$\{sha\}/);
+  const commentFinalization = runner.indexOf('const comments = await requireCommand("gh"');
+  const labelFinalization = runner.indexOf('await requireCommand("gh", editArguments)');
+  assert.ok(commentFinalization > 0 && labelFinalization > commentFinalization);
+  const finalization = runner.indexOf("await markPullRequestReady(pullRequest, result.summary, newSha)");
+  const receiptRemoval = runner.indexOf("await rm(receiptPath, { force: true })", finalization);
+  assert.ok(finalization > 0 && receiptRemoval > finalization);
+});
+
+test("known coverage gaps stop before Codex unless an editorial lead explicitly overrides", async () => {
+  const manifest = {
+    schemaVersion: 1 as const,
+    issueDate: "2026-08-24",
+    startedAt: "2026-08-24T12:00:00.000Z",
+    completedAt: "2026-08-24T12:01:00.000Z",
+    status: "success" as const,
+    candidateCount: 5,
+    candidatesBeforeDeduplication: 5,
+    adapters: [],
+    manualSources: [],
+    editorialReadiness: "coverage-gap" as const,
+    coverageGaps: ["No relevant bovine-genetics candidate was collected."],
+    coverage: { sectors: {}, geographies: {} },
+    warnings: []
+  };
+  assert.throws(() => assertQueueMayDraft(manifest, "source-ready", false), /Codex was not started/);
+  assert.doesNotThrow(() => assertQueueMayDraft(manifest, "source-ready", true));
+  assert.doesNotThrow(() => assertQueueMayDraft(manifest, "changes-requested", false));
+
+  const normalPrompt = buildDraftPrompt(manifest.issueDate, manifest, false);
+  const overridePrompt = buildDraftPrompt(manifest.issueDate, manifest, true);
+  assert.match(normalPrompt, /EDITORIAL_OVERRIDE \{"approved":false,"scope":"none"/);
+  assert.match(overridePrompt, /EDITORIAL_OVERRIDE \{"approved":true,"scope":"manifest-readiness-only"/);
+  assert.match(overridePrompt, /No relevant bovine-genetics candidate was collected/);
+  assert.match(overridePrompt, /Do not return coverage-gap solely because the manifest is not editorially ready/);
+  assert.match(overridePrompt, /does not authorize filler, invented evidence, unsupported claims/);
+  const policy = await readFile("automation/source-review-prompt.md", "utf8");
+  assert.match(policy, /scope: "manifest-readiness-only"/);
+  assert.match(policy, /does not authorize filler, invented evidence, unsupported claims/);
+
+  const runner = await readFile("scripts/review/weekly-draft.ts", "utf8");
+  const guard = runner.indexOf("assertQueueMayDraft(manifest");
+  const prompt = runner.indexOf("buildDraftPrompt(issueDate, manifest, editorialOverrideApproved)");
+  const codex = runner.indexOf('await run("codex"', prompt);
+  assert.ok(guard > 0 && prompt > guard && codex > prompt);
+});
+
+test("collector failure invalidates the previous GitHub and D1 source-ready queue", async () => {
+  const workflow = await readFile(".github/workflows/collect-weekly-sources.yml", "utf8");
+  const worker = await readFile("review-worker/src/index.ts", "utf8");
+  assert.match(workflow, /collection-failed" \|\| api_status/);
+  assert.match(workflow, /--remove-label source-review-ready/);
+  assert.match(workflow, /always\(\) && \(steps\.manifest\.outputs\.status == 'failed'.*steps\.manifest\.outcome == 'failure'\)/);
+  assert.match(worker, /state = 'failed'.*version = version \+ 1/s);
+  assert.match(worker, /transition_key LIKE 'collection-failed:%'/);
+});
+
+test("malformed collection output triggers every failure cleanup path", async () => {
+  assert.throws(
+    () => validateCollectionOutput("{ malformed", "{}", "2026-08-24"),
+    /Candidate artifact is not valid JSON/
+  );
+  const workflow = await readFile(".github/workflows/collect-weekly-sources.yml", "utf8");
+  assert.match(workflow, /scripts\/collection\/validate-output\.ts/);
+  assert.equal(workflow.match(/steps\.manifest\.outcome == 'failure'/g)?.length, 3);
+  assert.equal(workflow.match(/steps\.collector\.outcome == 'failure'/g)?.length, 3);
+});

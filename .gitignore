@@ -4,12 +4,16 @@ node_modules/
 # build output
 dist/
 .astro/
+.wrangler/
+**/.wrangler/
 email-preview/
+.review/
 
 # local environment
 .env
 .env.*
 !.env.example
+/docs/weekly-automation-manual-setup.local.md
 
 # operating system and editor files
 .DS_Store

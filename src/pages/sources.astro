@@ -10,10 +10,10 @@ import { linkedinAccounts } from "../lib/social";
 
 const approvedCount = sources.filter((source) => source.status === "approved").length;
 const probationaryCount = sources.filter((source) => source.status === "probationary").length;
-const proposalUrl = "https://github.com/f-petrozzi/proterra-signal/issues/new?template=source-review.yml";
-const linkedinUrl = "https://github.com/f-petrozzi/proterra-signal/issues/new?template=linkedin-lead.yml";
-const registryUrl = "https://github.com/f-petrozzi/proterra-signal/edit/main/src/data/sources.json";
-const watchlistUrl = "https://github.com/f-petrozzi/proterra-signal/edit/main/config/social-watchlist.json";
+const proposalUrl = "https://github.com/f-petrozzi/proterra-intelligence/issues/new?template=source-review.yml";
+const linkedinUrl = "https://github.com/f-petrozzi/proterra-intelligence/issues/new?template=linkedin-lead.yml";
+const registryUrl = "https://github.com/f-petrozzi/proterra-intelligence/edit/main/src/data/sources.json";
+const watchlistUrl = "https://github.com/f-petrozzi/proterra-intelligence/edit/main/config/social-watchlist.json";
 ---
 
 <BaseLayout title="Source review" description={`Review and maintain the ${site.name} source registry.`}>

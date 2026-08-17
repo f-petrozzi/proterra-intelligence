@@ -1,0 +1,101 @@
+name: Record preview deployment
+
+on:
+  push:
+    branches:
+      - "research-*"
+    paths:
+      - "src/data/reports/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: preview-deployment-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - name: Resolve issue date
+        id: issue
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          issue_date="${BRANCH#research-}"
+          if ! [[ "$issue_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then exit 1; fi
+          echo "issue_date=$issue_date" >> "$GITHUB_OUTPUT"
+          if [ "$(jq -r .status "src/data/reports/$issue_date.json")" = "draft" ]; then
+            echo "record=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "record=false" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/setup-node@v7
+        if: steps.issue.outputs.record == 'true'
+        with:
+          node-version: 24.19.0
+          cache: npm
+      - if: steps.issue.outputs.record == 'true'
+        run: npm ci
+      - name: Wait for exact Cloudflare preview deployment
+        if: steps.issue.outputs.record == 'true'
+        id: deployment
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT }}
+          COMMIT_SHA: ${{ github.sha }}
+          DEPLOYMENT_ENVIRONMENT: preview
+        run: node --import tsx scripts/deployments/wait-for-pages.ts
+      - name: Read current review version
+        if: steps.issue.outputs.record == 'true'
+        id: review
+        env:
+          REVIEW_API_URL: ${{ vars.REVIEW_API_URL }}
+          ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_ACCESS_CLIENT_SECRET }}
+          REVIEW_SERVICE_KEY: ${{ secrets.REVIEW_SERVICE_KEY }}
+        run: |
+          for attempt in $(seq 1 24); do
+            response="$(curl --fail --silent --show-error \
+              -H "CF-Access-Client-Id: $CF_ACCESS_CLIENT_ID" \
+              -H "CF-Access-Client-Secret: $CF_ACCESS_CLIENT_SECRET" \
+              -H "X-Review-Service-Key: $REVIEW_SERVICE_KEY" \
+              "$REVIEW_API_URL/api/internal/issues/$ISSUE_DATE/agent-context")"
+            if [ "$(jq -r .issue.draft_sha <<< "$response")" = "$GITHUB_SHA" ]; then
+              echo "version=$(jq -r .issue.version <<< "$response")" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Review state did not reach $GITHUB_SHA before the deployment timeout." >&2
+          exit 1
+      - name: Record immutable deployment and notify reviewers
+        if: steps.issue.outputs.record == 'true'
+        env:
+          REVIEW_API_URL: ${{ vars.REVIEW_API_URL }}
+          ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
+          VERSION: ${{ steps.review.outputs.version }}
+          DEPLOYMENT_ID: ${{ steps.deployment.outputs.deployment_id }}
+          IMMUTABLE_URL: ${{ steps.deployment.outputs.immutable_url }}
+          ALIAS_URL: ${{ steps.deployment.outputs.alias_url }}
+          COMPLETED_AT: ${{ steps.deployment.outputs.completed_at }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_ACCESS_CLIENT_SECRET }}
+          REVIEW_SERVICE_KEY: ${{ secrets.REVIEW_SERVICE_KEY }}
+        run: |
+          jq -n \
+            --arg sha "$GITHUB_SHA" --argjson version "$VERSION" --arg deploymentId "$DEPLOYMENT_ID" \
+            --arg immutableUrl "$IMMUTABLE_URL/reports/$ISSUE_DATE" --arg aliasUrl "$ALIAS_URL/reports/$ISSUE_DATE" \
+            --arg completedAt "$COMPLETED_AT" \
+            '{sha:$sha,expectedVersion:$version,deploymentId:$deploymentId,immutableUrl:$immutableUrl,aliasUrl:$aliasUrl,completedAt:$completedAt}' \
+            | curl --fail --silent --show-error -X POST \
+              -H "Content-Type: application/json" \
+              -H "CF-Access-Client-Id: $CF_ACCESS_CLIENT_ID" \
+              -H "CF-Access-Client-Secret: $CF_ACCESS_CLIENT_SECRET" \
+              -H "X-Review-Service-Key: $REVIEW_SERVICE_KEY" \
+              --data-binary @- "$REVIEW_API_URL/api/internal/issues/$ISSUE_DATE/deployment"

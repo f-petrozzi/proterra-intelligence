@@ -35,6 +35,7 @@ const citationSchema = z.object({
 
 const itemSchema = z.object({
   rank: z.number().int().positive(),
+  reviewId: z.string().regex(/^story-[a-z0-9-]{8,80}$/).optional(),
   headline: z.string().min(12),
   imageId: z.string().regex(/^[a-z0-9-]+$/),
   documentType: z.enum(documentTypes),
@@ -114,7 +115,7 @@ const reportSchema = z.object({
   editorNote: z.string().optional(),
   overview: overviewSchema.optional(),
   dashboard: dashboardSchema.optional(),
-  items: z.array(itemSchema).min(8).max(10)
+  items: z.array(itemSchema).min(5).max(10)
 });
 
 export type Source = z.infer<typeof sourceSchema>;
@@ -138,6 +139,15 @@ function assertReportIntegrity(report: Report, path: string) {
 
   if (report.items.some((item) => item.reviewStatus === "dismissed")) {
     throw new Error(`${path}: dismissed candidates cannot appear in a report.`);
+  }
+
+  if (report.status === "draft" && report.items.some((item) => !item.reviewId)) {
+    throw new Error(`${path}: every item in a draft report must have a persistent reviewId.`);
+  }
+
+  const reviewIds = report.items.map((item) => item.reviewId).filter(Boolean);
+  if (new Set(reviewIds).size !== reviewIds.length) {
+    throw new Error(`${path}: story reviewId values must be unique within an issue.`);
   }
 
   if (report.status === "approved" && report.items.some((item) => item.reviewStatus !== "reviewed")) {

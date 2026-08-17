@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Official updates</title>
+  <entry>
+    <title>Genetic evaluation update</title>
+    <link rel="alternate" href="https://example.org/evaluations/august" />
+    <updated>2026-08-21T12:00:00Z</updated>
+    <summary>Evaluation details.</summary>
+  </entry>
+</feed>

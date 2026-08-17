@@ -1,0 +1,25 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "proterra-intelligence-review",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-17",
+  "workers_dev": true,
+  "triggers": {
+    "crons": ["*/5 * * * *"]
+  },
+  "d1_databases": [
+    {
+      "binding": "REVIEW_DB",
+      "database_name": "proterra-intelligence-review",
+      "database_id": "7e62e876-eefc-4716-8067-c057e6942010",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    "GITHUB_OWNER": "f-petrozzi",
+    "GITHUB_REPO": "proterra-intelligence",
+    "ACCESS_TEAM_DOMAIN": "https://homelab77.cloudflareaccess.com",
+    "ACCESS_AUD": "75158c55049b76b65677634c78013bdad7df1f858e10d2b9c12574adf8345a86",
+    "REVIEW_ORIGIN": "https://proterra-intelligence-review.petrozzi.workers.dev"
+  }
+}

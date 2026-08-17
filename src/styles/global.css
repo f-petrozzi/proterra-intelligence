@@ -1445,3 +1445,16 @@
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   }
 }
+/* Draft preview annotations are selection-only; review data lives in the stable Review Worker. */
+.review-selectable {
+  cursor: crosshair;
+  outline: 2px solid transparent;
+  outline-offset: 4px;
+  transition: outline-color 140ms ease, background-color 140ms ease;
+}
+
+.review-selectable:hover,
+.review-selectable:focus-within {
+  outline-color: #d4a72c;
+  background-color: rgba(255, 240, 185, 0.22);
+}

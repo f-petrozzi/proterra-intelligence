@@ -2,11 +2,11 @@
 
 An internal weekly research publication covering dairy, meat, and bovine genetics in the US and internationally.
 
-The proof of concept is deliberately small: a static Astro site, structured JSON reports, an approved source registry, automated validation, Cloudflare preview deployments, and human approval before publication. It has no database, CMS, or server runtime.
+The publication remains a small static Astro site with structured JSON reports, an approved source registry, automated validation, Cloudflare preview deployments, and human approval before publication. Editorial state lives in a separate, main-only Cloudflare Worker and D1 control plane; preview code never receives its bindings or credentials.
 
 ## Local development
 
-Requirements: Node.js 22.19 or newer. If you use `nvm`, run `nvm use` in the repository.
+Requirements: Node.js 24.19 or newer. If you use `nvm`, run `nvm use` in the repository.
 
 ```sh
 npm install
@@ -21,14 +21,15 @@ npm run verify
 
 ## Content workflow
 
-1. A scheduled research run follows `automation/weekly-report-prompt.md` and opens a pull request with one draft JSON report.
-2. The schema verifies report size, rank order, source IDs, source status, and citation domains.
-3. Cloudflare branch previews include the draft and identify it clearly as unpublished.
-4. Reviewers inspect the rendered issue and complete the editorial checklist.
-5. A guarded GitHub workflow marks the issue approved and validates it on the pull-request branch.
-6. The reviewer merges the pull request; only approved reports appear in production.
+1. GitHub Actions deterministically collects configured sources and emails the operator.
+2. The operator runs `npm run weekly:draft`; locally authenticated Codex prepares or revises the report in an isolated worktree.
+3. Cloudflare branch previews contain only an unprivileged annotation bridge. A stable main-only Review Worker owns D1 feedback and approval state.
+4. Reviewers attach field-level comments, batch change requests, confirm addressed threads, and approve an exact deployed SHA.
+5. GitHub validates and merges that SHA automatically; Cloudflare production success is confirmed before publication email.
 
 Reports live in `src/data/reports/`; the source registry lives in `src/data/sources.json`. Approved, credited images live in `src/data/editorial-images.json`. Editorial rules are in `config/editorial-rubric.md`.
+
+See `docs/weekly-automation-plan.md` for architecture and `docs/weekly-research-operations.md` for setup and the weekly runbook.
 
 ## Market dashboard
 

@@ -1,5 +1,5 @@
 {
-  "name": "proterra-signal",
+  "name": "proterra-intelligence",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -13,27 +13,44 @@
     "email:preview": "node --import tsx scripts/email/render-weekly-email.ts",
     "email:check": "node --import tsx scripts/email/render-weekly-email.ts --check",
     "email:send": "node --import tsx scripts/email/send-weekly-email.ts",
-    "verify": "npm run check && npm run email:check && npm run build"
+    "email:automation": "node --import tsx scripts/email/send-automation-email.ts",
+    "research:collect": "node --import tsx scripts/collection/collect.ts",
+    "research:test": "node --import tsx --test tests/collection/*.test.ts",
+    "review:check": "tsc --noEmit -p review-worker/tsconfig.json",
+    "review:config-check": "node --import tsx scripts/review/check-deploy-config.ts",
+    "review:test": "node --import tsx --test tests/review/*.test.ts",
+    "weekly:setup": "bash scripts/setup/weekly-automation.sh",
+    "weekly:draft": "node --import tsx scripts/review/weekly-draft.ts",
+    "weekly:guard-diff": "node --import tsx scripts/review/assert-weekly-diff.ts",
+    "verify": "npm run check && npm run review:check && npm run email:check && npm run research:test && npm run review:test && npm run build"
   },
   "engines": {
-    "node": ">=22.19"
+    "node": ">=24.19"
   },
   "dependencies": {
-    "@awesome.me/webawesome": "^3.2.1",
+    "@awesome.me/webawesome": "^3.11.0",
     "@observablehq/plot": "^0.6.17",
+    "cheerio": "^1.2.0",
+    "csv-parse": "^7.0.2",
+    "fast-xml-parser": "^5.11.0",
+    "jose": "^6.2.9",
     "nodemailer": "^9.0.5",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "react-email": "^6.9.2"
+    "react-email": "^6.9.2",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
+    "@cloudflare/workers-types": "^5.20260817.1",
     "@types/nodemailer": "^8.0.1",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "astro": "7.2.2",
+    "miniflare": "5.20260811.1-alpha",
     "tsx": "^4.23.12",
-    "typescript": "5.9.3"
+    "typescript": "^6.0.3",
+    "wrangler": "^4.123.0"
   },
   "overrides": {
     "sharp": "0.35.3"

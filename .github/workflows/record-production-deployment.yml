@@ -1,0 +1,78 @@
+name: Record production deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      merge_sha:
+        description: Exact commit merged to main
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24.19.0
+          cache: npm
+      - run: npm ci
+      - name: Wait for exact Cloudflare production deployment
+        id: deployment
+        continue-on-error: true
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT }}
+          COMMIT_SHA: ${{ inputs.merge_sha }}
+          DEPLOYMENT_ENVIRONMENT: production
+        run: node --import tsx scripts/deployments/wait-for-pages.ts
+      - name: Record production success
+        if: steps.deployment.outcome == 'success'
+        env:
+          REVIEW_API_URL: ${{ vars.REVIEW_API_URL }}
+          MERGE_SHA: ${{ inputs.merge_sha }}
+          DEPLOYMENT_ID: ${{ steps.deployment.outputs.deployment_id }}
+          IMMUTABLE_URL: ${{ steps.deployment.outputs.immutable_url }}
+          COMPLETED_AT: ${{ steps.deployment.outputs.completed_at }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_ACCESS_CLIENT_SECRET }}
+          REVIEW_SERVICE_KEY: ${{ secrets.REVIEW_SERVICE_KEY }}
+        run: |
+          jq -n --arg mergeSha "$MERGE_SHA" --arg deploymentId "$DEPLOYMENT_ID" --arg immutableUrl "$IMMUTABLE_URL" --arg completedAt "$COMPLETED_AT" \
+            '{mergeSha:$mergeSha,deploymentId:$deploymentId,immutableUrl:$immutableUrl,completedAt:$completedAt}' \
+            | curl --fail --silent --show-error -X POST \
+              -H "Content-Type: application/json" \
+              -H "CF-Access-Client-Id: $CF_ACCESS_CLIENT_ID" \
+              -H "CF-Access-Client-Secret: $CF_ACCESS_CLIENT_SECRET" \
+              -H "X-Review-Service-Key: $REVIEW_SERVICE_KEY" \
+              --data-binary @- "$REVIEW_API_URL/api/internal/deployments/production"
+
+      - name: Record production failure
+        if: steps.deployment.outcome == 'failure'
+        env:
+          REVIEW_API_URL: ${{ vars.REVIEW_API_URL }}
+          MERGE_SHA: ${{ inputs.merge_sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_ACCESS_CLIENT_SECRET }}
+          REVIEW_SERVICE_KEY: ${{ secrets.REVIEW_SERVICE_KEY }}
+        run: |
+          jq -n --arg mergeSha "$MERGE_SHA" --arg runUrl "$RUN_URL" \
+            --arg error "Cloudflare production deployment failed or timed out. Inspect the linked workflow run." \
+            '{mergeSha:$mergeSha,error:$error,runUrl:$runUrl}' \
+            | curl --fail --silent --show-error -X POST \
+              -H "Content-Type: application/json" \
+              -H "CF-Access-Client-Id: $CF_ACCESS_CLIENT_ID" \
+              -H "CF-Access-Client-Secret: $CF_ACCESS_CLIENT_SECRET" \
+              -H "X-Review-Service-Key: $REVIEW_SERVICE_KEY" \
+              --data-binary @- "$REVIEW_API_URL/api/internal/deployments/production-failure"
+
+      - name: Fail after recording deployment failure
+        if: steps.deployment.outcome == 'failure'
+        run: exit 1

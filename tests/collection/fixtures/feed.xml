@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Official releases</title>
+    <item>
+      <title>Weekly dairy release</title>
+      <link>https://example.org/releases/dairy?utm_source=email</link>
+      <pubDate>Thu, 20 Aug 2026 14:00:00 GMT</pubDate>
+      <description><![CDATA[<p>Source supplied summary.</p>]]></description>
+    </item>
+  </channel>
+</rss>
