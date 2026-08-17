@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import InteractiveHistoryChart from "../components/InteractiveHistoryChart.astro";
+import MarketExplorer from "../components/MarketExplorer.astro";
 import MetricBars from "../components/MetricBars.astro";
 import PageHeader from "../components/PageHeader.astro";
 import { formatDate, reports } from "../lib/content";
@@ -36,13 +36,14 @@ const dashboardMetrics = [
   getMetric("us-cattle-snapshots", "Beef cows", "U.S. beef cows")
 ];
 
+const globalDairy = dashboardMetrics[0];
+const milkProduction = dashboardMetrics[3];
+const retailBeef = dashboardMetrics[4];
+const marketNarrative = `Global dairy prices are ${Math.abs(globalDairy.change).toFixed(1)}% ${globalDairy.change < 0 ? "below" : "above"} last year. U.S. milk production is ${Math.abs(milkProduction.change).toFixed(1)}% ${milkProduction.change < 0 ? "lower" : "higher"}, while retail beef values are ${Math.abs(retailBeef.change).toFixed(1)}% ${retailBeef.change < 0 ? "lower" : "higher"}.`;
+
 const latestReport = reports[0];
 const geneticsItems = latestReport?.items.filter((item) => item.sectors.includes("bovine-genetics")).slice(0, 2) ?? [];
-const groupedCharts = [
-  { id: "global-markets", label: "Global markets", charts: history.charts.filter((chart) => chart.region === "International") },
-  { id: "us-dairy", label: "U.S. dairy", charts: history.charts.filter((chart) => chart.region === "United States" && chart.sector === "Dairy") },
-  { id: "us-beef", label: "U.S. beef", charts: history.charts.filter((chart) => chart.region === "United States" && chart.sector === "Meat") }
-];
+const weeklyContext = latestReport?.overview?.points ?? [];
 ---
 
 <BaseLayout title="Market dashboard" description="Interactive global and U.S. livestock, dairy, and bovine genetics indicators for Proterra business owners.">
@@ -58,21 +59,34 @@ const groupedCharts = [
   </div>
 
   <nav class="page-section-nav reveal delay-1" aria-label="Dashboard sections">
-    <a href="#snapshot">Snapshot</a>
-    <a href="#global-markets">Global markets</a>
-    <a href="#us-dairy">U.S. dairy</a>
-    <a href="#us-beef">U.S. beef</a>
+    <a href="#snapshot">Market snapshot</a>
+    <a href="#market-explorer">Market explorer</a>
+    <a href="#weekly-context">Weekly context</a>
     <a href="#genetics-watch">Genetics watch</a>
   </nav>
 
+  <section class="dashboard-narrative reveal delay-2" aria-labelledby="dashboard-narrative-title">
+    <span>This period</span>
+    <h2 id="dashboard-narrative-title">{marketNarrative}</h2>
+    <p>Each comparison uses the prior year when the source history supports it. Reporting dates differ by dataset.</p>
+  </section>
+
   <section class="dashboard-summary reveal delay-2" id="snapshot" aria-labelledby="dashboard-summary-title">
     <header>
-      <div><span>Latest available</span><h2 id="dashboard-summary-title">Market snapshot</h2></div>
-      <p>Each tile states its unit and reporting period. Comparisons use the prior year where available.</p>
+      <div><span>Select a market</span><h2 id="dashboard-summary-title">Market snapshot</h2></div>
+      <p>Choose a reading to update the market explorer.</p>
     </header>
     <div class="dashboard-kpi-grid">
-      {dashboardMetrics.map((metric) => (
-        <article class="dashboard-kpi">
+      {dashboardMetrics.map((metric, index) => (
+        <button
+          type="button"
+          class="dashboard-kpi"
+          data-market-selector
+          data-chart-id={metric.chart.id}
+          data-series={metric.series.label}
+          aria-controls="market-explorer"
+          aria-pressed={index === 0 ? "true" : "false"}
+        >
           <div class="dashboard-kpi-topline"><span>{metric.displayLabel}</span><i style={`--metric-color:${metric.series.color}`}></i></div>
           <div class="dashboard-kpi-value"><strong>{formatMetric(metric)}</strong><span>{metric.chart.unit}</span></div>
           <div class="dashboard-kpi-period"><span>{metric.latest.label}</span><span>{metric.chart.cadence}</span></div>
@@ -86,24 +100,30 @@ const groupedCharts = [
           <p class:list={{ positive: metric.change > 0, negative: metric.change < 0 }}>
             {metric.change > 0 ? "+" : ""}{metric.change.toFixed(1)}% {metric.basis}
           </p>
-          <a href={`#${metric.chart.id}`}>Explore history</a>
-        </article>
+          <span class="dashboard-kpi-action">View in explorer</span>
+        </button>
       ))}
     </div>
   </section>
 
   <section class="history-chart-list reveal delay-3" aria-labelledby="historical-bars-title">
     <header class="history-list-heading">
-      <div><span>Interactive history</span><h2 id="historical-bars-title">See the move, then inspect the value</h2></div>
-      <p>Choose a range, inspect any point, or switch to Change for subtle movements.</p>
+      <div><span>Interactive history</span><h2 id="historical-bars-title">Market explorer</h2></div>
+      <p>Change the market above, select a range, then inspect individual values.</p>
     </header>
+    <MarketExplorer charts={history.charts} />
+  </section>
 
-    {groupedCharts.map((group) => (
-      <section class="dashboard-chart-group" id={group.id} aria-labelledby={`${group.id}-title`}>
-        <header><span>{group.label}</span><h2 id={`${group.id}-title`}>{group.label}</h2></header>
-        {group.charts.map((chart) => <InteractiveHistoryChart chart={chart} />)}
-      </section>
-    ))}
+  <section class="dashboard-weekly-context" id="weekly-context" aria-labelledby="weekly-context-title">
+    <header>
+      <div><span>Latest brief</span><h2 id="weekly-context-title">What to watch</h2></div>
+      <a href={`/reports/${latestReport.slug}`}>Read the full weekly brief</a>
+    </header>
+    <div>
+      {weeklyContext.map((point, index) => (
+        <article><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{point.label}</h3><p>{point.text}</p></div></article>
+      ))}
+    </div>
   </section>
 
   <section class="genetics-watch" id="genetics-watch" aria-labelledby="genetics-watch-title">

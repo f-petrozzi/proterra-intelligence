@@ -1,0 +1,379 @@
+---
+import type { HistoryChart } from "../lib/history";
+
+interface Props {
+  charts: HistoryChart[];
+}
+
+const { charts } = Astro.props;
+const initial = charts[0];
+const payload = JSON.stringify(charts).replaceAll("<", "\\u003c");
+
+function formatValue(value: number) {
+  if (initial.format === "currency-2") return `$${value.toFixed(2)}`;
+  if (initial.format === "integer") return Math.round(value).toLocaleString("en-US");
+  return value.toFixed(1);
+}
+
+const initialSeries = initial.series[0];
+const initialLatest = initialSeries.points.at(-1)!;
+---
+
+<section class="market-explorer history-chart" id="market-explorer" aria-labelledby="market-explorer-title">
+  <header class="history-chart-header">
+    <div class="history-chart-copy">
+      <div class="history-chart-kicker">
+        <span data-explorer-region>{initial.region}</span>
+        <span data-explorer-cadence>{initial.cadence}</span>
+        <span data-explorer-updated>Data refreshed {initial.updatedAt}</span>
+      </div>
+      <h2 id="market-explorer-title" data-explorer-title>{initial.title}</h2>
+      <p class="history-question" data-explorer-question>{initial.question}</p>
+      <p data-explorer-description>{initial.description}</p>
+    </div>
+    <div class="explorer-current-reading">
+      <span data-explorer-series>{initialSeries.label}</span>
+      <div><strong data-explorer-value>{formatValue(initialLatest.value)}</strong><small data-explorer-unit>{initial.unit}</small></div>
+      <p data-explorer-period>{initialLatest.label}</p>
+    </div>
+  </header>
+
+  <div class="history-chart-toolbar" aria-label="Market explorer controls">
+    <fieldset class="history-range-control">
+      <legend>Time range</legend>
+      <div data-range-controls></div>
+    </fieldset>
+    <fieldset class="history-view-control">
+      <legend>Measure</legend>
+      <div>
+        <button type="button" data-view="value" aria-pressed="true">Values</button>
+        <button type="button" data-view="change" aria-pressed="false">Change</button>
+      </div>
+    </fieldset>
+    <div class="history-chart-type" aria-live="polite"><span>Chart</span><strong data-chart-type>Bars</strong></div>
+  </div>
+
+  <div class="history-plot" role="img" aria-label="Interactive market chart"></div>
+
+  <div class="explorer-stat-grid" aria-live="polite">
+    <div><span>Latest</span><strong data-stat="latest">{formatValue(initialLatest.value)}</strong></div>
+    <div><span data-change-label>From prior year</span><strong data-stat="change">Loading</strong></div>
+    <div><span>Range high</span><strong data-stat="high">Loading</strong></div>
+    <div><span>Data through</span><strong data-stat="period">{initialLatest.label}</strong></div>
+  </div>
+
+  <div class="history-chart-context">
+    <div><span>How to read it</span><p data-explorer-basis>{initial.basis}</p></div>
+    <div>
+      <div class="history-context-heading"><span>Important context</span><time data-explorer-context-date datetime={initial.updatedAt}>Updated {initial.updatedAt}</time></div>
+      <p data-explorer-note>{initial.note}</p>
+    </div>
+  </div>
+
+  <footer class="history-chart-footer">
+    <p>Source data, definitions, and revisions remain with the publisher.</p>
+    <a data-explorer-source href={initial.sourceUrl} target="_blank" rel="noreferrer">View {initial.sourceTitle}</a>
+  </footer>
+
+  <details class="history-data-table">
+    <summary>View source values</summary>
+    <div><table><caption data-table-caption></caption><thead data-table-head></thead><tbody data-table-body></tbody></table></div>
+  </details>
+
+  <div class="dashboard-tooltip history-hover-tooltip" role="tooltip" hidden>
+    <span data-tooltip-period></span><strong data-tooltip-value></strong><small data-tooltip-series></small><small data-tooltip-change hidden></small>
+  </div>
+  <script type="application/json" class="market-explorer-data" is:inline set:html={payload}></script>
+</section>
+
+<script>
+  import * as Plot from "@observablehq/plot";
+
+  type Point = { date: string; label: string; value: number };
+  type Series = { label: string; definition: string; color: string; points: Point[] };
+  type Chart = {
+    id: string;
+    title: string;
+    question: string;
+    description: string;
+    region: string;
+    cadence: string;
+    basis: string;
+    note: string;
+    updatedAt: string;
+    sourceUrl: string;
+    sourceTitle: string;
+    unit: string;
+    format: "integer" | "decimal-1" | "currency-2";
+    series: Series[];
+  };
+
+  const root = document.querySelector<HTMLElement>(".market-explorer");
+  if (root && !root.dataset.ready) {
+    root.dataset.ready = "true";
+    const data = root.querySelector<HTMLScriptElement>(".market-explorer-data");
+    const plotContainer = root.querySelector<HTMLElement>(".history-plot");
+    const tooltip = root.querySelector<HTMLElement>(".history-hover-tooltip");
+    if (!data || !plotContainer) throw new Error("Market explorer could not initialize.");
+    const explorer = root;
+    const plotElement = plotContainer;
+    const charts = JSON.parse(data.textContent ?? "[]") as Chart[];
+    if (tooltip) document.body.append(tooltip);
+
+    let chart = charts[0];
+    let selectedSeries = chart.series[0].label;
+    let view = "value";
+    let range = "12";
+    let resizeTimer = 0;
+
+    const monthNumber = (date: string) => Number(date.slice(0, 4)) * 12 + Number(date.slice(5, 7));
+    const query = <T extends HTMLElement>(selector: string) => explorer.querySelector<T>(selector);
+
+    function displayValue(value: number, mode = "value") {
+      if (mode === "change") return `${value > 0 ? "+" : ""}${value.toFixed(1)}%`;
+      if (chart.format === "currency-2") return `$${value.toFixed(2)}`;
+      if (chart.format === "integer") return Math.round(value).toLocaleString("en-US");
+      return value.toFixed(1);
+    }
+
+    function displayDate(value: string) {
+      return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })
+        .format(new Date(`${value}T00:00:00Z`));
+    }
+
+    function availableRanges(candidate: Chart) {
+      const dates = candidate.series.flatMap((series) => series.points.map((point) => point.date)).sort();
+      const span = monthNumber(dates.at(-1)!) - monthNumber(dates[0]) + 1;
+      const options = candidate.cadence === "Annual" ? [] : [
+        { label: "12M", months: 12 }, { label: "3Y", months: 36 },
+        { label: "5Y", months: 60 }, { label: "10Y", months: 120 }
+      ].filter((option) => span >= option.months - 1);
+      const largest = options.at(-1)?.months ?? 0;
+      return { span, options, showFull: options.length > 0 && span > largest };
+    }
+
+    function resetRange() {
+      const { options } = availableRanges(chart);
+      range = chart.cadence === "Quarterly" && options.some((option) => option.months === 60)
+        ? "60"
+        : String(options[0]?.months ?? "all");
+    }
+
+    function renderRangeControls() {
+      const container = query<HTMLElement>("[data-range-controls]");
+      const fieldset = container?.closest("fieldset");
+      if (!container || !fieldset) return;
+      const { options, showFull } = availableRanges(chart);
+      fieldset.toggleAttribute("hidden", options.length === 0);
+      container.replaceChildren();
+      for (const option of options) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.dataset.range = String(option.months);
+        button.textContent = option.label;
+        button.setAttribute("aria-pressed", String(range === String(option.months)));
+        container.append(button);
+      }
+      if (showFull) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.dataset.range = "all";
+        button.textContent = "Full";
+        button.setAttribute("aria-pressed", String(range === "all"));
+        container.append(button);
+      }
+    }
+
+    function setText(selector: string, value: string) {
+      const element = query<HTMLElement>(selector);
+      if (element) element.textContent = value;
+    }
+
+    function renderHeader() {
+      const series = chart.series.find((candidate) => candidate.label === selectedSeries) ?? chart.series[0];
+      const latest = series.points.at(-1)!;
+      setText("[data-explorer-region]", chart.region);
+      setText("[data-explorer-cadence]", chart.cadence);
+      setText("[data-explorer-updated]", `Data refreshed ${displayDate(chart.updatedAt)}`);
+      setText("[data-explorer-title]", chart.title);
+      setText("[data-explorer-question]", chart.question);
+      setText("[data-explorer-description]", chart.description);
+      setText("[data-explorer-series]", series.label);
+      setText("[data-explorer-value]", displayValue(latest.value));
+      setText("[data-explorer-unit]", chart.unit);
+      setText("[data-explorer-period]", latest.label);
+      setText("[data-explorer-basis]", chart.basis);
+      setText("[data-explorer-note]", chart.note);
+      const contextDate = query<HTMLTimeElement>("[data-explorer-context-date]");
+      if (contextDate) { contextDate.dateTime = chart.updatedAt; contextDate.textContent = `Updated ${displayDate(chart.updatedAt)}`; }
+      const source = query<HTMLAnchorElement>("[data-explorer-source]");
+      if (source) { source.href = chart.sourceUrl; source.textContent = `View ${chart.sourceTitle}`; }
+    }
+
+    function renderTable() {
+      const head = query<HTMLTableSectionElement>("[data-table-head]");
+      const body = query<HTMLTableSectionElement>("[data-table-body]");
+      if (!head || !body) return;
+      setText("[data-table-caption]", `${chart.title}, ${chart.unit}`);
+      const headingRow = document.createElement("tr");
+      const periodHeading = document.createElement("th");
+      periodHeading.scope = "col";
+      periodHeading.textContent = "Period";
+      headingRow.append(periodHeading);
+      chart.series.forEach((series) => {
+        const heading = document.createElement("th");
+        heading.scope = "col";
+        heading.textContent = series.label;
+        headingRow.append(heading);
+      });
+      head.replaceChildren(headingRow);
+      body.replaceChildren(...chart.series[0].points.map((point, index) => {
+        const row = document.createElement("tr");
+        const period = document.createElement("th");
+        period.scope = "row";
+        period.textContent = point.label;
+        row.append(period);
+        chart.series.forEach((series) => {
+          const cell = document.createElement("td");
+          cell.textContent = displayValue(series.points[index].value);
+          row.append(cell);
+        });
+        return row;
+      }));
+    }
+
+    function positionTooltip(clientX: number, clientY: number) {
+      if (!tooltip) return;
+      tooltip.hidden = false;
+      const bounds = tooltip.getBoundingClientRect();
+      const left = Math.min(clientX + 14, window.innerWidth - bounds.width - 10);
+      const top = clientY - bounds.height - 14 > 8 ? clientY - bounds.height - 14 : clientY + 14;
+      tooltip.style.left = `${Math.max(8, left)}px`;
+      tooltip.style.top = `${Math.max(8, top)}px`;
+    }
+
+    function renderPlot() {
+      const latestMonth = Math.max(...chart.series.flatMap((series) => series.points.map((point) => monthNumber(point.date))));
+      const rangeMonths = range === "all" ? Number.POSITIVE_INFINITY : Number(range);
+      const visible = chart.series.map((series) => ({ ...series, points: series.points.filter((point) => latestMonth - monthNumber(point.date) < rangeMonths) }));
+      const periods = [...new Map(visible.flatMap((series) => series.points.map((point) => [point.date, point.label])))]
+        .sort(([a], [b]) => a.localeCompare(b));
+      const periodIndex = new Map(periods.map(([date], index) => [date, index]));
+      const groupWidth = 0.76;
+      const barWidth = groupWidth / chart.series.length;
+      const rows = visible.flatMap((series, seriesIndex) => {
+        const baseline = series.points[0]?.value ?? 0;
+        return series.points.map((point) => {
+          const index = periodIndex.get(point.date) ?? 0;
+          return {
+            series: series.label,
+            period: point.label,
+            rawValue: point.value,
+            plottedValue: view === "change" && baseline !== 0 ? ((point.value - baseline) / baseline) * 100 : point.value,
+            x: index,
+            x1: index - groupWidth / 2 + seriesIndex * barWidth,
+            x2: index - groupWidth / 2 + (seriesIndex + 1) * barWidth - 0.025
+          };
+        });
+      });
+      const tickEvery = Math.max(1, Math.ceil(periods.length / (plotElement.clientWidth < 600 ? 5 : 9)));
+      const ticks = periods.map((_, index) => index).filter((index) => index % tickEvery === 0 || index === periods.length - 1);
+      const useLine = range === "all" ? periods.length > 24 : Number(range) > 24;
+      setText("[data-chart-type]", useLine ? "Trend line" : "Bars");
+      const colors = chart.series.map((series) => series.color);
+      const labels = chart.series.map((series) => series.label);
+      const selectedColor = chart.series.find((series) => series.label === selectedSeries)?.color ?? colors[0];
+      const selectedLatest = rows.filter((row) => row.series === selectedSeries).at(-1);
+      const lineInteractionRows = rows.filter((row) => row.series === selectedSeries);
+      const dataMarks = useLine ? [
+        Plot.lineY(rows, { x: "x", y: "plottedValue", stroke: "series", z: "series", strokeWidth: (row) => row.series === selectedSeries ? 2.6 : 1.5, strokeOpacity: (row) => row.series === selectedSeries ? 1 : 0.35 }),
+        Plot.dot(rows, { x: "x", y: "plottedValue", fill: "series", fillOpacity: (row) => row.series === selectedSeries ? 1 : 0.4, stroke: "#fafaf6", strokeWidth: 1, r: 3.5, className: "history-plot-point" }),
+        Plot.dot(lineInteractionRows, { x: "x", y: "plottedValue", fill: "transparent", stroke: "transparent", r: 11, className: "history-plot-hit" })
+      ] : [
+        Plot.rectY(rows, { x1: "x1", x2: "x2", y1: 0, y2: "plottedValue", fill: "series", fillOpacity: (row) => row.series === selectedSeries ? 0.9 : 0.34, rx: 2, className: "history-plot-bar" })
+      ];
+      const plot = Plot.plot({
+        width: Math.max(plotElement.clientWidth, 320), height: plotElement.clientWidth < 600 ? 300 : 380,
+        marginTop: 32, marginRight: 28, marginBottom: 46, marginLeft: 66,
+        style: { background: "transparent", color: "#5e6963", fontFamily: "Aptos, Segoe UI, sans-serif", fontSize: "11px" },
+        color: { domain: labels, range: colors, legend: false },
+        x: { domain: [-0.55, Math.max(periods.length - 0.45, 0.55)], ticks, tickFormat: (index: number) => periods[Math.round(index)]?.[1] ?? "", tickSize: 0, label: null },
+        y: { grid: true, label: view === "change" ? "Change from range start (%)" : chart.unit, nice: true, zero: view === "value", tickFormat: (value: number) => view === "change" ? `${value}%` : displayValue(value) },
+        marks: [
+          Plot.ruleY([0], { stroke: "#aeb5b0" }), ...dataMarks,
+          ...(selectedLatest ? [Plot.text([selectedLatest], { x: "x", y: "plottedValue", text: (row) => displayValue(row.plottedValue, view), dx: -5, dy: -11, textAnchor: "end", fill: selectedColor, fontWeight: 700 })] : [])
+        ]
+      });
+      plot.setAttribute("aria-label", `${chart.title}, ${periods[0]?.[1] ?? ""} through ${periods.at(-1)?.[1] ?? ""}`);
+      plotElement.replaceChildren(plot);
+      const targets = useLine
+        ? [...plot.querySelectorAll<SVGCircleElement>(".history-plot-hit circle, circle.history-plot-hit")]
+        : [...plot.querySelectorAll<SVGRectElement>(".history-plot-bar rect, rect.history-plot-bar")];
+      const interactionRows = useLine ? lineInteractionRows : rows;
+      targets.forEach((target, index) => {
+        const row = interactionRows[index];
+        if (!row || !tooltip) return;
+        const show = (event: Event) => {
+          if (!(event instanceof PointerEvent)) return;
+          const period = tooltip.querySelector<HTMLElement>("[data-tooltip-period]");
+          const value = tooltip.querySelector<HTMLElement>("[data-tooltip-value]");
+          const series = tooltip.querySelector<HTMLElement>("[data-tooltip-series]");
+          const change = tooltip.querySelector<HTMLElement>("[data-tooltip-change]");
+          if (period) period.textContent = row.period;
+          if (value) value.textContent = displayValue(row.rawValue);
+          if (series) series.textContent = `${row.series} · ${chart.unit}`;
+          if (change) { change.hidden = view !== "change"; change.textContent = `${displayValue(row.plottedValue, "change")} from range start`; }
+          positionTooltip(event.clientX, event.clientY);
+        };
+        target.addEventListener("pointerenter", show);
+        target.addEventListener("pointermove", show);
+        target.addEventListener("pointerdown", show);
+      });
+
+      const selected = visible.find((series) => series.label === selectedSeries) ?? visible[0];
+      const latest = selected.points.at(-1)!;
+      const comparisonOffset = chart.cadence === "Monthly" && selected.points.length > 12 ? 12 : chart.cadence === "Quarterly" && selected.points.length > 4 ? 4 : 1;
+      const comparison = selected.points.at(-(comparisonOffset + 1)) ?? selected.points[0];
+      const change = comparison.value === 0 ? 0 : ((latest.value - comparison.value) / comparison.value) * 100;
+      const high = selected.points.reduce((best, point) => point.value > best.value ? point : best, selected.points[0]);
+      setText('[data-stat="latest"]', displayValue(latest.value));
+      setText("[data-change-label]", comparisonOffset === 1 ? "From prior period" : "From prior year");
+      setText('[data-stat="change"]', displayValue(change, "change"));
+      setText('[data-stat="high"]', `${displayValue(high.value)} · ${high.label}`);
+      setText('[data-stat="period"]', latest.label);
+    }
+
+    function selectMetric(chartId: string, seriesLabel: string, shouldScroll: boolean) {
+      chart = charts.find((candidate) => candidate.id === chartId) ?? charts[0];
+      selectedSeries = chart.series.some((series) => series.label === seriesLabel) ? seriesLabel : chart.series[0].label;
+      view = "value";
+      resetRange();
+      document.querySelectorAll<HTMLButtonElement>("[data-market-selector]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.chartId === chart.id && button.dataset.series === selectedSeries));
+      });
+      explorer.querySelectorAll<HTMLButtonElement>("[data-view]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.view === view)));
+      renderHeader(); renderRangeControls(); renderTable(); renderPlot();
+      if (shouldScroll && window.matchMedia("(max-width: 900px)").matches) explorer.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    document.querySelectorAll<HTMLButtonElement>("[data-market-selector]").forEach((button) => button.addEventListener("click", () => {
+      selectMetric(button.dataset.chartId ?? "", button.dataset.series ?? "", true);
+    }));
+    explorer.addEventListener("click", (event) => {
+      const button = event.target instanceof Element ? event.target.closest<HTMLButtonElement>("button") : null;
+      if (button?.dataset.range) {
+        range = button.dataset.range;
+        explorer.querySelectorAll<HTMLButtonElement>("[data-range]").forEach((candidate) => candidate.setAttribute("aria-pressed", String(candidate === button)));
+        renderPlot();
+      }
+      if (button?.dataset.view) {
+        view = button.dataset.view;
+        explorer.querySelectorAll<HTMLButtonElement>("[data-view]").forEach((candidate) => candidate.setAttribute("aria-pressed", String(candidate === button)));
+        renderPlot();
+      }
+    });
+    plotElement.addEventListener("pointerleave", (event) => { if (event.pointerType === "mouse" && tooltip) tooltip.hidden = true; });
+    new ResizeObserver(() => { window.clearTimeout(resizeTimer); resizeTimer = window.setTimeout(renderPlot, 120); }).observe(plotElement);
+    resetRange(); renderHeader(); renderRangeControls(); renderTable(); renderPlot();
+  }
+</script>
