@@ -144,6 +144,9 @@ test("known coverage gaps stop before Codex unless an editorial lead explicitly 
   assert.match(overridePrompt, /No relevant bovine-genetics candidate was collected/);
   assert.match(overridePrompt, /Do not return coverage-gap solely because the manifest is not editorially ready/);
   assert.match(overridePrompt, /does not authorize filler, invented evidence, unsupported claims/);
+  assert.match(overridePrompt, /\.review\/evidence\.json as the complete, deterministically extracted evidence universe/);
+  assert.match(overridePrompt, /Do not browse, search the web, use curl/);
+  assert.match(overridePrompt, /Do not run npm, tests, validation, Git commands/);
   const policy = await readFile("automation/source-review-prompt.md", "utf8");
   assert.match(policy, /scope: "manifest-readiness-only"/);
   assert.match(policy, /does not authorize filler, invented evidence, unsupported claims/);
@@ -153,6 +156,13 @@ test("known coverage gaps stop before Codex unless an editorial lead explicitly 
   const prompt = runner.indexOf("buildDraftPrompt(issueDate, manifest, editorialOverrideApproved)");
   const codex = runner.indexOf('await run("codex"', prompt);
   assert.ok(guard > 0 && prompt > guard && codex > prompt);
+  assert.match(runner, /sandbox_workspace_write\.network_access=false/);
+  assert.match(runner, /tools\.web_search=false/);
+  assert.match(runner, /model_reasoning_effort=medium/);
+  const savedDraft = runner.indexOf("Saved the generated draft locally before validation");
+  const validation = runner.indexOf('await run("npm", ["run", "verify"]');
+  assert.ok(savedDraft > codex && validation > savedDraft);
+  assert.match(runner, /Reused the saved Codex draft for this exact source SHA and feedback revision/);
 });
 
 test("collector failure invalidates the previous GitHub and D1 source-ready queue", async () => {

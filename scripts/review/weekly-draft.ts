@@ -1,4 +1,5 @@
-import { access, chmod, mkdir, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
+import { access, chmod, copyFile, mkdir, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import { homedir, tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { spawn } from "node:child_process";
@@ -26,6 +27,15 @@ const receiptSchema = z.object({
   createdAt: z.iso.datetime()
 });
 export type DraftReceipt = z.infer<typeof receiptSchema>;
+const draftCacheSchema = z.object({
+  schemaVersion: z.literal(1),
+  issueDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  sourceSha: z.string().regex(/^[a-f0-9]{40}$/),
+  feedbackHash: z.string().regex(/^[a-f0-9]{64}$/),
+  report: z.unknown(),
+  result: resultSchema,
+  createdAt: z.iso.datetime()
+});
 
 type CommandResult = { stdout: string; stderr: string; code: number };
 
@@ -72,22 +82,23 @@ export function buildDraftPrompt(issueDate: string, manifest: RunManifest, edito
     editorialOverrideApproved
       ? "The editorial lead accepts only the listed manifest coverage gaps. Do not return coverage-gap solely because the manifest is not editorially ready or because of those accepted gaps. This does not authorize filler, invented evidence, unsupported claims, weakened source verification, or a schema-invalid report. Return coverage-gap if the available credible evidence still cannot support a valid report."
       : "No editorial override is approved; apply every normal readiness and coverage rule.",
-    `Read candidates locally from src/data/research-runs/${issueDate}.candidates.json and submitted feedback only from .review/feedback.json.`,
-    `Edit only src/data/reports/${issueDate}.json. Do not commit or push.`
+    "Use .review/evidence.json as the complete, deterministically extracted evidence universe. Do not browse, search the web, use curl, or fetch any source again.",
+    "Read submitted feedback only from .review/feedback.json. Read the editorial rubric, report template, image registry, source registry, and the target report only as needed; do not inspect history.json or unrelated reports.",
+    `Edit only src/data/reports/${issueDate}.json. Do not run npm, tests, validation, Git commands, commits, or pushes; the orchestration runner handles those once.`
   ].join("\n");
 }
 
-export function run(command: string, args: string[], options: { cwd?: string; inherit?: boolean; env?: NodeJS.ProcessEnv } = {}) {
+export function run(command: string, args: string[], options: { cwd?: string; inherit?: boolean; silent?: boolean; env?: NodeJS.ProcessEnv } = {}) {
   return new Promise<CommandResult>((resolveRun, reject) => {
     const child = spawn(command, args, {
       cwd: options.cwd,
       env: options.env ?? process.env,
-      stdio: options.inherit ? "inherit" : ["ignore", "pipe", "pipe"]
+      stdio: options.inherit ? "inherit" : ["ignore", options.silent ? "ignore" : "pipe", "pipe"]
     });
     let stdout = "";
     let stderr = "";
-    child.stdout?.on("data", (chunk) => { stdout += String(chunk); });
-    child.stderr?.on("data", (chunk) => { stderr += String(chunk); });
+    child.stdout?.on("data", (chunk) => { stdout = `${stdout}${String(chunk)}`.slice(-1_000_000); });
+    child.stderr?.on("data", (chunk) => { stderr = `${stderr}${String(chunk)}`.slice(-50_000); });
     child.on("error", reject);
     child.on("close", (code) => resolveRun({ stdout, stderr, code: code ?? 1 }));
   });
@@ -186,6 +197,19 @@ async function loadReceipt(path: string) {
   }
 }
 
+async function loadDraftCache(path: string) {
+  try {
+    return draftCacheSchema.parse(JSON.parse(await readFile(path, "utf8")));
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") return undefined;
+    throw new Error(`Invalid local draft cache at ${path}: ${error instanceof Error ? error.message : error}`);
+  }
+}
+
+function digest(value: string) {
+  return createHash("sha256").update(value).digest("hex");
+}
+
 async function markPullRequestReady(pullRequest: any, summary: string, sha: string, reconciled = false) {
   const labels = await requireCommand("gh", ["pr", "view", String(pullRequest.number), "--json", "labels", "--jq", ".labels[].name"]);
   const currentLabels = new Set(labels.stdout.split("\n").map((label) => label.trim()).filter(Boolean));
@@ -223,6 +247,7 @@ async function main() {
   const issueDate = match[1];
   const receiptDirectory = resolve(".review", "receipts");
   const receiptPath = resolve(receiptDirectory, `${issueDate}.json`);
+  const cacheDirectory = resolve(".review", "cache");
   const context = await reviewRequest(`/api/internal/issues/${issueDate}/agent-context`);
   const pendingReceipt = await loadReceipt(receiptPath);
   if (context.issue.branch !== pullRequest.headRefName || context.issue.draft_sha !== pullRequest.headRefOid) {
@@ -275,20 +300,54 @@ async function main() {
     if (checkedOutSha !== pullRequest.headRefOid) throw new Error("The research branch changed while the runner was starting; rerun against the latest revision.");
     const reviewDirectory = resolve(worktree, ".review");
     await mkdir(reviewDirectory, { recursive: true });
-    await writeFile(resolve(reviewDirectory, "feedback.json"), `${JSON.stringify({
+    const feedbackText = `${JSON.stringify({
       issueDate, sourceSha: context.issue.draft_sha, version: context.issue.version,
       batches: context.batches, batchItems: context.batchItems
-    }, null, 2)}\n`, { mode: 0o600 });
+    }, null, 2)}\n`;
+    await writeFile(resolve(reviewDirectory, "feedback.json"), feedbackText, { mode: 0o600 });
 
     const install = await run("npm", ["ci"], { cwd: worktree, inherit: true });
     if (install.code !== 0) throw new Error("npm ci failed in the isolated worktree.");
 
-    const prompt = buildDraftPrompt(issueDate, manifest, editorialOverrideApproved);
-    const codex = await run("codex", [
-      "exec", "--sandbox", "workspace-write", "--output-schema", "automation/codex-result.schema.json",
-      "--output-last-message", ".review/codex-result.json", prompt
-    ], { cwd: worktree, inherit: true, env: chatGptOnlyEnvironment() });
-    if (codex.code !== 0) throw new Error("Codex did not complete successfully. The research branch was not changed.");
+    await mkdir(cacheDirectory, { recursive: true });
+    const evidencePath = resolve(reviewDirectory, "evidence.json");
+    const evidenceCachePath = resolve(cacheDirectory, `${issueDate}-${checkedOutSha}.evidence.json`);
+    try {
+      await access(evidenceCachePath);
+      await copyFile(evidenceCachePath, evidencePath);
+      process.stdout.write("Reused the compact evidence bundle for this exact source SHA.\n");
+    } catch {
+      const evidence = await run("node", ["--import", "tsx", "scripts/review/prepare-evidence.ts",
+        "--candidates", candidatesPath, "--source-sha", checkedOutSha, "--output", evidencePath],
+      { cwd: worktree, inherit: true });
+      if (evidence.code !== 0) throw new Error("Deterministic evidence preparation failed; Codex was not started.");
+      await copyFile(evidencePath, evidenceCachePath);
+    }
+
+    const feedbackHash = digest(feedbackText);
+    const draftCachePath = resolve(cacheDirectory, `${issueDate}-${checkedOutSha}-${feedbackHash}.draft.json`);
+    const cachedDraft = await loadDraftCache(draftCachePath);
+    if (cachedDraft) {
+      await writeFile(resolve(worktree, "src", "data", "reports", `${issueDate}.json`), `${JSON.stringify(cachedDraft.report, null, 2)}\n`);
+      await writeFile(resolve(reviewDirectory, "codex-result.json"), `${JSON.stringify(cachedDraft.result, null, 2)}\n`, { mode: 0o600 });
+      process.stdout.write("Reused the saved Codex draft for this exact source SHA and feedback revision.\n");
+    } else {
+      const prompt = buildDraftPrompt(issueDate, manifest, editorialOverrideApproved);
+      process.stdout.write("Starting one compact, network-disabled Codex editorial pass.\n");
+      const codex = await run("codex", [
+        "exec", "--sandbox", "workspace-write",
+        "--config", "sandbox_workspace_write.network_access=false",
+        "--config", "tools.web_search=false",
+        "--config", "model_reasoning_effort=medium",
+        "--config", "model_verbosity=low",
+        "--config", "tool_output_token_limit=4000",
+        "--output-schema", "automation/codex-result.schema.json",
+        "--output-last-message", ".review/codex-result.json", prompt
+      ], { cwd: worktree, silent: true, env: chatGptOnlyEnvironment() });
+      if (codex.code !== 0) {
+        throw new Error(`Codex did not complete successfully. The research branch was not changed.\n${codex.stderr}`.trim());
+      }
+    }
 
     const result = resultSchema.parse(JSON.parse(await readFile(resolve(reviewDirectory, "codex-result.json"), "utf8")));
     if (result.status === "coverage-gap") throw new Error(`Codex reported insufficient coverage: ${result.summary}`);
@@ -303,6 +362,14 @@ async function main() {
     const changedPaths = changed.stdout.split("\n").filter(Boolean).map((line) => line.slice(3));
     if (changedPaths.length !== 1 || changedPaths[0] !== reportPath) {
       throw new Error(`Codex changed unexpected paths: ${changedPaths.join(", ") || "none"}.`);
+    }
+    if (!cachedDraft) {
+      const report = JSON.parse(await readFile(resolve(worktree, reportPath), "utf8"));
+      await writeFile(draftCachePath, `${JSON.stringify({
+        schemaVersion: 1, issueDate, sourceSha: checkedOutSha, feedbackHash, report, result,
+        createdAt: new Date().toISOString()
+      }, null, 2)}\n`, { mode: 0o600 });
+      process.stdout.write("Saved the generated draft locally before validation.\n");
     }
     const verify = await run("npm", ["run", "verify"], { cwd: worktree, inherit: true });
     if (verify.code !== 0) throw new Error("Draft validation failed; nothing was pushed.");
@@ -345,6 +412,7 @@ async function main() {
     }
     await markPullRequestReady(pullRequest, result.summary, newSha);
     await rm(receiptPath, { force: true });
+    await rm(draftCachePath, { force: true });
     process.stdout.write(`Draft ${issueDate} pushed successfully. Reviewers will be emailed after Cloudflare deploys ${newSha}.\n`);
   } finally {
     if (worktreeAdded) await run("git", ["worktree", "remove", "--force", worktree]);
