@@ -1,3 +1,9 @@
+## Draft preview
+
+Cloudflare preview: <!-- Paste the preview URL after the deployment finishes. -->
+
+Do not merge while the report status is `draft`. Review the rendered preview, then run **Actions → Approve weekly brief** with this pull request number and issue date. The workflow validates the publication and records approval on this branch.
+
 ## Editorial review
 
 - [ ] The report contains 8 to 10 distinct, relevant developments.
@@ -11,7 +17,8 @@
 - [ ] Confidence labels reflect source quality and corroboration.
 - [ ] No confidential, personal, promotional, or unsupported material is included.
 - [ ] Links work and the report passes `npm run verify`.
-- [ ] A human editor has approved publication.
+- [ ] The Cloudflare preview was reviewed on desktop and mobile.
+- [ ] A human editor has run the approval workflow.
 
 ## Reviewer notes
 

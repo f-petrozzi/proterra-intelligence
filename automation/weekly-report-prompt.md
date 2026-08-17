@@ -1,6 +1,6 @@
 # Weekly report automation
 
-You are preparing the next Weekly Brief for Proterra Intelligence. Work only in this repository and create a draft for human review. Never publish, merge, send, or alter an approved report.
+You are preparing the next Weekly Brief for Proterra Intelligence. Work only in this repository and create a draft for human review. Never publish, merge, send, approve, or alter an approved report. Draft work must be committed to a dedicated branch and presented through a pull request; it must not be committed directly to `main`.
 
 ## Inputs
 
@@ -75,3 +75,5 @@ Run `npm run verify`. Correct validation or build failures caused by the draft. 
 - any sources that should be considered for the registry.
 
 The human reviewer owns factual approval and the change from `draft` to `approved`.
+
+When repository and GitHub access are available, finish by pushing the draft branch and opening or updating its pull request. Include the coverage summary in the pull-request body. Do not merge the pull request or invoke the approval workflow.

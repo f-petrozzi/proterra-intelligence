@@ -8,6 +8,7 @@
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
     "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "report:approve": "node --import tsx scripts/reports/approve-report.ts",
     "data:refresh-dashboard": "node --import tsx scripts/data/refresh-dashboard.ts --write",
     "email:preview": "node --import tsx scripts/email/render-weekly-email.ts",
     "email:check": "node --import tsx scripts/email/render-weekly-email.ts --check",

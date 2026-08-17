@@ -27,8 +27,23 @@ The repository also ships `robots.txt`, an `X-Robots-Tag` header, and page-level
 
 ## Review flow
 
-1. The weekly automation opens a branch or pull request containing one draft JSON file.
+1. The weekly automation opens a branch and pull request containing one draft JSON file. Draft reports do not belong on `main`.
 2. GitHub Actions validates the content model and builds the site.
-3. Reviewers inspect the Cloudflare preview and complete the pull-request checklist.
-4. An editor changes the report status to `approved` and merges it.
-5. Cloudflare deploys `main`; draft reports remain excluded from the production build.
+3. Cloudflare builds the branch. Preview deployments include draft reports and display a visible draft notice; production excludes them.
+4. Reviewers inspect the preview on desktop and mobile, open every source link, and complete the pull-request checklist.
+5. An editor opens **Actions → Approve weekly brief**, enters the pull-request number and issue date, and repeats the issue date as confirmation.
+6. The approval workflow verifies that the pull request is open, targets `main`, and comes from this repository. It marks the report and every included item as reviewed, runs the full validation suite, and commits the approval back to the pull-request branch.
+7. Reviewers inspect the refreshed preview and merge the pull request.
+8. Cloudflare deploys `main`; the newly approved issue becomes public within the protected site.
+
+The approval workflow never merges the pull request or sends email. Those remain separate human actions.
+
+### Issue status
+
+| Location | Draft visible | Purpose |
+| --- | --- | --- |
+| Local development | Yes | Writing and checking the issue |
+| Cloudflare branch preview | Yes | Editorial review |
+| Production branch (`main`) | No | Approved publication only |
+
+To approve locally for testing, run `npm run report:approve -- YYYY-MM-DD`. Do not commit that change until the editorial review is complete.

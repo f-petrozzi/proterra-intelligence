@@ -21,11 +21,12 @@ npm run verify
 
 ## Content workflow
 
-1. A scheduled research run follows `automation/weekly-report-prompt.md` and creates one draft JSON report.
+1. A scheduled research run follows `automation/weekly-report-prompt.md` and opens a pull request with one draft JSON report.
 2. The schema verifies report size, rank order, source IDs, source status, and citation domains.
-3. GitHub Actions builds each pull request.
-4. Reviewers inspect the Cloudflare preview and complete the editorial checklist.
-5. Only reports marked `approved` appear in the production build.
+3. Cloudflare branch previews include the draft and identify it clearly as unpublished.
+4. Reviewers inspect the rendered issue and complete the editorial checklist.
+5. A guarded GitHub workflow marks the issue approved and validates it on the pull-request branch.
+6. The reviewer merges the pull request; only approved reports appear in production.
 
 Reports live in `src/data/reports/`; the source registry lives in `src/data/sources.json`. Approved, credited images live in `src/data/editorial-images.json`. Editorial rules are in `config/editorial-rubric.md`.
 

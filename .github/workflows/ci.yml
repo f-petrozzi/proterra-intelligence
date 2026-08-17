@@ -28,3 +28,9 @@ jobs:
 
       - name: Validate and build
         run: npm run verify
+
+      - name: Validate branch preview
+        if: github.event_name == 'pull_request'
+        env:
+          CF_PAGES_BRANCH: pull-request
+        run: npm run build

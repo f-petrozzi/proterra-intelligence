@@ -661,6 +661,26 @@
 
   .news-reel { padding-bottom: clamp(4rem, 7vw, 6rem); }
   .report-page .news-reel { padding-top: clamp(2.5rem, 5vw, 4rem); }
+  .draft-review-notice {
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.65fr) minmax(0, 1.35fr);
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    margin-bottom: 1.5rem;
+    padding: 1.15rem 1.25rem;
+    border: 1px solid rgba(23, 63, 50, 0.28);
+    border-radius: var(--radius-md);
+    background: rgba(220, 232, 174, 0.34);
+  }
+  .draft-review-notice span {
+    color: var(--forest);
+    font-size: 0.62rem;
+    font-weight: 740;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .draft-review-notice h2 { margin-top: 0.2rem; font-size: clamp(1.15rem, 2vw, 1.45rem); }
+  .draft-review-notice p { max-width: 43rem; color: var(--ink-muted); font-size: 0.78rem; line-height: 1.5; }
   .issue-page-heading { padding-top: clamp(2.5rem, 5vw, 4rem); }
   .issue-page-heading > span { color: var(--forest); font-size: 0.66rem; font-weight: 720; letter-spacing: 0.08em; text-transform: uppercase; }
   .issue-page-heading h1 { margin-top: 0.65rem; font-size: clamp(2.25rem, 4.5vw, 4rem); }
@@ -1378,6 +1398,7 @@
     .source-brief-footer { align-items: flex-start; flex-direction: column; }
     .regional-lane { margin-inline: -0.5rem; padding: 1.5rem; }
     .news-reel-header, .history-callout, .history-update { align-items: flex-start; flex-direction: column; }
+    .draft-review-notice { grid-template-columns: 1fr; gap: 0.75rem; }
     .news-reel-header nav { justify-content: flex-start; }
     .lead-news figure { min-height: 0; aspect-ratio: 16 / 9; }
     .lead-news-copy > h3 { font-size: 2.25rem; }

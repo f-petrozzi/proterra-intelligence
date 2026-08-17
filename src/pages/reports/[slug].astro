@@ -14,7 +14,7 @@ interface Props {
 const { report } = Astro.props as Props;
 ---
 
-<BaseLayout title={`Issue ${report.issueNumber}`} description={report.executiveSummary}>
+<BaseLayout title={`${report.status === "draft" ? "Draft · " : ""}Issue ${report.issueNumber}`} description={report.executiveSummary}>
   <article class="report-page">
     <header class="issue-page-heading reveal">
       <span>Weekly Brief · Issue {String(report.issueNumber).padStart(2, "0")}</span>

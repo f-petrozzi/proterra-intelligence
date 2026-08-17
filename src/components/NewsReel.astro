@@ -60,6 +60,19 @@ const reportHref = `/reports/${report.slug}`;
 ---
 
 <section class="news-reel" aria-labelledby="news-reel-title">
+  {report.status === "draft" && (
+    <aside class="draft-review-notice" aria-labelledby="draft-review-title">
+      <div>
+        <span>Draft preview</span>
+        <h2 id="draft-review-title">Review Issue {String(report.issueNumber).padStart(2, "0")}</h2>
+      </div>
+      <p>
+        This issue is not published. Check the source links, facts, and wording in this preview,
+        then approve it from the pull request when it is ready.
+      </p>
+    </aside>
+  )}
+
   <header class="news-reel-header">
     <div>
       <span>Issue {String(report.issueNumber).padStart(2, "0")} · {formatDate(report.publishedAt)}</span>
