@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "issueDate": "2026-08-17",
-  "startedAt": "2026-08-17T23:41:28.047Z",
-  "completedAt": "2026-08-17T23:41:47.598Z",
+  "startedAt": "2026-08-17T23:59:07.714Z",
+  "completedAt": "2026-08-17T23:59:32.303Z",
   "status": "success",
   "candidateCount": 5,
   "candidatesBeforeDeduplication": 5,
@@ -12,77 +12,77 @@
       "status": "success",
       "itemsSeen": 20,
       "itemsAccepted": 0,
-      "durationMs": 324
+      "durationMs": 303
     },
     {
       "sourceId": "iica",
       "status": "success",
       "itemsSeen": 9,
       "itemsAccepted": 0,
-      "durationMs": 141
+      "durationMs": 9366
     },
     {
       "sourceId": "fao-newsroom",
       "status": "success",
       "itemsSeen": 20,
       "itemsAccepted": 0,
-      "durationMs": 42
+      "durationMs": 41
     },
     {
       "sourceId": "usda-ams-boxed-beef-weekly",
       "status": "success",
       "itemsSeen": 2,
       "itemsAccepted": 1,
-      "durationMs": 268
+      "durationMs": 219
     },
     {
       "sourceId": "usda-ams-processing-beef-weekly",
       "status": "success",
       "itemsSeen": 2,
       "itemsAccepted": 1,
-      "durationMs": 108
+      "durationMs": 109
     },
     {
       "sourceId": "usda-ams-fed-cattle-weekly",
       "status": "success",
       "itemsSeen": 2,
       "itemsAccepted": 1,
-      "durationMs": 106
+      "durationMs": 98
     },
     {
       "sourceId": "usda-ers-dairy",
       "status": "success",
       "itemsSeen": 30,
       "itemsAccepted": 1,
-      "durationMs": 277
+      "durationMs": 324
     },
     {
       "sourceId": "usda-ers-livestock",
       "status": "success",
       "itemsSeen": 30,
       "itemsAccepted": 1,
-      "durationMs": 224
+      "durationMs": 300
     },
     {
       "sourceId": "usda-nass",
       "status": "success",
       "itemsSeen": 313,
       "itemsAccepted": 0,
-      "durationMs": 288
+      "durationMs": 272
     },
     {
       "sourceId": "usda-aphis",
       "status": "success",
       "itemsSeen": 5,
       "itemsAccepted": 0,
-      "durationMs": 3172
+      "durationMs": 3071
     },
     {
       "sourceId": "oirsa",
       "status": "success",
       "itemsSeen": 10,
       "itemsAccepted": 0,
-      "durationMs": 5352
+      "durationMs": 1230
     }
   ],
   "manualSources": [
