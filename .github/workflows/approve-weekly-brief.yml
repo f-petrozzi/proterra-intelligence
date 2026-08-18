@@ -44,6 +44,7 @@ jobs:
           echo "pull_request=$(jq -r .pull_request <<< "$response")" >> "$GITHUB_OUTPUT"
           echo "branch=$(jq -r .branch <<< "$response")" >> "$GITHUB_OUTPUT"
           echo "approved_sha=$(jq -r .approved_sha <<< "$response")" >> "$GITHUB_OUTPUT"
+          echo "approval_commit_sha=$(jq -r '.approval_commit_sha // empty' <<< "$response")" >> "$GITHUB_OUTPUT"
 
       - name: Mark approval running
         id: running
@@ -69,18 +70,20 @@ jobs:
           PULL_REQUEST: ${{ steps.approval.outputs.pull_request }}
           EXPECTED_BRANCH: ${{ steps.approval.outputs.branch }}
           EXPECTED_SHA: ${{ steps.approval.outputs.approved_sha }}
+          PREPARED_SHA: ${{ steps.approval.outputs.approval_commit_sha }}
         run: |
           details="$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PULL_REQUEST")"
+          expected_head="${PREPARED_SHA:-$EXPECTED_SHA}"
           test "$(jq -r .state <<< "$details")" = "open"
           test "$(jq -r .base.ref <<< "$details")" = "main"
           test "$(jq -r .head.ref <<< "$details")" = "$EXPECTED_BRANCH"
-          test "$(jq -r .head.sha <<< "$details")" = "$EXPECTED_SHA"
+          test "$(jq -r .head.sha <<< "$details")" = "$expected_head"
           test "$(jq -r .head.repo.full_name <<< "$details")" = "$GITHUB_REPOSITORY"
 
       - name: Check out exact approved revision
         uses: actions/checkout@v7
         with:
-          ref: ${{ steps.approval.outputs.approved_sha }}
+          ref: ${{ steps.approval.outputs.approval_commit_sha || steps.approval.outputs.approved_sha }}
           fetch-depth: 0
 
       - uses: actions/setup-node@v7
@@ -98,6 +101,7 @@ jobs:
           npm run weekly:guard-diff -- "$ISSUE_DATE" origin/main HEAD
 
       - name: Mark report approved
+        if: steps.approval.outputs.approval_commit_sha == ''
         env:
           ISSUE_DATE: ${{ steps.approval.outputs.issue_date }}
         run: npm run report:approve -- "$ISSUE_DATE"
@@ -108,16 +112,27 @@ jobs:
       - name: Guard approval-only change
         env:
           ISSUE_DATE: ${{ steps.approval.outputs.issue_date }}
+          PREPARED_SHA: ${{ steps.approval.outputs.approval_commit_sha }}
         run: |
-          expected="src/data/reports/$ISSUE_DATE.json"
-          test "$(git diff --name-only)" = "$expected"
+          if [ -n "$PREPARED_SHA" ]; then
+            test -z "$(git status --short)"
+          else
+            expected="src/data/reports/$ISSUE_DATE.json"
+            test "$(git diff --name-only)" = "$expected"
+          fi
 
-      - name: Commit approval to the PR branch
+      - name: Prepare or resume approval commit
         id: commit
         env:
           ISSUE_DATE: ${{ steps.approval.outputs.issue_date }}
           HEAD_REF: ${{ steps.approval.outputs.branch }}
+          PREPARED_SHA: ${{ steps.approval.outputs.approval_commit_sha }}
         run: |
+          if [ -n "$PREPARED_SHA" ]; then
+            test "$(git rev-parse HEAD)" = "$PREPARED_SHA"
+            echo "sha=$PREPARED_SHA" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "src/data/reports/$ISSUE_DATE.json"
@@ -126,26 +141,51 @@ jobs:
           git push origin "HEAD:refs/heads/$HEAD_REF"
           echo "sha=$approval_commit" >> "$GITHUB_OUTPUT"
 
-      - name: Dispatch required CI for approval commit
+      - name: Record prepared approval commit
         env:
-          GH_TOKEN: ${{ github.token }}
-          HEAD_REF: ${{ steps.approval.outputs.branch }}
-        run: gh workflow run ci.yml --ref "$HEAD_REF"
+          REVIEW_API_URL: ${{ vars.REVIEW_API_URL }}
+          APPROVAL_ID: ${{ inputs.approval_id }}
+          APPROVAL_COMMIT: ${{ steps.commit.outputs.sha }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_ACCESS_CLIENT_SECRET }}
+          REVIEW_SERVICE_KEY: ${{ secrets.REVIEW_SERVICE_KEY }}
+        run: |
+          jq -n --arg approvalCommitSha "$APPROVAL_COMMIT" \
+            '{status:"running",approvalCommitSha:$approvalCommitSha}' \
+            | curl --fail --silent --show-error -X POST \
+              -H "Content-Type: application/json" \
+              -H "CF-Access-Client-Id: $CF_ACCESS_CLIENT_ID" \
+              -H "CF-Access-Client-Secret: $CF_ACCESS_CLIENT_SECRET" \
+              -H "X-Review-Service-Key: $REVIEW_SERVICE_KEY" \
+              --data-binary @- "$REVIEW_API_URL/api/internal/approvals/$APPROVAL_ID/result"
 
-      - name: Wait for exact approval-commit CI
+      - name: Authorize and wait for exact PR validation
         env:
           GH_TOKEN: ${{ github.token }}
           HEAD_REF: ${{ steps.approval.outputs.branch }}
           APPROVAL_COMMIT: ${{ steps.commit.outputs.sha }}
+          REVIEW_API_URL: ${{ vars.REVIEW_API_URL }}
+          APPROVAL_ID: ${{ inputs.approval_id }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_ACCESS_CLIENT_SECRET }}
+          REVIEW_SERVICE_KEY: ${{ secrets.REVIEW_SERVICE_KEY }}
         run: |
           run_id=""
           for attempt in $(seq 1 30); do
-            run_id="$(gh run list --workflow ci.yml --branch "$HEAD_REF" --event workflow_dispatch --limit 10 \
+            run_id="$(gh run list --workflow ci.yml --branch "$HEAD_REF" --event pull_request --limit 10 \
               --json databaseId,headSha --jq ".[] | select(.headSha == \"$APPROVAL_COMMIT\") | .databaseId" | head -1)"
             if [ -n "$run_id" ]; then break; fi
             sleep 5
           done
-          if [ -z "$run_id" ]; then echo "Could not find CI for $APPROVAL_COMMIT" >&2; exit 1; fi
+          if [ -z "$run_id" ]; then echo "Could not find PR validation for $APPROVAL_COMMIT" >&2; exit 1; fi
+          jq -n --argjson runId "$run_id" --arg approvalCommitSha "$APPROVAL_COMMIT" \
+            '{runId:$runId,approvalCommitSha:$approvalCommitSha}' \
+            | curl --fail --silent --show-error -X POST \
+              -H "Content-Type: application/json" \
+              -H "CF-Access-Client-Id: $CF_ACCESS_CLIENT_ID" \
+              -H "CF-Access-Client-Secret: $CF_ACCESS_CLIENT_SECRET" \
+              -H "X-Review-Service-Key: $REVIEW_SERVICE_KEY" \
+              --data-binary @- "$REVIEW_API_URL/api/internal/approvals/$APPROVAL_ID/authorize-ci"
           gh run watch "$run_id" --exit-status
 
       - name: Merge exact validated head
@@ -196,5 +236,5 @@ jobs:
             -H "CF-Access-Client-Id: $CF_ACCESS_CLIENT_ID" \
             -H "CF-Access-Client-Secret: $CF_ACCESS_CLIENT_SECRET" \
             -H "X-Review-Service-Key: $REVIEW_SERVICE_KEY" \
-            --data '{"status":"failed","error":"Approval or publication workflow failed; inspect the GitHub Actions run."}' \
+            --data '{"status":"running","error":"Approval workflow paused and can be safely retried; inspect the GitHub Actions run."}' \
             "$REVIEW_API_URL/api/internal/approvals/$APPROVAL_ID/result" || true

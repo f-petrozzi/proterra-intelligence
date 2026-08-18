@@ -103,12 +103,12 @@ Approval and comment writes recheck the same in-review state, version, draft SHA
 - Source-ready and collection-failed email originates in the collection workflow.
 - The Review Worker dispatches `notify-review.yml` for change-request, preview-ready, and published messages.
 - `record-preview-deployment.yml` polls the Cloudflare Pages deployments API for the exact research commit and records deployment ID, immutable URL, branch alias, commit SHA, and completion time before email is sent.
-- `approve-weekly-brief.yml` retrieves the immutable approval, rechecks PR/repository/base/head, changes only the report status, verifies, commits, explicitly dispatches CI for that approval commit, waits for success, and merges with the expected head SHA.
+- `approve-weekly-brief.yml` retrieves the immutable approval, rechecks PR/repository/base/head, changes only the report status, verifies, and commits with the ephemeral `GITHUB_TOKEN`. GitHub intentionally places the resulting PR validation in `action_required`; the stable Worker uses its Actions-write-only token to authorize only the run whose PR number, workflow path, and head SHA match the guarded approval. The workflow waits for that PR-associated required check, records the prepared commit for safe retries, and merges with the expected head SHA.
 - `record-production-deployment.yml` polls for the exact merge commit before marking the issue published and emailing reviewers.
 
 Permission split:
 
-- Worker fine-grained GitHub token: Actions write only, used solely for workflow dispatch.
+- Worker fine-grained GitHub token: Actions write only, used for workflow dispatch and authorization of an exact, validated `action_required` PR run. It cannot write repository contents or merge.
 - Approval workflow `GITHUB_TOKEN`: contents write, pull requests write, and Actions write.
 - Cloudflare API token: Pages deployment read for polling; Worker/D1 deployment permissions only in the protected deployment environment.
 - Review API service token and service key: homelab runner and selected GitHub workflows only.

@@ -374,6 +374,74 @@ export async function approveIssue(env: Env, email: string, issueDate: string, i
   return { duplicate: false, approvalId };
 }
 
+type ApprovalWorkflowRunInput = {
+  runId: number;
+  approvalCommitSha: string;
+};
+
+type GitHubWorkflowRun = {
+  event: string;
+  status: string;
+  conclusion: string | null;
+  head_sha: string;
+  path: string;
+  pull_requests: Array<{ number: number }>;
+};
+
+export async function approvePullRequestWorkflowRun(
+  env: Env,
+  approvalId: string,
+  input: ApprovalWorkflowRunInput,
+  fetcher: typeof fetch = fetch
+) {
+  const approval = await env.REVIEW_DB.prepare(`SELECT approvals.status, approvals.approval_commit_sha, approvals.issue_date,
+    review_issues.state AS issue_state, review_issues.pull_request
+    FROM approvals JOIN review_issues USING(issue_date) WHERE approvals.id = ?`).bind(approvalId).first<{
+      status: string;
+      approval_commit_sha: string | null;
+      issue_date: string;
+      issue_state: string;
+      pull_request: number;
+    }>();
+  if (!approval || approval.status !== "running" || approval.issue_state !== "publishing"
+    || approval.approval_commit_sha !== input.approvalCommitSha) {
+    throw new Response("Approval workflow state conflict", { status: 409 });
+  }
+
+  const headers = {
+    accept: "application/vnd.github+json",
+    authorization: `Bearer ${env.GITHUB_WORKFLOW_TOKEN}`,
+    "user-agent": "Proterra-Intelligence-Review-Worker",
+    "x-github-api-version": "2022-11-28"
+  };
+  const runUrl = `https://api.github.com/repos/${encodeURIComponent(env.GITHUB_OWNER)}/${encodeURIComponent(env.GITHUB_REPO)}/actions/runs/${input.runId}`;
+  const runResponse = await fetcher(runUrl, { headers });
+  if (!runResponse.ok) throw new Response(`Could not inspect approval CI (${runResponse.status})`, { status: 502 });
+  const run = await runResponse.json() as GitHubWorkflowRun;
+  const expectedWorkflow = ".github/workflows/ci.yml";
+  if (run.event !== "pull_request" || run.head_sha !== input.approvalCommitSha
+    || !(run.path === expectedWorkflow || run.path.startsWith(`${expectedWorkflow}@`))
+    || !run.pull_requests.some((pullRequest) => pullRequest.number === approval.pull_request)) {
+    throw new Response("Workflow run does not match the guarded approval commit", { status: 409 });
+  }
+
+  if (run.status === "completed" && run.conclusion === "action_required") {
+    const approved = await fetcher(`${runUrl}/approve`, { method: "POST", headers });
+    if (!approved.ok) throw new Response(`Could not authorize approval CI (${approved.status})`, { status: 502 });
+  } else if (!(run.status !== "completed" || run.conclusion === "success")) {
+    throw new Response(`Approval CI cannot be authorized from ${run.status}/${run.conclusion ?? "none"}`, { status: 409 });
+  }
+
+  await recordEvent(env, {
+    issueDate: approval.issue_date,
+    type: "approval-ci-authorized",
+    actor: "publisher",
+    idempotencyKey: `approval-ci:${input.runId}`,
+    payload: input
+  });
+  return { ok: true, runId: input.runId };
+}
+
 const agentResultSchema = z.object({
   previousSha: shaSchema,
   expectedVersion: z.number().int().positive(),
@@ -643,15 +711,37 @@ async function handleInternalApi(request: Request, env: Env, path: string[]) {
     if (!approval) throw new Response("Approval not found", { status: 404 });
     return json(approval);
   }
+  if (request.method === "POST" && path[0] === "approvals" && path[2] === "authorize-ci") {
+    const approvalId = path[1];
+    const input = z.object({
+      runId: z.number().int().positive(), approvalCommitSha: shaSchema
+    }).parse(await body(request));
+    return json(await approvePullRequestWorkflowRun(env, approvalId, input));
+  }
   if (request.method === "POST" && path[0] === "approvals" && path[2] === "result") {
     const approvalId = path[1];
     const input = z.object({
       status: z.enum(["running", "merged", "published", "failed", "invalidated"]),
       error: z.string().max(2000).optional(), approvalCommitSha: shaSchema.optional(), mergeCommitSha: shaSchema.optional()
     }).parse(await body(request));
-    const approval = await env.REVIEW_DB.prepare("SELECT issue_date, status FROM approvals WHERE id = ?").bind(approvalId).first<{ issue_date: string; status: string }>();
+    const approval = await env.REVIEW_DB.prepare("SELECT issue_date, status, approval_commit_sha FROM approvals WHERE id = ?")
+      .bind(approvalId).first<{ issue_date: string; status: string; approval_commit_sha: string | null }>();
     if (!approval) throw new Response("Approval not found", { status: 404 });
-    if (approval.status === input.status) return json({ ok: true, duplicate: true });
+    if (approval.status === input.status) {
+      if (input.status === "running") {
+        if (approval.approval_commit_sha && input.approvalCommitSha
+          && approval.approval_commit_sha !== input.approvalCommitSha) {
+          throw new Response("Prepared approval commit changed", { status: 409 });
+        }
+        const result = await env.REVIEW_DB.prepare(`UPDATE approvals SET error = ?,
+          approval_commit_sha = COALESCE(approval_commit_sha, ?), updated_at = CURRENT_TIMESTAMP
+          WHERE id = ? AND status = 'running' AND EXISTS (
+            SELECT 1 FROM review_issues WHERE issue_date = approvals.issue_date AND state = 'publishing'
+          )`).bind(input.error ?? null, input.approvalCommitSha ?? null, approvalId).run();
+        if (result.meta.changes !== 1) throw new Response("Approval is not retryable", { status: 409 });
+      }
+      return json({ ok: true, duplicate: true });
+    }
     const allowed: Record<string, string[]> = {
       pending: ["running", "failed", "invalidated"],
       running: ["merged", "failed", "invalidated"]
