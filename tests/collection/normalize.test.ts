@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { candidateId, canonicalizeUrl, classifyCandidate, deduplicateCandidates, normalizeCandidate, parsePublicationDate } from "../../scripts/collection/normalize";
-import type { Candidate, CollectionSource } from "../../scripts/collection/types";
+import { candidateId, canonicalizeUrl, classifyCandidate, deduplicateCandidates, detectLanguage, normalizeCandidate, parsePublicationDate } from "../../scripts/collection/normalize";
+import type { CollectionSource, NormalizedCandidate } from "../../scripts/collection/types";
 
 const source: CollectionSource = {
   sourceId: "fao-americas", enabled: true, collectionRole: "evidence", method: "rss",
@@ -27,7 +27,7 @@ test("source summaries remain labeled and markup is stripped", () => {
 
 test("deduplicates exact canonical URLs and conservatively identical titles", () => {
   const base = normalizeCandidate({ title: "New dairy report", url: "https://example.org/a", publishedAt: "2026-08-22" }, source, "2026-08-24T11:00:00.000Z");
-  const candidates: Candidate[] = [
+  const candidates: NormalizedCandidate[] = [
     base,
     { ...base },
     { ...base, candidateId: "b".repeat(64), canonicalUrl: "https://example.org/b", title: "New dairy report!" },
@@ -49,6 +49,48 @@ test("normalizes the explicit date formats used by configured HTML listings", ()
   assert.equal(parsePublicationDate("August 17, 2026").toISOString(), "2026-08-17T12:00:00.000Z");
   assert.equal(parsePublicationDate("8/13/26").toISOString(), "2026-08-13T12:00:00.000Z");
   assert.equal(parsePublicationDate("2026-08-13T11:00:00").toISOString(), "2026-08-13T11:00:00.000Z");
+});
+
+test("parses multilingual and day-first written publication dates from regional feeds", () => {
+  assert.equal(parsePublicationDate("17 August 2026").toISOString(), "2026-08-17T12:00:00.000Z");
+  assert.equal(parsePublicationDate("17 de agosto de 2026").toISOString(), "2026-08-17T12:00:00.000Z");
+  assert.equal(parsePublicationDate("17 de agosto 2026").toISOString(), "2026-08-17T12:00:00.000Z");
+  assert.equal(parsePublicationDate("17.08.2026").toISOString(), "2026-08-17T12:00:00.000Z");
+  assert.equal(parsePublicationDate("30 de junho de 2026").toISOString(), "2026-06-30T12:00:00.000Z");
+});
+
+test("detects source language over the known Americas set and returns und when unclear", () => {
+  assert.equal(detectLanguage("Cattle prices rise as the market shifts in the south"), "en");
+  assert.equal(detectLanguage("El ganado bovino y la produccion de leche en la region"), "es");
+  assert.equal(detectLanguage("A producao de leite e o gado no campo brasileiro"), "pt");
+  assert.equal(detectLanguage("Le marche du lait et le betail dans la filiere"), "fr");
+  assert.equal(detectLanguage("Genomic evaluation 2026"), "und");
+});
+
+test("normalized candidates carry a detected language", () => {
+  const spanish = normalizeCandidate({
+    title: "El ganado bovino y la produccion de leche en la region", url: "https://example.org/es", publishedAt: "2026-08-22"
+  }, { ...source, sourceId: "oirsa", geographies: ["Latin America & Caribbean"] }, "2026-08-24T11:00:00.000Z");
+  assert.equal(spanish.language, "es");
+});
+
+test("derives content class and splits reader citation from auditable evidence", () => {
+  const datasetSource = { ...source, sourceId: "usda-ers-dairy", collectionRole: "evidence" as const };
+  const dataset = normalizeCandidate({
+    title: "Weekly boxed beef cutout", url: "https://example.org/services/reports/2461?q=x",
+    publishedAt: "2026-08-22", landingUrl: "https://example.org/viewReport/2461"
+  }, datasetSource, "2026-08-24T11:00:00.000Z");
+  assert.equal(dataset.contentClass, "dataset");
+  assert.equal(dataset.citationUrl, "https://example.org/viewReport/2461");
+  assert.equal(dataset.evidenceUrl, "https://example.org/services/reports/2461?q=x");
+
+  const newsSource = { ...source, sourceId: "usda-nass", collectionRole: "discovery" as const };
+  const news = normalizeCandidate({
+    title: "Cattle disease outbreak confirmed", url: "https://example.org/news/outbreak", publishedAt: "2026-08-22"
+  }, newsSource, "2026-08-24T11:00:00.000Z");
+  assert.equal(news.contentClass, "news");
+  assert.equal(news.citationUrl, "https://example.org/news/outbreak");
+  assert.equal(news.evidenceUrl, undefined);
 });
 
 test("classifies sectors and geography from each article instead of copying all source tags", () => {

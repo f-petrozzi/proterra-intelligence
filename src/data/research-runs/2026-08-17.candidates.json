@@ -2,20 +2,386 @@
   "schemaVersion": 1,
   "issueDate": "2026-08-17",
   "window": {
-    "start": "2026-08-10T04:00:00.000Z",
+    "start": "2026-08-03T04:00:00.000Z",
     "end": "2026-08-17T04:00:00.000Z",
     "timezone": "America/New_York"
   },
-  "generatedAt": "2026-08-17T23:59:32.303Z",
+  "generatedAt": "2026-08-18T04:31:21.778Z",
   "candidates": [
+    {
+      "candidateId": "8e57e8b133f572f61495858f0cee678c2335cf4e11d33dee36f0ff0b64b2dc00",
+      "sourceId": "beef-magazine",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/cattle-and-beef-market-summer-struggles",
+      "citationUrl": "https://beefmagazine.com/market-news/cattle-and-beef-market-summer-struggles",
+      "title": "Cattle and beef market summer struggles",
+      "publishedAt": "2026-08-14T13:36:44.000Z",
+      "summary": "Extended heat and drought conditions challenge recovery efforts for beef producers as pasture quality declines nationwide.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.556446,
+      "clusterId": "c977f6795a033af09ccbb059b743edab7f9becf9d2bdbd32b247aa6777aeb451",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "ce6e2ffe1577f3ab5902d48cc4c91614876b283c13e50f24b9418278c86e20e2",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/nutrition-and-health/livestock-antibody-research-partnership-enters-second-phase",
+      "citationUrl": "https://feedstuffs.com/nutrition-and-health/livestock-antibody-research-partnership-enters-second-phase",
+      "title": "Livestock antibody research partnership enters second phase",
+      "publishedAt": "2026-08-14T16:30:08.000Z",
+      "summary": "Hub seeks to develop and improve vaccines and diagnostics for critical diseases in cattle, pigs and poultry.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.550442,
+      "clusterId": "26a46a6cb679ccfbd6f3fde4cd9c9b5d449b883dd780f4d08ff834b81e38cd77",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "560d27fca2d6891a2775cf2cb4e197f59d41155c9cdd114d8fe4267d48a42c7a",
+      "sourceId": "beef-magazine",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/july-august-2026-edition-of-beef-available",
+      "citationUrl": "https://beefmagazine.com/livestock-management/july-august-2026-edition-of-beef-available",
+      "title": "July/August 2026 edition of BEEF available",
+      "publishedAt": "2026-08-11T12:27:36.000Z",
+      "summary": "Where carcass variability creates problems; PLUS: Embryo transfer info; adding value and reputation; and heat stress in the cow herd.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "bovine-genetics",
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.542386,
+      "clusterId": "24765cda0b5c911c7e8a01d8582338af35b0f6da18e16cfcf460f33216c50566",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "e8ad5ef624930a2e5d309efb1dfa129e1f6f9e050d4bdf496b703b0edfbce962",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/agribusiness-news/select-sires-welcomes-new-vp-of-business-and-genetic-integration",
+      "citationUrl": "https://feedstuffs.com/agribusiness-news/select-sires-welcomes-new-vp-of-business-and-genetic-integration",
+      "title": "Select Sires welcomes new VP of business and genetic integration",
+      "publishedAt": "2026-08-11T11:06:06.000Z",
+      "summary": "Brandon Sowder will work to strengthen genetic programs and help dairy and beef producers capture greater value from company genetics and services.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "bovine-genetics",
+        "dairy",
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.5413,
+      "clusterId": "d59ce3c230c92fe8e8cbe947e76049b904e0e9bc2285136a5bc2741872e1fd77",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "bdda42314d5586d6d7d3a6e29ad951fce4836cee9b6854ed21b410f83b18d8c1",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/poultry/genetic-neighborhoods-may-reveal-pathogenic-bacteria",
+      "citationUrl": "https://feedstuffs.com/poultry/genetic-neighborhoods-may-reveal-pathogenic-bacteria",
+      "title": "Genetic ‘neighborhoods’ may reveal pathogenic bacteria",
+      "publishedAt": "2026-08-12T12:18:47.000Z",
+      "summary": "Machine-learning method analyzed how genes are organized to distinguish disease-causing vs. harmless E. cecorum strains in poultry.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "bovine-genetics"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.541291,
+      "clusterId": "382b48f6258ebd6ab5304dbb5563de2ea285b1264d91322ee91857ce751b26ef",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "dc9ec279c9a9eca1ba7230a4731f39e997c24cd021c1f38c060da4171bdb044e",
+      "sourceId": "beef-magazine",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/tyson-shuts-down-illinois-beef-plant-without-warning",
+      "citationUrl": "https://beefmagazine.com/market-news/tyson-shuts-down-illinois-beef-plant-without-warning",
+      "title": "Tyson shuts down Illinois beef plant without warning",
+      "publishedAt": "2026-08-14T11:32:10.000Z",
+      "summary": "Joslin, Ill., facility shuts without warning, leaving cattle feeders scrambling and eliminating 3,000-head daily capacity in the Midwest corridor.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.54083,
+      "clusterId": "1bf6a25c2c4375c7b384d5a179d73dab2e29a790def8b3e4c36c2e71055591f3",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "85a37960bb2e731702ac923fde99df379aa537278f8d9e441b3a5a49336b3c5d",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/agribusiness-news/pharmgate-welcomes-kristy-ruby-as-regional-account-manager",
+      "citationUrl": "https://feedstuffs.com/agribusiness-news/pharmgate-welcomes-kristy-ruby-as-regional-account-manager",
+      "title": "Pharmgate welcomes Kristy Ruby as regional account manager",
+      "publishedAt": "2026-08-14T15:24:11.000Z",
+      "summary": "Veteran swine industry professional brings production experience and operational insight to animal health company.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.524932,
+      "clusterId": "44d71a1d7c3097e7735419709a2fa7d83a8b6dfd569e6d749ee79e11e593ecb8",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "403887fa96ea6676ff17641aea2425040bddddb566a020140f039fc23c377db0",
+      "sourceId": "beef-magazine",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/tyson-doubles-down",
+      "citationUrl": "https://beefmagazine.com/market-news/tyson-doubles-down",
+      "title": "Tyson doubles down",
+      "publishedAt": "2026-08-14T15:15:59.000Z",
+      "summary": "Additional beef plant closures or sales will reduce total capacity by 10,000 head/day in company’s “only true commodity business.”",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.524664,
+      "clusterId": "ec1e44ae4d8e532d866c408b5c2c220fd3fd448392e32c7471b0b7545ba73da4",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "7ff9ead820c305df90dde301106164a5398680e228327fc74a582cf6f56abba6",
+      "sourceId": "agproud-progressive",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "fr",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://agproud.com/articles/62225-isaac-dairy-adapter-la-duree-de-la-lactation-aux-besoins-des-vaches",
+      "citationUrl": "https://agproud.com/articles/62225-isaac-dairy-adapter-la-duree-de-la-lactation-aux-besoins-des-vaches",
+      "title": "Isaac Dairy : adapter la durée de la lactation aux besoins des vaches",
+      "publishedAt": "2026-08-15T04:00:00.000Z",
+      "sectors": [
+        "dairy"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.521471,
+      "clusterId": "6553239296202e13d4f958bf6841c91171023717131a90793091d84ba3220c17",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "5b72ad7068a7248d4f237ee810b8b9c2d69e015bf7a38201bd8d8c0000769400",
+      "sourceId": "agproud-progressive",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://agproud.com/articles/63902-from-sampling-to-cattle-performance",
+      "citationUrl": "https://agproud.com/articles/63902-from-sampling-to-cattle-performance",
+      "title": "From sampling to cattle performance",
+      "publishedAt": "2026-08-14T04:00:00.000Z",
+      "summary": "When cattle don’t perform the way your forage report says they should, the culprit is often hiding in the sampling process.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.52042,
+      "clusterId": "b27d4d09d4b5bd20cf028fcfe1cee82513ba2b250c437b184e1648d1ccd6e92c",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "7f79e4b5b3437db1ea3e64d0abebe3d1deaf862b0fb37c3a120b1b8e0cefa86f",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/agribusiness-news/manager-of-bovine-a-i-firm-pleads-guilty-to-bid-rigging",
+      "citationUrl": "https://feedstuffs.com/agribusiness-news/manager-of-bovine-a-i-firm-pleads-guilty-to-bid-rigging",
+      "title": "Manager of bovine A.I. firm pleads guilty to bid rigging",
+      "publishedAt": "2026-08-13T19:33:05.000Z",
+      "summary": "Herbert Lutz is first to be charged and plead guilty in conspiracy to rig bids during sales of cattle used for artificial insemination purposes.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.513481,
+      "clusterId": "6cda6ac313a202cc9fe49f133efc0e437dc00edc4805c618d676156be924e428",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "61f284fc4ff6e36cf473ac364483842c70e11a06ed8183c55323e8918a03f767",
+      "sourceId": "agproud-progressive",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://agproud.com/articles/63833-dont-guess-test-using-forage-analysis-to-stretch-winter-feed-dollars",
+      "citationUrl": "https://agproud.com/articles/63833-dont-guess-test-using-forage-analysis-to-stretch-winter-feed-dollars",
+      "title": "Don’t guess; test: Using forage analysis to stretch winter feed dollars",
+      "publishedAt": "2026-08-14T04:00:00.000Z",
+      "summary": "As grazing season begins to wind down, many cattle producers are already thinking about winter feed inventories. Hay barns are filling, silage piles are covered, and haylage is fermenting, but one important management step is often overlooked before winter feeding begins: forage testing.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.508753,
+      "clusterId": "399096e25bc5b762acb0b740fd7ef632b280053c700d25ca8a387faa233f5be6",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "e2689b6e242529835e14e61e6b067d2fe75b4817f7f985bbe746cf0d7dbe50e2",
+      "sourceId": "agproud-progressive",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://agproud.com/articles/63740-managing-the-size-of-beef-on-dairy-crosses",
+      "citationUrl": "https://agproud.com/articles/63740-managing-the-size-of-beef-on-dairy-crosses",
+      "title": "Managing the size of beef-on-dairy crosses",
+      "publishedAt": "2026-08-13T04:00:00.000Z",
+      "summary": "Warren Rusche's presentation – titled “What’s going on with carcass size?” – discussed the challenges associated with larger carcass sizes and factors producers should consider when planning beef-on-dairy crossbreeding programs.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy",
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.507895,
+      "clusterId": "43a0cb8454a1ca95d239f8e17d4a43b692f0c63c18029532cce6ba65031d4e9b",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "da965ae54b4bbbc3fbbe51319edfbef5fca78a131274890e102192b625477679",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/poultry/usda-approves-innovax-nd-ibd-ilt-from-merck-animal-health",
+      "citationUrl": "https://feedstuffs.com/poultry/usda-approves-innovax-nd-ibd-ilt-from-merck-animal-health",
+      "title": "USDA approves INNOVAX ND-IBD-ILT from Merck Animal Health",
+      "publishedAt": "2026-08-13T21:30:07.000Z",
+      "summary": "Recombinant vaccine is first to help protect against four major poultry diseases in a single hatchery administration.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.504879,
+      "clusterId": "5b987dbb06d687ee6668840eb9772e822cd138d2814fb6b314dde987b6cfe0f2",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "f643ef8fc15bf06ff083d681e3f7eef97f9184764b2010049827eb608194233b",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/agribusiness-news/tyson-reducing-beef-business-footprint",
+      "citationUrl": "https://feedstuffs.com/agribusiness-news/tyson-reducing-beef-business-footprint",
+      "title": "Tyson reducing beef business footprint",
+      "publishedAt": "2026-08-13T20:47:39.000Z",
+      "summary": "Dakota City, Holcomb and Amarillo will be the anchor facilities for beef operations.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.503759,
+      "clusterId": "b24b8000198be350eff1fd434cce874040c2c933ec6d9d6488b42df3a6f5b2a7",
+      "relatedUrls": []
+    },
     {
       "candidateId": "74de3b1a82528f20c020a46bafef7ebc07306f5a3a2fc5ce2ab5cb7e18ebc35b",
       "sourceId": "usda-ams-livestock",
       "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "und",
       "discoveredBy": "json-api",
       "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D08%2F14%2F2026",
+      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
+      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D08%2F14%2F2026",
       "title": "National/Regional Weekly Boneless Processing Beef and Beef Trimmings (PDF) (LM_XB460)",
-      "publishedAt": "2026-08-14T15:02:46.000Z",
+      "publishedAt": "2026-08-14T19:02:46.000Z",
       "releaseId": "08/14/2026",
       "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
       "sectors": [
@@ -24,16 +390,23 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-17T23:59:07.714Z"
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.501924,
+      "clusterId": "a3693eba47249b081f75ed8d3fe444244ea8a5e5f4fc0c947b82c64ab4c7908b",
+      "relatedUrls": []
     },
     {
       "candidateId": "d98d7591209927c41a835358ead355c43476b967ef983750045f5bb69a39d116",
       "sourceId": "usda-ams-livestock",
       "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "und",
       "discoveredBy": "json-api",
       "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F14%2F2026",
+      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
+      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F14%2F2026",
       "title": "National Weekly Boxed Beef Cutout & Boxed Beef Cuts - Negotiated Sales (PDF) (LM_XB459)",
-      "publishedAt": "2026-08-14T14:55:20.000Z",
+      "publishedAt": "2026-08-14T18:55:20.000Z",
       "releaseId": "08/14/2026",
       "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
       "sectors": [
@@ -42,14 +415,216 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-17T23:59:07.714Z"
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.50167,
+      "clusterId": "cb0bce058d0cbeb9cabb11248286dd12ccd50cd1b29640538666f512d488a1d5",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "64f310af12fb83906203ca6ce37c0cf2b68cf585cea3682dfac70481fbab7d0b",
+      "sourceId": "fao-newsroom",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "html-list",
+      "canonicalUrl": "https://fao.org/newsroom/detail/fao-food-price-index-edges-up-amid-weather--energy-and-geopolitical-concerns/en",
+      "citationUrl": "https://fao.org/newsroom/detail/fao-food-price-index-edges-up-amid-weather--energy-and-geopolitical-concerns/en",
+      "title": "FAO Food Price Index edges up amid weather, energy and geopolitical concerns",
+      "publishedAt": "2026-08-07T12:00:00.000Z",
+      "summary": "International quotations for sugar, cereals and vegetable oils offset declines for meat and dairy products.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy",
+        "meat"
+      ],
+      "geographies": [
+        "International"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.500812,
+      "clusterId": "602cc373343c8a42f26aae0150d107cf8e36db3a3232c27421485bee7470a864",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "e49c4c991fd0847b2d37b492c9a913ad5b2f99d412b2dcd5cdb5887210a799f9",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/agribusiness-news/chris-bartels-joins-select-sires-as-dairy-development-data-manager",
+      "citationUrl": "https://feedstuffs.com/agribusiness-news/chris-bartels-joins-select-sires-as-dairy-development-data-manager",
+      "title": "Chris Bartels joins Select Sires as dairy development data manager",
+      "publishedAt": "2026-08-07T21:16:16.000Z",
+      "summary": "Role supports organization’s dairy sire development program and genetic data infrastructure.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "bovine-genetics",
+        "dairy"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.498651,
+      "clusterId": "98ac5df9a61512500a5361f84c82517f3ae3da29ad48e4fc6dfa475509468d5e",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "02ff3be97e72256ba6b74114400d4d279b2c6b3f6febe8a5ed3153dcf960fc9d",
+      "sourceId": "fao-americas",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "html-list",
+      "canonicalUrl": "https://fao.org/americas/news/news-detail/animal-disease-outbreak-simulation/en",
+      "citationUrl": "https://fao.org/americas/news/news-detail/animal-disease-outbreak-simulation/en",
+      "title": "FAO leads animal disease outbreak simulation in Trinidad and Tobago",
+      "publishedAt": "2026-08-08T12:00:00.000Z",
+      "summary": "The Food and Agriculture Organization of the United Nations (FAO), in partnership with Trinidad and Tobago’s Ministry of Agriculture and Fisheries (MAF) and the Tobago House of Assembly Division of Food Security (DFS), successfully concluded a week-long simulation to test and strengthen the country’s capacity to respond to animal health emergencies.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "Latin America & Caribbean"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.496248,
+      "clusterId": "fa2e17b5a84f133f9e8d5791c65444acaf9f39315353aa6664a71255fa68c9ef",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "e3ca49c1e767a3454043a60653c368a723d620776bafa3a0b12ee0988ecf3e5a",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/livestock-and-poultry-market-news/beef-enjoys-growth-while-total-july-2026-retail-meat-sales-drop",
+      "citationUrl": "https://feedstuffs.com/livestock-and-poultry-market-news/beef-enjoys-growth-while-total-july-2026-retail-meat-sales-drop",
+      "title": "Beef enjoys growth while total July 2026 retail meat sales drop",
+      "publishedAt": "2026-08-12T20:39:34.000Z",
+      "summary": "Decline in chicken sales could be related to consumers avoiding leafy greens and salads.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.494022,
+      "clusterId": "55b3058d5a7548ba0fa337a11450f58451ec44f47f66b8b802a33b177e4a6302",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "c00522cb63c6b4b7b361356883558bfbfa772018159f21c8e4b79621363f6a3c",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/nutrition-and-health/improving-leptospirosis-diagnostics-in-cattle",
+      "citationUrl": "https://feedstuffs.com/nutrition-and-health/improving-leptospirosis-diagnostics-in-cattle",
+      "title": "Improving leptospirosis diagnostics in cattle",
+      "publishedAt": "2026-08-13T13:31:50.000Z",
+      "summary": "Project will home in on proteins that better match current circulating strains of the bacteria; goal is a single test that uses just one or two proteins to identify infected animals.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.492789,
+      "clusterId": "2fa7aef60746bdfe36ecb75213b6336b6a420c1751d226eca3c52a57f7cc3ceb",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "09c3cca48790f1fa9053d3d24a676fb76a366b6faf7a014dc29f9800f4ac9ebc",
+      "sourceId": "agproud-progressive",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://agproud.com/articles/63975-podcast-behind-the-numbers-the-true-impact-of-the-dairy-checkoff",
+      "citationUrl": "https://agproud.com/articles/63975-podcast-behind-the-numbers-the-true-impact-of-the-dairy-checkoff",
+      "title": "[Podcast] Behind the Numbers: The True Impact of the Dairy Checkoff",
+      "publishedAt": "2026-08-13T04:00:00.000Z",
+      "summary": "In this episode of Your Dairy Checkoff Podcast, economist Dr. Oral Capps of Texas A&M University breaks down more than a decade of independent research measuring the impact of the dairy checkoff.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.484562,
+      "clusterId": "84f35b4ff0378bb355b54e983714a9f7e7280a58c78cb29ec593b55cbda93dae",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "d2393b3e28ccea37a214089c8be2d6d3ca1cbe0dc394c0529f13d7c9ceab5afa",
+      "sourceId": "agproud-progressive",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://agproud.com/articles/63962-usda-nudges-2026-milk-production-forecast-higher",
+      "citationUrl": "https://agproud.com/articles/63962-usda-nudges-2026-milk-production-forecast-higher",
+      "title": "USDA nudges 2026 milk production forecast higher",
+      "publishedAt": "2026-08-12T17:38:07.000Z",
+      "summary": "USDA’s August WASDE raised 2026 milk production slightly to 238.1 billion pounds on expectations of a larger cow herd and a decrease in milk output per cow.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy",
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.483642,
+      "clusterId": "2e70513babdb6bcfa6e9e8ca337af2a9095e84ea242a71e223094e4c77e073ad",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "5c7e2ed605d1922c22a7c1944e4ff0c6e2bb1dfce49b382a5ebaf2ee963dec10",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "und",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/agribusiness-news/jbs-profitability-pressured-despite-record-2026-q2-revenue",
+      "citationUrl": "https://feedstuffs.com/agribusiness-news/jbs-profitability-pressured-despite-record-2026-q2-revenue",
+      "title": "JBS profitability ‘pressured’ despite record 2026 Q2 revenue",
+      "publishedAt": "2026-08-12T21:16:16.000Z",
+      "summary": "Cattle prices challenge U.S. beef segment; Pilgrim’s sees firm chicken demand but low prices; U.S. pork revenue flat.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.471415,
+      "clusterId": "0029e04bbda03e4c2b3557330d148ee9dcf10ce026800361653360c2434b1b8a",
+      "relatedUrls": []
     },
     {
       "candidateId": "e47aee83a51ef3e29baad6fc20835d623e097daa038c66340c3dad4013fe2838",
       "sourceId": "usda-ers-dairy",
       "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "en",
       "discoveredBy": "json-api",
       "canonicalUrl": "https://ers.usda.gov/data-products/dairy-data",
+      "citationUrl": "https://ers.usda.gov/data-products/dairy-data",
+      "evidenceUrl": "https://ers.usda.gov/data-products/dairy-data",
       "title": "Dairy Monthly Tables and Dairy Quarterly Data",
       "publishedAt": "2026-08-13T14:00:00.000Z",
       "summary": "The dairy data files cover U.S. supply, demand, and trade for milk and major dairy products.",
@@ -60,14 +635,213 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-17T23:59:07.714Z"
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.463136,
+      "clusterId": "05d074f10cf58296532df8debfd14b85e002d87cdd224a481cb09e4fcb1d4d81",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "bc3ef1f12973163acc11b009cf7ac8c67b3538e0532df6878f9a764c10add64d",
+      "sourceId": "beef-magazine",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/argentine-beef-recalled",
+      "citationUrl": "https://beefmagazine.com/market-news/argentine-beef-recalled",
+      "title": "Argentine beef recalled",
+      "publishedAt": "2026-08-12T12:11:14.000Z",
+      "summary": "Recall announced as imported beef shipment slips by USDA’s reinspection procedures.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.461156,
+      "clusterId": "98dc862a6c9bb269aa43d105573e6c763fc19621488ea27ca784272007cab2d3",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "c0e3d51e2eb1d8b25766d41854606aae17e4ac801dcea57352d74caed948a096",
+      "sourceId": "agproud-progressive",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://agproud.com/articles/63787-wheres-the-beef",
+      "citationUrl": "https://agproud.com/articles/63787-wheres-the-beef",
+      "title": "Where’s the beef?",
+      "publishedAt": "2026-08-12T04:00:00.000Z",
+      "summary": "If you can fondly remember this 1984 slogan by Wendy’s, then you are undoubtedly a boomer like me. Eighty-one-year-old Clara Peller made this phrase famous in January of that year. It raised sales for the burger chain by 31% or approximately $620 million that year.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.457615,
+      "clusterId": "45cec68b8addcbbbd22b729b98a640458a690fb8be3eadbd5b2c3bd252d0dc26",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "b30bcc9470b3db960efffe320211915e16544909e43750f2657e275f24f8d5b3",
+      "sourceId": "agproud-progressive",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://agproud.com/articles/63855-rethinking-the-snf-ratio-build-your-strategy-today-to-benefit-tomorrow",
+      "citationUrl": "https://agproud.com/articles/63855-rethinking-the-snf-ratio-build-your-strategy-today-to-benefit-tomorrow",
+      "title": "Rethinking the SNF ratio: Build your strategy today to benefit tomorrow",
+      "publishedAt": "2026-08-12T04:00:00.000Z",
+      "summary": "As a result of the increased demand for milk protein in the Canadian dairy market, both the Eastern Canadian Milk Pool (P5) and Western Milk Pool (WMP) have taken steps to adjust their pricing to be more heavily weighted on milk protein and other solids (SNF) than in the recent past.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.457615,
+      "clusterId": "13b423abf66fe02c4583bdc7d9b8474e472ffdb7ac48afcd77196413b8333aeb",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "25007247504df7f225c6d3df52130ec1ee55d986a39ee5f5efe22149ba41c80a",
+      "sourceId": "agproud-progressive",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://agproud.com/articles/63948-idaho-tours-offer-dairy-producers-exclusive-look-at-innovation",
+      "citationUrl": "https://agproud.com/articles/63948-idaho-tours-offer-dairy-producers-exclusive-look-at-innovation",
+      "title": "Idaho tours offer dairy producers exclusive look at innovation",
+      "publishedAt": "2026-08-11T18:44:36.000Z",
+      "summary": "An upcoming tour presented by Professional Dairy Producers (PDP) in partnership with Progressive Publishing will give dairy producers access to select farms and businesses that are driving the potato state’s transformative success.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.449113,
+      "clusterId": "9d3f67bd59261164a0f0c2c912b0e32fc8ab3a2a1ba6a42508ac95372c3633eb",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "3d293c20f72bd942b86bb621285f9c16f54f116808cceadd6f4f0306d16fc5c3",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/agribusiness-news/jbs-usa-to-turn-souderton-beef-plant-into-value-added-operation",
+      "citationUrl": "https://feedstuffs.com/agribusiness-news/jbs-usa-to-turn-souderton-beef-plant-into-value-added-operation",
+      "title": "JBS USA to turn Souderton beef plant into value-added operation",
+      "publishedAt": "2026-08-11T17:13:35.000Z",
+      "summary": "Beef processing operations will stop Aug. 14, after which JBS will invest $30M to modernize the facility's value-added and case-ready capabilities.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.443007,
+      "clusterId": "a8159e3efe3db268cf284f8acd7ddb1d52c0058e41087d5c827dd6a8de1f9801",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "32a593cd3a43e939cced97ebe8aca9dad1bb53738a69c5b921d9f1be3ab9b7c9",
+      "sourceId": "beef-magazine",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "und",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/live-cattle-futures-erase-gains-as-option-expiration-triggers-sharp-thursday-selloff-despite-firm-bids",
+      "citationUrl": "https://beefmagazine.com/market-news/live-cattle-futures-erase-gains-as-option-expiration-triggers-sharp-thursday-selloff-despite-firm-bids",
+      "title": "Cattle futures drop amid option expiry",
+      "publishedAt": "2026-08-11T13:43:49.000Z",
+      "summary": "August live cattle rebounded Friday after option expiration caused Thursday's decline. Cash trade held at $235 per hundredweight last week.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.440085,
+      "clusterId": "8458001523a29423b794bfc99744b8b542be8f940fee3af49e58c8fc8a902779",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "38028d9b4c5873516462a26b2149365f519461f807f28d481bec53ed82a6fb8c",
+      "sourceId": "beef-magazine",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/cattle-prices-haven-t-hit-the-ceiling-yet",
+      "citationUrl": "https://beefmagazine.com/market-news/cattle-prices-haven-t-hit-the-ceiling-yet",
+      "title": "Cattle prices haven’t hit the ceiling yet",
+      "publishedAt": "2026-08-10T17:17:07.000Z",
+      "summary": "Slow shift to herd expansion means any increases in beef production will also be slow.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.436899,
+      "clusterId": "c9058d5bec023a4cd88372a7a1fdc78d03ebf6492fb7ba386ac42a0b0f702de4",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "6ee5457b932ad18bc754308f47c0b93a5eaa75ede4c6cb29aa3614a449bb32e3",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/market-news/what-s-ahead-for-this-fall-marketing-season-",
+      "citationUrl": "https://feedstuffs.com/market-news/what-s-ahead-for-this-fall-marketing-season-",
+      "title": "What's ahead for this fall marketing season?",
+      "publishedAt": "2026-08-11T19:08:00.000Z",
+      "summary": "LIVE STREAM WEDNESDAY, AUGUST 12 AT 11:30 AM CT - We take a 30,000-foot view of the current cattle markets with an eye to the general market mood.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.432986,
+      "clusterId": "abb3267711d0d14bc7491da1f55472009863ed0ad2dd9924e1125c85783e4b8e",
+      "relatedUrls": []
     },
     {
       "candidateId": "9c1971969312474cdef45b327466d61101f34c304e802bf1676a9351753b3545",
       "sourceId": "usda-ers-livestock",
       "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "en",
       "discoveredBy": "json-api",
       "canonicalUrl": "https://ers.usda.gov/data-products/meat-price-spreads",
+      "citationUrl": "https://ers.usda.gov/data-products/meat-price-spreads",
+      "evidenceUrl": "https://ers.usda.gov/data-products/meat-price-spreads",
       "title": "Meat Price Spreads",
       "publishedAt": "2026-08-12T14:00:00.000Z",
       "summary": "This data set provides monthly average price values, and the differences among those values, at the farm, wholesale, and retail stages of the production and marketing chain for selected cuts of beef, pork, and broilers.",
@@ -78,16 +852,143 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-17T23:59:07.714Z"
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.432783,
+      "clusterId": "21905aa86086e19a9cd572ea15a850db47313468e22d995d32bdfd5b2a3e22b8",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "0c3a9418e2e167d6177bb94dccca3d3fedabb4f9e9d1f76bf25551c194765612",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/agribusiness-news/stan-linville-to-retire-as-ceo-of-u-s-premium-beef",
+      "citationUrl": "https://feedstuffs.com/agribusiness-news/stan-linville-to-retire-as-ceo-of-u-s-premium-beef",
+      "title": "Stan Linville to retire as CEO of U.S. Premium Beef",
+      "publishedAt": "2026-08-11T01:20:20.000Z",
+      "summary": "Board appoints Jim Sellers to succeed Linville as CEO on Dec. 26, 2026.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.430655,
+      "clusterId": "5ca6021bc9b1ac433946bc84994a99c7e6f512f8a267ccf1f4cf8d50e7059366",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "4fb9ccc17862f12df3b04e246aaad01382491c66301971456a0d01763a9c53ec",
+      "sourceId": "beef-magazine",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/farm-business-management/time-to-make-it-rain",
+      "citationUrl": "https://beefmagazine.com/farm-business-management/time-to-make-it-rain",
+      "title": "Time to make it rain",
+      "publishedAt": "2026-08-11T12:48:40.000Z",
+      "summary": "We talk fed cattle and feeder cattle signals, why demand can get “choppy,” how oil and gas prices hit both investor confidence and the everyday consumer psyche, and more.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.42767,
+      "clusterId": "4a3a65acc793797cf2461f366931d839d72af3905f77b731a0fd59ad4f7d386f",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "03faa6b535909bc2c1daade471b8e40edbc7af546c7f384edc171a31ea4d1bf5",
+      "sourceId": "beef-magazine",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "und",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/policy/usda-opens-spur-program-applications",
+      "citationUrl": "https://beefmagazine.com/policy/usda-opens-spur-program-applications",
+      "title": "USDA opens SPUR program applications",
+      "publishedAt": "2026-08-10T19:14:14.000Z",
+      "summary": "Qualifying beef processors must submit completed applications by Sept. 11, 2026.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.414832,
+      "clusterId": "33c88d1ac185374147c111e2aa0ee67b9bcd870628cb70d97cd81f00ce6a6cce",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "c6617eaefdac0280c8d2a686b25b35f733076e848aa50b7258144eb79c1fa5bc",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/policy/cows-act-reintroduced-to-promote-sustainable-manure-management",
+      "citationUrl": "https://feedstuffs.com/policy/cows-act-reintroduced-to-promote-sustainable-manure-management",
+      "title": "COWS Act reintroduced to promote sustainable manure management",
+      "publishedAt": "2026-08-10T18:54:27.000Z",
+      "summary": "Bicameral bill would invest in alternative pasture-based practices to support dairy farms and protect the environment.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.414616,
+      "clusterId": "175bd749b70283ddac1583f970c680ae80852b1ee44620cd1710ed7b63b310c7",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "46f54ce18aba18ddc62315bd63d542bc1280c61a256a8eb1e43f56c375f4205f",
+      "sourceId": "beef-magazine",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/cattle-groups-push-to-expand-grazing-access-on-conservation-reserve-program-land-amid-forage-crunch",
+      "citationUrl": "https://beefmagazine.com/livestock-management/cattle-groups-push-to-expand-grazing-access-on-conservation-reserve-program-land-amid-forage-crunch",
+      "title": "Ranchers seek more CRP grazing options",
+      "publishedAt": "2026-08-10T13:14:36.000Z",
+      "summary": "State livestock associations want easier access to idle acres as tight forage supplies limit herd expansion opportunities.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.411033,
+      "clusterId": "21235c7659a180de46ce5b0cea9ab851724554da652668eb62d62b50086f50a6",
+      "relatedUrls": []
     },
     {
       "candidateId": "bbabcac4a398174a92bf5c0c3f3b5b06a1f2059ea6262cb6423da49856e5342b",
       "sourceId": "usda-ams-livestock",
       "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "und",
       "discoveredBy": "json-api",
       "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2477?q=report_date%3D08%2F10%2F2026",
+      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2477",
+      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2477?q=report_date%3D08%2F10%2F2026",
       "title": "5 Area Weekly Weighted Average Direct Slaughter Cattle (PDF) (LM_CT150)",
-      "publishedAt": "2026-08-10T11:49:53.000Z",
+      "publishedAt": "2026-08-10T15:49:53.000Z",
       "releaseId": "08/10/2026",
       "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2477",
       "sectors": [
@@ -96,7 +997,106 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-17T23:59:07.714Z"
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.40564,
+      "clusterId": "e7fc279cda9f03122b5d3fbdce1c442dfc0261d155802aaffb9cf6104ac9d2ed",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "b315b15173c14e482e5b2afbe97aa8cebd209b6f35890308ed8f8ba3f50126dd",
+      "sourceId": "feedstuffs",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/agribusiness-news/novus-adds-cruz-as-ruminant-technical-services-manager",
+      "citationUrl": "https://feedstuffs.com/agribusiness-news/novus-adds-cruz-as-ruminant-technical-services-manager",
+      "title": "NOVUS adds Cruz as ruminant technical services manager",
+      "publishedAt": "2026-08-07T20:15:15.000Z",
+      "summary": "Jorge Cruz will bring C.O.W.S. assessment program to dairy producers in Mexico.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.383363,
+      "clusterId": "1ec931f64ab24a9f45bbc5a42d2e4a43700dbb9cc5297af8a8518c6fc0f1537d",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "2f7fdfaff3fbf3970e2e1efda6b69d61ec19913c81728d56304904cbe2380a09",
+      "sourceId": "beef-magazine",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/fda-authorizes-emergency-use-of-wound-spray-for-screwworm",
+      "citationUrl": "https://beefmagazine.com/livestock-management/fda-authorizes-emergency-use-of-wound-spray-for-screwworm",
+      "title": "FDA authorizes emergency use of wound spray for screwworm",
+      "publishedAt": "2026-08-07T14:09:10.000Z",
+      "summary": "EUA issued for CLiK Extra to prevent New World screwworm in multiple species, including cattle, swine, goats and sheep.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.381702,
+      "clusterId": "84978398c84af9bd32ae37232ebc6f47e6ee9ca36bbda3ed40da8ee7813484eb",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "6bf6323241797672abd324aebba00d2cefec2195bd1abb06d30fbe789c20903b",
+      "sourceId": "beef-magazine",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/new-world-screwworm-movement-guidance-resource-now-available",
+      "citationUrl": "https://beefmagazine.com/livestock-management/new-world-screwworm-movement-guidance-resource-now-available",
+      "title": "New World screwworm movement guidance resource now available",
+      "publishedAt": "2026-08-07T13:51:34.000Z",
+      "summary": "The platform helps animal owners navigate requirements for transporting livestock, equine, poultry and other species from affected areas in the state.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.381626,
+      "clusterId": "b33ef01298dc7bcfef02c32c6aa5aeb74b25382de057062514cefefd2530598a",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "a27f5fb62a36d7170ea682a224cbaffb9e58c10dbcf5fb9464aac4d9d36af8cc",
+      "sourceId": "beef-magazine",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/partnership-brings-autonomous-truck-smart-feeding-to-university-of-nebraska",
+      "citationUrl": "https://beefmagazine.com/livestock-management/partnership-brings-autonomous-truck-smart-feeding-to-university-of-nebraska",
+      "title": "Partnership brings autonomous truck “smart feeding” to University of Nebraska",
+      "publishedAt": "2026-08-07T13:46:16.000Z",
+      "summary": "The autonomous feed truck demonstrates feeding cattle during the presentation at ENREEC.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "relevanceScore": 0.381603,
+      "clusterId": "38dc5653e11d73f2fe481cfbbf45bf09694dd6f4eb6a43d2f9eea918b6e586e6",
+      "relatedUrls": []
     }
   ]
 }

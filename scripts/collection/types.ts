@@ -3,12 +3,18 @@ import { z } from "zod";
 export const sectors = ["dairy", "meat", "bovine-genetics"] as const;
 export const collectionRoles = ["evidence", "discovery", "manual", "disabled"] as const;
 export const collectionMethods = ["rss", "json-api", "csv-api", "html-list", "manual", "disabled"] as const;
+export const trustTiers = ["official", "trade-press", "aggregator"] as const;
+export const contentClasses = ["news", "dataset"] as const;
+export const languageTags = ["en", "es", "pt", "fr", "und"] as const;
 
 const baseSourceSchema = z.object({
   sourceId: z.string().regex(/^[a-z0-9-]+$/),
   adapterId: z.string().regex(/^[a-z0-9-]+$/).optional(),
   enabled: z.boolean(),
   collectionRole: z.enum(collectionRoles),
+  trustTier: z.enum(trustTiers).optional(),
+  authorityWeight: z.number().min(0).max(1).optional(),
+  contentClass: z.enum(contentClasses).optional(),
   method: z.enum(collectionMethods),
   endpoint: z.url().optional(),
   allowedHosts: z.array(z.string().min(3)).default([]),
@@ -104,12 +110,16 @@ export const rawCandidateSchema = z.object({
   landingUrl: z.url().optional()
 });
 
-export const candidateSchema = z.object({
+export const normalizedCandidateSchema = z.object({
   candidateId: z.string().regex(/^[a-f0-9]{64}$/),
   sourceId: z.string().regex(/^[a-z0-9-]+$/),
   collectionRole: z.enum(["evidence", "discovery"]),
+  contentClass: z.enum(contentClasses),
+  language: z.enum(languageTags),
   discoveredBy: z.enum(["rss", "json-api", "csv-api", "html-list"]),
   canonicalUrl: z.url(),
+  citationUrl: z.url(),
+  evidenceUrl: z.url().optional(),
   title: z.string().min(1),
   publishedAt: z.iso.datetime(),
   summary: z.string().min(1).optional(),
@@ -119,6 +129,12 @@ export const candidateSchema = z.object({
   sectors: z.array(z.enum(sectors)).min(1),
   geographies: z.array(z.string().min(2)).min(1),
   retrievedAt: z.iso.datetime()
+});
+
+export const candidateSchema = normalizedCandidateSchema.extend({
+  relevanceScore: z.number(),
+  clusterId: z.string().regex(/^[a-f0-9]{64}$/),
+  relatedUrls: z.array(z.url())
 });
 
 export const candidateFileSchema = z.object({
@@ -138,6 +154,9 @@ export const adapterResultSchema = z.object({
   status: z.enum(["success", "failed"]),
   itemsSeen: z.number().int().nonnegative(),
   itemsAccepted: z.number().int().nonnegative(),
+  rejectedOutOfWindow: z.number().int().nonnegative().default(0),
+  rejectedByScope: z.number().int().nonnegative().default(0),
+  rejectedByDate: z.number().int().nonnegative().default(0),
   durationMs: z.number().int().nonnegative(),
   error: z.string().optional()
 });
@@ -150,19 +169,25 @@ export const runManifestSchema = z.object({
   status: z.enum(["success", "partial", "failed"]),
   candidateCount: z.number().int().nonnegative(),
   candidatesBeforeDeduplication: z.number().int().nonnegative(),
+  newsCandidateCount: z.number().int().nonnegative(),
+  datasetCandidateCount: z.number().int().nonnegative(),
+  clusterCount: z.number().int().nonnegative(),
   adapters: z.array(adapterResultSchema),
   manualSources: z.array(z.string()),
   editorialReadiness: z.enum(["ready", "coverage-gap"]),
+  newsReadiness: z.enum(["ready", "insufficient-news"]),
   coverageGaps: z.array(z.string()),
   coverage: z.object({
     sectors: z.record(z.string(), z.number().int().nonnegative()),
-    geographies: z.record(z.string(), z.number().int().nonnegative())
+    geographies: z.record(z.string(), z.number().int().nonnegative()),
+    languages: z.record(z.string(), z.number().int().nonnegative())
   }),
   warnings: z.array(z.string())
 });
 
 export type CollectionSource = z.infer<typeof collectionSourceSchema>;
 export type RawCandidate = z.infer<typeof rawCandidateSchema>;
+export type NormalizedCandidate = z.infer<typeof normalizedCandidateSchema>;
 export type Candidate = z.infer<typeof candidateSchema>;
 export type CandidateFile = z.infer<typeof candidateFileSchema>;
 export type RunManifest = z.infer<typeof runManifestSchema>;

@@ -1,9 +1,15 @@
 {
-  "purpose": "Domains that may assist discovery but cannot be cited as report evidence.",
+  "purpose": "Domains that may assist discovery but cannot be cited as report evidence. News aggregators surface candidates whose resolved publisher domain must be independently approved before citation.",
   "domains": [
+    "apple.news",
+    "bing.com",
     "facebook.com",
+    "flipboard.com",
     "instagram.com",
     "medium.com",
+    "msn.com",
+    "news.google.com",
+    "news.yahoo.com",
     "quora.com",
     "reddit.com",
     "tiktok.com",

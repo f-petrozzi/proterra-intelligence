@@ -59,6 +59,13 @@ export function assertQueueMayDraft(manifest: RunManifest, issueState: string, a
   if (manifest.status === "failed") {
     throw new Error("The collection manifest is failed; repair and rerun source collection before drafting.");
   }
+  if (manifest.newsReadiness === "insufficient-news") {
+    throw new Error(
+      `The source queue has only ${manifest.newsCandidateCount} news-led candidates (at least five are required), so Codex was not started. `
+      + "An editorial coverage override cannot waive the news-led minimum; routine dataset releases only support stories. "
+      + "Add defensible news-led leads and rerun source collection."
+    );
+  }
   if (issueState === "source-ready" && manifest.editorialReadiness === "coverage-gap" && !allowCoverageGap) {
     throw new Error(
       `The source queue has known coverage gaps, so Codex was not started: ${manifest.coverageGaps.join(" ")} `
@@ -84,7 +91,8 @@ export function buildDraftPrompt(issueDate: string, manifest: RunManifest, edito
       ? "The editorial lead accepts only the listed manifest coverage gaps. Do not return coverage-gap solely because the manifest is not editorially ready or because of those accepted gaps. This does not authorize filler, invented evidence, unsupported claims, weakened source verification, or a schema-invalid report. Return coverage-gap if the available credible evidence still cannot support a valid report."
       : "No editorial override is approved; apply every normal readiness and coverage rule.",
     "Use .review/evidence.json as the complete, deterministically extracted evidence universe. Do not browse, search the web, use curl, or fetch any source again.",
-    "For citations, use a supplied landingUrl as the readable url and preserve canonicalUrl as evidenceUrl with releaseId. Do not make raw JSON the primary reader-facing link when a landing page exists.",
+    "Lead the reel with news-led items (contentClass 'news'). Treat contentClass 'dataset' releases as supporting evidence or dashboard material; promote a dataset into the reel only when the release itself is materially newsworthy.",
+    "For every citation, use the supplied citationUrl as the reader-facing readable link and keep evidenceUrl (the raw API/PDF release) plus releaseId as the auditable evidence. Never make a raw JSON or PDF response the primary reader-facing link when a citationUrl landing page exists. When relatedUrls are supplied, the story was corroborated by multiple outlets; you may reference them as additional evidence.",
     "Read submitted feedback only from .review/feedback.json. Read the editorial rubric, report template, image registry, source registry, and the target report only as needed; do not inspect history.json or unrelated reports.",
     `Edit only src/data/reports/${issueDate}.json. Do not run npm, tests, validation, Git commands, commits, or pushes; the orchestration runner handles those once.`
   ].join("\n");
