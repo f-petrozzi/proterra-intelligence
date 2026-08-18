@@ -27,15 +27,11 @@
 ### Cloudflare
 
 1. Create D1 database `proterra-intelligence-review` and replace `REPLACE_WITH_D1_DATABASE_ID` in `review-worker/wrangler.jsonc`.
-2. Set the Access team domain, application AUD, and stable custom review origin in the same config.
-3. Replace `REPLACE_WITH_REVIEW_HOST` in `public/_headers` with that hostname so only the stable review shell may frame report previews.
-4. Create three Access applications/policies:
-   - company read-only access to the production publication;
-   - the two reviewer emails for Pages preview deployments;
-   - the two reviewer emails plus a Service Auth policy for the stable Review Worker.
+2. Set the Access team domain, application AUD, stable review origin, and public site origin in the same config.
+3. Create Access policies for the two reviewer emails plus a Service Auth policy on the stable Review Worker. Pages preview access may remain enabled because Pages is only a deployment-success gate; it is never embedded by the reviewer.
 5. Create one Access service token for the homelab/GitHub automation path.
 6. Set Worker secrets with `wrangler secret put`: `CSRF_SECRET`, `REVIEW_SERVICE_KEY`, and `GITHUB_WORKFLOW_TOKEN`.
-7. Apply every migration, including `0002_atomic_outbox.sql`, and deploy only from `main` using the protected `review-production` GitHub environment. The Worker cron retries notification outbox rows every five minutes.
+7. Apply every migration, including `0002_atomic_outbox.sql` and `0003_report_snapshots.sql`, and deploy only from `main` using the protected `review-production` GitHub environment. The Worker cron retries notification outbox rows every five minutes.
 8. Insert both reviewer emails as publishers:
 
    ```sql
@@ -53,7 +49,6 @@ Set repository variables:
 - `WEEKLY_COLLECTION_ENABLED=false` until rehearsal succeeds
 - `REVIEW_API_URL`
 - `CLOUDFLARE_PAGES_PROJECT`
-- `PUBLIC_REVIEW_ORIGIN` in the Cloudflare Pages preview build environment
 
 Set repository or protected-environment secrets:
 
@@ -82,10 +77,10 @@ For the homelab portion of setup, `npm run weekly:setup` performs the safe read-
    ```
 
 3. Wait for “draft ready,” then use the stable review link in the email.
-4. Click report content to attach comments. Hold Ctrl/Cmd while clicking a source link when you want to open it instead.
+4. Click or select report content to attach comments. Source buttons open separately and do not change the active comment anchor.
 5. Add all instructions, then select **Request changes** once.
 6. When the change-request email arrives, run the same command again.
-7. Confirm each addressed thread against the refreshed exact-SHA preview and resolve it.
+7. Confirm each addressed thread against the refreshed exact-SHA report snapshot and resolve it.
 8. Either publisher selects **Approve & publish**. No GitHub action or merge is needed from the reviewer.
 
 ## Recovery
@@ -96,4 +91,4 @@ For the homelab portion of setup, `npm run weekly:setup` performs the safe read-
 - Preview timeout: inspect Cloudflare Pages for the exact commit SHA; do not substitute CI success for deployment success.
 - Approval failure: inspect the GitHub run and D1 approval record. Never bypass branch protection with `--admin`.
 - Production deployment failure or timeout: D1 records the error, leaves the exact merged approval in its retryable `publishing`/`merged` state, and queues a failure email. Repair the deployment problem, then rerun `record-production-deployment.yml` with the same merge SHA; do not silently treat CI success as deployment success.
-- Stale preview or version conflict: reload the stable review workspace and repeat the intended action against the current revision.
+- Stale snapshot or version conflict: reload the stable review workspace and repeat the intended action against the current revision.

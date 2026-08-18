@@ -47,6 +47,10 @@ function citationLabel(sourceId: string, title: string) {
   return sourceById.get(sourceId)?.name ?? title;
 }
 
+function exactEvidenceLabel(citation: SignalItem["citations"][number]) {
+  return citation.releaseId ? `Exact evidence · ${citation.releaseId}` : "Exact evidence";
+}
+
 function supportingFor(items: SignalItem[]) {
   const primaryUrl = items[0].citations[0].url;
   return items.flatMap((item) => item.citations)
@@ -130,6 +134,11 @@ const reportHref = `/reports/${report.slug}`;
           <span>Read the source</span>
           <strong>{leadCitation.title}</strong>
         </a>
+        {leadCitation.evidenceUrl && leadCitation.evidenceUrl !== leadCitation.url && (
+          <a href={leadCitation.evidenceUrl} target="_blank" rel="noreferrer">
+            {exactEvidenceLabel(leadCitation)}
+          </a>
+        )}
         {leadSupporting.length > 0 && (
           <div class="lead-supporting-links" aria-label="Supporting sources">
             <span>Also:</span>
@@ -207,6 +216,12 @@ const reportHref = `/reports/${report.slug}`;
                 </div>
                 <div class="news-row-bottom">
                   <div class="news-tags">{tagsFor(items).map((tag) => <span>{tag}</span>)}</div>
+                  <div class="news-supporting-links" aria-label="Primary source links">
+                    <a href={citation.url} target="_blank" rel="noreferrer">View readable source</a>
+                    {citation.evidenceUrl && citation.evidenceUrl !== citation.url && (
+                      <a href={citation.evidenceUrl} target="_blank" rel="noreferrer">{exactEvidenceLabel(citation)}</a>
+                    )}
+                  </div>
                   {supporting.length > 0 && (
                     <div class="news-supporting-links" aria-label="Supporting sources">
                       <span>Also:</span>
@@ -246,6 +261,9 @@ const reportHref = `/reports/${report.slug}`;
             <span class="regional-publisher">{publisherFor(items)} · {formatDate(citation.publishedAt, { month: "short" })}</span>
             <h4 {...reviewField(items[0], "headline", `Story ${items[0].rank} headline`)}><a href={citation.url} target="_blank" rel="noreferrer">{items[0].headline}</a></h4>
             <p {...reviewField(items[0], "summary", `Story ${items[0].rank} summary`)}>{items[0].summary}</p>
+            {citation.evidenceUrl && citation.evidenceUrl !== citation.url && (
+              <a href={citation.evidenceUrl} target="_blank" rel="noreferrer">{exactEvidenceLabel(citation)}</a>
+            )}
             <div class="news-row-actions regional-story-actions">
               <details>
                 <summary>Key points</summary>
@@ -274,52 +292,3 @@ const reportHref = `/reports/${report.slug}`;
     <ArrowLink href="/history" label="Open dashboard" />
   </section>
 </section>
-
-{report.status === "draft" && (
-  <script is:inline define:vars={{ reviewOrigin: import.meta.env.PUBLIC_REVIEW_ORIGIN }}>
-    const selectable = "[data-review-anchor]";
-    const normalize = (value) => value.replace(/\s+/g, " ").trim();
-    const hash = async (value) => {
-      const bytes = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
-      return [...new Uint8Array(bytes)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
-    };
-    const sendSelection = async (event) => {
-      const target = event.target instanceof Element ? event.target.closest(selectable) : null;
-      if (!target || !reviewOrigin) return;
-      if (event.type === "click" && target.closest("a") && !event.metaKey && !event.ctrlKey) event.preventDefault();
-      const fieldValue = normalize(target.textContent ?? "");
-      const selection = window.getSelection();
-      let selectedText = "";
-      if (selection && selection.rangeCount > 0 && target.contains(selection.anchorNode) && target.contains(selection.focusNode)) {
-        selectedText = normalize(selection.toString()).slice(0, 1000);
-      }
-      const offset = selectedText ? fieldValue.indexOf(selectedText) : -1;
-      const payload = {
-        type: "proterra-review-anchor",
-        anchorKey: target.dataset.reviewAnchor,
-        storyReviewId: target.dataset.storyReviewId,
-        fieldPath: target.dataset.reviewFieldPath,
-        label: target.dataset.reviewLabel,
-        selectedText,
-        contextBefore: offset >= 0 ? fieldValue.slice(Math.max(0, offset - 120), offset) : "",
-        contextAfter: offset >= 0 ? fieldValue.slice(offset + selectedText.length, offset + selectedText.length + 120) : "",
-        fieldValueHash: await hash(fieldValue)
-      };
-      if (window.parent !== window) window.parent.postMessage(payload, reviewOrigin);
-      if (window.opener) window.opener.postMessage(payload, reviewOrigin);
-    };
-    document.addEventListener("click", sendSelection);
-    document.querySelectorAll(selectable).forEach((element) => {
-      element.classList.add("review-selectable");
-      element.setAttribute("title", `${element.getAttribute("title") ?? ""} Click to comment`.trim());
-    });
-    if (reviewOrigin) {
-      const inventory = {
-        type: "proterra-review-anchor-inventory",
-        anchors: [...document.querySelectorAll(selectable)].map((element) => element.dataset.reviewAnchor).filter(Boolean)
-      };
-      if (window.parent !== window) window.parent.postMessage(inventory, reviewOrigin);
-      if (window.opener) window.opener.postMessage(inventory, reviewOrigin);
-    }
-  </script>
-)}

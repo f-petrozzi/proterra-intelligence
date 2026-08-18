@@ -1,12 +1,14 @@
 import { z } from "zod";
 import { assertCsrf, assertService, authenticatedEmail, csrfToken, type AuthEnv } from "./auth";
 import { reviewShell } from "./html";
+import { reviewReportSchema, type ReviewReport } from "./report";
 
 export interface Env extends AuthEnv {
   REVIEW_DB: D1Database;
   GITHUB_OWNER: string;
   GITHUB_REPO: string;
   GITHUB_WORKFLOW_TOKEN: string;
+  SITE_ORIGIN: string;
 }
 
 const issueDateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
@@ -44,11 +46,11 @@ function json(value: unknown, status = 200) {
   return Response.json(value, { status, headers: { "cache-control": "no-store", "x-content-type-options": "nosniff" } });
 }
 
-async function body(request: Request) {
+async function body(request: Request, maximumBytes = 20_000) {
   const length = Number(request.headers.get("content-length") ?? 0);
-  if (length > 20_000) throw new Response("Request is too large", { status: 413 });
+  if (length > maximumBytes) throw new Response("Request is too large", { status: 413 });
   const text = await request.text();
-  if (text.length > 20_000) throw new Response("Request is too large", { status: 413 });
+  if (new TextEncoder().encode(text).byteLength > maximumBytes) throw new Response("Request is too large", { status: 413 });
   try { return JSON.parse(text) as unknown; } catch { throw new Response("Invalid JSON", { status: 400 }); }
 }
 
@@ -67,7 +69,8 @@ async function issue(env: Env, issueDate: string) {
 async function issuePayload(env: Env, issueDate: string) {
   const current = await issue(env, issueDate);
   const comments = await env.REVIEW_DB.prepare("SELECT * FROM review_comments WHERE issue_date = ? ORDER BY created_at, id").bind(issueDate).all();
-  return { issue: current, comments: comments.results };
+  const { report_json: _reportJson, ...publicIssue } = current;
+  return { issue: publicIssue, comments: comments.results };
 }
 
 type OutboxRecord = {
@@ -182,11 +185,11 @@ export async function createComment(env: Env, email: string, issueDate: string, 
          field_value_hash, body, author_email, status, source_sha, transition_key)
         SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'open', ?, ? WHERE EXISTS (
           SELECT 1 FROM review_issues WHERE issue_date = ? AND state = 'in-review' AND version = ?
-          AND draft_sha = ? AND preview_sha = ?
+          AND draft_sha = ? AND preview_sha = ? AND report_sha = ?
         )`).bind(commentId, issueDate, input.anchorKey, input.storyReviewId, input.fieldPath, input.anchorLabel,
           input.selectedText || null, input.contextBefore || null, input.contextAfter || null, input.fieldValueHash,
           input.body, email, input.expectedSha, input.idempotencyKey, issueDate, input.expectedVersion,
-          input.expectedSha, input.expectedSha),
+          input.expectedSha, input.expectedSha, input.expectedSha),
       env.REVIEW_DB.prepare(`INSERT INTO review_events
         (id, issue_date, event_type, actor, idempotency_key, payload)
         SELECT ?, ?, 'comment-created', ?, ?, ? WHERE EXISTS (
@@ -227,15 +230,15 @@ export async function mutateComment(env: Env, email: string, commentId: string, 
       ? env.REVIEW_DB.prepare(`UPDATE review_comments SET body = ?, transition_key = ?, updated_at = CURRENT_TIMESTAMP
           WHERE id = ? AND status = ? AND author_email = ? AND EXISTS (
             SELECT 1 FROM review_issues WHERE issue_date = ? AND state = 'in-review' AND version = ?
-            AND draft_sha = ? AND preview_sha = ?
+            AND draft_sha = ? AND preview_sha = ? AND report_sha = ?
           )`).bind(input.body, input.idempotencyKey, commentId, requiredStatus, email, issueDate,
-            input.expectedVersion, input.expectedSha, input.expectedSha)
+            input.expectedVersion, input.expectedSha, input.expectedSha, input.expectedSha)
       : env.REVIEW_DB.prepare(`UPDATE review_comments SET status = ?, transition_key = ?, updated_at = CURRENT_TIMESTAMP
           WHERE id = ? AND status = ? AND EXISTS (
             SELECT 1 FROM review_issues WHERE issue_date = ? AND state = 'in-review' AND version = ?
-            AND draft_sha = ? AND preview_sha = ?
+            AND draft_sha = ? AND preview_sha = ? AND report_sha = ?
           )`).bind(nextStatus, input.idempotencyKey, commentId, requiredStatus, issueDate,
-            input.expectedVersion, input.expectedSha, input.expectedSha)
+            input.expectedVersion, input.expectedSha, input.expectedSha, input.expectedSha)
   ];
   if (comment.batch_id && input.action !== "edit") {
     statements.push(input.action === "resolve"
@@ -271,7 +274,9 @@ export async function requestChanges(env: Env, email: string, issueDate: string,
   if (duplicate) return { duplicate: true, batchId: String(duplicate.batchId) };
   const current = await issue(env, issueDate);
   if (current.state !== "in-review" || current.draft_sha !== input.expectedSha || current.preview_sha !== input.expectedSha
-    || current.version !== input.expectedVersion) throw new Response("The preview changed; reload", { status: 409 });
+    || current.report_sha !== input.expectedSha || current.version !== input.expectedVersion) {
+    throw new Response("The reviewed snapshot changed; reload", { status: 409 });
+  }
   const open = await env.REVIEW_DB.prepare("SELECT COUNT(*) AS count FROM review_comments WHERE issue_date = ? AND status = 'open'")
     .bind(issueDate).first<{ count: number }>();
   if (!open?.count) throw new Response("Add at least one new comment", { status: 409 });
@@ -283,8 +288,8 @@ export async function requestChanges(env: Env, email: string, issueDate: string,
     const results = await env.REVIEW_DB.batch([
       env.REVIEW_DB.prepare(`UPDATE review_issues SET state = 'changes-requested', version = version + 1,
         transition_key = ?, updated_at = CURRENT_TIMESTAMP WHERE issue_date = ? AND state = 'in-review'
-        AND version = ? AND draft_sha = ? AND preview_sha = ?`)
-        .bind(input.idempotencyKey, issueDate, input.expectedVersion, input.expectedSha, input.expectedSha),
+        AND version = ? AND draft_sha = ? AND preview_sha = ? AND report_sha = ?`)
+        .bind(input.idempotencyKey, issueDate, input.expectedVersion, input.expectedSha, input.expectedSha, input.expectedSha),
       env.REVIEW_DB.prepare(`INSERT INTO review_batches (id, issue_date, submitted_by, source_sha, status)
         SELECT ?, ?, ?, ?, 'submitted' WHERE EXISTS (
           SELECT 1 FROM review_issues WHERE issue_date = ? AND transition_key = ?
@@ -327,7 +332,9 @@ export async function approveIssue(env: Env, email: string, issueDate: string, i
   if (duplicate) return { duplicate: true, approvalId: String(duplicate.approvalId) };
   const current = await issue(env, issueDate);
   if (current.state !== "in-review" || current.draft_sha !== input.expectedSha || current.preview_sha !== input.expectedSha
-    || current.version !== input.expectedVersion) throw new Response("Only the current deployed revision can be approved", { status: 409 });
+    || current.report_sha !== input.expectedSha || current.version !== input.expectedVersion) {
+    throw new Response("Only the current deployed snapshot can be approved", { status: 409 });
+  }
   const blocking = await env.REVIEW_DB.prepare("SELECT COUNT(*) AS count FROM review_comments WHERE issue_date = ? AND status != 'resolved'")
     .bind(issueDate).first<{ count: number }>();
   if (blocking?.count) throw new Response("Resolve every comment before approval", { status: 409 });
@@ -339,10 +346,11 @@ export async function approveIssue(env: Env, email: string, issueDate: string, i
     const results = await env.REVIEW_DB.batch([
       env.REVIEW_DB.prepare(`UPDATE review_issues SET state = 'publishing', version = version + 1,
         transition_key = ?, updated_at = CURRENT_TIMESTAMP WHERE issue_date = ? AND state = 'in-review'
-        AND version = ? AND draft_sha = ? AND preview_sha = ? AND NOT EXISTS (
+        AND version = ? AND draft_sha = ? AND preview_sha = ? AND report_sha = ? AND NOT EXISTS (
           SELECT 1 FROM review_comments WHERE issue_date = ? AND status != 'resolved'
         )`)
-        .bind(input.idempotencyKey, issueDate, input.expectedVersion, input.expectedSha, input.expectedSha, issueDate),
+        .bind(input.idempotencyKey, issueDate, input.expectedVersion, input.expectedSha, input.expectedSha,
+          input.expectedSha, issueDate),
       env.REVIEW_DB.prepare(`INSERT INTO approvals (id, issue_date, reviewer_email, approved_sha, status)
         SELECT ?, ?, ?, ?, 'pending' WHERE EXISTS (
           SELECT 1 FROM review_issues WHERE issue_date = ? AND transition_key = ?
@@ -371,7 +379,8 @@ const agentResultSchema = z.object({
   expectedVersion: z.number().int().positive(),
   newSha: shaSchema,
   idempotencyKey: z.uuid(),
-  responses: z.array(z.object({ commentId: z.uuid(), response: z.string().min(1).max(2000) })).default([])
+  responses: z.array(z.object({ commentId: z.uuid(), response: z.string().min(1).max(2000) })).default([]),
+  report: reviewReportSchema
 });
 export type AgentResultInput = z.infer<typeof agentResultSchema>;
 
@@ -391,14 +400,18 @@ export async function recordAgentResult(env: Env, issueDate: string, input: Agen
     || !["source-ready", "changes-requested"].includes(String(current.state))) {
     throw new Response("Draft state conflict", { status: 409 });
   }
+  if (input.report.slug !== issueDate || input.report.status !== "draft") {
+    throw new Response("Draft snapshot does not match the review issue", { status: 409 });
+  }
   const payload = { previousSha: input.previousSha, newSha: input.newSha };
   try {
     const statements = [
       env.REVIEW_DB.prepare(`UPDATE review_issues SET state = 'in-review', version = version + 1, draft_sha = ?,
         preview_sha = NULL, preview_url = NULL, preview_deployment_id = NULL, preview_alias_url = NULL,
-        preview_completed_at = NULL, transition_key = ?, updated_at = CURRENT_TIMESTAMP
+        preview_completed_at = NULL, report_sha = ?, report_json = ?, transition_key = ?, updated_at = CURRENT_TIMESTAMP
         WHERE issue_date = ? AND version = ? AND draft_sha = ? AND state IN ('source-ready', 'changes-requested')`)
-        .bind(input.newSha, input.idempotencyKey, issueDate, input.expectedVersion, input.previousSha),
+        .bind(input.newSha, input.newSha, JSON.stringify(input.report), input.idempotencyKey,
+          issueDate, input.expectedVersion, input.previousSha),
       ...input.responses.map((response) => env.REVIEW_DB.prepare(
         `UPDATE review_comments SET status = 'addressed', addressed_sha = ?, agent_response = ?, updated_at = CURRENT_TIMESTAMP
          WHERE id = ? AND issue_date = ? AND status = 'submitted' AND EXISTS (
@@ -422,6 +435,18 @@ export async function recordAgentResult(env: Env, issueDate: string, input: Agen
     throw error;
   }
   return { duplicate: false, newSha: input.newSha };
+}
+
+export async function backfillReportSnapshot(env: Env, issueDate: string, sha: string, report: ReviewReport) {
+  if (report.slug !== issueDate || report.status !== "draft") {
+    throw new Response("Draft snapshot does not match the review issue", { status: 409 });
+  }
+  const result = await env.REVIEW_DB.prepare(`UPDATE review_issues SET report_sha = ?, report_json = ?,
+    updated_at = CURRENT_TIMESTAMP WHERE issue_date = ? AND draft_sha = ? AND state IN ('in-review', 'changes-requested')`)
+    .bind(sha, JSON.stringify(report), issueDate, sha).run();
+  if (result.meta.changes !== 1) throw new Response("Snapshot state conflict", { status: 409 });
+  await recordEvent(env, { issueDate, type: "report-snapshot-backfilled", actor: "operator", payload: { sha } });
+  return { ok: true, issueDate, sha };
 }
 
 export async function invalidateSourceQueue(env: Env, issueDate: string, input: CollectionFailureInput) {
@@ -547,7 +572,8 @@ async function handleInternalApi(request: Request, env: Env, path: string[]) {
       ON CONFLICT(issue_date) DO UPDATE SET pull_request = excluded.pull_request, branch = excluded.branch,
       state = 'source-ready', draft_sha = excluded.draft_sha, version = review_issues.version + 1,
       preview_sha = NULL, preview_url = NULL, preview_deployment_id = NULL, preview_alias_url = NULL,
-      preview_completed_at = NULL, transition_key = NULL, updated_at = CURRENT_TIMESTAMP
+      preview_completed_at = NULL, report_sha = NULL, report_json = NULL,
+      transition_key = NULL, updated_at = CURRENT_TIMESTAMP
       WHERE review_issues.state = 'source-ready'
         OR (review_issues.state = 'failed' AND review_issues.transition_key LIKE 'collection-failed:%')`)
       .bind(input.issueDate, input.pullRequest, input.branch, input.draftSha).run();
@@ -571,9 +597,14 @@ async function handleInternalApi(request: Request, env: Env, path: string[]) {
   }
   if (request.method === "POST" && path[0] === "issues" && path[2] === "agent-result") {
     const issueDate = issueDateSchema.parse(path[1]);
-    const input = agentResultSchema.parse(await body(request));
+    const input = agentResultSchema.parse(await body(request, 100_000));
     await recordAgentResult(env, issueDate, input);
     return json(await issuePayload(env, issueDate));
+  }
+  if (request.method === "POST" && path[0] === "issues" && path[2] === "snapshot") {
+    const issueDate = issueDateSchema.parse(path[1]);
+    const input = z.object({ sha: shaSchema, report: reviewReportSchema }).parse(await body(request, 100_000));
+    return json(await backfillReportSnapshot(env, issueDate, input.sha, input.report));
   }
   if (request.method === "POST" && path[0] === "issues" && path[2] === "deployment") {
     const issueDate = issueDateSchema.parse(path[1]);
@@ -582,15 +613,18 @@ async function handleInternalApi(request: Request, env: Env, path: string[]) {
       immutableUrl: z.url(), aliasUrl: z.url(), completedAt: z.iso.datetime()
     }).parse(await body(request));
     const current = await issue(env, issueDate);
-    if (current.draft_sha !== input.sha || current.version !== input.expectedVersion) throw new Response("Deployment state conflict", { status: 409 });
+    if (current.draft_sha !== input.sha || current.report_sha !== input.sha || current.version !== input.expectedVersion) {
+      throw new Response("Deployment state conflict", { status: 409 });
+    }
     const transitionKey = `preview:${input.deploymentId}`;
     const outboxId = crypto.randomUUID();
     const results = await env.REVIEW_DB.batch([
       env.REVIEW_DB.prepare(`UPDATE review_issues SET state = 'in-review', version = version + 1,
         preview_sha = ?, preview_url = ?, preview_deployment_id = ?, preview_alias_url = ?, preview_completed_at = ?,
-        transition_key = ?, updated_at = CURRENT_TIMESTAMP WHERE issue_date = ? AND version = ? AND draft_sha = ?`)
+        transition_key = ?, updated_at = CURRENT_TIMESTAMP WHERE issue_date = ? AND version = ? AND draft_sha = ?
+        AND report_sha = ?`)
         .bind(input.sha, input.immutableUrl, input.deploymentId, input.aliasUrl, input.completedAt,
-          transitionKey, issueDate, input.expectedVersion, input.sha),
+          transitionKey, issueDate, input.expectedVersion, input.sha, input.sha),
       eventStatement(env, {
         id: crypto.randomUUID(), issueDate, type: "preview-ready", actor: "deployment", payload: input, transitionKey
       }),
@@ -702,14 +736,22 @@ export default {
         const email = await authenticatedEmail(request, env);
         await user(env, email);
         const current = await issue(env, issueDate);
-        if (!current.preview_url || !current.preview_sha) throw new Response("The draft preview is not ready yet", { status: 409 });
+        if (!current.preview_sha || current.preview_sha !== current.draft_sha
+          || !current.report_json || current.report_sha !== current.draft_sha) {
+          throw new Response("The reviewed report snapshot is not ready yet", { status: 409 });
+        }
+        const report = reviewReportSchema.parse(JSON.parse(String(current.report_json)));
+        if (report.slug !== issueDate) throw new Response("The reviewed report snapshot does not match this issue", { status: 409 });
+        const configuredSite = new URL(env.SITE_ORIGIN);
+        if (configuredSite.protocol !== "https:") throw new Response("The configured site origin must use HTTPS", { status: 500 });
+        const siteOrigin = configuredSite.origin;
         return new Response(reviewShell({
-          issueDate, previewUrl: String(current.preview_url), previewSha: String(current.preview_sha),
-          state: String(current.state), csrf: await csrfToken(email, env), email
+          issueDate, previewSha: String(current.preview_sha), state: String(current.state),
+          csrf: await csrfToken(email, env), email, report, siteOrigin
         }), {
           headers: {
             "content-type": "text/html; charset=utf-8", "cache-control": "no-store",
-            "content-security-policy": `default-src 'none'; frame-src ${new URL(String(current.preview_url)).origin}; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'`,
+            "content-security-policy": `default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src ${siteOrigin}; base-uri 'none'; form-action 'none'; frame-ancestors 'none'`,
             "referrer-policy": "no-referrer", "x-content-type-options": "nosniff"
           }
         });

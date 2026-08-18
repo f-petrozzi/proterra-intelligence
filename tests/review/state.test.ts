@@ -14,6 +14,17 @@ const newSha = "b".repeat(40);
 const reviewer = "reviewer@example.org";
 const okFetch = (async () => new Response(null, { status: 204 })) as typeof fetch;
 const failedFetch = (async () => new Response("unavailable", { status: 503 })) as typeof fetch;
+const reportSnapshot = {
+  slug: issueDate,
+  status: "draft",
+  issueNumber: 3,
+  title: "Weekly Brief",
+  period: { start: "2026-08-17", end: "2026-08-23" },
+  publishedAt: issueDate,
+  scope: { basis: "public-sources-only", disclosure: "This fixture contains only public source material for review." },
+  executiveSummary: "This fixture supplies a sufficiently detailed executive summary for snapshot persistence testing.",
+  items: []
+} as any;
 
 async function fixture(state: "source-ready" | "in-review" = "in-review") {
   const miniflare = new Miniflare({
@@ -37,7 +48,7 @@ async function fixture(state: "source-ready" | "in-review" = "in-review") {
     }]
   });
   const database = await miniflare.getD1Database("REVIEW_DB", "review-test-worker");
-  for (const migration of ["0001_initial.sql", "0002_atomic_outbox.sql"]) {
+  for (const migration of ["0001_initial.sql", "0002_atomic_outbox.sql", "0003_report_snapshots.sql"]) {
     const sql = await readFile(`review-worker/migrations/${migration}`, "utf8");
     for (const statement of sql.split(";").map((value) => value.trim()).filter(Boolean)) {
       await database.prepare(statement).run();
@@ -45,8 +56,10 @@ async function fixture(state: "source-ready" | "in-review" = "in-review") {
   }
   await database.prepare("INSERT INTO review_users (email, role) VALUES (?, 'publisher')").bind(reviewer).run();
   await database.prepare(`INSERT INTO review_issues
-    (issue_date, pull_request, branch, state, version, draft_sha, preview_sha)
-    VALUES (?, 42, ?, ?, 1, ?, ?)`).bind(issueDate, `research-${issueDate}`, state, oldSha, state === "in-review" ? oldSha : null).run();
+    (issue_date, pull_request, branch, state, version, draft_sha, preview_sha, report_sha, report_json)
+    VALUES (?, 42, ?, ?, 1, ?, ?, ?, ?)`)
+    .bind(issueDate, `research-${issueDate}`, state, oldSha, state === "in-review" ? oldSha : null,
+      state === "in-review" ? oldSha : null, state === "in-review" ? JSON.stringify(reportSnapshot) : null).run();
   const env = {
     REVIEW_DB: database,
     GITHUB_OWNER: "owner",
@@ -56,6 +69,7 @@ async function fixture(state: "source-ready" | "in-review" = "in-review") {
     ACCESS_AUD: "audience",
     CSRF_SECRET: "c".repeat(64),
     REVIEW_ORIGIN: "https://review.example.org",
+    SITE_ORIGIN: "https://site.example.org",
     REVIEW_SERVICE_KEY: "s".repeat(64)
   } as unknown as Env;
   return { miniflare, database, env };
@@ -214,10 +228,15 @@ test("agent result is idempotent and rejects a stale source SHA", async (context
     expectedVersion: 1,
     newSha,
     idempotencyKey: crypto.randomUUID(),
-    responses: []
+    responses: [],
+    report: reportSnapshot
   };
   assert.equal((await recordAgentResult(env, issueDate, input)).duplicate, false);
   assert.equal((await recordAgentResult(env, issueDate, input)).duplicate, true);
+  const stored = await env.REVIEW_DB.prepare("SELECT report_sha, report_json FROM review_issues WHERE issue_date = ?")
+    .bind(issueDate).first<any>();
+  assert.equal(stored.report_sha, newSha);
+  assert.equal(JSON.parse(stored.report_json).slug, issueDate);
   await assert.rejects(
     recordAgentResult(env, issueDate, { ...input, idempotencyKey: crypto.randomUUID(), previousSha: "c".repeat(40) }),
     (error) => error instanceof Response && error.status === 409
