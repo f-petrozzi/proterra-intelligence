@@ -30,6 +30,8 @@ const citationSchema = z.object({
   sourceId: z.string(),
   title: z.string().min(5),
   url: z.url(),
+  evidenceUrl: z.url().optional(),
+  releaseId: z.string().min(1).optional(),
   publishedAt: z.string().regex(datePattern),
   sourceNote: z.string().min(20)
 });
@@ -234,19 +236,21 @@ function assertReportIntegrity(report: Report, path: string) {
         throw new Error(`${path}: citation references blocked source "${citation.sourceId}".`);
       }
 
-      const hostname = new URL(citation.url).hostname.replace(/^www\./, "");
       const approvedDomain = source.domain.replace(/^www\./, "");
-      if (hostname !== approvedDomain && !hostname.endsWith(`.${approvedDomain}`)) {
-        throw new Error(
-          `${path}: citation host "${hostname}" does not match source "${approvedDomain}".`
-        );
-      }
-
-      const pathname = new URL(citation.url).pathname;
-      if (source.allowedPaths && !source.allowedPaths.some((prefix) => pathname.startsWith(prefix))) {
-        throw new Error(
-          `${path}: citation path "${pathname}" is not approved for source "${source.id}".`
-        );
+      for (const [kind, value] of [["readable", citation.url], ["evidence", citation.evidenceUrl]] as const) {
+        if (!value) continue;
+        const parsed = new URL(value);
+        const hostname = parsed.hostname.replace(/^www\./, "");
+        if (hostname !== approvedDomain && !hostname.endsWith(`.${approvedDomain}`)) {
+          throw new Error(
+            `${path}: ${kind} citation host "${hostname}" does not match source "${approvedDomain}".`
+          );
+        }
+        if (source.allowedPaths && !source.allowedPaths.some((prefix) => parsed.pathname.startsWith(prefix))) {
+          throw new Error(
+            `${path}: ${kind} citation path "${parsed.pathname}" is not approved for source "${source.id}".`
+          );
+        }
       }
     }
   }

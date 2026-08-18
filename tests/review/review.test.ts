@@ -3,6 +3,7 @@ import { execFileSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { escapeHtml, reviewShell } from "../../review-worker/src/html";
+import { reviewReportSchema } from "../../review-worker/src/report";
 import { fallbackStoryReviewId, reviewAnchor } from "../../src/lib/review";
 import { assertEditorialImageAssignments } from "../../src/lib/image-policy";
 import { assertWeeklyDiff } from "../../scripts/review/assert-weekly-diff";
@@ -11,10 +12,42 @@ import {
 } from "../../scripts/review/weekly-draft";
 import { validateCollectionOutput } from "../../scripts/collection/validate-output";
 
+const shellReport = {
+  slug: "2026-08-24", issueNumber: 3, title: "Weekly Brief", status: "draft",
+  period: { start: "2026-08-17", end: "2026-08-23" }, publishedAt: "2026-08-24",
+  scope: { basis: "public-sources-only", disclosure: "This test report contains only public source material for review." },
+  executiveSummary: "A sufficiently detailed executive summary for the stable same-origin reviewer test fixture.",
+  items: [{
+    rank: 1, reviewId: "story-12345678", headline: "A sufficiently descriptive weekly test headline",
+    imageId: "cattle-market", documentType: "report", sectors: ["meat"], regions: ["United States"],
+    signal: "new", summary: "A sufficiently detailed summary used to exercise selectable report fields in the reviewer.",
+    keyPoints: ["The first sufficiently detailed supporting point.", "The second sufficiently detailed supporting point."],
+    whyItMatters: "This sufficiently detailed explanation describes why the development matters.",
+    businessRelevance: "This sufficiently detailed explanation describes conditional business relevance.",
+    watchNext: "Watch the next sufficiently detailed official release.", confidence: "high",
+    citations: [{ sourceId: "usda-ams-livestock", title: "Readable official report landing page",
+      url: "https://mymarketnews.ams.usda.gov/viewReport/2461",
+      evidenceUrl: "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F14%2F2026",
+      releaseId: "08/14/2026", publishedAt: "2026-08-14",
+      sourceNote: "The dated release provides the values used by this test story." }]
+  }]
+} as any;
+
 test("persistent review anchors do not depend on a citation URL after assignment", () => {
   const assigned = fallbackStoryReviewId("https://example.org/first-url");
   assert.match(assigned, /^story-[a-f0-9]{16}$/);
   assert.equal(reviewAnchor("2026-08-24", assigned, "summary"), `2026-08-24:${assigned}:summary`);
+});
+
+test("the Worker accepts the validated automated-draft contract", () => {
+  const report = {
+    ...shellReport,
+    items: Array.from({ length: 5 }, (_, index) => ({
+      ...shellReport.items[0], rank: index + 1, reviewId: `story-1234567${index}`,
+      headline: `A sufficiently descriptive weekly test headline ${index + 1}`
+    }))
+  };
+  assert.equal(reviewReportSchema.parse(report).slug, "2026-08-24");
 });
 
 test("weekly setup helper is shell-valid, discoverable, and non-mutating by default", async () => {
@@ -33,16 +66,20 @@ test("weekly setup helper is shell-valid, discoverable, and non-mutating by defa
 test("the stable review shell escapes database and identity values", () => {
   assert.equal(escapeHtml(`<script>alert("x")</script>`), "&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;");
   const html = reviewShell({
-    issueDate: "2026-08-24", previewUrl: "https://preview.example/reports/2026-08-24",
-    previewSha: "a".repeat(40), state: `<img src=x onerror=alert(1)>`, csrf: "safe", email: "reviewer@example.org"
+    issueDate: "2026-08-24", previewSha: "a".repeat(40), state: `<img src=x onerror=alert(1)>`,
+    csrf: "safe", email: "reviewer@example.org", report: shellReport, siteOrigin: "https://site.example.org"
   });
   assert.doesNotMatch(html, /<img src=x/);
   assert.match(html, /&lt;img src=x onerror=alert\(1\)&gt;/);
+  assert.doesNotMatch(html, /<iframe/);
+  assert.match(html, /View readable source/);
+  assert.match(html, /Exact evidence · 08\/14\/2026/);
 });
 
 test("D1 schema includes immutable feedback snapshots, optimistic versions, and a durable outbox", async () => {
   const initial = await readFile("review-worker/migrations/0001_initial.sql", "utf8");
   const atomic = await readFile("review-worker/migrations/0002_atomic_outbox.sql", "utf8");
+  const snapshots = await readFile("review-worker/migrations/0003_report_snapshots.sql", "utf8");
   assert.match(initial, /CREATE TABLE review_batch_items/);
   assert.match(initial, /field_value_hash TEXT NOT NULL/);
   assert.match(initial, /version INTEGER NOT NULL DEFAULT 1/);
@@ -50,6 +87,8 @@ test("D1 schema includes immutable feedback snapshots, optimistic versions, and 
   assert.match(atomic, /transition_key/);
   assert.match(atomic, /ALTER TABLE approvals ADD COLUMN transition_key/);
   assert.match(atomic, /ALTER TABLE review_comments ADD COLUMN transition_key/);
+  assert.match(snapshots, /ADD COLUMN report_sha/);
+  assert.match(snapshots, /ADD COLUMN report_json/);
 });
 
 test("weekly approval accepts only the three issue-specific files", () => {
@@ -75,6 +114,7 @@ test("Codex execution strips every API-key override and matches a resumable rece
     newSha: "b".repeat(40),
     idempotencyKey: "123e4567-e89b-42d3-a456-426614174000",
     responses: [],
+    report: shellReport,
     summary: "Prepared draft",
     createdAt: "2026-08-24T12:00:00.000Z"
   };
@@ -88,12 +128,13 @@ test("Codex execution strips every API-key override and matches a resumable rece
 
 test("review shell exposes comment editing and orphaned-anchor warnings", () => {
   const html = reviewShell({
-    issueDate: "2026-08-24", previewUrl: "https://preview.example/reports/2026-08-24",
-    previewSha: "a".repeat(40), state: "in-review", csrf: "safe", email: "reviewer@example.org"
+    issueDate: "2026-08-24", previewSha: "a".repeat(40), state: "in-review", csrf: "safe",
+    email: "reviewer@example.org", report: shellReport, siteOrigin: "https://site.example.org"
   });
   assert.match(html, /Edit this instruction before submission/);
-  assert.match(html, /anchor no longer appears in the current preview/);
-  assert.match(html, /proterra-review-anchor-inventory/);
+  assert.match(html, /anchor no longer appears in the current report/);
+  assert.match(html, /data-review-anchor/);
+  assert.match(html, /selectField\(target\)/);
   assert.match(html, /idempotencyKey:crypto\.randomUUID\(\)/);
 });
 
