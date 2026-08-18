@@ -2,32 +2,32 @@
   "slug": "2026-08-17",
   "issueNumber": 2,
   "title": "Weekly Brief",
-  "status": "approved",
+  "status": "draft",
   "period": {
-    "start": "2026-08-14",
-    "end": "2026-08-17"
+    "start": "2026-08-10",
+    "end": "2026-08-16"
   },
   "publishedAt": "2026-08-17",
   "scope": {
     "basis": "public-sources-only",
     "disclosure": "This brief uses public industry sources and does not assess Proterra-owned animals, customers, sales, or commercial performance."
   },
-  "executiveSummary": "U.S. nonfat dry milk and cheese markets strengthened while butter moved lower. Choice boxed beef rose more than Select, imported lean beef trading softened, and grocery promotion broadened. August Holstein rankings now show distinct leaders for TPI and the new Holstein Conformation Composite.",
-  "editorNote": "Supervised draft for review. The primary window is August 14 through 17, using reports released August 14 and August evaluation files available by August 11. A dedicated public LinkedIn search covered CDCB, Interbull, ADSA, Holstein USA, PEAK, Select Sires, and regional terms. No LinkedIn item passed both the novelty and primary-evidence tests, so none was forced into the issue. Puerto Rico sources were checked, but no new material signal was found. South America is represented through USDA's regional dairy reporting. No event or claim from Issue 1 is repeated.",
+  "executiveSummary": "Beef processing capacity dominated the week as Tyson outlined a smaller plant network and JBS prepared a case-ready conversion. Dairy policy, bovine A.I. market conduct, livestock health preparedness, and lower global meat and dairy quotations broaden the picture, although deterministic extraction preserved only publisher-feed synopses for the selected stories.",
+  "editorNote": "All eight selections are news-led. The evidence bundle supplied only publisher-feed titles and synopses for these stories, so each remains medium confidence and requires human verification at the reader-facing link. The Trinidad and Tobago item supplies defensible international and Latin America and Caribbean coverage but was published just before the primary window; no Puerto Rico candidate was present in the evidence universe.",
   "overview": {
-    "headline": "Powder and beef values firm as new sire lists reset the field.",
+    "headline": "Beef capacity changes lead a week of policy, health, and market signals.",
     "points": [
       {
-        "label": "Dairy",
-        "text": "Nonfat dry milk posted the largest weekly gain while butter moved in the opposite direction."
-      },
-      {
-        "label": "Beef",
-        "text": "Choice boxed beef strengthened, even as imported lean-beef demand and pricing softened."
-      },
-      {
         "label": "Genetics",
-        "text": "August TPI and HCC lists point to different leaders and different selection priorities."
+        "text": "A guilty plea put competition in sales of cattle used for artificial insemination under scrutiny."
+      },
+      {
+        "label": "Dairy",
+        "text": "A bicameral manure-management bill proposed support for alternative pasture-based practices on dairy farms."
+      },
+      {
+        "label": "Meat",
+        "text": "Tyson's planned footprint reduction and JBS's plant conversion pointed to continued change in beef processing."
       }
     ]
   },
@@ -35,482 +35,355 @@
     "sectorPulses": [
       {
         "sector": "dairy",
-        "label": "Nonfat dry milk",
-        "value": "+5.7%",
-        "basis": "weekly average change",
-        "direction": "up",
-        "note": "Grade A averaged $1.6570 per pound, up 8.95 cents from the prior week.",
-        "itemRank": 1
+        "label": "Dairy manure policy",
+        "value": "Reintroduced",
+        "basis": "bicameral bill reported August 10",
+        "direction": "new",
+        "note": "The proposed COWS Act would support alternative pasture-based manure practices for dairy farms.",
+        "itemRank": 4
       },
       {
         "sector": "meat",
-        "label": "Choice boxed beef",
-        "value": "+$6.73/cwt",
-        "basis": "week over week",
-        "direction": "up",
-        "note": "The weekly negotiated Choice cutout averaged $373.24 per hundredweight.",
-        "itemRank": 5
+        "label": "Tyson beef capacity",
+        "value": "−10,000 head/day",
+        "basis": "planned footprint reduction reported August 14",
+        "direction": "down",
+        "note": "BEEF Magazine's feed synopsis attributed the total capacity reduction to additional closures or sales.",
+        "itemRank": 1
       },
       {
         "sector": "bovine-genetics",
-        "label": "Top genomic young sire",
-        "value": "3,622 TPI",
-        "basis": "August evaluation",
+        "label": "Bovine A.I. competition case",
+        "value": "Guilty plea",
+        "basis": "development reported August 13",
         "direction": "new",
-        "note": "Aurora GS Woodford led the August genomic young bull list by three TPI points.",
-        "itemRank": 8
+        "note": "Feedstuffs reported the first charge and guilty plea in a cattle A.I. sales bid-rigging conspiracy.",
+        "itemRank": 3
       }
     ],
     "keyMetrics": [
       {
-        "label": "Block cheese average",
-        "value": "$1.6050/lb",
-        "basis": "week ending August 14",
+        "label": "Tyson capacity reduction",
+        "value": "10,000 head/day",
+        "basis": "planned total reported August 14",
         "itemRank": 1
       },
       {
-        "label": "Choice boxed beef",
-        "value": "$373.24/cwt",
-        "basis": "weekly negotiated average",
-        "itemRank": 5
+        "label": "Joslin plant capacity",
+        "value": "3,000 head/day",
+        "basis": "capacity removed at closure reported August 14",
+        "itemRank": 1
       },
       {
-        "label": "Beef retail feature rate",
-        "value": "96.0%",
-        "basis": "USDA surveyed outlets",
+        "label": "JBS modernization",
+        "value": "$30 million",
+        "basis": "planned Souderton investment reported August 11",
         "itemRank": 7
       },
       {
-        "label": "Top HCC score",
-        "value": "3.08",
-        "basis": "August active bull list",
-        "itemRank": 9
-      }
-    ],
-    "charts": [
-      {
-        "id": "us-dairy-weekly-moves",
-        "title": "U.S. dairy weekly moves",
-        "description": "Change in CME weekly average through August 14",
-        "unit": "percent",
-        "itemRanks": [
-          1
-        ],
-        "sourceIds": [
-          "usda-ams-dairy"
-        ],
-        "values": [
-          {
-            "label": "Nonfat dry milk",
-            "value": 5.7,
-            "displayValue": "+5.7%"
-          },
-          {
-            "label": "Block cheese",
-            "value": 3.8,
-            "displayValue": "+3.8%"
-          },
-          {
-            "label": "Butter",
-            "value": -1.8,
-            "displayValue": "−1.8%"
-          },
-          {
-            "label": "Dry whey",
-            "value": -0.4,
-            "displayValue": "−0.4%"
-          }
-        ]
-      },
-      {
-        "id": "boxed-beef-weekly-moves",
-        "title": "Boxed beef weekly moves",
-        "description": "Change in negotiated weekly cutout averages",
-        "unit": "percent",
-        "itemRanks": [
-          5
-        ],
-        "sourceIds": [
-          "usda-ams-livestock"
-        ],
-        "values": [
-          {
-            "label": "Choice",
-            "value": 1.8,
-            "displayValue": "+1.8%"
-          },
-          {
-            "label": "Select",
-            "value": 0.6,
-            "displayValue": "+0.6%"
-          }
-        ]
-      },
-      {
-        "id": "beef-retail-promotion",
-        "title": "Beef retail promotion",
-        "description": "Change from the previous USDA survey week",
-        "unit": "percent",
-        "itemRanks": [
-          7
-        ],
-        "sourceIds": [
-          "usda-ams-livestock"
-        ],
-        "values": [
-          {
-            "label": "Feature rate, points",
-            "value": 15.8,
-            "displayValue": "+15.8 pts"
-          },
-          {
-            "label": "Activity index",
-            "value": 2.7,
-            "displayValue": "+2.7%"
-          }
-        ]
+        "label": "SPUR deadline",
+        "value": "September 11",
+        "basis": "2026 application deadline",
+        "itemRank": 8
       }
     ]
   },
   "items": [
     {
       "rank": 1,
-      "headline": "Nonfat dry milk leads a split week in U.S. dairy markets",
-      "imageId": "milk-powder",
-      "documentType": "report",
+      "reviewId": "story-dc9ec279c9a9eca1",
+      "headline": "Beef processing capacity contracts as Tyson narrows its network",
+      "imageId": "beef-processing",
+      "documentType": "news",
       "reviewStatus": "reviewed",
-      "discoveryChannel": "official-site",
+      "discoveryChannel": "rss",
       "sectors": [
-        "dairy"
+        "meat"
       ],
       "regions": [
-        "United States",
-        "International"
+        "United States"
       ],
       "signal": "accelerating",
-      "summary": "Grade A nonfat dry milk recorded the largest gain among major CME dairy products. Block cheese also strengthened, while butter and dry whey weekly averages declined.",
+      "summary": "Tyson closed its Joslin, Illinois, beef facility and outlined a smaller operating footprint. Publisher-feed synopses identify Dakota City, Holcomb, and Amarillo as anchor facilities and put the capacity removed through closures or sales at 10,000 head per day.",
       "keyPoints": [
-        "Grade A nonfat dry milk averaged $1.6570 per pound, up 8.95 cents from the previous weekly average.",
-        "Forty-pound cheese blocks averaged $1.6050 per pound, up 5.90 cents, while barrels gained 0.60 cent.",
-        "Grade AA butter averaged $1.4755 per pound, down 2.75 cents, and dry whey averaged $0.6895, down 0.25 cent."
+        "The Joslin closure removed 3,000 head of daily processing capacity in the Midwest corridor.",
+        "Additional closures or sales were reported to reduce Tyson's total beef capacity by 10,000 head per day.",
+        "Dakota City, Holcomb, and Amarillo were identified as anchor facilities for the remaining beef operation."
       ],
-      "whyItMatters": "The product split points to firmer Class III ingredients and powder values without a broad rise across the dairy complex.",
-      "businessRelevance": "Diverging product markets can change customer margin expectations by milk class and market exposure. Commercial conversations should distinguish stronger cheese and powder signals from weaker butter pricing.",
-      "uncertainty": "One weekly average can be volatile and does not establish a durable price trend. Futures, exports, inventories, and the next production report may change the direction.",
-      "watchNext": "Watch whether nonfat dry milk holds its gain and whether cheese demand absorbs active production.",
-      "confidence": "high",
+      "whyItMatters": "A smaller processing network can alter regional cattle access, plant competition, and the balance between available cattle and slaughter capacity.",
+      "businessRelevance": "If processing options tighten near cattle suppliers, public capacity changes could affect the market context used in beef and beef-on-dairy breeding conversations.",
+      "uncertainty": "The bundle preserved only publisher-feed synopses; facility timing, company rationale, and the full calculation behind the 10,000-head figure still require human verification.",
+      "watchNext": "Confirm the final facility list, transaction or closure dates, and regional slaughter volumes.",
+      "confidence": "medium",
       "citations": [
         {
-          "sourceId": "usda-ams-dairy",
-          "title": "Dairy Market News Weekly Report, August 10 through 14, 2026",
-          "url": "https://www.ams.usda.gov/mnreports/dywweeklyreport.pdf",
+          "sourceId": "beef-magazine",
+          "title": "Tyson shuts down Illinois beef plant without warning",
+          "url": "https://beefmagazine.com/market-news/tyson-shuts-down-illinois-beef-plant-without-warning",
           "publishedAt": "2026-08-14",
-          "sourceNote": "Provides CME weekly averages, changes, regional market commentary, and product supply and demand conditions."
+          "sourceNote": "The publisher-feed synopsis supplies the Joslin closure and 3,000-head daily capacity figure. Deterministic article retrieval was blocked, and no separate evidence URL or release ID was supplied."
+        },
+        {
+          "sourceId": "beef-magazine",
+          "title": "Tyson doubles down",
+          "url": "https://beefmagazine.com/market-news/tyson-doubles-down",
+          "publishedAt": "2026-08-14",
+          "sourceNote": "The publisher-feed synopsis supplies the reported 10,000-head daily reduction across further closures or sales. The linked article requires human verification."
+        },
+        {
+          "sourceId": "feedstuffs",
+          "title": "Tyson reducing beef business footprint",
+          "url": "https://feedstuffs.com/agribusiness-news/tyson-reducing-beef-business-footprint",
+          "publishedAt": "2026-08-13",
+          "sourceNote": "The publisher-feed synopsis identifies Dakota City, Holcomb, and Amarillo as anchor facilities. It does not independently establish the total capacity reduction."
         }
       ]
     },
     {
       "rank": 2,
-      "headline": "School demand tightens some U.S. milk channels as western output stays uneven",
-      "imageId": "dairy-parlor",
-      "documentType": "report",
+      "reviewId": "story-8e57e8b133f572f6",
+      "headline": "Pasture stress deepens under prolonged heat and drought",
+      "imageId": "global-pasture",
+      "documentType": "news",
       "reviewStatus": "reviewed",
-      "discoveryChannel": "official-site",
+      "discoveryChannel": "rss",
       "sectors": [
-        "dairy"
+        "meat"
       ],
       "regions": [
         "United States"
       ],
       "signal": "continuing",
-      "summary": "Class I demand increased as schools reopened, while cooler Midwest weather improved cow comfort. Western milk production remained mixed because of heat, fires, and smoke.",
+      "summary": "Extended heat and drought continued to challenge beef producers. BEEF Magazine's feed synopsis said pasture quality was declining nationwide and that the conditions were complicating recovery efforts.",
       "keyPoints": [
-        "Eastern and central Class I demand strengthened as school bottling resumed, but manufacturing milk remained generally sufficient.",
-        "Milder Midwest weather stabilized milk volumes, although spot supplies stayed tight and some Class III milk traded as high as $5 over class.",
-        "Western output varied by state, with tight Northwest supplies and long cream availability across parts of the region."
+        "The reported stress combined persistent heat with drought rather than a single short weather event.",
+        "Declining pasture quality was described as a nationwide constraint on beef-producer recovery."
       ],
-      "whyItMatters": "Regional weather and school calendars are changing where milk is available even when national supply appears steady.",
-      "businessRelevance": "Regional operating conditions shape producer cash flow and attention. A genetics business can use this context to time outreach without treating the U.S. dairy market as one uniform environment.",
-      "uncertainty": "The observations are based on weekly market contacts and can change quickly with weather, plant schedules, and school demand.",
-      "watchNext": "Follow regional milk discounts and premiums, heat conditions, and the August 21 Milk Production report.",
-      "confidence": "high",
+      "whyItMatters": "Pasture conditions influence forage availability, carrying capacity, cow costs, and the pace at which producers can rebuild herds.",
+      "businessRelevance": "If forage pressure persists, it could shape producers' replacement and breeding decisions; regional conditions should be checked before applying the national signal locally.",
+      "uncertainty": "The synopsis gives no regional measurements, acreage figures, or comparison period, and the full article was not available in deterministic evidence.",
+      "watchNext": "Watch regional pasture ratings, drought coverage, cow slaughter, and signs of delayed herd expansion.",
+      "confidence": "medium",
       "citations": [
         {
-          "sourceId": "usda-ams-dairy",
-          "title": "Dairy Market News Weekly Report, August 10 through 14, 2026",
-          "url": "https://www.ams.usda.gov/mnreports/dywweeklyreport.pdf",
+          "sourceId": "beef-magazine",
+          "title": "Cattle and beef market summer struggles",
+          "url": "https://beefmagazine.com/market-news/cattle-and-beef-market-summer-struggles",
           "publishedAt": "2026-08-14",
-          "sourceNote": "Summarizes regional fluid milk availability, class demand, weather effects, cream supply, and spot-market conditions."
+          "sourceNote": "The publisher-feed synopsis supports the heat, drought, and declining-pasture statements. Deterministic article retrieval was blocked, so the linked story requires human verification."
         }
       ]
     },
     {
       "rank": 3,
-      "headline": "Australian dairy exports rise while processing capacity keeps shifting",
-      "imageId": "global-pasture",
-      "documentType": "report",
+      "reviewId": "story-7f79e4b5b3437db1",
+      "headline": "Bovine genetics sales case produces first bid-rigging guilty plea",
+      "imageId": "genetics-lab",
+      "documentType": "news",
       "reviewStatus": "reviewed",
-      "discoveryChannel": "official-site",
+      "discoveryChannel": "rss",
       "sectors": [
-        "dairy"
+        "bovine-genetics",
+        "meat"
       ],
       "regions": [
-        "Australia",
-        "International"
+        "United States"
       ],
-      "signal": "accelerating",
-      "summary": "USDA Dairy Market News reported Australian dairy export volume of 163,341 metric tons for the year through June, 10.7 percent above the prior period, alongside continued plant closures and elevated imports.",
+      "signal": "new",
+      "summary": "A manager of a bovine artificial-insemination firm pleaded guilty in a bid-rigging case. Feedstuffs described the defendant as the first person charged and to plead guilty in a conspiracy involving sales of cattle used for artificial-insemination purposes.",
       "keyPoints": [
-        "Australian dairy export volume reached 163,341 metric tons from July 2025 through June 2026, up 10.7 percent from a year earlier.",
-        "Plant closures are continuing, including one planned for the first quarter of 2027.",
-        "Imports remain above normal as the domestic processing footprint changes."
+        "The reported conduct concerned bids during sales of cattle used for artificial insemination.",
+        "The manager was described as the first defendant both charged and convicted by guilty plea in the conspiracy."
       ],
-      "whyItMatters": "Higher exports and plant consolidation can coexist, creating a more concentrated and trade-dependent operating environment.",
-      "businessRelevance": "The Australian signal is relevant to international genetics demand because processor capacity, farm confidence, and export returns influence herd investment decisions.",
-      "uncertainty": "The weekly summary cites Dairy Australia data but does not break the total into product categories or identify how much plant capacity will leave the market.",
-      "watchNext": "Track product-level exports, milk collections, plant closure timing, and import volumes into 2027.",
+      "whyItMatters": "Competition enforcement in breeding-animal sales matters to pricing integrity and trust in the commercial bovine-genetics market.",
+      "businessRelevance": "The case is a public reminder that procurement and sales processes should remain transparent; it does not establish broader conduct across the genetics sector.",
+      "uncertainty": "The feed synopsis does not provide the court, plea terms, affected sales, duration, or alleged market impact, all of which require verification.",
+      "watchNext": "Follow sentencing, additional defendants, court filings, and any disclosed scope of affected transactions.",
       "confidence": "medium",
       "citations": [
         {
-          "sourceId": "usda-ams-dairy",
-          "title": "Dairy Market News Weekly Report, international overview",
-          "url": "https://www.ams.usda.gov/mnreports/dywweeklyreport.pdf",
-          "publishedAt": "2026-08-14",
-          "sourceNote": "Reports the Australian export total, year-over-year change, processing closures, and above-normal imports."
+          "sourceId": "feedstuffs",
+          "title": "Manager of bovine A.I. firm pleads guilty to bid rigging",
+          "url": "https://feedstuffs.com/agribusiness-news/manager-of-bovine-a-i-firm-pleads-guilty-to-bid-rigging",
+          "publishedAt": "2026-08-13",
+          "sourceNote": "The publisher-feed synopsis supports the guilty plea, first-defendant status, and connection to cattle used for artificial insemination. No court filing was supplied as auditable evidence."
         }
       ]
     },
     {
       "rank": 4,
-      "headline": "South American milk growth keeps pressure on powder markets",
-      "imageId": "cattle-loading",
-      "documentType": "report",
+      "reviewId": "story-c6617eaefdac0280",
+      "headline": "Dairy farm manure bill returns with pasture-based support",
+      "imageId": "dairy-parlor",
+      "documentType": "news",
       "reviewStatus": "reviewed",
-      "discoveryChannel": "official-site",
+      "discoveryChannel": "rss",
       "sectors": [
         "dairy"
       ],
       "regions": [
-        "Latin America & Caribbean",
-        "Argentina",
-        "Chile"
+        "United States"
       ],
-      "signal": "continuing",
-      "summary": "Milk deliveries across South America remained above year-earlier levels, sustaining supply pressure on international powder values. Farm prices improved in Argentina but input costs continued to squeeze margins across the region.",
+      "signal": "new",
+      "summary": "Lawmakers reintroduced the bicameral COWS Act. Feedstuffs said the proposal would invest in alternative pasture-based manure-management practices intended to support dairy farms and environmental protection.",
       "keyPoints": [
-        "Regional milk deliveries remained above year-ago levels and continued to weigh on international powder values.",
-        "Argentina's nominal farm-gate milk price increased for a fifth consecutive month in July and was higher than a year earlier.",
-        "Chile's latest nominal farm-gate price eased slightly, and producers remained concerned that input costs would offset price gains."
+        "The proposal was introduced in both chambers of Congress.",
+        "Its stated focus is investment in alternative pasture-based practices for dairy manure management."
       ],
-      "whyItMatters": "More milk does not automatically mean better producer economics when powder prices and input costs move against farms.",
-      "businessRelevance": "For Latin American market planning, the combination of higher deliveries and tight margins favors specific return-on-investment messages over broad assumptions about sector growth.",
-      "uncertainty": "The report describes regional direction in nominal local currencies and does not provide one comparable margin measure across countries.",
-      "watchNext": "Monitor powder export prices, Argentina's farm-gate series, Chilean input costs, and regional milk collections.",
+      "whyItMatters": "Federal support for manure systems could influence dairy-farm capital choices, environmental compliance options, and operating costs if enacted and funded.",
+      "businessRelevance": "If the proposal advances, producers may reassess capital priorities alongside breeding and herd-management plans; the current evidence does not establish eligibility or funding levels.",
+      "uncertainty": "The synopsis does not provide bill numbers, appropriations, program mechanics, legislative sponsors, or prospects for passage.",
+      "watchNext": "Confirm bill text, committee action, funding levels, and dairy-farm eligibility requirements.",
       "confidence": "medium",
       "citations": [
         {
-          "sourceId": "usda-ams-dairy",
-          "title": "Dairy Market News Weekly Report, South America overview",
-          "url": "https://www.ams.usda.gov/mnreports/dywweeklyreport.pdf",
-          "publishedAt": "2026-08-14",
-          "sourceNote": "Provides current regional milk-delivery, farm-gate price, powder-market, and producer-margin observations."
+          "sourceId": "feedstuffs",
+          "title": "COWS Act reintroduced to promote sustainable manure management",
+          "url": "https://feedstuffs.com/policy/cows-act-reintroduced-to-promote-sustainable-manure-management",
+          "publishedAt": "2026-08-10",
+          "sourceNote": "The publisher-feed synopsis supports the bicameral reintroduction and pasture-based dairy-practice focus. Deterministic extraction did not supply the bill text or a release identifier."
         }
       ]
     },
     {
       "rank": 5,
-      "headline": "Choice boxed beef strengthens and widens its premium over Select",
-      "imageId": "beef-processing",
-      "documentType": "report",
+      "reviewId": "story-64f310af12fb8390",
+      "headline": "Global meat and dairy market prices decline as food index edges up",
+      "imageId": "cattle-market",
+      "documentType": "news",
       "reviewStatus": "reviewed",
-      "discoveryChannel": "official-site",
+      "discoveryChannel": "rss",
       "sectors": [
+        "dairy",
         "meat"
       ],
       "regions": [
-        "United States"
+        "International"
       ],
-      "signal": "accelerating",
-      "summary": "The negotiated Choice cutout averaged $373.24 per hundredweight, up $6.73 from the prior week. Select gained $1.95, leaving a $23.06 Choice-Select spread.",
+      "signal": "easing",
+      "summary": "FAO reported that its overall Food Price Index edged higher amid weather, energy, and geopolitical concerns. Higher international quotations for sugar, cereals, and vegetable oils offset declines in the meat and dairy components.",
       "keyPoints": [
-        "Choice boxed beef averaged $373.24 per hundredweight, a weekly increase of $6.73.",
-        "Select averaged $350.18, up $1.95, so Choice rose more than three times as much in dollar terms.",
-        "The Choice-Select spread reached $23.06 across 487 reported loads of cuts, trimmings, and grinds."
+        "The aggregate index increased even though the meat and dairy components declined.",
+        "Sugar, cereals, and vegetable oils provided the offsetting upward pressure."
       ],
-      "whyItMatters": "A widening quality spread raises the value of cattle that can consistently meet higher carcass specifications.",
-      "businessRelevance": "The quality premium supports conversations about terminal performance and carcass merit, while the weekly nature of the move argues for measured claims rather than extrapolation.",
-      "uncertainty": "The report covers negotiated boxed-beef sales and does not directly measure producer margins or the value of a particular genetic line.",
-      "watchNext": "Track whether the Choice-Select spread holds as slaughter volumes and seasonal rib demand change.",
-      "confidence": "high",
+      "whyItMatters": "The split shows that a higher broad food index did not mean stronger international quotations across livestock categories.",
+      "businessRelevance": "Lower global meat and dairy quotations may inform market conversations, but implications for any local producer depend on exchange rates, product mix, and regional supply conditions.",
+      "uncertainty": "The feed synopsis provides no index levels or percentage changes, and the August 7 publication sits just before the primary reporting window.",
+      "watchNext": "Watch the next FAO component readings and whether meat and dairy continue to diverge from the headline index.",
+      "confidence": "medium",
       "citations": [
         {
-          "sourceId": "usda-ams-livestock",
-          "title": "National Weekly Boxed Beef Cutout and Boxed Beef Cuts",
-          "url": "https://www.ams.usda.gov/mnreports/AMS_2461.pdf",
-          "publishedAt": "2026-08-14",
-          "sourceNote": "Provides negotiated Choice and Select weekly averages, prior-week changes, spread, volumes, and primal values."
+          "sourceId": "fao-newsroom",
+          "title": "FAO Food Price Index edges up amid weather, energy and geopolitical concerns",
+          "url": "https://fao.org/newsroom/detail/fao-food-price-index-edges-up-amid-weather--energy-and-geopolitical-concerns/en",
+          "publishedAt": "2026-08-07",
+          "sourceNote": "FAO's publisher-feed synopsis supports the direction of the overall index and its meat, dairy, and offsetting components. The full release requires human verification."
         }
       ]
     },
     {
       "rank": 6,
-      "headline": "Imported lean beef prices soften as trading slows",
-      "imageId": "cattle-market",
-      "documentType": "report",
+      "reviewId": "story-02ff3be97e72256b",
+      "headline": "Trinidad livestock health simulation tests outbreak readiness",
+      "imageId": "calf-health",
+      "documentType": "news",
       "reviewStatus": "reviewed",
-      "discoveryChannel": "official-site",
+      "discoveryChannel": "rss",
       "sectors": [
         "meat"
       ],
       "regions": [
-        "United States",
-        "Australia",
-        "New Zealand",
-        "Brazil",
+        "Trinidad and Tobago",
         "Latin America & Caribbean"
       ],
-      "signal": "easing",
-      "summary": "USDA reported mostly moderately lower imported-beef prices and slow trading. Weaker demand pressured lean beef and trimmings, while Brazilian arrivals fell short of expectations and Australia-New Zealand imports remained light.",
+      "signal": "new",
+      "summary": "FAO and Trinidad and Tobago authorities completed a week-long animal-disease outbreak simulation. The exercise was designed to test and strengthen national capacity to respond to animal-health emergencies.",
       "keyPoints": [
-        "Imported beef prices were mostly moderately lower, with some quotations steady to weak.",
-        "Trading activity was slow as weaker demand pressured domestic and imported lean beef and trimmings.",
-        "Brazilian imports were below expectations in July, while Australia and New Zealand volumes remained light."
+        "FAO partnered with the Ministry of Agriculture and Fisheries and Tobago's Division of Food Security.",
+        "The simulation lasted one week and focused on emergency-response capacity."
       ],
-      "whyItMatters": "The softer spot tone qualifies the broader story of strong U.S. import needs and shows that demand is not firm across every beef channel.",
-      "businessRelevance": "Imported lean-beef conditions help frame beef and beef-on-dairy economics, particularly when customers are weighing cattle value against feed, replacement, and breeding costs.",
-      "uncertainty": "The report describes current market tests rather than a complete import-volume series, and several country flows can shift independently.",
-      "watchNext": "Watch weekly lean-trim quotations and the next country-level import data for Brazil and Oceania.",
-      "confidence": "high",
+      "whyItMatters": "Preparedness exercises can expose coordination gaps before an outbreak disrupts livestock movement, farm operations, or trade.",
+      "businessRelevance": "Regional disease readiness is relevant to market continuity; any commercial implication remains conditional on the hazards tested and follow-up actions, which the synopsis does not identify.",
+      "uncertainty": "The evidence does not name the simulated disease, participants, findings, or corrective actions, and the August 8 publication predates the primary window.",
+      "watchNext": "Look for an after-action report, identified gaps, and funded changes to surveillance or response plans.",
+      "confidence": "medium",
       "citations": [
         {
-          "sourceId": "usda-ams-livestock",
-          "title": "Import Beef Trade report",
-          "url": "https://www.ams.usda.gov/mnreports/ams_2823.pdf",
-          "publishedAt": "2026-08-14",
-          "sourceNote": "Reports current imported lean-beef and trim price ranges, trade activity, demand, and regional shipment observations."
+          "sourceId": "fao-americas",
+          "title": "FAO leads animal disease outbreak simulation in Trinidad and Tobago",
+          "url": "https://fao.org/americas/news/news-detail/animal-disease-outbreak-simulation/en",
+          "publishedAt": "2026-08-08",
+          "sourceNote": "FAO's publisher-feed synopsis supplies the partners, duration, and preparedness objective. It does not provide exercise findings or a separate auditable release."
         }
       ]
     },
     {
       "rank": 7,
-      "headline": "U.S. grocers broaden beef promotion as wholesale values rise",
+      "reviewId": "story-3d293c20f72bd942",
+      "headline": "JBS shifts beef plant toward retail-ready production",
       "imageId": "beef-retail",
-      "documentType": "report",
+      "documentType": "news",
       "reviewStatus": "reviewed",
-      "discoveryChannel": "official-site",
+      "discoveryChannel": "rss",
       "sectors": [
         "meat"
       ],
       "regions": [
         "United States"
       ],
-      "signal": "accelerating",
-      "summary": "The beef feature rate across USDA's surveyed grocery outlets rose to 96.0 percent, 15.8 percentage points above the prior week. Promotional activity increased 2.7 percent, led by more space for chuck, loin, sirloin, ground beef, and deli items.",
+      "signal": "new",
+      "summary": "JBS planned to stop beef processing at its Souderton facility on August 14 and convert the site toward value-added and case-ready capabilities. Feedstuffs reported a planned $30 million modernization investment.",
       "keyPoints": [
-        "The national feature rate reached 96.0 percent, up from 80.2 percent in the previous survey week.",
-        "The activity index increased 2.7 percent to 95,130, although it remained below 100,444 a year earlier.",
-        "Chuck, loin, sirloin, ground beef, and deli meat gained ad space while brisket, rib, and round lost space."
+        "Beef processing at Souderton was scheduled to stop on August 14.",
+        "JBS planned to invest $30 million in value-added and case-ready capabilities at the facility."
       ],
-      "whyItMatters": "Broader promotion can support consumer movement, but the mix of featured cuts matters as much as the headline rate.",
-      "businessRelevance": "Retail promotion is a downstream demand signal for cattle markets. It helps separate wholesale price strength supported by merchandising from price moves driven only by constrained supply.",
-      "uncertainty": "Feature activity measures advertised placement, not realized sales volume, consumer response, or retailer margin.",
-      "watchNext": "Compare the next feature rate with boxed-beef values and scanner-based demand measures where available.",
-      "confidence": "high",
+      "whyItMatters": "The conversion shifts the plant's role from primary beef processing toward downstream preparation, changing local capacity rather than removing the site entirely.",
+      "businessRelevance": "If case-ready capacity expands while primary processing contracts, downstream product demand and upstream cattle-market effects may diverge by region.",
+      "uncertainty": "The synopsis does not state construction timing, employment effects, final throughput, sourcing plans, or the scope of retained operations.",
+      "watchNext": "Confirm the modernization schedule, workforce changes, case-ready throughput, and cattle-processing displacement.",
+      "confidence": "medium",
       "citations": [
         {
-          "sourceId": "usda-ams-livestock",
-          "title": "Weekly Grocery Store Beef Feature Activity",
-          "url": "https://www.ams.usda.gov/mnreports/ams_3228.pdf",
-          "publishedAt": "2026-08-14",
-          "sourceNote": "Provides national feature rate, activity index, year-over-year comparison, advertised prices, and changes in promotional mix."
+          "sourceId": "feedstuffs",
+          "title": "JBS USA to turn Souderton beef plant into value-added operation",
+          "url": "https://feedstuffs.com/agribusiness-news/jbs-usa-to-turn-souderton-beef-plant-into-value-added-operation",
+          "publishedAt": "2026-08-11",
+          "sourceNote": "The publisher-feed synopsis supplies the August 14 processing stop and $30 million modernization plan. No company release or project timetable was supplied in the evidence bundle."
         }
       ]
     },
     {
       "rank": 8,
-      "headline": "August Holstein rankings place different sires atop active and genomic lists",
-      "imageId": "genetics-lab",
-      "documentType": "evaluation",
+      "reviewId": "story-03faa6b535909bc2",
+      "headline": "Cattle processors face September deadline for SPUR applications",
+      "imageId": "cattle-loading",
+      "documentType": "news",
       "reviewStatus": "reviewed",
-      "discoveryChannel": "official-site",
+      "discoveryChannel": "rss",
       "sectors": [
-        "dairy",
-        "bovine-genetics"
+        "meat"
       ],
       "regions": [
-        "United States",
-        "International"
+        "United States"
       ],
       "signal": "new",
-      "summary": "PEAK Powerhouse led active or limited proven bulls at 3,561 TPI, while Aurora GS Woodford led genomic young bulls at 3,622. The three-point genomic lead shows how closely packed the top of the young-sire list is.",
+      "summary": "USDA opened applications for the SPUR program, according to BEEF Magazine. Qualifying beef processors must submit completed applications by September 11, 2026.",
       "keyPoints": [
-        "PEAK Powerhouse ranked first among active or limited proven bulls at 3,561 TPI, with 119 pounds of protein and 2,043 pounds of milk.",
-        "Aurora GS Woodford led genomic young bulls at 3,622 TPI, three points ahead of S-S-I Kingdom Formal.",
-        "The leading proven and genomic bulls show different balances across production, fertility, health, and conformation traits."
+        "The application window was reported open on August 10.",
+        "Eligible beef processors face a September 11, 2026, submission deadline."
       ],
-      "whyItMatters": "Official August rankings reset the competitive reference points used in sire selection, sales materials, and customer comparisons.",
-      "businessRelevance": "The updated lists provide a neutral benchmark for portfolio review. Individual bull positioning should be checked across multiple traits instead of relying on the headline TPI rank alone.",
-      "uncertainty": "Genomic young bulls have lower reliability than heavily proven sires, and rankings can change as daughters and new records enter later evaluations.",
-      "watchNext": "Track rank movement, reliability, semen availability, and customer response through the next evaluation cycle.",
-      "confidence": "high",
+      "whyItMatters": "A time-limited federal application window can affect processor investment planning and competition if the program provides material support.",
+      "businessRelevance": "Any expansion or modernization supported through the program could alter regional processing access, but the supplied evidence does not establish awards or capacity outcomes.",
+      "uncertainty": "The bundle language metadata was undetermined, and the synopsis does not define SPUR, eligibility, funding, selection criteria, or available awards.",
+      "watchNext": "Verify program terms, applicant eligibility, award timing, and announced projects after the deadline.",
+      "confidence": "medium",
       "citations": [
         {
-          "sourceId": "holstein-usa",
-          "title": "Top 100 TPI Bulls, August 2026",
-          "url": "https://www.holsteinusa.com/pdf/bull_cow_lists/PreTop100Bulls.pdf",
-          "publishedAt": "2026-08-11",
-          "sourceNote": "Official August list for active or limited bulls meeting Holstein USA's production and type reliability requirements."
-        },
-        {
-          "sourceId": "holstein-usa",
-          "title": "Top 200 TPI Genomic Young Bulls, August 2026",
-          "url": "https://www.holsteinusa.com/pdf/bull_cow_lists/Top_200_TPI_Genomic_Young_Bulls.pdf",
-          "publishedAt": "2026-08-11",
-          "sourceNote": "Official August ranking of genomic young bulls, including production, health, conformation, HCC, and TPI values."
-        }
-      ]
-    },
-    {
-      "rank": 9,
-      "headline": "New HCC rankings separate functional conformation from overall TPI",
-      "imageId": "calf-health",
-      "documentType": "evaluation",
-      "reviewStatus": "reviewed",
-      "discoveryChannel": "official-site",
-      "sectors": [
-        "dairy",
-        "bovine-genetics"
-      ],
-      "regions": [
-        "United States",
-        "International"
-      ],
-      "signal": "new",
-      "summary": "Holstein USA's August HCC list ranked Bomaz Rimrock first at 3.08, while the leading active TPI bull carried an HCC of negative 0.25. The contrast shows that the two indexes answer different selection questions.",
-      "keyPoints": [
-        "Bomaz Rimrock led the proven HCC list at 3.08 but ranked at 2,985 TPI, below many production-focused leaders.",
-        "PEAK Powerhouse, the top proven TPI bull at 3,561, had an HCC value of negative 0.25.",
-        "HCC is published alongside PTAT, udder, foot-and-leg, and TPI values rather than replacing those measures."
-      ],
-      "whyItMatters": "HCC makes the trade-off between balanced functional conformation and broad economic index ranking visible in the official lists.",
-      "businessRelevance": "The additional lens can improve mating and product discussions when durability and structural balance are priorities. It should be presented as a complementary tool, not as a universal replacement for TPI or trait-level review.",
-      "uncertainty": "HCC is new, so commercial adoption, customer understanding, and its influence on future TPI revisions are still developing.",
-      "watchNext": "Watch which organizations use HCC in selection criteria and whether Holstein USA later incorporates it into TPI.",
-      "confidence": "high",
-      "citations": [
-        {
-          "sourceId": "holstein-usa",
-          "title": "Top 200 HCC Bulls, August 2026",
-          "url": "https://www.holsteinusa.com/pdf/bull_cow_lists/Top_200_HCC_Bulls.pdf",
-          "publishedAt": "2026-08-11",
-          "sourceNote": "Official August HCC ranking with production, health, conformation, HCC, and TPI values for direct comparison."
-        },
-        {
-          "sourceId": "holstein-usa",
-          "title": "Top Ranking Animal Lists, August 2026",
-          "url": "https://www.holsteinusa.com/genetic_evaluations/bull_lists.html",
-          "publishedAt": "2026-08-11",
-          "sourceNote": "Confirms the August HCC, TPI, genomic, polled, international, and female ranking files published by Holstein USA."
+          "sourceId": "beef-magazine",
+          "title": "USDA opens SPUR program applications",
+          "url": "https://beefmagazine.com/policy/usda-opens-spur-program-applications",
+          "publishedAt": "2026-08-10",
+          "sourceNote": "The publisher-feed synopsis supplies the application opening and September 11 deadline. The bundle marked the source language undetermined and supplied no separate USDA evidence URL or release ID."
         }
       ]
     }

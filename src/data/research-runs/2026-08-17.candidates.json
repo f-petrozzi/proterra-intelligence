@@ -6,7 +6,7 @@
     "end": "2026-08-17T04:00:00.000Z",
     "timezone": "America/New_York"
   },
-  "generatedAt": "2026-08-18T04:31:21.778Z",
+  "generatedAt": "2026-08-18T05:08:05.830Z",
   "candidates": [
     {
       "candidateId": "8e57e8b133f572f61495858f0cee678c2335cf4e11d33dee36f0ff0b64b2dc00",
@@ -27,7 +27,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.556446,
       "clusterId": "c977f6795a033af09ccbb059b743edab7f9becf9d2bdbd32b247aa6777aeb451",
       "relatedUrls": []
@@ -51,7 +51,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.550442,
       "clusterId": "26a46a6cb679ccfbd6f3fde4cd9c9b5d449b883dd780f4d08ff834b81e38cd77",
       "relatedUrls": []
@@ -76,7 +76,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.542386,
       "clusterId": "24765cda0b5c911c7e8a01d8582338af35b0f6da18e16cfcf460f33216c50566",
       "relatedUrls": []
@@ -102,7 +102,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.5413,
       "clusterId": "d59ce3c230c92fe8e8cbe947e76049b904e0e9bc2285136a5bc2741872e1fd77",
       "relatedUrls": []
@@ -126,7 +126,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.541291,
       "clusterId": "382b48f6258ebd6ab5304dbb5563de2ea285b1264d91322ee91857ce751b26ef",
       "relatedUrls": []
@@ -150,7 +150,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.54083,
       "clusterId": "1bf6a25c2c4375c7b384d5a179d73dab2e29a790def8b3e4c36c2e71055591f3",
       "relatedUrls": []
@@ -174,7 +174,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.524932,
       "clusterId": "44d71a1d7c3097e7735419709a2fa7d83a8b6dfd569e6d749ee79e11e593ecb8",
       "relatedUrls": []
@@ -198,55 +198,9 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.524664,
       "clusterId": "ec1e44ae4d8e532d866c408b5c2c220fd3fd448392e32c7471b0b7545ba73da4",
-      "relatedUrls": []
-    },
-    {
-      "candidateId": "7ff9ead820c305df90dde301106164a5398680e228327fc74a582cf6f56abba6",
-      "sourceId": "agproud-progressive",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "fr",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://agproud.com/articles/62225-isaac-dairy-adapter-la-duree-de-la-lactation-aux-besoins-des-vaches",
-      "citationUrl": "https://agproud.com/articles/62225-isaac-dairy-adapter-la-duree-de-la-lactation-aux-besoins-des-vaches",
-      "title": "Isaac Dairy : adapter la durée de la lactation aux besoins des vaches",
-      "publishedAt": "2026-08-15T04:00:00.000Z",
-      "sectors": [
-        "dairy"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
-      "relevanceScore": 0.521471,
-      "clusterId": "6553239296202e13d4f958bf6841c91171023717131a90793091d84ba3220c17",
-      "relatedUrls": []
-    },
-    {
-      "candidateId": "5b72ad7068a7248d4f237ee810b8b9c2d69e015bf7a38201bd8d8c0000769400",
-      "sourceId": "agproud-progressive",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://agproud.com/articles/63902-from-sampling-to-cattle-performance",
-      "citationUrl": "https://agproud.com/articles/63902-from-sampling-to-cattle-performance",
-      "title": "From sampling to cattle performance",
-      "publishedAt": "2026-08-14T04:00:00.000Z",
-      "summary": "When cattle don’t perform the way your forage report says they should, the culprit is often hiding in the sampling process.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
-      "relevanceScore": 0.52042,
-      "clusterId": "b27d4d09d4b5bd20cf028fcfe1cee82513ba2b250c437b184e1648d1ccd6e92c",
       "relatedUrls": []
     },
     {
@@ -268,58 +222,9 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.513481,
       "clusterId": "6cda6ac313a202cc9fe49f133efc0e437dc00edc4805c618d676156be924e428",
-      "relatedUrls": []
-    },
-    {
-      "candidateId": "61f284fc4ff6e36cf473ac364483842c70e11a06ed8183c55323e8918a03f767",
-      "sourceId": "agproud-progressive",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://agproud.com/articles/63833-dont-guess-test-using-forage-analysis-to-stretch-winter-feed-dollars",
-      "citationUrl": "https://agproud.com/articles/63833-dont-guess-test-using-forage-analysis-to-stretch-winter-feed-dollars",
-      "title": "Don’t guess; test: Using forage analysis to stretch winter feed dollars",
-      "publishedAt": "2026-08-14T04:00:00.000Z",
-      "summary": "As grazing season begins to wind down, many cattle producers are already thinking about winter feed inventories. Hay barns are filling, silage piles are covered, and haylage is fermenting, but one important management step is often overlooked before winter feeding begins: forage testing.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
-      "relevanceScore": 0.508753,
-      "clusterId": "399096e25bc5b762acb0b740fd7ef632b280053c700d25ca8a387faa233f5be6",
-      "relatedUrls": []
-    },
-    {
-      "candidateId": "e2689b6e242529835e14e61e6b067d2fe75b4817f7f985bbe746cf0d7dbe50e2",
-      "sourceId": "agproud-progressive",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://agproud.com/articles/63740-managing-the-size-of-beef-on-dairy-crosses",
-      "citationUrl": "https://agproud.com/articles/63740-managing-the-size-of-beef-on-dairy-crosses",
-      "title": "Managing the size of beef-on-dairy crosses",
-      "publishedAt": "2026-08-13T04:00:00.000Z",
-      "summary": "Warren Rusche's presentation – titled “What’s going on with carcass size?” – discussed the challenges associated with larger carcass sizes and factors producers should consider when planning beef-on-dairy crossbreeding programs.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "dairy",
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
-      "relevanceScore": 0.507895,
-      "clusterId": "43a0cb8454a1ca95d239f8e17d4a43b692f0c63c18029532cce6ba65031d4e9b",
       "relatedUrls": []
     },
     {
@@ -341,7 +246,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.504879,
       "clusterId": "5b987dbb06d687ee6668840eb9772e822cd138d2814fb6b314dde987b6cfe0f2",
       "relatedUrls": []
@@ -365,59 +270,9 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.503759,
       "clusterId": "b24b8000198be350eff1fd434cce874040c2c933ec6d9d6488b42df3a6f5b2a7",
-      "relatedUrls": []
-    },
-    {
-      "candidateId": "74de3b1a82528f20c020a46bafef7ebc07306f5a3a2fc5ce2ab5cb7e18ebc35b",
-      "sourceId": "usda-ams-livestock",
-      "collectionRole": "evidence",
-      "contentClass": "dataset",
-      "language": "und",
-      "discoveredBy": "json-api",
-      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D08%2F14%2F2026",
-      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
-      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D08%2F14%2F2026",
-      "title": "National/Regional Weekly Boneless Processing Beef and Beef Trimmings (PDF) (LM_XB460)",
-      "publishedAt": "2026-08-14T19:02:46.000Z",
-      "releaseId": "08/14/2026",
-      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
-      "relevanceScore": 0.501924,
-      "clusterId": "a3693eba47249b081f75ed8d3fe444244ea8a5e5f4fc0c947b82c64ab4c7908b",
-      "relatedUrls": []
-    },
-    {
-      "candidateId": "d98d7591209927c41a835358ead355c43476b967ef983750045f5bb69a39d116",
-      "sourceId": "usda-ams-livestock",
-      "collectionRole": "evidence",
-      "contentClass": "dataset",
-      "language": "und",
-      "discoveredBy": "json-api",
-      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F14%2F2026",
-      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
-      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F14%2F2026",
-      "title": "National Weekly Boxed Beef Cutout & Boxed Beef Cuts - Negotiated Sales (PDF) (LM_XB459)",
-      "publishedAt": "2026-08-14T18:55:20.000Z",
-      "releaseId": "08/14/2026",
-      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
-      "relevanceScore": 0.50167,
-      "clusterId": "cb0bce058d0cbeb9cabb11248286dd12ccd50cd1b29640538666f512d488a1d5",
       "relatedUrls": []
     },
     {
@@ -440,7 +295,7 @@
       "geographies": [
         "International"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.500812,
       "clusterId": "602cc373343c8a42f26aae0150d107cf8e36db3a3232c27421485bee7470a864",
       "relatedUrls": []
@@ -465,7 +320,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.498651,
       "clusterId": "98ac5df9a61512500a5361f84c82517f3ae3da29ad48e4fc6dfa475509468d5e",
       "relatedUrls": []
@@ -489,7 +344,7 @@
       "geographies": [
         "Latin America & Caribbean"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.496248,
       "clusterId": "fa2e17b5a84f133f9e8d5791c65444acaf9f39315353aa6664a71255fa68c9ef",
       "relatedUrls": []
@@ -513,9 +368,59 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.494022,
       "clusterId": "55b3058d5a7548ba0fa337a11450f58451ec44f47f66b8b802a33b177e4a6302",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "74de3b1a82528f20c020a46bafef7ebc07306f5a3a2fc5ce2ab5cb7e18ebc35b",
+      "sourceId": "usda-ams-livestock",
+      "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "und",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D08%2F14%2F2026",
+      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
+      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D08%2F14%2F2026",
+      "title": "National/Regional Weekly Boneless Processing Beef and Beef Trimmings (PDF) (LM_XB460)",
+      "publishedAt": "2026-08-14T15:02:46.000Z",
+      "releaseId": "08/14/2026",
+      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
+      "relevanceScore": 0.493898,
+      "clusterId": "a3693eba47249b081f75ed8d3fe444244ea8a5e5f4fc0c947b82c64ab4c7908b",
+      "relatedUrls": []
+    },
+    {
+      "candidateId": "d98d7591209927c41a835358ead355c43476b967ef983750045f5bb69a39d116",
+      "sourceId": "usda-ams-livestock",
+      "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "und",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F14%2F2026",
+      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
+      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F14%2F2026",
+      "title": "National Weekly Boxed Beef Cutout & Boxed Beef Cuts - Negotiated Sales (PDF) (LM_XB459)",
+      "publishedAt": "2026-08-14T14:55:20.000Z",
+      "releaseId": "08/14/2026",
+      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
+      "relevanceScore": 0.493656,
+      "clusterId": "cb0bce058d0cbeb9cabb11248286dd12ccd50cd1b29640538666f512d488a1d5",
       "relatedUrls": []
     },
     {
@@ -537,58 +442,9 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.492789,
       "clusterId": "2fa7aef60746bdfe36ecb75213b6336b6a420c1751d226eca3c52a57f7cc3ceb",
-      "relatedUrls": []
-    },
-    {
-      "candidateId": "09c3cca48790f1fa9053d3d24a676fb76a366b6faf7a014dc29f9800f4ac9ebc",
-      "sourceId": "agproud-progressive",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://agproud.com/articles/63975-podcast-behind-the-numbers-the-true-impact-of-the-dairy-checkoff",
-      "citationUrl": "https://agproud.com/articles/63975-podcast-behind-the-numbers-the-true-impact-of-the-dairy-checkoff",
-      "title": "[Podcast] Behind the Numbers: The True Impact of the Dairy Checkoff",
-      "publishedAt": "2026-08-13T04:00:00.000Z",
-      "summary": "In this episode of Your Dairy Checkoff Podcast, economist Dr. Oral Capps of Texas A&M University breaks down more than a decade of independent research measuring the impact of the dairy checkoff.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "dairy"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
-      "relevanceScore": 0.484562,
-      "clusterId": "84f35b4ff0378bb355b54e983714a9f7e7280a58c78cb29ec593b55cbda93dae",
-      "relatedUrls": []
-    },
-    {
-      "candidateId": "d2393b3e28ccea37a214089c8be2d6d3ca1cbe0dc394c0529f13d7c9ceab5afa",
-      "sourceId": "agproud-progressive",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://agproud.com/articles/63962-usda-nudges-2026-milk-production-forecast-higher",
-      "citationUrl": "https://agproud.com/articles/63962-usda-nudges-2026-milk-production-forecast-higher",
-      "title": "USDA nudges 2026 milk production forecast higher",
-      "publishedAt": "2026-08-12T17:38:07.000Z",
-      "summary": "USDA’s August WASDE raised 2026 milk production slightly to 238.1 billion pounds on expectations of a larger cow herd and a decrease in milk output per cow.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "dairy",
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
-      "relevanceScore": 0.483642,
-      "clusterId": "2e70513babdb6bcfa6e9e8ca337af2a9095e84ea242a71e223094e4c77e073ad",
       "relatedUrls": []
     },
     {
@@ -610,7 +466,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.471415,
       "clusterId": "0029e04bbda03e4c2b3557330d148ee9dcf10ce026800361653360c2434b1b8a",
       "relatedUrls": []
@@ -635,7 +491,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.463136,
       "clusterId": "05d074f10cf58296532df8debfd14b85e002d87cdd224a481cb09e4fcb1d4d81",
       "relatedUrls": []
@@ -659,81 +515,9 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.461156,
       "clusterId": "98dc862a6c9bb269aa43d105573e6c763fc19621488ea27ca784272007cab2d3",
-      "relatedUrls": []
-    },
-    {
-      "candidateId": "c0e3d51e2eb1d8b25766d41854606aae17e4ac801dcea57352d74caed948a096",
-      "sourceId": "agproud-progressive",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://agproud.com/articles/63787-wheres-the-beef",
-      "citationUrl": "https://agproud.com/articles/63787-wheres-the-beef",
-      "title": "Where’s the beef?",
-      "publishedAt": "2026-08-12T04:00:00.000Z",
-      "summary": "If you can fondly remember this 1984 slogan by Wendy’s, then you are undoubtedly a boomer like me. Eighty-one-year-old Clara Peller made this phrase famous in January of that year. It raised sales for the burger chain by 31% or approximately $620 million that year.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
-      "relevanceScore": 0.457615,
-      "clusterId": "45cec68b8addcbbbd22b729b98a640458a690fb8be3eadbd5b2c3bd252d0dc26",
-      "relatedUrls": []
-    },
-    {
-      "candidateId": "b30bcc9470b3db960efffe320211915e16544909e43750f2657e275f24f8d5b3",
-      "sourceId": "agproud-progressive",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://agproud.com/articles/63855-rethinking-the-snf-ratio-build-your-strategy-today-to-benefit-tomorrow",
-      "citationUrl": "https://agproud.com/articles/63855-rethinking-the-snf-ratio-build-your-strategy-today-to-benefit-tomorrow",
-      "title": "Rethinking the SNF ratio: Build your strategy today to benefit tomorrow",
-      "publishedAt": "2026-08-12T04:00:00.000Z",
-      "summary": "As a result of the increased demand for milk protein in the Canadian dairy market, both the Eastern Canadian Milk Pool (P5) and Western Milk Pool (WMP) have taken steps to adjust their pricing to be more heavily weighted on milk protein and other solids (SNF) than in the recent past.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "dairy"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
-      "relevanceScore": 0.457615,
-      "clusterId": "13b423abf66fe02c4583bdc7d9b8474e472ffdb7ac48afcd77196413b8333aeb",
-      "relatedUrls": []
-    },
-    {
-      "candidateId": "25007247504df7f225c6d3df52130ec1ee55d986a39ee5f5efe22149ba41c80a",
-      "sourceId": "agproud-progressive",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://agproud.com/articles/63948-idaho-tours-offer-dairy-producers-exclusive-look-at-innovation",
-      "citationUrl": "https://agproud.com/articles/63948-idaho-tours-offer-dairy-producers-exclusive-look-at-innovation",
-      "title": "Idaho tours offer dairy producers exclusive look at innovation",
-      "publishedAt": "2026-08-11T18:44:36.000Z",
-      "summary": "An upcoming tour presented by Professional Dairy Producers (PDP) in partnership with Progressive Publishing will give dairy producers access to select farms and businesses that are driving the potato state’s transformative success.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "dairy"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
-      "relevanceScore": 0.449113,
-      "clusterId": "9d3f67bd59261164a0f0c2c912b0e32fc8ab3a2a1ba6a42508ac95372c3633eb",
       "relatedUrls": []
     },
     {
@@ -755,7 +539,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.443007,
       "clusterId": "a8159e3efe3db268cf284f8acd7ddb1d52c0058e41087d5c827dd6a8de1f9801",
       "relatedUrls": []
@@ -779,7 +563,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.440085,
       "clusterId": "8458001523a29423b794bfc99744b8b542be8f940fee3af49e58c8fc8a902779",
       "relatedUrls": []
@@ -803,7 +587,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.436899,
       "clusterId": "c9058d5bec023a4cd88372a7a1fdc78d03ebf6492fb7ba386ac42a0b0f702de4",
       "relatedUrls": []
@@ -827,7 +611,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.432986,
       "clusterId": "abb3267711d0d14bc7491da1f55472009863ed0ad2dd9924e1125c85783e4b8e",
       "relatedUrls": []
@@ -852,7 +636,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.432783,
       "clusterId": "21905aa86086e19a9cd572ea15a850db47313468e22d995d32bdfd5b2a3e22b8",
       "relatedUrls": []
@@ -876,7 +660,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.430655,
       "clusterId": "5ca6021bc9b1ac433946bc84994a99c7e6f512f8a267ccf1f4cf8d50e7059366",
       "relatedUrls": []
@@ -900,7 +684,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.42767,
       "clusterId": "4a3a65acc793797cf2461f366931d839d72af3905f77b731a0fd59ad4f7d386f",
       "relatedUrls": []
@@ -924,7 +708,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.414832,
       "clusterId": "33c88d1ac185374147c111e2aa0ee67b9bcd870628cb70d97cd81f00ce6a6cce",
       "relatedUrls": []
@@ -948,7 +732,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.414616,
       "clusterId": "175bd749b70283ddac1583f970c680ae80852b1ee44620cd1710ed7b63b310c7",
       "relatedUrls": []
@@ -972,7 +756,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.411033,
       "clusterId": "21235c7659a180de46ce5b0cea9ab851724554da652668eb62d62b50086f50a6",
       "relatedUrls": []
@@ -988,7 +772,7 @@
       "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2477",
       "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2477?q=report_date%3D08%2F10%2F2026",
       "title": "5 Area Weekly Weighted Average Direct Slaughter Cattle (PDF) (LM_CT150)",
-      "publishedAt": "2026-08-10T15:49:53.000Z",
+      "publishedAt": "2026-08-10T11:49:53.000Z",
       "releaseId": "08/10/2026",
       "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2477",
       "sectors": [
@@ -997,8 +781,8 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
-      "relevanceScore": 0.40564,
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
+      "relevanceScore": 0.403177,
       "clusterId": "e7fc279cda9f03122b5d3fbdce1c442dfc0261d155802aaffb9cf6104ac9d2ed",
       "relatedUrls": []
     },
@@ -1021,7 +805,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.383363,
       "clusterId": "1ec931f64ab24a9f45bbc5a42d2e4a43700dbb9cc5297af8a8518c6fc0f1537d",
       "relatedUrls": []
@@ -1045,7 +829,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.381702,
       "clusterId": "84978398c84af9bd32ae37232ebc6f47e6ee9ca36bbda3ed40da8ee7813484eb",
       "relatedUrls": []
@@ -1069,7 +853,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.381626,
       "clusterId": "b33ef01298dc7bcfef02c32c6aa5aeb74b25382de057062514cefefd2530598a",
       "relatedUrls": []
@@ -1093,7 +877,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-18T04:31:02.217Z",
+      "retrievedAt": "2026-08-18T05:07:36.520Z",
       "relevanceScore": 0.381603,
       "clusterId": "38dc5653e11d73f2fe481cfbbf45bf09694dd6f4eb6a43d2f9eea918b6e586e6",
       "relatedUrls": []
