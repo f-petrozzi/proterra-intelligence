@@ -50,7 +50,8 @@ Create `src/data/reports/YYYY-MM-DD.json` from the template with:
 - an `itemRank` on every dashboard entry that points to its supporting report item;
 - one to three comparison charts only when every value has an explicit basis, a supporting item, and a cited approved source;
 - `high` or `medium` confidence based on the rubric;
-- direct citations whose `sourceId` exists in `src/data/sources.json` and whose URL belongs to that registered domain;
+- direct citations whose `sourceId` exists in `src/data/sources.json` and whose URLs belong to that registered domain;
+- a human-readable `url` for each citation, using the evidence bundle's `landingUrl` when present, plus the immutable dated `canonicalUrl` in `evidenceUrl` and its identifier in `releaseId`; never make a raw JSON API response the primary reader-facing link when a landing page is supplied;
 - one unique editorial `imageId` per story, selected by matching the story headline to the registry's `subjects`; never select an image merely because a secondary detail appears elsewhere in the story;
 - a one- or two-sentence `sourceNote` for every citation that explains exactly what the document contributes and, when useful, what it does not establish;
 - no unsupported claims, invented data, vague citations, marketing language, or confidential information.

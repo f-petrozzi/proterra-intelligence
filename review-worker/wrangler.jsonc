@@ -20,6 +20,7 @@
     "GITHUB_REPO": "proterra-intelligence",
     "ACCESS_TEAM_DOMAIN": "https://homelab77.cloudflareaccess.com",
     "ACCESS_AUD": "75158c55049b76b65677634c78013bdad7df1f858e10d2b9c12574adf8345a86",
-    "REVIEW_ORIGIN": "https://proterra-intelligence-review.petrozzi.workers.dev"
+    "REVIEW_ORIGIN": "https://proterra-intelligence-review.petrozzi.workers.dev",
+    "SITE_ORIGIN": "https://proterra-intelligence.pages.dev"
   }
 }

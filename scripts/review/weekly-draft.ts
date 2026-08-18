@@ -23,6 +23,7 @@ const receiptSchema = z.object({
   newSha: z.string().regex(/^[a-f0-9]{40}$/),
   idempotencyKey: z.uuid(),
   responses: resultSchema.shape.commentResponses,
+  report: z.unknown(),
   summary: z.string().min(1).max(4000),
   createdAt: z.iso.datetime()
 });
@@ -83,6 +84,7 @@ export function buildDraftPrompt(issueDate: string, manifest: RunManifest, edito
       ? "The editorial lead accepts only the listed manifest coverage gaps. Do not return coverage-gap solely because the manifest is not editorially ready or because of those accepted gaps. This does not authorize filler, invented evidence, unsupported claims, weakened source verification, or a schema-invalid report. Return coverage-gap if the available credible evidence still cannot support a valid report."
       : "No editorial override is approved; apply every normal readiness and coverage rule.",
     "Use .review/evidence.json as the complete, deterministically extracted evidence universe. Do not browse, search the web, use curl, or fetch any source again.",
+    "For citations, use a supplied landingUrl as the readable url and preserve canonicalUrl as evidenceUrl with releaseId. Do not make raw JSON the primary reader-facing link when a landing page exists.",
     "Read submitted feedback only from .review/feedback.json. Read the editorial rubric, report template, image registry, source registry, and the target report only as needed; do not inspect history.json or unrelated reports.",
     `Edit only src/data/reports/${issueDate}.json. Do not run npm, tests, validation, Git commands, commits, or pushes; the orchestration runner handles those once.`
   ].join("\n");
@@ -259,7 +261,8 @@ async function main() {
       expectedVersion: pendingReceipt.expectedVersion,
       newSha: pendingReceipt.newSha,
       idempotencyKey: pendingReceipt.idempotencyKey,
-      responses: pendingReceipt.responses
+      responses: pendingReceipt.responses,
+      report: pendingReceipt.report
     });
     await markPullRequestReady(pullRequest, pendingReceipt.summary, pendingReceipt.newSha, true);
     await rm(receiptPath, { force: true });
@@ -373,6 +376,7 @@ async function main() {
     }
     const verify = await run("npm", ["run", "verify"], { cwd: worktree, inherit: true });
     if (verify.code !== 0) throw new Error("Draft validation failed; nothing was pushed.");
+    const report = JSON.parse(await readFile(resolve(worktree, reportPath), "utf8"));
 
     await requireCommand("git", ["add", reportPath], undefined, { cwd: worktree });
     const commit = await run("git", ["commit", "-m", `content: prepare weekly brief ${issueDate}`], { cwd: worktree, inherit: true });
@@ -388,6 +392,7 @@ async function main() {
       newSha,
       idempotencyKey: crypto.randomUUID(),
       responses: result.commentResponses,
+      report,
       summary: result.summary,
       createdAt: new Date().toISOString()
     };
@@ -405,7 +410,8 @@ async function main() {
         expectedVersion: receipt.expectedVersion,
         newSha: receipt.newSha,
         idempotencyKey: receipt.idempotencyKey,
-        responses: receipt.responses
+        responses: receipt.responses,
+        report: receipt.report
       });
     } catch (error) {
       throw new Error(`Draft ${newSha} was pushed, but review-state reporting failed. Rerun npm run weekly:draft to reconcile from ${receiptPath}. ${error instanceof Error ? error.message : error}`);
