@@ -98,7 +98,9 @@
         {
           "sourceId": "usda-ams-livestock",
           "title": "National Weekly Boxed Beef Cutout & Boxed Beef Cuts - Negotiated Sales (LM_XB459)",
-          "url": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F14%2F2026",
+          "url": "https://mymarketnews.ams.usda.gov/viewReport/2461",
+          "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F14%2F2026",
+          "releaseId": "08/14/2026",
           "publishedAt": "2026-08-14",
           "sourceNote": "This release supplies the Choice and Select weekly cutout averages, prior-week changes, negotiated volumes, and Choice-Select spread."
         }
@@ -170,7 +172,9 @@
         {
           "sourceId": "usda-ams-livestock",
           "title": "5 Area Weekly Weighted Average Direct Slaughter Cattle (LM_CT150)",
-          "url": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2477?q=report_date%3D08%2F10%2F2026",
+          "url": "https://mymarketnews.ams.usda.gov/viewReport/2477",
+          "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2477?q=report_date%3D08%2F10%2F2026",
+          "releaseId": "08/10/2026",
           "publishedAt": "2026-08-10",
           "sourceNote": "This release provides latest-week, prior-week, and year-earlier head counts plus live and dressed steer and heifer weighted averages."
         }
@@ -206,7 +210,9 @@
         {
           "sourceId": "usda-ams-livestock",
           "title": "National/Regional Weekly Boneless Processing Beef and Beef Trimmings (LM_XB460)",
-          "url": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D08%2F14%2F2026",
+          "url": "https://mymarketnews.ams.usda.gov/viewReport/2462",
+          "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D08%2F14%2F2026",
+          "releaseId": "08/14/2026",
           "publishedAt": "2026-08-14",
           "sourceNote": "This release supplies national volume and current and prior-release averages for fresh 90 percent lean processing beef and fresh 50 percent lean trim."
         }
