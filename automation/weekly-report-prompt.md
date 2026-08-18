@@ -21,12 +21,12 @@ Use the current date as the issue date. The primary reporting window is the prec
 
 ## Research and selection
 
-1. Search approved primary sources first for dairy, meat, and bovine genetics developments in the US and internationally. Run a separate coverage pass for Latin America and Puerto Rico using the regional sources in the registry.
+1. The weekly reel is news-led. Prioritize genuinely newsworthy dairy, meat, and bovine-genetics developments from approved trade-press and official news sources in the US and internationally, and treat recurring dataset or market releases as supporting evidence and dashboard material rather than lead stories. Run a separate coverage pass for Latin America and Puerto Rico using the regional sources in the registry.
 2. Build an internal candidate list of at least 20 distinct developments when the available evidence allows.
 3. Verify the event date, publication date, geography, material numbers, and direct canonical URL for every candidate.
 4. Consult reputable secondary reporting only to discover a primary source or add independently verified context. Never cite an excluded domain.
 5. Score candidates using the editorial rubric. Remove duplicates, promotional announcements without material evidence, opinion pieces, and developments already covered without a meaningful update.
-6. Select 5 to 10 publications that a reader may reasonably want to open. Prefer 8 to 10 when the evidence supports that volume, but never weaken relevance to reach a fixed count. Seek meaningful coverage across all three sectors and both US and international developments. Include relevant Latin America or Puerto Rico coverage when it clears the same evidence threshold; do not use a weak item merely to meet a quota.
+6. Select 5 to 10 news-led publications that a reader may reasonably want to open; a routine dataset release enters the reel only when the release itself is materially newsworthy, and otherwise supports a story or the dashboard. Prefer 8 to 10 when the evidence supports that volume, but never weaken relevance to reach a fixed count. Seek meaningful coverage across all three sectors and both US and international developments. Include relevant Latin America or Puerto Rico coverage when it clears the same evidence threshold; do not use a weak item merely to meet a quota.
 
 LinkedIn is a controlled discovery channel, not an unrestricted feed. For each account in `config/social-watchlist.json`, run targeted public-web searches for posts or account updates published during the reporting window. Also review links supplied by a person or open GitHub issues labeled `linkedin-lead` when repository issue access is available. Extract only the organization, public title or opening claim, publication date, public URL when indexed, entities, geography, and sector needed to evaluate the lead. Do not sign in, reuse session cookies, bypass access controls, solve CAPTCHAs, call private endpoints, or use bots, crawlers, browser automation, or unauthorized APIs against LinkedIn. Stop when content is gated.
 
@@ -51,7 +51,8 @@ Create `src/data/reports/YYYY-MM-DD.json` from the template with:
 - one to three comparison charts only when every value has an explicit basis, a supporting item, and a cited approved source;
 - `high` or `medium` confidence based on the rubric;
 - direct citations whose `sourceId` exists in `src/data/sources.json` and whose URLs belong to that registered domain;
-- a human-readable `url` for each citation, using the evidence bundle's `landingUrl` when present, plus the immutable dated `canonicalUrl` in `evidenceUrl` and its identifier in `releaseId`; never make a raw JSON API response the primary reader-facing link when a landing page is supplied;
+- a human-readable `url` for each citation, using the evidence bundle's `citationUrl` when present (otherwise a readable landing or synopsis page), plus the immutable dated release in `evidenceUrl` and its identifier in `releaseId`; never make a raw JSON API response or PDF the primary reader-facing link when a readable citation URL is supplied;
+- English copy in every field even when the underlying source is not in English; for a non-English source prefer an English citation covering the same development when one exists, and otherwise note the source language in `sourceNote` so the reader knows the linked page is not in English;
 - one unique editorial `imageId` per story, selected by matching the story headline to the registry's `subjects`; never select an image merely because a secondary detail appears elsewhere in the story;
 - a one- or two-sentence `sourceNote` for every citation that explains exactly what the document contributes and, when useful, what it does not establish;
 - no unsupported claims, invented data, vague citations, marketing language, or confidential information.

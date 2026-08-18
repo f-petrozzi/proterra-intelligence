@@ -8,10 +8,16 @@ export type EvidenceItem = {
   candidateId: string;
   reviewId: string;
   sourceId: string;
+  contentClass: string;
+  language: string;
+  relevanceScore: number;
   title: string;
   publishedAt: string;
+  citationUrl: string;
   canonicalUrl: string;
+  evidenceUrl?: string;
   landingUrl?: string;
+  relatedUrls: string[];
   releaseId?: string;
   sectors: string[];
   geographies: string[];
@@ -232,10 +238,16 @@ async function evidenceFor(candidate: Candidate, fetchText: FetchText): Promise<
     candidateId: candidate.candidateId,
     reviewId: `story-${candidate.candidateId.slice(0, 16)}`,
     sourceId: candidate.sourceId,
+    contentClass: candidate.contentClass,
+    language: candidate.language,
+    relevanceScore: candidate.relevanceScore,
     title: candidate.title,
     publishedAt: candidate.publishedAt,
+    citationUrl: candidate.citationUrl,
     canonicalUrl: candidate.canonicalUrl,
+    ...(candidate.evidenceUrl ? { evidenceUrl: candidate.evidenceUrl } : {}),
     ...(candidate.landingUrl ? { landingUrl: candidate.landingUrl } : {}),
+    relatedUrls: candidate.relatedUrls,
     ...(candidate.releaseId ? { releaseId: candidate.releaseId } : {}),
     sectors: candidate.sectors,
     geographies: candidate.geographies,

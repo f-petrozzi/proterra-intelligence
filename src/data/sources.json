@@ -275,5 +275,101 @@
     "sectors": ["dairy", "meat", "bovine-genetics"],
     "cadence": "Continuous",
     "notes": "Peer-reviewed, open-access dairy science research published for the American Dairy Science Association."
+  },
+  {
+    "id": "agproud-progressive",
+    "name": "Ag Proud (Progressive Dairy & Progressive Cattle)",
+    "domain": "agproud.com",
+    "url": "https://www.agproud.com",
+    "tier": "B",
+    "status": "approved",
+    "regions": ["United States", "International"],
+    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "cadence": "Continuous",
+    "notes": "Independent trade press for dairy, beef, and forage producers; strong dairy-genetics and evaluation coverage. News-led discovery."
+  },
+  {
+    "id": "feedstuffs",
+    "name": "Feedstuffs",
+    "domain": "feedstuffs.com",
+    "url": "https://www.feedstuffs.com",
+    "tier": "B",
+    "status": "approved",
+    "regions": ["United States", "International"],
+    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "cadence": "Continuous",
+    "notes": "Established animal-agriculture trade press covering livestock, feed, markets, and animal health. News-led discovery."
+  },
+  {
+    "id": "beef-magazine",
+    "name": "BEEF Magazine",
+    "domain": "beefmagazine.com",
+    "url": "https://www.beefmagazine.com",
+    "tier": "B",
+    "status": "approved",
+    "regions": ["United States"],
+    "sectors": ["meat", "bovine-genetics"],
+    "cadence": "Continuous",
+    "notes": "Farm Progress beef-cattle trade press: production, markets, health, and cattle genetics. News-led discovery."
+  },
+  {
+    "id": "farm-progress",
+    "name": "Farm Progress",
+    "domain": "farmprogress.com",
+    "url": "https://www.farmprogress.com",
+    "tier": "B",
+    "status": "approved",
+    "regions": ["United States"],
+    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "cadence": "Continuous",
+    "notes": "General-agriculture trade press; filtered deterministically to cattle, dairy, and genetics stories. News-led discovery."
+  },
+  {
+    "id": "drovers",
+    "name": "Drovers",
+    "domain": "drovers.com",
+    "url": "https://www.drovers.com",
+    "tier": "B",
+    "status": "approved",
+    "regions": ["United States", "International"],
+    "sectors": ["meat", "bovine-genetics"],
+    "cadence": "Continuous",
+    "notes": "Farm Journal beef-cattle trade press. Collection disabled until an approved fetch path is verified; citeable when surfaced through an approved channel."
+  },
+  {
+    "id": "dairy-herd",
+    "name": "Dairy Herd Management",
+    "domain": "dairyherd.com",
+    "url": "https://www.dairyherd.com",
+    "tier": "B",
+    "status": "approved",
+    "regions": ["United States", "International"],
+    "sectors": ["dairy", "bovine-genetics"],
+    "cadence": "Continuous",
+    "notes": "Farm Journal dairy trade press. Collection disabled until an approved fetch path is verified; citeable when surfaced through an approved channel."
+  },
+  {
+    "id": "bovine-veterinarian",
+    "name": "Bovine Veterinarian",
+    "domain": "bovinevetonline.com",
+    "url": "https://www.bovinevetonline.com",
+    "tier": "B",
+    "status": "approved",
+    "regions": ["United States"],
+    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "cadence": "Continuous",
+    "notes": "Farm Journal Bovine Veterinarian animal-health trade press. Collection disabled until an approved fetch path is verified; citeable when surfaced through an approved channel."
+  },
+  {
+    "id": "hoards-dairyman",
+    "name": "Hoard's Dairyman",
+    "domain": "hoards.com",
+    "url": "https://hoards.com",
+    "tier": "B",
+    "status": "approved",
+    "regions": ["United States", "International"],
+    "sectors": ["dairy", "bovine-genetics"],
+    "cadence": "Continuous",
+    "notes": "Long-established dairy trade press. Collection disabled until a stable public feed URL is verified; citeable when surfaced through an approved channel."
   }
 ]

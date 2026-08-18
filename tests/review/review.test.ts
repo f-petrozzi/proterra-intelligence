@@ -177,16 +177,25 @@ test("known coverage gaps stop before Codex unless an editorial lead explicitly 
     status: "success" as const,
     candidateCount: 5,
     candidatesBeforeDeduplication: 5,
+    newsCandidateCount: 5,
+    datasetCandidateCount: 0,
+    clusterCount: 5,
     adapters: [],
     manualSources: [],
     editorialReadiness: "coverage-gap" as const,
+    newsReadiness: "ready" as const,
     coverageGaps: ["No relevant bovine-genetics candidate was collected."],
-    coverage: { sectors: {}, geographies: {} },
+    coverage: { sectors: {}, geographies: {}, languages: {} },
     warnings: []
   };
   assert.throws(() => assertQueueMayDraft(manifest, "source-ready", false), /Codex was not started/);
   assert.doesNotThrow(() => assertQueueMayDraft(manifest, "source-ready", true));
   assert.doesNotThrow(() => assertQueueMayDraft(manifest, "changes-requested", false));
+
+  // The news-led minimum is not waivable by the coverage override.
+  const newsShort = { ...manifest, newsReadiness: "insufficient-news" as const, newsCandidateCount: 3 };
+  assert.throws(() => assertQueueMayDraft(newsShort, "source-ready", true), /news-led minimum/);
+  assert.throws(() => assertQueueMayDraft(newsShort, "changes-requested", false), /news-led minimum/);
 
   const normalPrompt = buildDraftPrompt(manifest.issueDate, manifest, false);
   const overridePrompt = buildDraftPrompt(manifest.issueDate, manifest, true);

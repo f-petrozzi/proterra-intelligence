@@ -7,11 +7,16 @@ import { parseHtmlList } from "./adapters/html-list";
 import { parseJsonApi } from "./adapters/json-api";
 import { parseRss } from "./adapters/rss";
 import { fetchWithPolicy, type FetchLike } from "./fetch";
+import { clusterCandidates } from "./cluster";
 import { deduplicateCandidates, normalizeCandidate, stableCandidateSort } from "./normalize";
+import { authorityWeightOf, scoreCandidate } from "./score";
 import {
   candidateFileSchema, collectionRegistrySchema, rawCandidateSchema, runManifestSchema,
-  type Candidate, type CandidateFile, type CollectionSource, type RunManifest
+  type Candidate, type CandidateFile, type CollectionSource, type NormalizedCandidate, type RunManifest
 } from "./types";
+
+const minimumNewsCandidates = 5;
+const preferredNewsCandidates = 8;
 
 const timezone = "America/New_York" as const;
 const datePattern = /^\d{4}-\d{2}-\d{2}$/;
@@ -33,13 +38,19 @@ function zonedMidnight(date: string) {
   return new Date(guess.valueOf() + target - displayed);
 }
 
-export function reportingWindow(issueDate: string) {
+export function windowFor(issueDate: string, lookbackDays: number) {
   if (!datePattern.test(issueDate)) throw new Error("--issue-date must use YYYY-MM-DD");
   const end = zonedMidnight(issueDate);
   const startDate = new Date(`${issueDate}T00:00:00.000Z`);
-  startDate.setUTCDate(startDate.getUTCDate() - 7);
+  startDate.setUTCDate(startDate.getUTCDate() - lookbackDays);
   const start = zonedMidnight(startDate.toISOString().slice(0, 10));
   return { start: start.toISOString(), end: end.toISOString(), timezone };
+}
+
+// The seven-day reporting window anchors readiness and the default lookback;
+// individual sources may reach further back via their own lookbackDays.
+export function reportingWindow(issueDate: string) {
+  return windowFor(issueDate, 7);
 }
 
 function parseAdapter(source: CollectionSource, input: string) {
@@ -80,18 +91,25 @@ export async function collectSources(options: {
   for (const source of registry.sources) {
     if (!editorialIds.has(source.sourceId)) throw new Error(`collection source ${source.sourceId} is not registered editorially`);
   }
-  const window = reportingWindow(options.issueDate);
   const startedAt = (options.now ?? new Date()).toISOString();
   const retrievedAt = startedAt;
-  const collected: Candidate[] = [];
+  const collected: NormalizedCandidate[] = [];
   const adapters: RunManifest["adapters"] = [];
   const manualSources = registry.sources.filter((source) => source.collectionRole === "manual").map((source) => source.sourceId).sort();
 
-  for (const source of registry.sources.filter((candidate) => candidate.enabled && !["manual", "disabled"].includes(candidate.method))) {
+  const fetchable = registry.sources.filter((candidate) => candidate.enabled && !["manual", "disabled"].includes(candidate.method));
+  const maxLookback = Math.max(7, ...fetchable.map((source) => source.lookbackDays));
+  const window = windowFor(options.issueDate, maxLookback);
+
+  for (const source of fetchable) {
     const adapterId = source.adapterId ?? source.sourceId;
+    const sourceWindow = windowFor(options.issueDate, source.lookbackDays);
     const started = performance.now();
     let seen = 0;
     let accepted = 0;
+    let rejectedOutOfWindow = 0;
+    let rejectedByScope = 0;
+    let rejectedByDate = 0;
     try {
       const response = await fetchWithPolicy(source, options.fetcher);
       assertContentType(source, response.contentType);
@@ -103,60 +121,113 @@ export async function collectSources(options: {
       }
       for (const raw of rawItems) {
         const parsed = rawCandidateSchema.safeParse(raw);
-        if (!parsed.success) continue;
+        if (!parsed.success) {
+          if (parsed.error.issues.some((issue) => issue.path[0] === "publishedAt")) rejectedByDate += 1;
+          else rejectedByScope += 1;
+          continue;
+        }
+        let candidate: NormalizedCandidate;
         try {
-          const candidate = normalizeCandidate(parsed.data, source, retrievedAt);
-          if (candidate.publishedAt >= window.start && candidate.publishedAt < window.end) {
-            collected.push(candidate);
-            accepted += 1;
-          }
-        } catch {
-          // A malformed item must not fail the source adapter.
+          candidate = normalizeCandidate(parsed.data, source, retrievedAt);
+        } catch (error) {
+          if (error instanceof Error && error.message.endsWith("invalid publication date")) rejectedByDate += 1;
+          else rejectedByScope += 1;
+          continue;
+        }
+        if (candidate.publishedAt >= sourceWindow.start && candidate.publishedAt < sourceWindow.end) {
+          collected.push(candidate);
+          accepted += 1;
+        } else {
+          rejectedOutOfWindow += 1;
         }
       }
-      adapters.push({ sourceId: adapterId, status: "success", itemsSeen: seen, itemsAccepted: accepted, durationMs: Math.round(performance.now() - started) });
+      adapters.push({
+        sourceId: adapterId, status: "success", itemsSeen: seen, itemsAccepted: accepted,
+        rejectedOutOfWindow, rejectedByScope, rejectedByDate, durationMs: Math.round(performance.now() - started)
+      });
     } catch (error) {
       adapters.push({
         sourceId: adapterId, status: "failed", itemsSeen: seen, itemsAccepted: accepted,
-        durationMs: Math.round(performance.now() - started),
+        rejectedOutOfWindow, rejectedByScope, rejectedByDate, durationMs: Math.round(performance.now() - started),
         error: error instanceof Error ? error.message.slice(0, 500) : "unknown adapter error"
       });
     }
     if (source.rateLimitMs) await new Promise((resolveDelay) => setTimeout(resolveDelay, source.rateLimitMs));
   }
 
-  const candidates = deduplicateCandidates(collected).sort(stableCandidateSort);
+  // Collapse near-duplicate stories, then rank every surviving cluster
+  // representative by deterministic relevance so the queue leads with the most
+  // report-worthy developments instead of the most recent dataset release.
+  const clusters = clusterCandidates(deduplicateCandidates(collected));
+  const authority = new Map(registry.sources.map((source) => [source.sourceId, authorityWeightOf(source)]));
+  const scoreOf = new Map<string, number>();
+  for (const cluster of clusters) {
+    for (const member of cluster.members) {
+      scoreOf.set(member.candidateId, scoreCandidate(member, {
+        authorityWeight: authority.get(member.sourceId) ?? 0.6,
+        clusterSize: cluster.members.length,
+        windowEnd: window.end
+      }));
+    }
+  }
+  const candidates: Candidate[] = clusters.map((cluster) => {
+    const ranked = [...cluster.members].sort((a, b) =>
+      (scoreOf.get(b.candidateId)! - scoreOf.get(a.candidateId)!) || stableCandidateSort(a, b));
+    const [representative, ...rest] = ranked;
+    return {
+      ...representative,
+      relevanceScore: scoreOf.get(representative.candidateId)!,
+      clusterId: cluster.clusterId,
+      relatedUrls: [...new Set(rest.map((member) => member.citationUrl))].sort()
+    };
+  }).sort((a, b) => (b.relevanceScore - a.relevanceScore) || stableCandidateSort(a, b));
+
   const completedAt = (options.now ?? new Date()).toISOString();
   const failed = adapters.filter((adapter) => adapter.status === "failed").length;
   const status = adapters.length === 0 || failed === adapters.length ? "failed" : failed > 0 ? "partial" : "success";
   const candidateFile: CandidateFile = candidateFileSchema.parse({
     schemaVersion: 1, issueDate: options.issueDate, window, generatedAt: completedAt, candidates
   });
+  const newsCandidateCount = candidates.filter((candidate) => candidate.contentClass === "news").length;
+  const datasetCandidateCount = candidates.length - newsCandidateCount;
   const sectorCounts = counts(candidates.flatMap((candidate) => candidate.sectors));
   const geographyCounts = counts(candidates.flatMap((candidate) => candidate.geographies));
+  const languageCounts = counts(candidates.map((candidate) => candidate.language));
   const hasInternationalCoverage = candidates.some((candidate) =>
     candidate.geographies.some((geography) => geography !== "United States")
   );
+  // Coverage gaps are waivable by an editorial override; the news-led minimum is not.
   const coverageGaps = [
-    ...(candidates.length < 5 ? [`Only ${candidates.length} relevant candidates were collected; at least 5 are required for a brief.`] : []),
     ...(["dairy", "meat", "bovine-genetics"] as const)
       .filter((sector) => !sectorCounts[sector])
       .map((sector) => `No relevant ${sector} candidate was collected.`),
     ...(!hasInternationalCoverage ? ["No relevant candidate outside the United States was collected."] : [])
   ];
+  const newsReadiness = newsCandidateCount >= minimumNewsCandidates ? "ready" : "insufficient-news";
+  const newsShortfall = newsReadiness === "insufficient-news"
+    ? [`Only ${newsCandidateCount} news-led candidates were collected; at least ${minimumNewsCandidates} are required for a brief. Routine dataset releases support stories but do not satisfy this minimum.`]
+    : [];
+  const silentAdapters = adapters
+    .filter((adapter) => adapter.status === "success" && adapter.itemsSeen > 0 && adapter.itemsAccepted === 0)
+    .map((adapter) => `${adapter.sourceId} saw ${adapter.itemsSeen} items but accepted none (window ${adapter.rejectedOutOfWindow}, scope ${adapter.rejectedByScope}, date ${adapter.rejectedByDate}); verify its filters, date selector, or lookback.`);
   const warnings = [
     ...(manualSources.length ? [`${manualSources.length} manual sources were not fetched.`] : []),
-    ...(candidates.length < 8 ? [`The preferred eight-item editorial target is unavailable; publish only if at least five strong items clear review.`] : []),
-    ...coverageGaps
+    ...(newsCandidateCount < preferredNewsCandidates ? [`The preferred ${preferredNewsCandidates} news-item editorial target is unavailable; publish only if at least ${minimumNewsCandidates} strong news items clear review.`] : []),
+    ...newsShortfall,
+    ...coverageGaps,
+    ...silentAdapters
   ];
   const manifest: RunManifest = runManifestSchema.parse({
     schemaVersion: 1, issueDate: options.issueDate, startedAt, completedAt, status,
-    candidateCount: candidates.length, candidatesBeforeDeduplication: collected.length, adapters, manualSources,
-    editorialReadiness: coverageGaps.length === 0 ? "ready" : "coverage-gap",
+    candidateCount: candidates.length, candidatesBeforeDeduplication: collected.length,
+    newsCandidateCount, datasetCandidateCount, clusterCount: clusters.length, adapters, manualSources,
+    editorialReadiness: coverageGaps.length === 0 && newsReadiness === "ready" ? "ready" : "coverage-gap",
+    newsReadiness,
     coverageGaps,
     coverage: {
       sectors: sectorCounts,
-      geographies: geographyCounts
+      geographies: geographyCounts,
+      languages: languageCounts
     },
     warnings
   });
@@ -169,9 +240,12 @@ async function main() {
   const result = await collectSources({ issueDate });
   if (dryRun) {
     process.stdout.write(`${JSON.stringify({
-      issueDate, status: result.manifest.status, editorialReadiness: result.manifest.editorialReadiness,
-      candidates: result.manifest.candidateCount, coverageGaps: result.manifest.coverageGaps,
-      adapters: result.manifest.adapters
+      issueDate, status: result.manifest.status,
+      editorialReadiness: result.manifest.editorialReadiness, newsReadiness: result.manifest.newsReadiness,
+      candidates: result.manifest.candidateCount, newsCandidates: result.manifest.newsCandidateCount,
+      datasetCandidates: result.manifest.datasetCandidateCount, clusters: result.manifest.clusterCount,
+      coverage: result.manifest.coverage, coverageGaps: result.manifest.coverageGaps,
+      warnings: result.manifest.warnings, adapters: result.manifest.adapters
     }, null, 2)}\n`);
     return;
   }

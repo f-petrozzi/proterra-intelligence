@@ -4,18 +4,20 @@
     {
       "sourceId": "fao-americas",
       "enabled": true,
-      "collectionRole": "evidence",
+      "collectionRole": "discovery",
+      "trustTier": "official",
+      "authorityWeight": 0.9,
       "method": "html-list",
       "endpoint": "https://www.fao.org/americas/news/news-detail/en",
       "allowedHosts": ["fao.org"],
       "sectors": ["dairy", "meat", "bovine-genetics"],
       "geographies": ["Latin America & Caribbean", "Puerto Rico"],
-      "lookbackDays": 10,
+      "lookbackDays": 14,
       "rateLimitMs": 1000,
       "timeoutMs": 15000,
       "maxResponseBytes": 2000000,
       "minimumItemsSeen": 5,
-      "includeTerms": ["dairy", "milk", "beef", "cattle", "bovine", "livestock", "animal health", "foot-and-mouth", "brucellosis", "genetic", "genomic", "breeding", "semen", "embryo", "traceability", "slaughter"],
+      "includeTerms": ["dairy", "milk", "beef", "cattle", "bovine", "livestock", "animal health", "foot-and-mouth", "brucellosis", "genetic", "genomic", "breeding", "semen", "embryo", "traceability", "slaughter", "leche", "lacteo", "carne", "ganado", "ganaderia", "bovino", "vacuno", "genetica", "genomica", "fiebre aftosa", "brucelosis", "sacrificio"],
       "htmlMapping": {
         "itemSelector": ".d-list.d-list-news",
         "titleSelector": ".d-list-content .title-link a[href]",
@@ -23,23 +25,25 @@
         "dateSelector": ".d-list-content .date",
         "summarySelector": ".d-list-content > div"
       },
-      "notes": "Official FAO Americas public news listing; listing-only collection."
+      "notes": "Official FAO Americas public news listing; news-led discovery, listing-only collection."
     },
     {
       "sourceId": "iica",
       "enabled": true,
-      "collectionRole": "evidence",
+      "collectionRole": "discovery",
+      "trustTier": "official",
+      "authorityWeight": 0.9,
       "method": "html-list",
       "endpoint": "https://iica.int/en/news",
       "allowedHosts": ["iica.int"],
       "sectors": ["dairy", "meat", "bovine-genetics"],
       "geographies": ["Latin America & Caribbean", "Puerto Rico", "International"],
-      "lookbackDays": 10,
+      "lookbackDays": 14,
       "rateLimitMs": 1000,
       "timeoutMs": 15000,
       "maxResponseBytes": 2000000,
       "minimumItemsSeen": 5,
-      "includeTerms": ["dairy", "milk", "beef", "cattle", "bovine", "livestock", "animal health", "foot-and-mouth", "brucellosis", "genetic", "genomic", "breeding", "semen", "embryo", "traceability", "slaughter"],
+      "includeTerms": ["dairy", "milk", "beef", "cattle", "bovine", "livestock", "animal health", "foot-and-mouth", "brucellosis", "genetic", "genomic", "breeding", "semen", "embryo", "traceability", "slaughter", "leche", "lacteo", "carne", "ganado", "ganaderia", "bovino", "vacuno", "genetica", "genomica", "fiebre aftosa", "brucelosis", "sacrificio"],
       "htmlMapping": {
         "itemSelector": ".ue-grid-item",
         "titleSelector": "h2.elementor-heading-title",
@@ -47,18 +51,20 @@
         "dateSelector": ".elementor-element-69a36ee .elementor-heading-title",
         "summarySelector": ".elementor-element-e08b689 .elementor-heading-title"
       },
-      "notes": "Official IICA public news listing; listing-only collection."
+      "notes": "Official IICA public news listing; news-led discovery, listing-only collection."
     },
     {
       "sourceId": "fao-newsroom",
       "enabled": true,
-      "collectionRole": "evidence",
+      "collectionRole": "discovery",
+      "trustTier": "official",
+      "authorityWeight": 0.9,
       "method": "html-list",
       "endpoint": "https://www.fao.org/newsroom/archive/en",
       "allowedHosts": ["fao.org"],
       "sectors": ["dairy", "meat", "bovine-genetics"],
       "geographies": ["International"],
-      "lookbackDays": 10,
+      "lookbackDays": 14,
       "rateLimitMs": 1000,
       "timeoutMs": 15000,
       "maxResponseBytes": 2000000,
@@ -71,7 +77,123 @@
         "dateSelector": ".d-list-content .date",
         "summarySelector": ".d-list-content > div"
       },
-      "notes": "Official FAO global newsroom archive; listing-only collection."
+      "notes": "Official FAO global newsroom archive; news-led discovery, listing-only collection."
+    },
+    {
+      "sourceId": "agproud-progressive",
+      "enabled": true,
+      "collectionRole": "discovery",
+      "trustTier": "trade-press",
+      "authorityWeight": 0.72,
+      "method": "rss",
+      "endpoint": "https://www.agproud.com/rss/articles",
+      "allowedHosts": ["agproud.com"],
+      "sectors": ["dairy", "meat", "bovine-genetics"],
+      "geographies": ["United States", "International"],
+      "lookbackDays": 10,
+      "rateLimitMs": 1000,
+      "timeoutMs": 15000,
+      "maxResponseBytes": 3000000,
+      "minimumItemsSeen": 5,
+      "includeTerms": ["dairy", "milk", "beef", "cattle", "bovine", "livestock", "animal health", "genetic", "genomic", "genomics", "breeding", "sire", "bull", "semen", "embryo", "holstein", "jersey", "evaluation", "traceability", "slaughter"],
+      "notes": "Ag Proud (Progressive Dairy, Progressive Cattle) trade press; strong dairy, beef, and bovine-genetics news coverage. RSS full-article feed."
+    },
+    {
+      "sourceId": "feedstuffs",
+      "enabled": true,
+      "collectionRole": "discovery",
+      "trustTier": "trade-press",
+      "authorityWeight": 0.7,
+      "method": "rss",
+      "endpoint": "https://www.feedstuffs.com/rss.xml",
+      "allowedHosts": ["feedstuffs.com"],
+      "sectors": ["dairy", "meat", "bovine-genetics"],
+      "geographies": ["United States", "International"],
+      "lookbackDays": 10,
+      "rateLimitMs": 1000,
+      "timeoutMs": 15000,
+      "maxResponseBytes": 3000000,
+      "minimumItemsSeen": 5,
+      "includeTerms": ["dairy", "milk", "beef", "cattle", "bovine", "livestock", "animal health", "foot-and-mouth", "brucellosis", "genetic", "genomic", "breeding", "semen", "embryo", "traceability", "slaughter"],
+      "notes": "Feedstuffs animal-agriculture trade press; filtered deterministically to cattle, dairy, and genetics stories."
+    },
+    {
+      "sourceId": "beef-magazine",
+      "enabled": true,
+      "collectionRole": "discovery",
+      "trustTier": "trade-press",
+      "authorityWeight": 0.7,
+      "method": "rss",
+      "endpoint": "https://www.beefmagazine.com/rss.xml",
+      "allowedHosts": ["beefmagazine.com"],
+      "sectors": ["meat", "bovine-genetics"],
+      "geographies": ["United States"],
+      "lookbackDays": 10,
+      "rateLimitMs": 1000,
+      "timeoutMs": 15000,
+      "maxResponseBytes": 3000000,
+      "minimumItemsSeen": 5,
+      "includeTerms": ["beef", "cattle", "bovine", "livestock", "cow", "calf", "calves", "feedlot", "animal health", "genetic", "genomic", "breeding", "sire", "bull", "semen", "embryo", "slaughter"],
+      "notes": "BEEF Magazine (Farm Progress) beef-cattle trade press; cattle production, markets, health, and genetics."
+    },
+    {
+      "sourceId": "farm-progress",
+      "enabled": true,
+      "collectionRole": "discovery",
+      "trustTier": "trade-press",
+      "authorityWeight": 0.65,
+      "method": "rss",
+      "endpoint": "https://www.farmprogress.com/rss.xml",
+      "allowedHosts": ["farmprogress.com"],
+      "sectors": ["dairy", "meat", "bovine-genetics"],
+      "geographies": ["United States"],
+      "lookbackDays": 10,
+      "rateLimitMs": 1000,
+      "timeoutMs": 15000,
+      "maxResponseBytes": 3000000,
+      "minimumItemsSeen": 5,
+      "includeTerms": ["dairy", "milk", "beef", "cattle", "bovine", "livestock", "animal health", "foot-and-mouth", "brucellosis", "genetic", "genomic", "breeding", "semen", "embryo", "traceability", "slaughter"],
+      "notes": "Farm Progress general-agriculture trade press; filtered deterministically to cattle, dairy, and genetics stories."
+    },
+    {
+      "sourceId": "drovers",
+      "enabled": false,
+      "collectionRole": "manual",
+      "method": "manual",
+      "allowedHosts": [],
+      "sectors": ["meat", "bovine-genetics"],
+      "geographies": ["United States", "International"],
+      "notes": "Farm Journal beef-cattle trade press. RSS at drovers.com/rss.xml returns HTTP 403 to the collector's transparent service user-agent; enable once an approved fetch path is verified."
+    },
+    {
+      "sourceId": "dairy-herd",
+      "enabled": false,
+      "collectionRole": "manual",
+      "method": "manual",
+      "allowedHosts": [],
+      "sectors": ["dairy", "bovine-genetics"],
+      "geographies": ["United States", "International"],
+      "notes": "Farm Journal dairy trade press. RSS at dairyherd.com/rss.xml returns HTTP 403 to the collector's transparent service user-agent; enable once an approved fetch path is verified."
+    },
+    {
+      "sourceId": "bovine-veterinarian",
+      "enabled": false,
+      "collectionRole": "manual",
+      "method": "manual",
+      "allowedHosts": [],
+      "sectors": ["dairy", "meat", "bovine-genetics"],
+      "geographies": ["United States"],
+      "notes": "Farm Journal Bovine Veterinarian animal-health trade press. RSS returns HTTP 403 to the collector's transparent service user-agent; enable once an approved fetch path is verified."
+    },
+    {
+      "sourceId": "hoards-dairyman",
+      "enabled": false,
+      "collectionRole": "manual",
+      "method": "manual",
+      "allowedHosts": [],
+      "sectors": ["dairy", "bovine-genetics"],
+      "geographies": ["United States", "International"],
+      "notes": "Hoard's Dairyman dairy trade press. No stable public RSS endpoint located (feed paths return 404); enable once a stable feed URL is verified."
     },
     {
       "sourceId": "linkedin-org-post",
@@ -102,6 +224,8 @@
       "adapterId": "usda-ams-boxed-beef-weekly",
       "enabled": true,
       "collectionRole": "evidence",
+      "trustTier": "official",
+      "authorityWeight": 0.9,
       "method": "json-api",
       "endpoint": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?lastReports=2",
       "allowedHosts": ["mpr.datamart.ams.usda.gov"],
@@ -120,13 +244,15 @@
         "releaseId": "report_date",
         "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461"
       },
-      "notes": "Official USDA API for the weekly negotiated boxed-beef cutout report; only the two latest releases are requested."
+      "notes": "Official USDA API for the weekly negotiated boxed-beef cutout report; dataset evidence, only the two latest releases are requested."
     },
     {
       "sourceId": "usda-ams-livestock",
       "adapterId": "usda-ams-processing-beef-weekly",
       "enabled": true,
       "collectionRole": "evidence",
+      "trustTier": "official",
+      "authorityWeight": 0.9,
       "method": "json-api",
       "endpoint": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?lastReports=2",
       "allowedHosts": ["mpr.datamart.ams.usda.gov"],
@@ -145,13 +271,15 @@
         "releaseId": "report_date",
         "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462"
       },
-      "notes": "Official USDA API for the weekly boneless processing-beef and beef-trimmings report."
+      "notes": "Official USDA API for the weekly boneless processing-beef and beef-trimmings report; dataset evidence."
     },
     {
       "sourceId": "usda-ams-livestock",
       "adapterId": "usda-ams-fed-cattle-weekly",
       "enabled": true,
       "collectionRole": "evidence",
+      "trustTier": "official",
+      "authorityWeight": 0.9,
       "method": "json-api",
       "endpoint": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2477?lastReports=2",
       "allowedHosts": ["mpr.datamart.ams.usda.gov"],
@@ -170,12 +298,14 @@
         "releaseId": "report_date",
         "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2477"
       },
-      "notes": "Official USDA API for the five-area weekly weighted-average direct slaughter-cattle report."
+      "notes": "Official USDA API for the five-area weekly weighted-average direct slaughter-cattle report; dataset evidence."
     },
     {
       "sourceId": "usda-ers-dairy",
       "enabled": true,
       "collectionRole": "evidence",
+      "trustTier": "official",
+      "authorityWeight": 0.9,
       "method": "json-api",
       "endpoint": "https://www.ers.usda.gov/api/calendar/v2.0",
       "allowedHosts": ["ers.usda.gov"],
@@ -194,12 +324,14 @@
         "publishedAt": "releaseDateTime",
         "summary": "description"
       },
-      "notes": "Official ERS public release calendar filtered deterministically to dairy and milk titles."
+      "notes": "Official ERS public release calendar filtered deterministically to dairy and milk titles; dataset evidence."
     },
     {
       "sourceId": "usda-ers-livestock",
       "enabled": true,
       "collectionRole": "evidence",
+      "trustTier": "official",
+      "authorityWeight": 0.9,
       "method": "json-api",
       "endpoint": "https://www.ers.usda.gov/api/calendar/v2.0",
       "allowedHosts": ["ers.usda.gov"],
@@ -218,12 +350,14 @@
         "publishedAt": "releaseDateTime",
         "summary": "description"
       },
-      "notes": "Official ERS public release calendar filtered deterministically to livestock and meat titles."
+      "notes": "Official ERS public release calendar filtered deterministically to livestock and meat titles; dataset evidence."
     },
     {
       "sourceId": "usda-nass",
       "enabled": true,
-      "collectionRole": "evidence",
+      "collectionRole": "discovery",
+      "trustTier": "official",
+      "authorityWeight": 0.9,
       "method": "rss",
       "endpoint": "https://www.nass.usda.gov/rss/news.xml",
       "allowedHosts": ["nass.usda.gov"],
@@ -235,7 +369,7 @@
       "maxResponseBytes": 2000000,
       "minimumItemsSeen": 1,
       "includeTerms": ["dairy", "milk", "cattle", "calf", "calves", "beef", "livestock", "slaughter"],
-      "notes": "Official NASS newsroom RSS feed, filtered deterministically to cattle, dairy, and meat releases."
+      "notes": "Official NASS newsroom RSS feed, filtered deterministically to cattle, dairy, and meat releases; news-led discovery."
     },
     {
       "sourceId": "usda-fas",
@@ -260,13 +394,15 @@
     {
       "sourceId": "usda-aphis",
       "enabled": true,
-      "collectionRole": "evidence",
+      "collectionRole": "discovery",
+      "trustTier": "official",
+      "authorityWeight": 0.9,
       "method": "html-list",
       "endpoint": "https://www.aphis.usda.gov/news",
       "allowedHosts": ["aphis.usda.gov"],
       "sectors": ["dairy", "meat", "bovine-genetics"],
       "geographies": ["United States"],
-      "lookbackDays": 10,
+      "lookbackDays": 14,
       "rateLimitMs": 1000,
       "timeoutMs": 15000,
       "maxResponseBytes": 2000000,
@@ -278,7 +414,7 @@
         "linkSelector": ".views-field-title a[href]",
         "dateSelector": ".views-field-field-publish-date-time"
       },
-      "notes": "Official APHIS public announcement listing; listing-only collection with editorial livestock filtering."
+      "notes": "Official APHIS public announcement listing; news-led animal-health discovery with editorial livestock filtering."
     },
     {
       "sourceId": "cdcb",
@@ -298,7 +434,7 @@
       "allowedHosts": [],
       "sectors": ["dairy", "bovine-genetics"],
       "geographies": ["United States", "International"],
-      "notes": "Evaluation-cycle source retained for manual coverage checks."
+      "notes": "Evaluation-cycle source retained for manual coverage checks; feed returns HTTP 403 to the collector user-agent."
     },
     {
       "sourceId": "interbull",
@@ -363,19 +499,21 @@
     {
       "sourceId": "oirsa",
       "enabled": true,
-      "collectionRole": "evidence",
+      "collectionRole": "discovery",
+      "trustTier": "official",
+      "authorityWeight": 0.9,
       "method": "rss",
       "endpoint": "https://web.oirsa.org/en/feed",
       "allowedHosts": ["web.oirsa.org"],
       "sectors": ["dairy", "meat", "bovine-genetics"],
       "geographies": ["Mexico", "Central America", "Dominican Republic", "Latin America & Caribbean"],
-      "lookbackDays": 10,
+      "lookbackDays": 14,
       "rateLimitMs": 750,
       "timeoutMs": 15000,
       "maxResponseBytes": 2000000,
       "minimumItemsSeen": 1,
-      "includeTerms": ["dairy", "milk", "beef", "cattle", "bovine", "livestock", "animal health", "foot-and-mouth", "brucellosis", "tuberculosis", "genetic", "genomic", "breeding", "semen", "embryo", "traceability", "slaughter"],
-      "notes": "Official OIRSA RSS feed for regional animal-health updates; non-English and job posts are filtered editorially."
+      "includeTerms": ["dairy", "milk", "beef", "cattle", "bovine", "livestock", "animal health", "foot-and-mouth", "brucellosis", "tuberculosis", "genetic", "genomic", "breeding", "semen", "embryo", "traceability", "slaughter", "leche", "lacteo", "carne", "ganado", "ganaderia", "bovino", "vacuno", "genetica", "genomica", "fiebre aftosa", "brucelosis", "tuberculosis bovina", "sacrificio", "sanidad animal"],
+      "notes": "Official OIRSA RSS feed for regional animal-health updates; news-led discovery, non-English and job posts are filtered editorially."
     },
     {
       "sourceId": "jds-communications",
