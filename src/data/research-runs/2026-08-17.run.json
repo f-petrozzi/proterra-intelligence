@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "issueDate": "2026-08-17",
-  "startedAt": "2026-08-18T04:31:02.217Z",
-  "completedAt": "2026-08-18T04:31:21.778Z",
-  "status": "success",
-  "candidateCount": 45,
-  "candidatesBeforeDeduplication": 54,
-  "newsCandidateCount": 40,
+  "startedAt": "2026-08-18T05:07:36.520Z",
+  "completedAt": "2026-08-18T05:08:05.830Z",
+  "status": "partial",
+  "candidateCount": 36,
+  "candidatesBeforeDeduplication": 45,
+  "newsCandidateCount": 31,
   "datasetCandidateCount": 5,
-  "clusterCount": 45,
+  "clusterCount": 36,
   "adapters": [
     {
       "sourceId": "fao-americas",
@@ -18,7 +18,7 @@
       "rejectedOutOfWindow": 0,
       "rejectedByScope": 19,
       "rejectedByDate": 0,
-      "durationMs": 246
+      "durationMs": 462
     },
     {
       "sourceId": "iica",
@@ -28,7 +28,7 @@
       "rejectedOutOfWindow": 0,
       "rejectedByScope": 9,
       "rejectedByDate": 0,
-      "durationMs": 274
+      "durationMs": 7130
     },
     {
       "sourceId": "fao-newsroom",
@@ -38,17 +38,18 @@
       "rejectedOutOfWindow": 2,
       "rejectedByScope": 17,
       "rejectedByDate": 0,
-      "durationMs": 59
+      "durationMs": 76
     },
     {
       "sourceId": "agproud-progressive",
-      "status": "success",
-      "itemsSeen": 30,
-      "itemsAccepted": 9,
-      "rejectedOutOfWindow": 5,
-      "rejectedByScope": 16,
+      "status": "failed",
+      "itemsSeen": 0,
+      "itemsAccepted": 0,
+      "rejectedOutOfWindow": 0,
+      "rejectedByScope": 0,
       "rejectedByDate": 0,
-      "durationMs": 193
+      "durationMs": 129,
+      "error": "agproud-progressive: HTTP 403"
     },
     {
       "sourceId": "feedstuffs",
@@ -58,7 +59,7 @@
       "rejectedOutOfWindow": 0,
       "rejectedByScope": 34,
       "rejectedByDate": 0,
-      "durationMs": 492
+      "durationMs": 502
     },
     {
       "sourceId": "beef-magazine",
@@ -68,7 +69,7 @@
       "rejectedOutOfWindow": 13,
       "rejectedByScope": 18,
       "rejectedByDate": 0,
-      "durationMs": 435
+      "durationMs": 699
     },
     {
       "sourceId": "farm-progress",
@@ -78,7 +79,7 @@
       "rejectedOutOfWindow": 4,
       "rejectedByScope": 45,
       "rejectedByDate": 0,
-      "durationMs": 469
+      "durationMs": 483
     },
     {
       "sourceId": "usda-ams-boxed-beef-weekly",
@@ -88,7 +89,7 @@
       "rejectedOutOfWindow": 0,
       "rejectedByScope": 0,
       "rejectedByDate": 0,
-      "durationMs": 283
+      "durationMs": 266
     },
     {
       "sourceId": "usda-ams-processing-beef-weekly",
@@ -98,7 +99,7 @@
       "rejectedOutOfWindow": 0,
       "rejectedByScope": 0,
       "rejectedByDate": 0,
-      "durationMs": 138
+      "durationMs": 162
     },
     {
       "sourceId": "usda-ams-fed-cattle-weekly",
@@ -108,7 +109,7 @@
       "rejectedOutOfWindow": 1,
       "rejectedByScope": 0,
       "rejectedByDate": 0,
-      "durationMs": 126
+      "durationMs": 122
     },
     {
       "sourceId": "usda-ers-dairy",
@@ -118,7 +119,7 @@
       "rejectedOutOfWindow": 2,
       "rejectedByScope": 27,
       "rejectedByDate": 0,
-      "durationMs": 464
+      "durationMs": 547
     },
     {
       "sourceId": "usda-ers-livestock",
@@ -128,7 +129,7 @@
       "rejectedOutOfWindow": 3,
       "rejectedByScope": 26,
       "rejectedByDate": 0,
-      "durationMs": 337
+      "durationMs": 354
     },
     {
       "sourceId": "usda-nass",
@@ -138,7 +139,7 @@
       "rejectedOutOfWindow": 14,
       "rejectedByScope": 299,
       "rejectedByDate": 0,
-      "durationMs": 583
+      "durationMs": 404
     },
     {
       "sourceId": "usda-aphis",
@@ -148,7 +149,7 @@
       "rejectedOutOfWindow": 0,
       "rejectedByScope": 5,
       "rejectedByDate": 0,
-      "durationMs": 1198
+      "durationMs": 3104
     },
     {
       "sourceId": "oirsa",
@@ -158,7 +159,7 @@
       "rejectedOutOfWindow": 0,
       "rejectedByScope": 10,
       "rejectedByDate": 0,
-      "durationMs": 907
+      "durationMs": 1581
     }
   ],
   "manualSources": [
@@ -186,17 +187,16 @@
   "coverage": {
     "sectors": {
       "bovine-genetics": 4,
-      "dairy": 12,
-      "meat": 36
+      "dairy": 6,
+      "meat": 31
     },
     "geographies": {
       "International": 1,
       "Latin America & Caribbean": 1,
-      "United States": 43
+      "United States": 34
     },
     "languages": {
-      "en": 38,
-      "fr": 1,
+      "en": 30,
       "und": 6
     }
   },
