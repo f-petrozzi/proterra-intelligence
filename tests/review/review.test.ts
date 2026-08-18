@@ -158,6 +158,16 @@ test("runner retains its receipt until checked idempotent GitHub finalization su
   assert.ok(finalization > 0 && receiptRemoval > finalization);
 });
 
+test("approval CI uses the guarded PR run and preserves a resumable prepared commit", async () => {
+  const workflow = await readFile(".github/workflows/approve-weekly-brief.yml", "utf8");
+  assert.doesNotMatch(workflow, /gh workflow run ci\.yml/);
+  assert.match(workflow, /--event pull_request/);
+  assert.match(workflow, /\/authorize-ci/);
+  assert.match(workflow, /approval_commit_sha/);
+  assert.match(workflow, /status:\"running\",approvalCommitSha/);
+  assert.match(workflow, /Approval workflow paused and can be safely retried/);
+});
+
 test("known coverage gaps stop before Codex unless an editorial lead explicitly overrides", async () => {
   const manifest = {
     schemaVersion: 1 as const,

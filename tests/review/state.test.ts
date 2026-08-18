@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { Miniflare } from "miniflare";
-import {
-  approveIssue, createComment, drainOutbox, invalidateSourceQueue, mutateComment, recordAgentResult,
+import reviewWorker, {
+  approveIssue, approvePullRequestWorkflowRun, createComment, drainOutbox, invalidateSourceQueue, mutateComment, recordAgentResult,
   recordProductionFailure, requestChanges, type CommentInput, type Env
 } from "../../review-worker/src/index";
 import { assertCsrf, assertService, csrfToken, type AuthEnv } from "../../review-worker/src/auth";
@@ -158,6 +158,50 @@ test("approval locks the exact SHA and queues a retryable workflow dispatch", as
   assert.deepEqual(await drainOutbox(env, undefined, okFetch), { selected: 1, delivered: 1 });
   const outbox = await database.prepare("SELECT status, attempts FROM notification_outbox").first<any>();
   assert.deepEqual(outbox, { status: "delivered", attempts: 2 });
+});
+
+test("the stable Worker authorizes only the exact action-required PR validation", async (context) => {
+  const { miniflare, database, env } = await fixture();
+  context.after(() => miniflare.dispose());
+  const approvalId = crypto.randomUUID();
+  await approveIssue(env, reviewer, issueDate, {
+    expectedSha: oldSha, expectedVersion: 1, idempotencyKey: approvalId
+  }, failedFetch);
+  await database.prepare("UPDATE approvals SET status = 'running' WHERE id = ?").bind(approvalId).run();
+  const prepared = await reviewWorker.fetch(new Request(`https://review.example.org/api/internal/approvals/${approvalId}/result`, {
+    method: "POST",
+    headers: { "content-type": "application/json", "x-review-service-key": "s".repeat(64) },
+    body: JSON.stringify({ status: "running", approvalCommitSha: newSha })
+  }), env);
+  assert.equal(prepared.status, 200);
+  const storedApproval = await database.prepare("SELECT status, approval_commit_sha FROM approvals WHERE id = ?")
+    .bind(approvalId).first<any>();
+  assert.deepEqual(storedApproval, { status: "running", approval_commit_sha: newSha });
+  const calls: Array<{ url: string; method: string }> = [];
+  const githubFetch = (async (input: string | URL | Request, init?: RequestInit) => {
+    const url = String(input);
+    const method = init?.method ?? "GET";
+    calls.push({ url, method });
+    if (url.endsWith("/approve")) return new Response(null, { status: 201 });
+    return Response.json({
+      event: "pull_request", status: "completed", conclusion: "action_required", head_sha: newSha,
+      path: ".github/workflows/ci.yml", pull_requests: [{ number: 42 }]
+    });
+  }) as typeof fetch;
+
+  assert.deepEqual(await approvePullRequestWorkflowRun(env, approvalId, {
+    runId: 12345, approvalCommitSha: newSha
+  }, githubFetch), { ok: true, runId: 12345 });
+  assert.deepEqual(calls.map(({ method }) => method), ["GET", "POST"]);
+  assert.match(calls[1].url, /actions\/runs\/12345\/approve$/);
+  const event = await database.prepare("SELECT event_type, idempotency_key FROM review_events WHERE idempotency_key = ?")
+    .bind("approval-ci:12345").first<any>();
+  assert.deepEqual(event, { event_type: "approval-ci-authorized", idempotency_key: "approval-ci:12345" });
+
+  await assert.rejects(
+    approvePullRequestWorkflowRun(env, approvalId, { runId: 12346, approvalCommitSha: oldSha }, githubFetch),
+    (error) => error instanceof Response && error.status === 409
+  );
 });
 
 test("approval and a late comment are serialized so exactly one can win", async (context) => {
