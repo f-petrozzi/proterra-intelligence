@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "issueDate": "2026-08-17",
+  "startedAt": "2026-08-17T23:59:07.714Z",
+  "completedAt": "2026-08-17T23:59:32.303Z",
+  "status": "success",
+  "candidateCount": 5,
+  "candidatesBeforeDeduplication": 5,
+  "adapters": [
+    {
+      "sourceId": "fao-americas",
+      "status": "success",
+      "itemsSeen": 20,
+      "itemsAccepted": 0,
+      "durationMs": 303
+    },
+    {
+      "sourceId": "iica",
+      "status": "success",
+      "itemsSeen": 9,
+      "itemsAccepted": 0,
+      "durationMs": 9366
+    },
+    {
+      "sourceId": "fao-newsroom",
+      "status": "success",
+      "itemsSeen": 20,
+      "itemsAccepted": 0,
+      "durationMs": 41
+    },
+    {
+      "sourceId": "usda-ams-boxed-beef-weekly",
+      "status": "success",
+      "itemsSeen": 2,
+      "itemsAccepted": 1,
+      "durationMs": 219
+    },
+    {
+      "sourceId": "usda-ams-processing-beef-weekly",
+      "status": "success",
+      "itemsSeen": 2,
+      "itemsAccepted": 1,
+      "durationMs": 109
+    },
+    {
+      "sourceId": "usda-ams-fed-cattle-weekly",
+      "status": "success",
+      "itemsSeen": 2,
+      "itemsAccepted": 1,
+      "durationMs": 98
+    },
+    {
+      "sourceId": "usda-ers-dairy",
+      "status": "success",
+      "itemsSeen": 30,
+      "itemsAccepted": 1,
+      "durationMs": 324
+    },
+    {
+      "sourceId": "usda-ers-livestock",
+      "status": "success",
+      "itemsSeen": 30,
+      "itemsAccepted": 1,
+      "durationMs": 300
+    },
+    {
+      "sourceId": "usda-nass",
+      "status": "success",
+      "itemsSeen": 313,
+      "itemsAccepted": 0,
+      "durationMs": 272
+    },
+    {
+      "sourceId": "usda-aphis",
+      "status": "success",
+      "itemsSeen": 5,
+      "itemsAccepted": 0,
+      "durationMs": 3071
+    },
+    {
+      "sourceId": "oirsa",
+      "status": "success",
+      "itemsSeen": 10,
+      "itemsAccepted": 0,
+      "durationMs": 1230
+    }
+  ],
+  "manualSources": [
+    "cdcb",
+    "ec-agriculture",
+    "fao-faostat",
+    "holstein-usa",
+    "icar",
+    "interbull",
+    "jds-communications",
+    "linkedin-org-post",
+    "pr-agriculture",
+    "usda-ams-dairy",
+    "usda-fas",
+    "usda-waob",
+    "woah-wahis"
+  ],
+  "editorialReadiness": "coverage-gap",
+  "coverageGaps": [
+    "No relevant bovine-genetics candidate was collected.",
+    "No relevant candidate outside the United States was collected."
+  ],
+  "coverage": {
+    "sectors": {
+      "dairy": 1,
+      "meat": 4
+    },
+    "geographies": {
+      "United States": 5
+    }
+  },
+  "warnings": [
+    "13 manual sources were not fetched.",
+    "The preferred eight-item editorial target is unavailable; publish only if at least five strong items clear review.",
+    "No relevant bovine-genetics candidate was collected.",
+    "No relevant candidate outside the United States was collected."
+  ]
+}

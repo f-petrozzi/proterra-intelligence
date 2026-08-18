@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "issueDate": "2026-08-17",
+  "window": {
+    "start": "2026-08-10T04:00:00.000Z",
+    "end": "2026-08-17T04:00:00.000Z",
+    "timezone": "America/New_York"
+  },
+  "generatedAt": "2026-08-17T23:59:32.303Z",
+  "candidates": [
+    {
+      "candidateId": "74de3b1a82528f20c020a46bafef7ebc07306f5a3a2fc5ce2ab5cb7e18ebc35b",
+      "sourceId": "usda-ams-livestock",
+      "collectionRole": "evidence",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D08%2F14%2F2026",
+      "title": "National/Regional Weekly Boneless Processing Beef and Beef Trimmings (PDF) (LM_XB460)",
+      "publishedAt": "2026-08-14T15:02:46.000Z",
+      "releaseId": "08/14/2026",
+      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-17T23:59:07.714Z"
+    },
+    {
+      "candidateId": "d98d7591209927c41a835358ead355c43476b967ef983750045f5bb69a39d116",
+      "sourceId": "usda-ams-livestock",
+      "collectionRole": "evidence",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F14%2F2026",
+      "title": "National Weekly Boxed Beef Cutout & Boxed Beef Cuts - Negotiated Sales (PDF) (LM_XB459)",
+      "publishedAt": "2026-08-14T14:55:20.000Z",
+      "releaseId": "08/14/2026",
+      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-17T23:59:07.714Z"
+    },
+    {
+      "candidateId": "e47aee83a51ef3e29baad6fc20835d623e097daa038c66340c3dad4013fe2838",
+      "sourceId": "usda-ers-dairy",
+      "collectionRole": "evidence",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://ers.usda.gov/data-products/dairy-data",
+      "title": "Dairy Monthly Tables and Dairy Quarterly Data",
+      "publishedAt": "2026-08-13T14:00:00.000Z",
+      "summary": "The dairy data files cover U.S. supply, demand, and trade for milk and major dairy products.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-17T23:59:07.714Z"
+    },
+    {
+      "candidateId": "9c1971969312474cdef45b327466d61101f34c304e802bf1676a9351753b3545",
+      "sourceId": "usda-ers-livestock",
+      "collectionRole": "evidence",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://ers.usda.gov/data-products/meat-price-spreads",
+      "title": "Meat Price Spreads",
+      "publishedAt": "2026-08-12T14:00:00.000Z",
+      "summary": "This data set provides monthly average price values, and the differences among those values, at the farm, wholesale, and retail stages of the production and marketing chain for selected cuts of beef, pork, and broilers.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-17T23:59:07.714Z"
+    },
+    {
+      "candidateId": "bbabcac4a398174a92bf5c0c3f3b5b06a1f2059ea6262cb6423da49856e5342b",
+      "sourceId": "usda-ams-livestock",
+      "collectionRole": "evidence",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2477?q=report_date%3D08%2F10%2F2026",
+      "title": "5 Area Weekly Weighted Average Direct Slaughter Cattle (PDF) (LM_CT150)",
+      "publishedAt": "2026-08-10T11:49:53.000Z",
+      "releaseId": "08/10/2026",
+      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2477",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-17T23:59:07.714Z"
+    }
+  ]
+}
