@@ -6,10 +6,16 @@ export const collectionMethods = ["rss", "json-api", "csv-api", "html-list", "ma
 export const trustTiers = ["official", "trade-press", "aggregator"] as const;
 export const contentClasses = ["news", "dataset"] as const;
 export const languageTags = ["en", "es", "pt", "fr", "und"] as const;
+export const reviewTiers = ["review-first", "also-review", "supporting-data"] as const;
+export const selectionBases = [
+  "coverage-balance", "publisher-diversity", "queue-order", "publisher-cap-exception",
+  "eligible-news", "official-data"
+] as const;
 
 const baseSourceSchema = z.object({
   sourceId: z.string().regex(/^[a-z0-9-]+$/),
   adapterId: z.string().regex(/^[a-z0-9-]+$/).optional(),
+  publisherGroup: z.string().regex(/^[a-z0-9-]+$/).optional(),
   enabled: z.boolean(),
   collectionRole: z.enum(collectionRoles),
   trustTier: z.enum(trustTiers).optional(),
@@ -94,10 +100,20 @@ export const collectionRegistrySchema = z.object({
   sources: z.array(collectionSourceSchema).min(1)
 }).superRefine((registry, context) => {
   const seen = new Set<string>();
+  const publisherGroups = new Map<string, string>();
   for (const [index, source] of registry.sources.entries()) {
     const id = source.adapterId ?? source.sourceId;
     if (seen.has(id)) context.addIssue({ code: "custom", path: ["sources", index, "adapterId"], message: `duplicate adapter identity ${id}` });
     seen.add(id);
+    const publisherGroup = source.publisherGroup ?? source.sourceId;
+    const existingGroup = publisherGroups.get(source.sourceId);
+    if (existingGroup && existingGroup !== publisherGroup) {
+      context.addIssue({
+        code: "custom", path: ["sources", index, "publisherGroup"],
+        message: `source ${source.sourceId} has conflicting publisher groups`
+      });
+    }
+    publisherGroups.set(source.sourceId, publisherGroup);
   }
 });
 
@@ -113,6 +129,7 @@ export const rawCandidateSchema = z.object({
 export const normalizedCandidateSchema = z.object({
   candidateId: z.string().regex(/^[a-f0-9]{64}$/),
   sourceId: z.string().regex(/^[a-z0-9-]+$/),
+  publisherGroup: z.string().regex(/^[a-z0-9-]+$/).optional(),
   collectionRole: z.enum(["evidence", "discovery"]),
   contentClass: z.enum(contentClasses),
   language: z.enum(languageTags),
@@ -153,6 +170,7 @@ const scoreBreakdownSchema = z.object({
 const duplicateMatchSchema = z.object({
   candidateId: z.string().regex(/^[a-f0-9]{64}$/),
   sourceId: z.string().regex(/^[a-z0-9-]+$/),
+  publisherGroup: z.string().regex(/^[a-z0-9-]+$/).optional(),
   title: z.string().min(1),
   citationUrl: z.url(),
   evidenceUrl: z.url().optional(),
@@ -170,6 +188,8 @@ export const candidateSchema = normalizedCandidateSchema.extend({
   relevanceScore: z.number(),
   scoreBreakdown: scoreBreakdownSchema.optional(),
   clusterId: z.string().regex(/^[a-f0-9]{64}$/),
+  reviewTier: z.enum(reviewTiers).optional(),
+  selectionBasis: z.enum(selectionBases).optional(),
   relatedUrls: z.array(z.url()),
   duplicateMatches: z.array(duplicateMatchSchema).optional()
 }).superRefine((candidate, context) => {
@@ -193,13 +213,14 @@ export const candidateSchema = normalizedCandidateSchema.extend({
   if (!closeEnough(factors.topic.signal, Math.min(factors.topic.keywordHits, 12) / 12)) {
     issue(["scoreBreakdown", "factors", "topic", "signal"], "topic signal does not match keywordHits");
   }
-  const distinctRelatedSources = new Set(candidate.duplicateMatches.map((match) => match.sourceId));
-  distinctRelatedSources.delete(candidate.sourceId);
-  if (factors.corroboration.supportingSources !== distinctRelatedSources.size) {
-    issue(["scoreBreakdown", "factors", "corroboration", "supportingSources"], "corroboration must count distinct additional publishers");
+  const candidatePublisherGroup = candidate.publisherGroup ?? candidate.sourceId;
+  const distinctRelatedPublishers = new Set(candidate.duplicateMatches.map((match) => match.publisherGroup ?? match.sourceId));
+  distinctRelatedPublishers.delete(candidatePublisherGroup);
+  if (factors.corroboration.supportingSources !== distinctRelatedPublishers.size) {
+    issue(["scoreBreakdown", "factors", "corroboration", "supportingSources"], "corroboration must count distinct additional publisher groups");
   }
-  if (!closeEnough(factors.corroboration.signal, Math.min(distinctRelatedSources.size, 3) / 3)) {
-    issue(["scoreBreakdown", "factors", "corroboration", "signal"], "corroboration signal does not match distinct additional publishers");
+  if (!closeEnough(factors.corroboration.signal, Math.min(distinctRelatedPublishers.size, 3) / 3)) {
+    issue(["scoreBreakdown", "factors", "corroboration", "signal"], "corroboration signal does not match distinct additional publisher groups");
   }
   const expectedAdjustments = {
     bovineGenetics: candidate.sectors.includes("bovine-genetics") ? 0.08 : 0,
@@ -269,6 +290,21 @@ export const runManifestSchema = z.object({
     geographies: z.record(z.string(), z.number().int().nonnegative()),
     languages: z.record(z.string(), z.number().int().nonnegative())
   }),
+  reviewSelection: z.object({
+    selectedCount: z.number().int().nonnegative(),
+    target: z.number().int().positive(),
+    minimum: z.number().int().positive(),
+    publisherFamilyCap: z.number().int().positive(),
+    preferredPublisherGroups: z.number().int().positive(),
+    distinctPublisherGroups: z.number().int().nonnegative(),
+    sourceConcentrated: z.boolean(),
+    publisherGroups: z.record(z.string(), z.number().int().nonnegative()),
+    coverage: z.object({
+      sectors: z.record(z.string(), z.number().int().nonnegative()),
+      international: z.number().int().nonnegative()
+    }),
+    warnings: z.array(z.string())
+  }).optional(),
   warnings: z.array(z.string())
 });
 

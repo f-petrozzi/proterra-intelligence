@@ -16,7 +16,7 @@ export function authorityWeightOf(source: Pick<CollectionSource, "authorityWeigh
 
 export type ScoreContext = {
   authorityWeight: number;
-  corroboratingSourceCount: number;
+  corroboratingPublisherCount: number;
   windowEnd: string;
 };
 
@@ -62,7 +62,7 @@ export function scoreCandidateBreakdown(candidate: NormalizedCandidate, context:
   const classWeight: 0.5 | 1 = candidate.contentClass === "news" ? 1 : 0.5;
   const keywordHits = topicStrength(candidate.title, candidate.summary);
   const topicSignal = Math.min(keywordHits, topicCap) / topicCap;
-  const corroboration = Math.min(context.corroboratingSourceCount, 3) / 3;
+  const corroboration = Math.min(context.corroboratingPublisherCount, 3) / 3;
   const bovineGenetics: 0 | 0.08 = candidate.sectors.includes("bovine-genetics") ? 0.08 : 0;
   const international: 0 | 0.06 = candidate.geographies.some((geography) => geography !== "United States") ? 0.06 : 0;
   // The reel is an English-reading brief that links out to the source. Confident
@@ -88,7 +88,7 @@ export function scoreCandidateBreakdown(candidate: NormalizedCandidate, context:
       topic: { signal: round(topicSignal), weight: 0.14, contribution: round(contributions.topic), keywordHits },
       corroboration: {
         signal: round(corroboration), weight: 0.10, contribution: round(contributions.corroboration),
-        supportingSources: context.corroboratingSourceCount
+        supportingSources: context.corroboratingPublisherCount
       }
     },
     adjustments: { bovineGenetics, international, nonEnglish },

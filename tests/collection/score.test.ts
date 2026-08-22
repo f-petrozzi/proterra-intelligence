@@ -19,7 +19,7 @@ const build = (source: CollectionSource, title: string, publishedAt: string) =>
   normalizeCandidate({ title, url: `https://example.org/${encodeURIComponent(title)}`, publishedAt }, source, retrievedAt);
 
 const context = (clusterSize = 1) => ({
-  authorityWeight: 0.7, corroboratingSourceCount: Math.max(0, clusterSize - 1), windowEnd
+  authorityWeight: 0.7, corroboratingPublisherCount: Math.max(0, clusterSize - 1), windowEnd
 });
 
 test("authority weight falls back to trust tier then a neutral default", () => {
