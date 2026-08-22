@@ -6,7 +6,7 @@
     "end": "2026-08-22T04:00:00.000Z",
     "timezone": "America/New_York"
   },
-  "generatedAt": "2026-08-22T19:38:27.145Z",
+  "generatedAt": "2026-08-22T20:35:51.845Z",
   "candidates": [
     {
       "candidateId": "83ab602323e0831cea2d95b2895599aeb404f13c45796beecf4e21ddd3f861dd",
@@ -30,7 +30,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.795204,
       "scoreBreakdown": {
         "version": 1,
@@ -98,7 +98,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.507848,
       "scoreBreakdown": {
         "version": 1,
@@ -165,7 +165,7 @@
       "geographies": [
         "Latin America & Caribbean"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.474516,
       "scoreBreakdown": {
         "version": 1,
@@ -232,7 +232,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.693806,
       "scoreBreakdown": {
         "version": 1,
@@ -316,7 +316,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.676697,
       "scoreBreakdown": {
         "version": 1,
@@ -384,7 +384,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.675305,
       "scoreBreakdown": {
         "version": 1,
@@ -451,7 +451,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.667752,
       "scoreBreakdown": {
         "version": 1,
@@ -553,7 +553,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.654999,
       "scoreBreakdown": {
         "version": 1,
@@ -620,7 +620,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.593808,
       "scoreBreakdown": {
         "version": 1,
@@ -687,7 +687,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.593201,
       "scoreBreakdown": {
         "version": 1,
@@ -754,7 +754,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.584454,
       "scoreBreakdown": {
         "version": 1,
@@ -821,7 +821,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.579871,
       "scoreBreakdown": {
         "version": 1,
@@ -888,7 +888,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.544878,
       "scoreBreakdown": {
         "version": 1,
@@ -992,7 +992,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.524752,
       "scoreBreakdown": {
         "version": 1,
@@ -1059,7 +1059,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.521744,
       "scoreBreakdown": {
         "version": 1,
@@ -1126,7 +1126,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.521358,
       "scoreBreakdown": {
         "version": 1,
@@ -1193,7 +1193,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.495264,
       "scoreBreakdown": {
         "version": 1,
@@ -1290,7 +1290,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.490843,
       "scoreBreakdown": {
         "version": 1,
@@ -1357,7 +1357,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.47893,
       "scoreBreakdown": {
         "version": 1,
@@ -1424,7 +1424,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.472892,
       "scoreBreakdown": {
         "version": 1,
@@ -1491,7 +1491,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.450026,
       "scoreBreakdown": {
         "version": 1,
@@ -1558,7 +1558,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.433437,
       "scoreBreakdown": {
         "version": 1,
@@ -1625,7 +1625,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.423128,
       "scoreBreakdown": {
         "version": 1,
@@ -1692,7 +1692,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.420824,
       "scoreBreakdown": {
         "version": 1,
@@ -1759,7 +1759,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.418477,
       "scoreBreakdown": {
         "version": 1,
@@ -1860,7 +1860,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.41427,
       "scoreBreakdown": {
         "version": 1,
@@ -1963,7 +1963,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.403338,
       "scoreBreakdown": {
         "version": 1,
@@ -2030,7 +2030,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.403069,
       "scoreBreakdown": {
         "version": 1,
@@ -2097,7 +2097,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.40044,
       "scoreBreakdown": {
         "version": 1,
@@ -2203,7 +2203,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.399273,
       "scoreBreakdown": {
         "version": 1,
@@ -2270,7 +2270,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.399208,
       "scoreBreakdown": {
         "version": 1,
@@ -2337,7 +2337,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.395318,
       "scoreBreakdown": {
         "version": 1,
@@ -2404,7 +2404,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.39286,
       "scoreBreakdown": {
         "version": 1,
@@ -2472,7 +2472,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.620639,
       "scoreBreakdown": {
         "version": 1,
@@ -2553,7 +2553,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.620173,
       "scoreBreakdown": {
         "version": 1,
@@ -2636,7 +2636,7 @@
         "International",
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.547932,
       "scoreBreakdown": {
         "version": 1,
@@ -2704,7 +2704,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.442121,
       "scoreBreakdown": {
         "version": 1,
@@ -2772,7 +2772,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.37027,
       "scoreBreakdown": {
         "version": 1,
@@ -2840,7 +2840,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "retrievedAt": "2026-08-22T20:35:24.647Z",
       "relevanceScore": 0.362996,
       "scoreBreakdown": {
         "version": 1,
