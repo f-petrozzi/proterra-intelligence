@@ -53,7 +53,7 @@ Create `src/data/reports/YYYY-MM-DD.json` from the template with:
 - direct citations whose `sourceId` exists in `src/data/sources.json` and whose URLs belong to that registered domain;
 - a human-readable `url` for each citation, using the evidence bundle's `citationUrl` when present (otherwise a readable landing or synopsis page), plus the immutable dated release in `evidenceUrl` and its identifier in `releaseId`; never make a raw JSON API response or PDF the primary reader-facing link when a readable citation URL is supplied;
 - English copy in every field even when the underlying source is not in English; for a non-English source prefer an English citation covering the same development when one exists, and otherwise note the source language in `sourceNote` so the reader knows the linked page is not in English;
-- one unique editorial `imageId` per story, selected by matching the story headline to the registry's `subjects`; never select an image merely because a secondary detail appears elsewhere in the story;
+- one unique editorial `imageId` per story, selected by matching the story headline to the registry's `subjects`; when `.review/image-context.json` is supplied, use it to prefer assets newly introduced for this issue during library growth or the least-recently-used compatible assets during rotation; never select an image merely because a secondary detail appears elsewhere in the story;
 - a one- or two-sentence `sourceNote` for every citation that explains exactly what the document contributes and, when useful, what it does not establish;
 - no unsupported claims, invented data, vague citations, marketing language, or confidential information.
 

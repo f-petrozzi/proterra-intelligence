@@ -108,5 +108,71 @@
     "license": "Public domain",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:20220517-USDA-OC-PSD-0260_Agriculture_in_the_United_States.jpg",
     "subjects": ["colostrum", "calf feeding", "calf nutrition", "calf immunity"]
+  },
+  {
+    "id": "ground-beef-production",
+    "src": "/images/editorial/ground-beef-production.webp",
+    "alt": "Ground beef moving through an inspected commercial grinding operation",
+    "creator": "United States Department of Agriculture",
+    "provider": "Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ground_beef_USDA.jpg",
+    "subjects": ["ground beef", "beef imports", "beef prices", "beef production", "tariff-free beef"],
+    "introducedForIssue": "2026-08-22"
+  },
+  {
+    "id": "milk-tanker",
+    "src": "/images/editorial/milk-tanker.webp",
+    "alt": "A stainless steel milk tanker parked beside a Pennsylvania dairy farm",
+    "creator": "Beyond My Ken",
+    "provider": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Wanner%27s_Farm_Narvon_Pennsylvania_milk_tanker_truck.jpg",
+    "subjects": ["milk production", "dairy plant", "dairy processing", "milk supply", "dairy expansion"],
+    "introducedForIssue": "2026-08-22"
+  },
+  {
+    "id": "bovine-embryos",
+    "src": "/images/editorial/bovine-embryos.webp",
+    "alt": "Bovine embryos and ova collected from a Holstein cow under magnification",
+    "creator": "Aspron",
+    "provider": "Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:EMBRIONES_BOVINOS.jpg",
+    "subjects": ["bovine genetics", "beef-on-dairy genetics", "embryo transfer", "dairy genetics", "breeding"],
+    "introducedForIssue": "2026-08-22"
+  },
+  {
+    "id": "screwworm-fly",
+    "src": "/images/editorial/screwworm-fly.webp",
+    "alt": "A marked sterile male New World screwworm fly held between fingertips",
+    "creator": "Peggy Greb, USDA Agricultural Research Service",
+    "provider": "Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:SterileMaleCochliomyiahominivorax.jpg",
+    "subjects": ["screwworm", "livestock pest", "animal health", "border biosecurity"],
+    "introducedForIssue": "2026-08-22"
+  },
+  {
+    "id": "rangeland-grazing",
+    "src": "/images/editorial/rangeland-grazing.webp",
+    "alt": "Two Brahman cattle grazing on managed pasture in Brazos County, Texas",
+    "creator": "USDA NRCS Texas",
+    "provider": "Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Brahman_cattle_graze_in_Brazos_County%2C_Texas._NRCS_photo_by_Beverly_Moseley._%2824489776063%29.jpg",
+    "subjects": ["rangeland grazing", "grazing access", "cattle grazing", "pasture", "ranch land"],
+    "introducedForIssue": "2026-08-22"
+  },
+  {
+    "id": "african-beef-retail",
+    "src": "/images/editorial/african-beef-retail.webp",
+    "alt": "Assorted beef cuts displayed in a refrigerated butcher case in Botswana",
+    "creator": "Olgatladi2020",
+    "provider": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Beef_meat_on_display_at_a_butchery_store.jpg",
+    "subjects": ["beef cuts", "African beef market", "beef market access", "beef exports", "beef retail"],
+    "introducedForIssue": "2026-08-22"
   }
 ]
