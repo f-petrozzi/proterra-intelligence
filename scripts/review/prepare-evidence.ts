@@ -227,10 +227,10 @@ export async function evidenceFor(candidate: Candidate, fetchText: FetchText): P
       ? JSON.parse(await fetchText(previousUrl)) as JsonSection[]
       : [];
     observations = extractAmsEvidence(candidate, current, previous);
-  } else if (candidate.sourceId === "usda-ers-dairy") {
+  } else if (candidate.sourceId === "usda-ers-dairy" && url.pathname.includes("/data-products/dairy-data")) {
     const csv = await linkedCsv(candidate.canonicalUrl, "us-milk-production-and-related-data-quarterly-and-annual.csv", fetchText);
     observations = extractDairyEvidence(csv, Number(candidate.publishedAt.slice(0, 4)));
-  } else if (candidate.sourceId === "usda-ers-livestock") {
+  } else if (candidate.sourceId === "usda-ers-livestock" && url.pathname.includes("/data-products/meat-price-spreads")) {
     const csv = await linkedCsv(candidate.canonicalUrl, "choice-beef-values-and-spreads-and-the-all-fresh-retail-value.csv", fetchText);
     observations = extractMeatSpreadEvidence(csv, Number(candidate.publishedAt.slice(0, 4)));
   } else {
