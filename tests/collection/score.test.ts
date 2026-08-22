@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { normalizeCandidate } from "../../scripts/collection/normalize";
-import { authorityWeightOf, scoreCandidate } from "../../scripts/collection/score";
+import { authorityWeightOf, scoreCandidate, scoreCandidateBreakdown } from "../../scripts/collection/score";
 import type { CollectionSource } from "../../scripts/collection/types";
 
 const windowEnd = "2026-08-24T04:00:00.000Z";
@@ -18,7 +18,9 @@ const evidence: CollectionSource = { ...discovery, sourceId: "usda-ers-dairy", c
 const build = (source: CollectionSource, title: string, publishedAt: string) =>
   normalizeCandidate({ title, url: `https://example.org/${encodeURIComponent(title)}`, publishedAt }, source, retrievedAt);
 
-const context = (clusterSize = 1) => ({ authorityWeight: 0.7, clusterSize, windowEnd });
+const context = (clusterSize = 1) => ({
+  authorityWeight: 0.7, corroboratingSourceCount: Math.max(0, clusterSize - 1), windowEnd
+});
 
 test("authority weight falls back to trust tier then a neutral default", () => {
   assert.equal(authorityWeightOf({ authorityWeight: 0.5, trustTier: "aggregator" }), 0.5);
@@ -30,6 +32,23 @@ test("authority weight falls back to trust tier then a neutral default", () => {
 test("scoring is deterministic for identical input", () => {
   const candidate = build(discovery, "Milk production climbs in the Midwest", "2026-08-22T12:00:00Z");
   assert.equal(scoreCandidate(candidate, context()), scoreCandidate(candidate, context()));
+});
+
+test("score breakdown exposes the exact deterministic inputs and contributions", () => {
+  const candidate = build(discovery, "International bovine genomic breeding evaluation advances", "2026-08-22T12:00:00Z");
+  const breakdown = scoreCandidateBreakdown(candidate, context(2));
+  assert.equal(breakdown.total, scoreCandidate(candidate, context(2)));
+  assert.equal(breakdown.factors.authority.signal, 0.7);
+  assert.equal(breakdown.factors.authority.weight, 0.24);
+  assert.equal(breakdown.factors.corroboration.supportingSources, 1);
+  assert.equal(breakdown.factors.corroboration.contribution, 0.033333);
+  assert.ok(breakdown.factors.recency.ageDays > 1);
+  assert.ok(breakdown.factors.topic.keywordHits >= 2);
+  assert.equal(breakdown.adjustments.bovineGenetics, 0.08);
+  assert.equal(breakdown.adjustments.international, 0.06);
+  const recomputed = Object.values(breakdown.factors).reduce((sum, factor) => sum + factor.contribution, 0)
+    + Object.values(breakdown.adjustments).reduce<number>((sum, adjustment) => sum + adjustment, 0);
+  assert.ok(Math.abs(breakdown.total - recomputed) < 0.000003);
 });
 
 test("news-led items outrank an otherwise identical dataset release", () => {

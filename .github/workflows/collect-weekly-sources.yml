@@ -59,8 +59,12 @@ jobs:
         env:
           BRANCH: ${{ steps.issue.outputs.branch }}
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if git fetch origin "$BRANCH:refs/remotes/origin/$BRANCH"; then
             git switch -C "$BRANCH" "origin/$BRANCH"
+            git merge --no-edit origin/main
+            git push origin "HEAD:$BRANCH"
           else
             git switch -c "$BRANCH"
           fi
@@ -95,6 +99,13 @@ jobs:
           fi
           validation="$(node --import tsx scripts/collection/validate-output.ts "$ISSUE_DATE" "$candidates" "$manifest")"
           printf '%s\n' "$validation" >> "$GITHUB_OUTPUT"
+
+      - name: Render deterministic source audit
+        id: audit
+        if: steps.manifest.outputs.status != 'failed'
+        env:
+          ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
+        run: npm run research:audit -- "$ISSUE_DATE" > "$RUNNER_TEMP/source-audit.md"
 
       - name: Commit queue
         if: steps.manifest.outputs.status != 'failed'
@@ -136,12 +147,17 @@ jobs:
           else
             next_step="Codex is blocked to conserve usage. Add a defensible manual lead and rerun collection, or have the editorial lead explicitly override with \`npm run weekly:draft -- --allow-coverage-gap\`."
           fi
-          body="Deterministic source collection for **$ISSUE_DATE** produced **$count** relevant candidates with run status **$status** and editorial readiness **$readiness**. $gaps $next_step"
+          body_file="$RUNNER_TEMP/source-review-body.md"
+          {
+            echo "Deterministic source collection for **$ISSUE_DATE** produced **$count** relevant candidates with run status **$status** and editorial readiness **$readiness**. $gaps $next_step"
+            echo
+            cat "$RUNNER_TEMP/source-audit.md"
+          } > "$body_file"
           if [ -z "$pr" ]; then
-            url="$(gh pr create --draft --base main --head "$BRANCH" --title "Source review ready: $ISSUE_DATE" --body "$body")"
+            url="$(gh pr create --draft --base main --head "$BRANCH" --title "Source review ready: $ISSUE_DATE" --body-file "$body_file")"
             pr="${url##*/}"
           else
-            gh pr edit "$pr" --title "Source review ready: $ISSUE_DATE" --body "$body"
+            gh pr edit "$pr" --title "Source review ready: $ISSUE_DATE" --body-file "$body_file"
           fi
           gh pr edit "$pr" --remove-label codex-reviewing --remove-label brief-review-ready --remove-label changes-requested --remove-label collection-failed 2>/dev/null || true
           gh pr edit "$pr" --add-label source-review-ready
@@ -188,6 +204,8 @@ jobs:
             echo "- Candidates: $(jq -r .candidateCount "$manifest")"
             echo "- Failed adapters: $(jq '[.adapters[] | select(.status == "failed")] | length' "$manifest")"
             echo "- Pull request: $PR_URL"
+            echo
+            cat "$RUNNER_TEMP/source-audit.md"
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Email source-ready notification
@@ -214,7 +232,7 @@ jobs:
           npm run email:automation -- --subject "Proterra Intelligence sources: $readiness" --text "$text" --link "$PR_URL"
 
       - name: Record failed collection
-        if: always() && (steps.manifest.outputs.status == 'failed' || steps.collector.outcome == 'failure' || steps.manifest.outcome == 'failure')
+        if: always() && (steps.manifest.outputs.status == 'failed' || steps.collector.outcome == 'failure' || steps.manifest.outcome == 'failure' || steps.audit.outcome == 'failure')
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
@@ -256,7 +274,7 @@ jobs:
           fi
 
       - name: Email collection failure
-        if: always() && (steps.manifest.outputs.status == 'failed' || steps.collector.outcome == 'failure' || steps.manifest.outcome == 'failure')
+        if: always() && (steps.manifest.outputs.status == 'failed' || steps.collector.outcome == 'failure' || steps.manifest.outcome == 'failure' || steps.audit.outcome == 'failure')
         env:
           GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
@@ -265,5 +283,5 @@ jobs:
         run: npm run email:automation -- --subject "Proterra Intelligence collection failed" --text "The deterministic collection for $ISSUE_DATE did not produce a trustworthy queue. Review the workflow log." --link "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
 
       - name: Fail after recording an unusable run
-        if: always() && (steps.manifest.outputs.status == 'failed' || steps.collector.outcome == 'failure' || steps.manifest.outcome == 'failure')
+        if: always() && (steps.manifest.outputs.status == 'failed' || steps.collector.outcome == 'failure' || steps.manifest.outcome == 'failure' || steps.audit.outcome == 'failure')
         run: exit 1
