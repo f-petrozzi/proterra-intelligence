@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "issueDate": "2026-08-22",
-  "startedAt": "2026-08-22T20:41:42.473Z",
-  "completedAt": "2026-08-22T20:42:04.687Z",
+  "startedAt": "2026-08-22T20:48:24.830Z",
+  "completedAt": "2026-08-22T20:48:45.785Z",
   "status": "partial",
   "candidateCount": 39,
   "candidatesBeforeDeduplication": 49,
@@ -18,7 +18,7 @@
       "rejectedOutOfWindow": 0,
       "rejectedByScope": 19,
       "rejectedByDate": 0,
-      "durationMs": 679
+      "durationMs": 192
     },
     {
       "sourceId": "iica",
@@ -28,7 +28,7 @@
       "rejectedOutOfWindow": 0,
       "rejectedByScope": 9,
       "rejectedByDate": 0,
-      "durationMs": 222
+      "durationMs": 172
     },
     {
       "sourceId": "fao-newsroom",
@@ -38,7 +38,7 @@
       "rejectedOutOfWindow": 3,
       "rejectedByScope": 17,
       "rejectedByDate": 0,
-      "durationMs": 217
+      "durationMs": 35
     },
     {
       "sourceId": "agproud-progressive",
@@ -48,7 +48,7 @@
       "rejectedOutOfWindow": 0,
       "rejectedByScope": 0,
       "rejectedByDate": 0,
-      "durationMs": 104,
+      "durationMs": 55,
       "error": "agproud-progressive: HTTP 403"
     },
     {
@@ -59,7 +59,7 @@
       "rejectedOutOfWindow": 0,
       "rejectedByScope": 33,
       "rejectedByDate": 0,
-      "durationMs": 496
+      "durationMs": 702
     },
     {
       "sourceId": "beef-magazine",
@@ -69,7 +69,7 @@
       "rejectedOutOfWindow": 12,
       "rejectedByScope": 19,
       "rejectedByDate": 0,
-      "durationMs": 672
+      "durationMs": 297
     },
     {
       "sourceId": "farm-progress",
@@ -79,7 +79,7 @@
       "rejectedOutOfWindow": 1,
       "rejectedByScope": 46,
       "rejectedByDate": 0,
-      "durationMs": 598
+      "durationMs": 1426
     },
     {
       "sourceId": "usda-ams-boxed-beef-weekly",
@@ -89,7 +89,7 @@
       "rejectedOutOfWindow": 0,
       "rejectedByScope": 0,
       "rejectedByDate": 0,
-      "durationMs": 262
+      "durationMs": 150
     },
     {
       "sourceId": "usda-ams-processing-beef-weekly",
@@ -99,7 +99,7 @@
       "rejectedOutOfWindow": 0,
       "rejectedByScope": 0,
       "rejectedByDate": 0,
-      "durationMs": 76
+      "durationMs": 82
     },
     {
       "sourceId": "usda-ams-fed-cattle-weekly",
@@ -109,7 +109,7 @@
       "rejectedOutOfWindow": 1,
       "rejectedByScope": 0,
       "rejectedByDate": 0,
-      "durationMs": 76
+      "durationMs": 82
     },
     {
       "sourceId": "usda-ers-dairy",
@@ -119,7 +119,7 @@
       "rejectedOutOfWindow": 1,
       "rejectedByScope": 28,
       "rejectedByDate": 0,
-      "durationMs": 310
+      "durationMs": 351
     },
     {
       "sourceId": "usda-ers-livestock",
@@ -129,7 +129,7 @@
       "rejectedOutOfWindow": 2,
       "rejectedByScope": 27,
       "rejectedByDate": 0,
-      "durationMs": 292
+      "durationMs": 249
     },
     {
       "sourceId": "usda-nass",
@@ -139,7 +139,7 @@
       "rejectedOutOfWindow": 14,
       "rejectedByScope": 299,
       "rejectedByDate": 0,
-      "durationMs": 476
+      "durationMs": 295
     },
     {
       "sourceId": "usda-aphis",
@@ -149,7 +149,7 @@
       "rejectedOutOfWindow": 0,
       "rejectedByScope": 5,
       "rejectedByDate": 0,
-      "durationMs": 3086
+      "durationMs": 2071
     },
     {
       "sourceId": "oirsa",
@@ -159,7 +159,7 @@
       "rejectedOutOfWindow": 0,
       "rejectedByScope": 10,
       "rejectedByDate": 0,
-      "durationMs": 1162
+      "durationMs": 1316
     }
   ],
   "manualSources": [
