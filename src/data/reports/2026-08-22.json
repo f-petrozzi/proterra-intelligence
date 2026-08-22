@@ -1,0 +1,319 @@
+{
+  "slug": "2026-08-22",
+  "issueNumber": 3,
+  "title": "Weekly Brief",
+  "status": "draft",
+  "period": {
+    "start": "2026-08-16",
+    "end": "2026-08-22"
+  },
+  "publishedAt": "2026-08-22",
+  "scope": {
+    "basis": "public-sources-only",
+    "disclosure": "This brief uses public industry sources and does not assess Proterra-owned animals, customers, sales, or commercial performance."
+  },
+  "executiveSummary": "U.S. beef trade policy, export access and herd-rebuilding proposals led the week, while a major dairy plant ramp-up and new beef-on-dairy research pointed to longer-term changes in milk demand and breeding decisions. A screwworm detection in Ciudad Juárez kept cross-border animal-health risk in view.",
+  "editorNote": "The news evidence is unusually concentrated in the Farm Progress publisher group and most selected pages were available only through publisher-supplied feed summaries. Claims are therefore narrowly stated and marked medium confidence; USDA releases provide dashboard context but are not promoted as news stories.",
+  "overview": {
+    "headline": "Trade decisions and supply-chain capacity moved faster than the underlying cattle cycle.",
+    "points": [
+      {
+        "label": "Genetics",
+        "text": "A new study assessed targeted beef-on-dairy genetics across 16 environmental-impact categories."
+      },
+      {
+        "label": "Dairy",
+        "text": "Fairlife's Webster, New York, plant began ramping toward daily milk intake of 5 million to 6 million pounds."
+      },
+      {
+        "label": "Meat",
+        "text": "Import policy, Nigerian market access and a border disease finding reshaped near-term beef trade signals."
+      }
+    ]
+  },
+  "dashboard": {
+    "sectorPulses": [
+      {
+        "sector": "dairy",
+        "label": "U.S. milk production",
+        "value": "60.194 billion lb",
+        "basis": "April-June 2026, versus 58.783 billion lb in April-June 2025",
+        "direction": "up",
+        "note": "USDA's quarterly dairy data show output 1.411 billion pounds above the year-earlier quarter.",
+        "itemRank": 2
+      },
+      {
+        "sector": "meat",
+        "label": "Choice boxed-beef cutout",
+        "value": "$388.27/cwt",
+        "basis": "Week ending August 21, 2026; $15.03/cwt above the prior week",
+        "direction": "up",
+        "note": "USDA reported a $24.31/cwt Choice-Select spread for the same week.",
+        "itemRank": 1
+      },
+      {
+        "sector": "bovine-genetics",
+        "label": "Beef-on-dairy study scope",
+        "value": "16 impact categories",
+        "basis": "Study reported August 21, 2026",
+        "direction": "new",
+        "note": "The reported assessment covered climate, water, land and air impacts among its categories.",
+        "itemRank": 3
+      }
+    ],
+    "keyMetrics": [
+      {
+        "label": "Tariff-free beef allowance",
+        "value": "Up to 300,000 metric tons",
+        "basis": "Announced 90-day U.S. import window",
+        "itemRank": 1
+      },
+      {
+        "label": "Webster plant milk intake",
+        "value": "5-6 million lb/day",
+        "basis": "Production ramp-up reported August 21, 2026",
+        "itemRank": 2
+      },
+      {
+        "label": "Proposed grazing access",
+        "value": "20 million acres",
+        "basis": "RANCH Act proposal introduced August 21, 2026",
+        "itemRank": 5
+      }
+    ]
+  },
+  "items": [
+    {
+      "rank": 1,
+      "reviewId": "story-7bc458fc95752df3",
+      "headline": "U.S. announces temporary tariff-free beef import allowance",
+      "imageId": "cattle-loading",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "official-site",
+      "sectors": [
+        "meat"
+      ],
+      "regions": [
+        "United States",
+        "International"
+      ],
+      "signal": "new",
+      "summary": "President Trump said the United States would allow up to 300,000 metric tons of beef to enter tariff-free for 90 days. Cattle groups responded to the announcement as the domestic market remained tight.",
+      "keyPoints": [
+        "The announced allowance covers up to 300,000 metric tons of beef.",
+        "The tariff-free period was described as lasting 90 days."
+      ],
+      "whyItMatters": "A sizable temporary import channel could alter near-term wholesale supply and price formation, although the announcement alone does not establish actual import volumes.",
+      "businessRelevance": "If imports arrive at scale, public beef-price and dairy-beef signals may shift, affecting the market context used to evaluate beef-on-dairy breeding decisions.",
+      "uncertainty": "The available trade-press feed summary does not establish implementation details, eligible origins or realized shipment volumes.",
+      "watchNext": "Watch for formal U.S. implementation terms, origin eligibility and weekly import volumes during the 90-day window.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "beef-magazine",
+          "title": "Cattle groups react to Trump’s beef import post",
+          "url": "https://beefmagazine.com/market-news/cattle-group-reacts-to-trump-s-beef-import-post",
+          "publishedAt": "2026-08-21",
+          "sourceNote": "The publisher-supplied feed summary provides the announced volume, tariff treatment and duration. The article page was not retrieved, so it does not establish implementation or shipment volumes."
+        },
+        {
+          "sourceId": "usda-ams-livestock",
+          "title": "National Weekly Boxed Beef Cutout & Boxed Beef Cuts - Negotiated Sales (LM_XB459)",
+          "url": "https://mymarketnews.ams.usda.gov/viewReport/2461",
+          "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F21%2F2026",
+          "releaseId": "08/21/2026",
+          "publishedAt": "2026-08-21",
+          "sourceNote": "USDA's dated market release supplies the weekly cutout values used in the dashboard; it provides market context and does not corroborate the import-policy announcement. The evidence extractor marked the source language as undetermined."
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "reviewId": "story-5261a4f090e5f45e",
+      "headline": "Fairlife ramps up production at New York dairy plant",
+      "imageId": "dairy-parlor",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "official-site",
+      "sectors": [
+        "dairy"
+      ],
+      "regions": [
+        "United States"
+      ],
+      "signal": "new",
+      "summary": "Fairlife is ramping production at its 745,000-square-foot facility in Webster, New York. The plant is expected to source 5 million to 6 million pounds of milk per day from 40 local dairy farms.",
+      "keyPoints": [
+        "The Webster facility covers 745,000 square feet.",
+        "Reported milk intake is 5 million to 6 million pounds daily from 40 farms."
+      ],
+      "whyItMatters": "The ramp-up creates a concentrated new milk demand point in New York and may influence regional hauling, procurement and production planning.",
+      "businessRelevance": "If the facility reaches its stated intake, regional milk-demand conditions could affect the public market backdrop for dairy-herd productivity and replacement decisions.",
+      "uncertainty": "The available feed summary states planned sourcing and does not establish current throughput or farm-level contract terms.",
+      "watchNext": "Watch disclosed throughput, supplier additions and the timing of full production.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "feedstuffs",
+          "title": "Fairlife celebrates production ramp-up at New York dairy plant",
+          "url": "https://feedstuffs.com/agribusiness-news/fairlife-celebrates-production-ramp-up-at-new-york-dairy-plant",
+          "publishedAt": "2026-08-21",
+          "sourceNote": "The publisher-supplied feed summary provides the facility size, expected daily milk intake and number of supplying farms. The article page was not retrieved, so current throughput remains unverified."
+        },
+        {
+          "sourceId": "usda-ers-dairy",
+          "title": "Dairy Monthly Tables and Dairy Quarterly Data",
+          "url": "https://ers.usda.gov/data-products/dairy-data",
+          "evidenceUrl": "https://ers.usda.gov/data-products/dairy-data",
+          "publishedAt": "2026-08-13",
+          "sourceNote": "USDA's dairy tables supply the April-June 2026 and year-earlier production observations used in the dashboard. They provide national context and do not verify the plant announcement."
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "reviewId": "story-83ab602323e0831c",
+      "headline": "Study assesses environmental effects of targeted beef-on-dairy genetics",
+      "imageId": "genetics-lab",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "official-site",
+      "sectors": [
+        "bovine-genetics",
+        "dairy",
+        "meat"
+      ],
+      "regions": [
+        "United States"
+      ],
+      "signal": "new",
+      "summary": "A reported study evaluated the environmental effects of targeted genetics in beef-on-dairy systems. Its scope covered 16 impact categories, including climate, water, land and air.",
+      "keyPoints": [
+        "The assessment considered 16 environmental-impact categories.",
+        "Reported categories included climate, water, land and air."
+      ],
+      "whyItMatters": "The work broadens evaluation of beef-on-dairy breeding beyond a single emissions measure and may help frame future selection and lifecycle analysis.",
+      "businessRelevance": "If the underlying study demonstrates robust differences among genetic strategies, its framework could inform how public sustainability evidence is considered alongside breeding performance.",
+      "uncertainty": "The available feed summary does not provide methods, effect sizes or statistical results, so no environmental benefit is treated as established here.",
+      "watchNext": "Watch for the underlying paper, methods and measured differences among genetic strategies.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "feedstuffs",
+          "title": "Genetic improvement can reduce beef-on-dairy footprint",
+          "url": "https://feedstuffs.com/dairy/genetic-improvement-can-reduce-beef-on-dairy-footprint",
+          "publishedAt": "2026-08-21",
+          "sourceNote": "The publisher-supplied feed summary establishes the study's general subject and 16-category scope. The article page and underlying study were not retrieved, so methods and outcomes are not characterized."
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "reviewId": "story-fc52c43bf6d781bc",
+      "headline": "Screwworm detection in Ciudad Juárez raises border-trade risk",
+      "imageId": "calf-health",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "official-site",
+      "sectors": [
+        "meat"
+      ],
+      "regions": [
+        "Mexico",
+        "United States"
+      ],
+      "signal": "new",
+      "summary": "New World screwworm was reported in Ciudad Juárez, Mexico. The report said reopening cattle ports could be paused if U.S. authorities identify increased risk in Sonora or Chihuahua.",
+      "keyPoints": [
+        "The reported detection was in Ciudad Juárez.",
+        "Any pause in port reopening would depend on a U.S. assessment of increased risk in Sonora or Chihuahua."
+      ],
+      "whyItMatters": "A border-adjacent animal-health event can change cattle-flow timing and biosecurity requirements even before trade volumes move.",
+      "businessRelevance": "If authorities revise border controls, public feeder-cattle availability and price signals could change for cattle and beef-on-dairy market planning.",
+      "uncertainty": "The feed summary does not provide case details or confirm that authorities have changed the reopening schedule.",
+      "watchNext": "Watch official animal-health risk assessments and any change to the cattle-port reopening timetable.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "beef-magazine",
+          "title": "Screwworm found in Juárez",
+          "url": "https://beefmagazine.com/livestock-management/screwworm-found-in-jaurez",
+          "publishedAt": "2026-08-18",
+          "sourceNote": "The publisher-supplied feed summary identifies the location and the conditional border-policy consequence. The article page was not retrieved and the summary does not establish that a policy change occurred."
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "reviewId": "story-21912a3b1ed8978e",
+      "headline": "RANCH Act proposes opening 20 million acres to grazing",
+      "imageId": "global-pasture",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "official-site",
+      "sectors": [
+        "meat"
+      ],
+      "regions": [
+        "United States"
+      ],
+      "signal": "new",
+      "summary": "Senators Amy Klobuchar and Mike Rounds introduced the RANCH Act as a voluntary working-lands proposal. The bill would open 20 million acres to grazing as part of an effort to support cattle-herd rebuilding.",
+      "keyPoints": [
+        "The proposal is structured as a voluntary working-lands program.",
+        "It would make 20 million acres available for grazing."
+      ],
+      "whyItMatters": "Additional grazing access could affect the land constraint on herd expansion, but legislation does not create immediate carrying capacity.",
+      "businessRelevance": "If enacted and adopted, the program could influence the pace and geography of herd rebuilding, changing the longer-term public demand context for cattle genetics.",
+      "uncertainty": "The evidence establishes an introduced bill, not passage, enrollment or added cattle numbers.",
+      "watchNext": "Watch committee action, eligibility rules, funding and producer enrollment estimates.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "beef-magazine",
+          "title": "RANCH Act introduced to help rebuild cattle herd",
+          "url": "https://beefmagazine.com/policy/ranch-act-introduced-to-help-rebuild-cattle-herd",
+          "publishedAt": "2026-08-21",
+          "sourceNote": "The publisher-supplied feed summary identifies the sponsors, voluntary structure and proposed acreage. The article page was not retrieved, so legislative text and implementation details are not assessed."
+        }
+      ]
+    },
+    {
+      "rank": 6,
+      "reviewId": "story-90c616891183f998",
+      "headline": "Nigeria expands market access for U.S. beef cuts",
+      "imageId": "beef-processing",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "official-site",
+      "sectors": [
+        "meat"
+      ],
+      "regions": [
+        "United States",
+        "Nigeria"
+      ],
+      "signal": "new",
+      "summary": "U.S. red meat gained expanded access to Nigeria, with beef cuts reported as eligible for shipment. The development opens an additional destination but does not by itself establish commercial volume.",
+      "keyPoints": [
+        "Beef cuts were reported as eligible for export to Nigeria.",
+        "The same access announcement covered most U.S. pork cuts, except bone-in hams."
+      ],
+      "whyItMatters": "Broader eligibility can diversify export outlets for U.S. red meat, although demand, logistics and buyer uptake determine realized trade.",
+      "businessRelevance": "If shipments develop, added export demand could influence the public beef-market environment relevant to cattle value and breeding economics.",
+      "uncertainty": "The available feed summary does not provide effective dates, certification terms or shipment commitments.",
+      "watchNext": "Watch export certificate details and subsequent U.S. beef shipment volumes to Nigeria.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "beef-magazine",
+          "title": "U.S. red meat gains expanded Nigeria market access",
+          "url": "https://beefmagazine.com/market-news/u-s-red-meat-gains-expanded-nigeria-market-access",
+          "publishedAt": "2026-08-21",
+          "sourceNote": "The publisher-supplied feed summary establishes reported product eligibility. Related Feedstuffs coverage belongs to the same publisher group and is not independent corroboration; the article page was not retrieved."
+        }
+      ]
+    }
+  ]
+}
