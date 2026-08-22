@@ -131,10 +131,97 @@ export const normalizedCandidateSchema = z.object({
   retrievedAt: z.iso.datetime()
 });
 
+const scoreBreakdownSchema = z.object({
+    version: z.literal(1),
+    factors: z.object({
+      recency: z.object({ signal: z.number().min(0).max(1), weight: z.literal(0.34), contribution: z.number().nonnegative(), ageDays: z.number().nonnegative() }),
+      authority: z.object({ signal: z.number().min(0).max(1), weight: z.literal(0.24), contribution: z.number().nonnegative() }),
+      contentClass: z.object({ signal: z.union([z.literal(0.5), z.literal(1)]), weight: z.literal(0.18), contribution: z.number().nonnegative() }),
+      topic: z.object({ signal: z.number().min(0).max(1), weight: z.literal(0.14), contribution: z.number().nonnegative(), keywordHits: z.number().int().nonnegative() }),
+      corroboration: z.object({
+        signal: z.number().min(0).max(1), weight: z.literal(0.10), contribution: z.number().nonnegative(), supportingSources: z.number().int().nonnegative()
+      })
+    }),
+    adjustments: z.object({
+      bovineGenetics: z.union([z.literal(0), z.literal(0.08)]),
+      international: z.union([z.literal(0), z.literal(0.06)]),
+      nonEnglish: z.union([z.literal(0), z.literal(-0.07)])
+    }),
+    total: z.number()
+  });
+
+const duplicateMatchSchema = z.object({
+  candidateId: z.string().regex(/^[a-f0-9]{64}$/),
+  sourceId: z.string().regex(/^[a-z0-9-]+$/),
+  title: z.string().min(1),
+  citationUrl: z.url(),
+  evidenceUrl: z.url().optional(),
+  releaseId: z.string().min(1).max(200).optional(),
+  method: z.enum(["strict-text", "event-signature", "recurring-series"]),
+  sharedTerms: z.array(z.string().min(1)),
+  linkedToCandidateId: z.string().regex(/^[a-f0-9]{64}$/)
+});
+
+function closeEnough(a: number, b: number) {
+  return Math.abs(a - b) <= 0.000003;
+}
+
 export const candidateSchema = normalizedCandidateSchema.extend({
   relevanceScore: z.number(),
+  scoreBreakdown: scoreBreakdownSchema.optional(),
   clusterId: z.string().regex(/^[a-f0-9]{64}$/),
-  relatedUrls: z.array(z.url())
+  relatedUrls: z.array(z.url()),
+  duplicateMatches: z.array(duplicateMatchSchema).optional()
+}).superRefine((candidate, context) => {
+  // schemaVersion 1 queues created before score auditing remain readable. New
+  // queues must carry both structures, and their arithmetic must reconcile.
+  if (!candidate.scoreBreakdown && !candidate.duplicateMatches) return;
+  const issue = (path: PropertyKey[], message: string) => context.addIssue({ code: "custom", path, message });
+  if (!candidate.scoreBreakdown || !candidate.duplicateMatches) {
+    issue([], "scoreBreakdown and duplicateMatches must be supplied together");
+    return;
+  }
+  const { factors, adjustments, total } = candidate.scoreBreakdown;
+  for (const [name, factor] of Object.entries(factors)) {
+    if (!closeEnough(factor.contribution, factor.signal * factor.weight)) {
+      issue(["scoreBreakdown", "factors", name, "contribution"], "factor contribution does not equal signal × weight");
+    }
+  }
+  if (factors.contentClass.signal !== (candidate.contentClass === "news" ? 1 : 0.5)) {
+    issue(["scoreBreakdown", "factors", "contentClass", "signal"], "content-class signal does not match candidate contentClass");
+  }
+  if (!closeEnough(factors.topic.signal, Math.min(factors.topic.keywordHits, 12) / 12)) {
+    issue(["scoreBreakdown", "factors", "topic", "signal"], "topic signal does not match keywordHits");
+  }
+  const distinctRelatedSources = new Set(candidate.duplicateMatches.map((match) => match.sourceId));
+  distinctRelatedSources.delete(candidate.sourceId);
+  if (factors.corroboration.supportingSources !== distinctRelatedSources.size) {
+    issue(["scoreBreakdown", "factors", "corroboration", "supportingSources"], "corroboration must count distinct additional publishers");
+  }
+  if (!closeEnough(factors.corroboration.signal, Math.min(distinctRelatedSources.size, 3) / 3)) {
+    issue(["scoreBreakdown", "factors", "corroboration", "signal"], "corroboration signal does not match distinct additional publishers");
+  }
+  const expectedAdjustments = {
+    bovineGenetics: candidate.sectors.includes("bovine-genetics") ? 0.08 : 0,
+    international: candidate.geographies.some((geography) => geography !== "United States") ? 0.06 : 0,
+    nonEnglish: candidate.language !== "en" && candidate.language !== "und" ? -0.07 : 0
+  };
+  for (const [name, expected] of Object.entries(expectedAdjustments)) {
+    if (adjustments[name as keyof typeof adjustments] !== expected) {
+      issue(["scoreBreakdown", "adjustments", name], "adjustment does not match candidate metadata");
+    }
+  }
+  const expectedTotal = Object.values(factors).reduce((sum, factor) => sum + factor.contribution, 0)
+    + Object.values(adjustments).reduce<number>((sum, adjustment) => sum + adjustment, 0);
+  if (!closeEnough(total, expectedTotal)) issue(["scoreBreakdown", "total"], "total does not equal factor contributions plus adjustments");
+  if (candidate.relevanceScore !== total) issue(["relevanceScore"], "relevanceScore must equal scoreBreakdown.total");
+  const relatedUrls = [...new Set(candidate.relatedUrls)].sort();
+  const diagnosticUrls = [...new Set(candidate.duplicateMatches
+    .filter((match) => match.sourceId !== candidate.sourceId)
+    .map((match) => match.citationUrl))].sort();
+  if (JSON.stringify(relatedUrls) !== JSON.stringify(diagnosticUrls)) {
+    issue(["duplicateMatches"], "duplicate diagnostics must account for every related URL");
+  }
 });
 
 export const candidateFileSchema = z.object({

@@ -25,7 +25,7 @@ test("source summaries remain labeled and markup is stripped", () => {
   assert.equal(candidate.summaryOrigin, "source-supplied");
 });
 
-test("deduplicates exact canonical URLs and conservatively identical titles", () => {
+test("deduplicates exact canonical URLs while leaving title similarity auditable for clustering", () => {
   const base = normalizeCandidate({ title: "New dairy report", url: "https://example.org/a", publishedAt: "2026-08-22" }, source, "2026-08-24T11:00:00.000Z");
   const candidates: NormalizedCandidate[] = [
     base,
@@ -33,7 +33,9 @@ test("deduplicates exact canonical URLs and conservatively identical titles", ()
     { ...base, candidateId: "b".repeat(64), canonicalUrl: "https://example.org/b", title: "New dairy report!" },
     { ...base, candidateId: "c".repeat(64), canonicalUrl: "https://example.org/c", title: "Different official report" }
   ];
-  assert.deepEqual(deduplicateCandidates(candidates).map((candidate) => candidate.canonicalUrl), ["https://example.org/a", "https://example.org/c"]);
+  assert.deepEqual(deduplicateCandidates(candidates).map((candidate) => candidate.canonicalUrl), [
+    "https://example.org/a", "https://example.org/b", "https://example.org/c"
+  ]);
 });
 
 test("deduplication preserves merged sector and geography coverage", () => {

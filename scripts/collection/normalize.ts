@@ -42,10 +42,6 @@ function foldDiacritics(value: string) {
   return value.normalize("NFD").replace(/[̀-ͯ]/g, "");
 }
 
-function normalizedTitle(value: string) {
-  return foldDiacritics(normalizeText(value).toLowerCase()).replace(/[^a-z0-9]+/g, " ").trim();
-}
-
 function searchableText(value: string) {
   return ` ${foldDiacritics(normalizeText(value).toLowerCase()).replace(/[^a-z0-9]+/g, " ").trim()} `;
 }
@@ -207,11 +203,9 @@ export function parsePublicationDate(value: string) {
 
 export function deduplicateCandidates(candidates: NormalizedCandidate[]) {
   const urls = new Map<string, number>();
-  const titles = new Map<string, number>();
   const result: NormalizedCandidate[] = [];
   for (const candidate of candidates) {
-    const title = normalizedTitle(candidate.title);
-    const existingIndex = urls.get(candidate.canonicalUrl) ?? titles.get(title);
+    const existingIndex = urls.get(candidate.canonicalUrl);
     if (existingIndex !== undefined) {
       const existing = result[existingIndex];
       existing.sectors = [...new Set([...existing.sectors, ...candidate.sectors])].sort() as Candidate["sectors"];
@@ -219,7 +213,6 @@ export function deduplicateCandidates(candidates: NormalizedCandidate[]) {
       continue;
     }
     urls.set(candidate.canonicalUrl, result.length);
-    titles.set(title, result.length);
     result.push(candidate);
   }
   return result;
