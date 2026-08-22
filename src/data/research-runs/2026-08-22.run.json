@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 1,
+  "issueDate": "2026-08-22",
+  "startedAt": "2026-08-22T16:30:36.720Z",
+  "completedAt": "2026-08-22T16:31:05.675Z",
+  "status": "partial",
+  "candidateCount": 40,
+  "candidatesBeforeDeduplication": 49,
+  "newsCandidateCount": 34,
+  "datasetCandidateCount": 6,
+  "clusterCount": 40,
+  "adapters": [
+    {
+      "sourceId": "fao-americas",
+      "status": "success",
+      "itemsSeen": 20,
+      "itemsAccepted": 1,
+      "rejectedOutOfWindow": 0,
+      "rejectedByScope": 19,
+      "rejectedByDate": 0,
+      "durationMs": 890
+    },
+    {
+      "sourceId": "iica",
+      "status": "success",
+      "itemsSeen": 9,
+      "itemsAccepted": 0,
+      "rejectedOutOfWindow": 0,
+      "rejectedByScope": 9,
+      "rejectedByDate": 0,
+      "durationMs": 245
+    },
+    {
+      "sourceId": "fao-newsroom",
+      "status": "success",
+      "itemsSeen": 20,
+      "itemsAccepted": 0,
+      "rejectedOutOfWindow": 3,
+      "rejectedByScope": 17,
+      "rejectedByDate": 0,
+      "durationMs": 305
+    },
+    {
+      "sourceId": "agproud-progressive",
+      "status": "failed",
+      "itemsSeen": 0,
+      "itemsAccepted": 0,
+      "rejectedOutOfWindow": 0,
+      "rejectedByScope": 0,
+      "rejectedByDate": 0,
+      "durationMs": 117,
+      "error": "agproud-progressive: HTTP 403"
+    },
+    {
+      "sourceId": "feedstuffs",
+      "status": "success",
+      "itemsSeen": 50,
+      "itemsAccepted": 17,
+      "rejectedOutOfWindow": 0,
+      "rejectedByScope": 33,
+      "rejectedByDate": 0,
+      "durationMs": 514
+    },
+    {
+      "sourceId": "beef-magazine",
+      "status": "success",
+      "itemsSeen": 50,
+      "itemsAccepted": 19,
+      "rejectedOutOfWindow": 12,
+      "rejectedByScope": 19,
+      "rejectedByDate": 0,
+      "durationMs": 654
+    },
+    {
+      "sourceId": "farm-progress",
+      "status": "success",
+      "itemsSeen": 50,
+      "itemsAccepted": 3,
+      "rejectedOutOfWindow": 1,
+      "rejectedByScope": 46,
+      "rejectedByDate": 0,
+      "durationMs": 663
+    },
+    {
+      "sourceId": "usda-ams-boxed-beef-weekly",
+      "status": "success",
+      "itemsSeen": 2,
+      "itemsAccepted": 2,
+      "rejectedOutOfWindow": 0,
+      "rejectedByScope": 0,
+      "rejectedByDate": 0,
+      "durationMs": 3420
+    },
+    {
+      "sourceId": "usda-ams-processing-beef-weekly",
+      "status": "success",
+      "itemsSeen": 2,
+      "itemsAccepted": 2,
+      "rejectedOutOfWindow": 0,
+      "rejectedByScope": 0,
+      "rejectedByDate": 0,
+      "durationMs": 1105
+    },
+    {
+      "sourceId": "usda-ams-fed-cattle-weekly",
+      "status": "success",
+      "itemsSeen": 2,
+      "itemsAccepted": 1,
+      "rejectedOutOfWindow": 1,
+      "rejectedByScope": 0,
+      "rejectedByDate": 0,
+      "durationMs": 1633
+    },
+    {
+      "sourceId": "usda-ers-dairy",
+      "status": "success",
+      "itemsSeen": 31,
+      "itemsAccepted": 2,
+      "rejectedOutOfWindow": 1,
+      "rejectedByScope": 28,
+      "rejectedByDate": 0,
+      "durationMs": 483
+    },
+    {
+      "sourceId": "usda-ers-livestock",
+      "status": "success",
+      "itemsSeen": 31,
+      "itemsAccepted": 2,
+      "rejectedOutOfWindow": 2,
+      "rejectedByScope": 27,
+      "rejectedByDate": 0,
+      "durationMs": 318
+    },
+    {
+      "sourceId": "usda-nass",
+      "status": "success",
+      "itemsSeen": 313,
+      "itemsAccepted": 0,
+      "rejectedOutOfWindow": 14,
+      "rejectedByScope": 299,
+      "rejectedByDate": 0,
+      "durationMs": 368
+    },
+    {
+      "sourceId": "usda-aphis",
+      "status": "success",
+      "itemsSeen": 5,
+      "itemsAccepted": 0,
+      "rejectedOutOfWindow": 0,
+      "rejectedByScope": 5,
+      "rejectedByDate": 0,
+      "durationMs": 3178
+    },
+    {
+      "sourceId": "oirsa",
+      "status": "success",
+      "itemsSeen": 10,
+      "itemsAccepted": 0,
+      "rejectedOutOfWindow": 0,
+      "rejectedByScope": 10,
+      "rejectedByDate": 0,
+      "durationMs": 1570
+    }
+  ],
+  "manualSources": [
+    "bovine-veterinarian",
+    "cdcb",
+    "dairy-herd",
+    "drovers",
+    "ec-agriculture",
+    "fao-faostat",
+    "hoards-dairyman",
+    "holstein-usa",
+    "icar",
+    "interbull",
+    "jds-communications",
+    "linkedin-org-post",
+    "pr-agriculture",
+    "usda-ams-dairy",
+    "usda-fas",
+    "usda-waob",
+    "woah-wahis"
+  ],
+  "editorialReadiness": "ready",
+  "newsReadiness": "ready",
+  "coverageGaps": [],
+  "coverage": {
+    "sectors": {
+      "bovine-genetics": 3,
+      "dairy": 6,
+      "meat": 36
+    },
+    "geographies": {
+      "International": 1,
+      "Latin America & Caribbean": 1,
+      "United States": 39
+    },
+    "languages": {
+      "en": 35,
+      "und": 5
+    }
+  },
+  "warnings": [
+    "17 manual sources were not fetched.",
+    "iica saw 9 items but accepted none (window 0, scope 9, date 0); verify its filters, date selector, or lookback.",
+    "fao-newsroom saw 20 items but accepted none (window 3, scope 17, date 0); verify its filters, date selector, or lookback.",
+    "usda-nass saw 313 items but accepted none (window 14, scope 299, date 0); verify its filters, date selector, or lookback.",
+    "usda-aphis saw 5 items but accepted none (window 0, scope 5, date 0); verify its filters, date selector, or lookback.",
+    "oirsa saw 10 items but accepted none (window 0, scope 10, date 0); verify its filters, date selector, or lookback."
+  ]
+}
