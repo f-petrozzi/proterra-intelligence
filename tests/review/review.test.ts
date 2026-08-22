@@ -298,6 +298,9 @@ test("automated reports use unique, headline-specific editorial images", async (
   assert.doesNotThrow(() => assertEditorialImageAssignments([
     { rank: 1, headline: "Nonfat dry milk leads the week", imageId: "milk-powder" }
   ], policyImages, "test-report"));
+  assert.doesNotThrow(() => assertEditorialImageAssignments([
+    { rank: 1, headline: "Temporary allowance for beef import shipments", imageId: "cattle-loading" }
+  ], new Map([["cattle-loading", { subjects: ["cattle imports"] }]]), "test-report"));
   assert.throws(() => assertEditorialImageAssignments([
     { rank: 1, headline: "Nonfat dry milk leads the week", imageId: "butter-output" }
   ], policyImages, "test-report"), /does not match a declared subject/);
