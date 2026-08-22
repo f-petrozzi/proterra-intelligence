@@ -9,7 +9,10 @@ export type ImagePolicyAsset = {
 };
 
 function words(value: string) {
-  return new Set(value.toLowerCase().match(/[a-z]{4,}/g) ?? []);
+  return new Set((value.toLowerCase().match(/[a-z]{4,}/g) ?? []).map((word) => {
+    if (word.endsWith("s") && !word.endsWith("ss")) return word.slice(0, -1);
+    return word;
+  }));
 }
 
 export function assertEditorialImageAssignments(
