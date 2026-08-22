@@ -9,7 +9,8 @@ const editorialImageSchema = z.object({
   provider: z.literal("Wikimedia Commons"),
   license: z.string().min(3),
   sourceUrl: z.url(),
-  subjects: z.array(z.string().min(3)).min(2)
+  subjects: z.array(z.string().min(3)).min(2),
+  introducedForIssue: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional()
 });
 
 export type EditorialImage = z.infer<typeof editorialImageSchema>;

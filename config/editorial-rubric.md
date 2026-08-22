@@ -37,6 +37,8 @@ Low-confidence candidates do not enter the published report.
 
 ## Editorial images
 
+- Grow the licensed registry to at least 30 assets before ordinary rotation. During this growth phase, add a fresh, properly licensed image set for each issue and prefer images whose `introducedForIssue` matches that issue.
+- After the growth target is reached, prefer the least-used compatible image and avoid assets shown in the previous two issues when a relevant alternative exists. Follow `config/editorial-image-policy.json` for these thresholds.
 - Choose an image ID from `src/data/editorial-images.json` for every selected story.
 - Match the image to the specific subject of the headline using the registry's `subjects`, not only to its sector or to a secondary detail in the summary.
 - Use each image ID at most once per automated report. A different story in the same sector needs a different, still-relevant image.

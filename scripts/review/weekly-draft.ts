@@ -5,6 +5,7 @@ import { join, resolve } from "node:path";
 import { spawn } from "node:child_process";
 import { z } from "zod";
 import { runManifestSchema, type RunManifest } from "../collection/types";
+import { prepareImageContext } from "./prepare-image-context";
 
 const issuePattern = /^research-(\d{4}-\d{2}-\d{2})$/;
 const shaPattern = /^[a-f0-9]{40}$/;
@@ -94,7 +95,7 @@ export function buildDraftPrompt(issueDate: string, manifest: RunManifest, edito
     "Lead the reel with news-led items (contentClass 'news'). Treat contentClass 'dataset' releases as supporting evidence or dashboard material; promote a dataset into the reel only when the release itself is materially newsworthy.",
     "For every citation, use the supplied citationUrl as the reader-facing readable link and keep evidenceUrl (the raw API/PDF release) plus releaseId as the auditable evidence. Never make a raw JSON or PDF response the primary reader-facing link when a citationUrl landing page exists. relatedUrls show grouped coverage, not necessarily independent corroboration; only independentPublisherCount counts separate publisher groups.",
     "Use only the report enums defined in src/lib/content.ts; a conventional reported article is documentType 'news', never 'article'. If no honest two-value comparison chart is supported, omit dashboard.charts entirely rather than writing an empty array.",
-    "Read submitted feedback only from .review/feedback.json. Read the editorial rubric, report template, image registry, source registry, and the target report only as needed; do not inspect history.json or unrelated reports.",
+    "Read submitted feedback only from .review/feedback.json. Read the editorial rubric, report template, image registry, .review/image-context.json, source registry, and the target report only as needed; do not inspect history.json or unrelated reports.",
     `Edit only src/data/reports/${issueDate}.json. Do not run npm, tests, validation, Git commands, commits, or pushes; the orchestration runner handles those once.`
   ].join("\n");
 }
@@ -352,6 +353,9 @@ async function main() {
 
     const install = await run("npm", ["ci"], { cwd: worktree, inherit: true });
     if (install.code !== 0) throw new Error("npm ci failed in the isolated worktree.");
+
+    const imageContext = await prepareImageContext(worktree, issueDate, resolve(reviewDirectory, "image-context.json"));
+    process.stdout.write(`Prepared ${imageContext.phase} image context for ${imageContext.librarySize} licensed assets.\n`);
 
     await mkdir(cacheDirectory, { recursive: true });
     const evidencePath = resolve(reviewDirectory, "evidence.json");
