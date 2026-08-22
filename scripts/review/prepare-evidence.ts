@@ -215,7 +215,7 @@ async function linkedCsv(pageUrl: string, filename: string, fetchText: FetchText
   return fetchText(csvUrl.toString());
 }
 
-async function evidenceFor(candidate: Candidate, fetchText: FetchText): Promise<EvidenceItem> {
+export async function evidenceFor(candidate: Candidate, fetchText: FetchText): Promise<EvidenceItem> {
   const limitations: string[] = [];
   let observations: string[] = [];
   const url = new URL(candidate.canonicalUrl);
@@ -234,8 +234,14 @@ async function evidenceFor(candidate: Candidate, fetchText: FetchText): Promise<
     const csv = await linkedCsv(candidate.canonicalUrl, "choice-beef-values-and-spreads-and-the-all-fresh-retail-value.csv", fetchText);
     observations = extractMeatSpreadEvidence(csv, Number(candidate.publishedAt.slice(0, 4)));
   } else {
-    observations = articleExcerpt(await fetchText(candidate.canonicalUrl));
-    limitations.push("Generic deterministic page excerpt; verify ambiguous claims during human review.");
+    try {
+      observations = articleExcerpt(await fetchText(candidate.canonicalUrl));
+      limitations.push("Generic deterministic page excerpt; verify ambiguous claims during human review.");
+    } catch (error) {
+      if (candidate.summaryOrigin !== "source-supplied" || !candidate.summary) throw error;
+      observations = [`Source-supplied feed summary: ${candidate.summary}`];
+      limitations.push("The article page could not be retrieved. Evidence is limited to the publisher-supplied feed title and summary; do not infer details beyond them.");
+    }
   }
   if (observations.length === 0) throw new Error(`${candidate.candidateId}: no deterministic evidence was extracted`);
   return {
