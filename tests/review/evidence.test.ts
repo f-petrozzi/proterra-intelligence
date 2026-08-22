@@ -82,3 +82,25 @@ test("blocked article pages fall back only to explicitly source-supplied feed te
     /HTTP 403/
   );
 });
+
+test("ERS publications use page evidence instead of an unrelated data-product CSV extractor", async () => {
+  const outlook = {
+    ...candidate,
+    candidateId: "c".repeat(64),
+    sourceId: "usda-ers-dairy",
+    publisherGroup: "usda",
+    collectionRole: "evidence",
+    contentClass: "dataset",
+    language: "en",
+    canonicalUrl: "https://ers.usda.gov/publications/115136",
+    citationUrl: "https://ers.usda.gov/publications/115136",
+    relevanceScore: 0.5,
+    clusterId: "c".repeat(64),
+    relatedUrls: []
+  } as Candidate;
+  const evidence = await evidenceFor(outlook, async (url) => {
+    assert.equal(url, outlook.canonicalUrl);
+    return "<main><p>The August outlook summarizes current cattle, beef, milk, and dairy market conditions for the official release.</p></main>";
+  });
+  assert.match(evidence.observations.join(" "), /August outlook summarizes/);
+});
