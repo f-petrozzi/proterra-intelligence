@@ -9,7 +9,7 @@ import { parseRss } from "./adapters/rss";
 import { fetchWithPolicy, type FetchLike } from "./fetch";
 import { clusterCandidates } from "./cluster";
 import { deduplicateCandidates, normalizeCandidate, stableCandidateSort } from "./normalize";
-import { authorityWeightOf, scoreCandidate } from "./score";
+import { authorityWeightOf, scoreCandidateBreakdown, type ScoreBreakdown } from "./score";
 import {
   candidateFileSchema, collectionRegistrySchema, rawCandidateSchema, runManifestSchema,
   type Candidate, type CandidateFile, type CollectionSource, type NormalizedCandidate, type RunManifest
@@ -160,25 +160,53 @@ export async function collectSources(options: {
   // report-worthy developments instead of the most recent dataset release.
   const clusters = clusterCandidates(deduplicateCandidates(collected));
   const authority = new Map(registry.sources.map((source) => [source.sourceId, authorityWeightOf(source)]));
-  const scoreOf = new Map<string, number>();
+  const scoreOf = new Map<string, ScoreBreakdown>();
   for (const cluster of clusters) {
+    const sectors = [...new Set(cluster.members.flatMap((candidate) => candidate.sectors))].sort() as Candidate["sectors"];
+    const geographies = [...new Set(cluster.members.flatMap((candidate) => candidate.geographies))].sort();
     for (const member of cluster.members) {
-      scoreOf.set(member.candidateId, scoreCandidate(member, {
+      scoreOf.set(member.candidateId, scoreCandidateBreakdown({ ...member, sectors, geographies }, {
         authorityWeight: authority.get(member.sourceId) ?? 0.6,
-        clusterSize: cluster.members.length,
+        corroboratingSourceCount: Math.max(0, new Set(cluster.members.map((candidate) => candidate.sourceId)).size - 1),
         windowEnd: window.end
       }));
     }
   }
   const candidates: Candidate[] = clusters.map((cluster) => {
     const ranked = [...cluster.members].sort((a, b) =>
-      (scoreOf.get(b.candidateId)! - scoreOf.get(a.candidateId)!) || stableCandidateSort(a, b));
+      (scoreOf.get(b.candidateId)!.total - scoreOf.get(a.candidateId)!.total) || stableCandidateSort(a, b));
     const [representative, ...rest] = ranked;
+    const scoreBreakdown = scoreOf.get(representative.candidateId)!;
+    const sectors = [...new Set(cluster.members.flatMap((candidate) => candidate.sectors))].sort() as Candidate["sectors"];
+    const geographies = [...new Set(cluster.members.flatMap((candidate) => candidate.geographies))].sort();
     return {
       ...representative,
-      relevanceScore: scoreOf.get(representative.candidateId)!,
+      sectors,
+      geographies,
+      relevanceScore: scoreBreakdown.total,
+      scoreBreakdown,
       clusterId: cluster.clusterId,
-      relatedUrls: [...new Set(rest.map((member) => member.citationUrl))].sort()
+      relatedUrls: [...new Set(rest
+        .filter((member) => member.sourceId !== representative.sourceId)
+        .map((member) => member.citationUrl))].sort(),
+      duplicateMatches: rest.map((member) => {
+        const link = cluster.matches.find((match) =>
+          match.leftCandidateId === member.candidateId || match.rightCandidateId === member.candidateId);
+        if (!link) throw new Error(`cluster ${cluster.clusterId} lacks duplicate evidence for ${member.candidateId}`);
+        const linkedToCandidateId = link.leftCandidateId === member.candidateId
+          ? link.rightCandidateId : link.leftCandidateId;
+        return {
+          candidateId: member.candidateId,
+          sourceId: member.sourceId,
+          title: member.title,
+          citationUrl: member.citationUrl,
+          ...(member.evidenceUrl ? { evidenceUrl: member.evidenceUrl } : {}),
+          ...(member.releaseId ? { releaseId: member.releaseId } : {}),
+          method: link.method,
+          sharedTerms: link.sharedTerms,
+          linkedToCandidateId
+        };
+      }).sort((a, b) => a.citationUrl.localeCompare(b.citationUrl))
     };
   }).sort((a, b) => (b.relevanceScore - a.relevanceScore) || stableCandidateSort(a, b));
 

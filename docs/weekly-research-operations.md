@@ -64,7 +64,8 @@ For the homelab portion of setup, `npm run weekly:setup` performs the safe read-
 ## Normal week
 
 1. Wait for “Proterra Intelligence sources are ready.”
-2. From the repository root on the homelab, load the review secrets and run:
+2. Open the linked draft pull request and inspect **Deterministic source audit**. It lists every configured adapter, health and rejection counts, every accepted candidate, and the exact additive reason for its score. Confirm that the leading developments and collapsed related links look sensible before spending Codex usage.
+3. From the repository root on the homelab, load the review secrets and run:
 
    ```sh
    npm run weekly:draft
@@ -76,12 +77,12 @@ For the homelab portion of setup, `npm run weekly:setup` performs the safe read-
    npm run weekly:draft -- --allow-coverage-gap
    ```
 
-3. Wait for “draft ready,” then use the stable review link in the email.
-4. Click or select report content to attach comments. Source buttons open separately and do not change the active comment anchor.
-5. Add all instructions, then select **Request changes** once.
-6. When the change-request email arrives, run the same command again.
-7. Confirm each addressed thread against the refreshed exact-SHA report snapshot and resolve it.
-8. Either publisher selects **Approve & publish**. No GitHub action or merge is needed from the reviewer.
+4. Wait for “draft ready,” then use the stable review link in the email.
+5. Click or select report content to attach comments. Source buttons open separately and do not change the active comment anchor.
+6. Add all instructions, then select **Request changes** once.
+7. When the change-request email arrives, run the same command again.
+8. Confirm each addressed thread against the refreshed exact-SHA report snapshot and resolve it.
+9. Either publisher selects **Approve & publish**. No GitHub action or merge is needed from the reviewer.
 
 ## Recovery
 

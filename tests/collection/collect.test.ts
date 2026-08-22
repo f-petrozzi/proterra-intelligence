@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { collectSources, reportingWindow } from "../../scripts/collection/collect";
+import { renderSourceAudit } from "../../scripts/collection/render-audit";
+import { candidateFileSchema } from "../../scripts/collection/types";
 
 const source = (id: "fao-americas" | "iica", endpoint: string) => ({
   sourceId: id, enabled: true, collectionRole: "evidence" as const, method: "rss" as const, endpoint,
@@ -28,6 +30,59 @@ test("continues after an adapter failure and emits a partial manifest", async ()
   assert.equal(result.manifest.status, "partial");
   assert.equal(result.candidateFile.candidates.length, 1);
   assert.equal(result.manifest.adapters[1].status, "failed");
+});
+
+test("renders a complete pre-Codex audit with source health and score reasoning", async () => {
+  const feed = `<?xml version="1.0"?><rss><channel><item><title>International dairy genetics update</title>`
+    + `<link>https://example.org/genetics</link><pubDate>2026-08-22T12:00:00Z</pubDate></item></channel></rss>`;
+  const fetcher: typeof fetch = async () => new Response(feed, {
+    status: 200, headers: { "content-type": "application/rss+xml" }
+  });
+  const result = await collectSources({
+    issueDate: "2026-08-24", now: new Date("2026-08-24T11:00:00Z"), fetcher,
+    registry: { version: 1, sources: [source("fao-americas", "https://example.org/feed.xml")] }
+  });
+  const audit = renderSourceAudit(result.candidateFile, result.manifest);
+  assert.match(audit, /## Deterministic source audit/);
+  assert.match(audit, /Scores rank the accepted queue; they are not probabilities/);
+  assert.match(audit, /### Scoring formula/);
+  assert.match(audit, /fao-americas.*Healthy.*1 \/ 1/s);
+  assert.match(audit, /linkedin-org-post.*Manual; not fetched/s);
+  assert.match(audit, /### Ranked candidates/);
+  assert.match(audit, /R \d\.\d{3} \+ A \d\.\d{3} \+ N \d\.\d{3} \+ T \d\.\d{3} \+ C \d\.\d{3} \+ Adj/);
+  assert.match(audit, /### Duplicate decisions/);
+  assert.match(audit, /No accepted candidates were collapsed/);
+  const candidate = result.candidateFile.candidates[0];
+  assert.throws(() => candidateFileSchema.parse({
+    ...result.candidateFile,
+    candidates: [{
+      ...candidate,
+      scoreBreakdown: { ...candidate.scoreBreakdown!, total: candidate.relevanceScore + 0.1 }
+    }]
+  }), /total does not equal factor contributions/);
+});
+
+test("duplicate links from one publisher do not count as independent corroboration", async () => {
+  const titles = [
+    "Dairy cattle disease response announced for northern herds",
+    "Dairy cattle disease response announces for northern herds"
+  ];
+  const items = titles.map((title, index) =>
+    `<item><title>${title}</title><link>https://example.org/${index + 1}</link><pubDate>2026-08-22T12:00:00Z</pubDate></item>`
+  ).join("");
+  const fetcher: typeof fetch = async () => new Response(`<?xml version="1.0"?><rss><channel>${items}</channel></rss>`, {
+    status: 200, headers: { "content-type": "application/rss+xml" }
+  });
+  const result = await collectSources({
+    issueDate: "2026-08-24", now: new Date("2026-08-24T11:00:00Z"), fetcher,
+    registry: { version: 1, sources: [source("fao-americas", "https://example.org/feed.xml")] }
+  });
+  const [candidate] = result.candidateFile.candidates;
+  assert.equal(result.candidateFile.candidates.length, 1);
+  assert.equal(candidate.relatedUrls.length, 0);
+  assert.equal(candidate.duplicateMatches?.[0].method, "strict-text");
+  assert.equal(candidate.scoreBreakdown?.factors.corroboration.supportingSources, 0);
+  assert.equal(candidate.scoreBreakdown?.factors.corroboration.contribution, 0);
 });
 
 test("honors per-source lookbackDays and reports out-of-window rejections", async () => {

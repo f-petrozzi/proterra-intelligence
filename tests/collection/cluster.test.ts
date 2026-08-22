@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { clusterCandidates, hammingDistance, simhash, tokenize } from "../../scripts/collection/cluster";
+import { clusterCandidates, duplicateMatch, hammingDistance, simhash, tokenize } from "../../scripts/collection/cluster";
 import { normalizeCandidate } from "../../scripts/collection/normalize";
 import type { CollectionSource } from "../../scripts/collection/types";
 
@@ -34,6 +34,8 @@ test("the same story from two outlets collapses into one cluster with related li
   const outbreak = clusters.find((cluster) => cluster.members.length === 2);
   assert.ok(outbreak);
   assert.equal(outbreak!.members.length, 2);
+  assert.equal(outbreak!.matches.length, 1);
+  assert.equal(outbreak!.matches[0].method, "strict-text");
   assert.match(outbreak!.clusterId, /^[a-f0-9]{64}$/);
 });
 
@@ -44,4 +46,56 @@ test("distinct stories are not clustered together", () => {
     item("a.example.org", "Genomic evaluation adds new fertility traits", "c")
   ];
   assert.equal(clusterCandidates(candidates).length, 3);
+});
+
+test("event signatures cluster differently worded coverage of the same beef-import announcement", () => {
+  const beefMagazine = normalizeCandidate({
+    title: "Cattle groups react to Trump’s beef import post",
+    summary: "Trump says U.S. will allow up to 300K metric tons of beef to be imported tariff free for 90 days.",
+    url: "https://beef.example.org/import-post", publishedAt: "2026-08-21T17:14:42Z"
+  }, { ...source("beef.example.org"), sourceId: "beef-magazine" }, retrievedAt);
+  const farmProgress = normalizeCandidate({
+    title: "Trump announces tariff relief for ground beef imports",
+    summary: "President says exporters have committed to selling 25% below current market prices.",
+    url: "https://farm.example.org/tariff-relief", publishedAt: "2026-08-21T18:37:03Z"
+  }, { ...source("farm.example.org"), sourceId: "farm-progress" }, retrievedAt);
+  const match = duplicateMatch(beefMagazine, farmProgress);
+  assert.equal(match.matched, true);
+  assert.equal(match.method, "event-signature");
+  assert.deepEqual(match.sharedTerms, ["import", "tariff", "trump"]);
+  const [cluster] = clusterCandidates([beefMagazine, farmProgress]);
+  assert.equal(cluster.members.length, 2);
+  assert.equal(cluster.matches[0].method, "event-signature");
+});
+
+test("event signatures do not merge adjacent Trump tariff and cattle-import developments", () => {
+  const beefTariff = normalizeCandidate({
+    title: "Trump announces tariff relief for ground beef imports",
+    summary: "Foreign beef imports will avoid the out of quota tariff for 90 days.",
+    url: "https://farm.example.org/beef-tariff", publishedAt: "2026-08-21T18:37:03Z"
+  }, { ...source("farm.example.org"), sourceId: "farm-progress" }, retrievedAt);
+  const mexicanCattle = normalizeCandidate({
+    title: "Is the U.S. ready for Mexican cattle imports?",
+    summary: "Trump administration officials discuss reopening southern ports after screwworm controls.",
+    url: "https://other.example.org/mexican-cattle", publishedAt: "2026-08-20T17:21:58Z"
+  }, { ...source("other.example.org"), sourceId: "feedstuffs" }, retrievedAt);
+  assert.equal(duplicateMatch(beefTariff, mexicanCattle).matched, false);
+  assert.equal(clusterCandidates([beefTariff, mexicanCattle]).length, 2);
+});
+
+test("dated releases from one recurring dataset are consolidated without claiming corroboration", () => {
+  const datasetSource: CollectionSource = {
+    ...source("data.example.org"), sourceId: "usda-ams-livestock", collectionRole: "evidence"
+  };
+  const release = (date: string) => normalizeCandidate({
+    title: "National Weekly Boxed Beef Cutout Report",
+    url: `https://data.example.org/reports/2461?q=report_date=${encodeURIComponent(date)}`,
+    landingUrl: "https://data.example.org/viewReport/2461",
+    releaseId: date,
+    publishedAt: "2026-08-21T12:00:00Z"
+  }, datasetSource, retrievedAt);
+  const match = duplicateMatch(release("08/21/2026"), release("08/14/2026"));
+  assert.equal(match.matched, true);
+  assert.equal(match.method, "recurring-series");
+  assert.deepEqual(match.sharedTerms, []);
 });

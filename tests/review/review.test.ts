@@ -146,6 +146,15 @@ test("collection deletes stale issue artifacts before a rerun", async () => {
   assert.match(workflow, /rm -f .*\.candidates\.json.*\.run\.json/);
 });
 
+test("collection refreshes its branch and publishes a pre-Codex source audit", async () => {
+  const workflow = await readFile(".github/workflows/collect-weekly-sources.yml", "utf8");
+  assert.match(workflow, /git merge --no-edit origin\/main/);
+  assert.match(workflow, /npm run research:audit/);
+  assert.match(workflow, /source-audit\.md/);
+  assert.match(workflow, /gh pr (create|edit).*--body-file/s);
+  assert.equal(workflow.match(/steps\.audit\.outcome == 'failure'/g)?.length, 3);
+});
+
 test("runner retains its receipt until checked idempotent GitHub finalization succeeds", async () => {
   const runner = await readFile("scripts/review/weekly-draft.ts", "utf8");
   assert.match(runner, /await requireCommand\("gh", editArguments\)/);
@@ -230,7 +239,7 @@ test("collector failure invalidates the previous GitHub and D1 source-ready queu
   const worker = await readFile("review-worker/src/index.ts", "utf8");
   assert.match(workflow, /collection-failed" \|\| api_status/);
   assert.match(workflow, /--remove-label source-review-ready/);
-  assert.match(workflow, /always\(\) && \(steps\.manifest\.outputs\.status == 'failed'.*steps\.manifest\.outcome == 'failure'\)/);
+  assert.match(workflow, /always\(\) && \(steps\.manifest\.outputs\.status == 'failed'.*steps\.collector\.outcome == 'failure'.*steps\.manifest\.outcome == 'failure'.*steps\.audit\.outcome == 'failure'\)/);
   assert.match(worker, /state = 'failed'.*version = version \+ 1/s);
   assert.match(worker, /transition_key LIKE 'collection-failed:%'/);
 });
