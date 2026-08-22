@@ -12,6 +12,7 @@ import {
   normalizeGeneratedReport, type DraftReceipt
 } from "../../scripts/review/weekly-draft";
 import { validateCollectionOutput } from "../../scripts/collection/validate-output";
+import { createImageContext } from "../../scripts/review/prepare-image-context";
 
 const shellReport = {
   slug: "2026-08-24", issueNumber: 3, title: "Weekly Brief", status: "draft",
@@ -66,6 +67,22 @@ test("generated reports receive deterministic issue metadata and harmless enum c
   assert.equal(normalized.publishedAt, "2026-08-22");
   assert.equal("charts" in normalized.dashboard, false);
   assert.deepEqual(normalized.items.map((item: any) => item.documentType), ["news", "report"]);
+});
+
+test("image context grows the library before rotating and ranks current assets first", () => {
+  const context = createImageContext([
+    { id: "current", introducedForIssue: "2026-08-22" },
+    { id: "unused" },
+    { id: "recent" },
+    { id: "older" }
+  ], [
+    { slug: "2026-08-17", items: [{ imageId: "recent" }] },
+    { slug: "2026-08-10", items: [{ imageId: "older" }] }
+  ], "2026-08-22", { schemaVersion: 1, growthTarget: 30, avoidPreviousIssues: 1 });
+  assert.equal(context.phase, "grow");
+  assert.equal(context.assetsNeededToRotate, 26);
+  assert.deepEqual(context.assets.map((asset) => asset.id), ["current", "unused", "older", "recent"]);
+  assert.deepEqual(context.assets.find((asset) => asset.id === "recent")?.usedInRecentIssues, ["2026-08-17"]);
 });
 
 test("weekly setup helper is shell-valid, discoverable, and non-mutating by default", async () => {
