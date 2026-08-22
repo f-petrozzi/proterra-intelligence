@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { extractAmsEvidence, extractDairyEvidence, extractMeatSpreadEvidence } from "../../scripts/review/prepare-evidence";
+import { evidenceFor, extractAmsEvidence, extractDairyEvidence, extractMeatSpreadEvidence } from "../../scripts/review/prepare-evidence";
 import type { Candidate } from "../../scripts/collection/types";
 
 const candidate = {
@@ -52,4 +52,33 @@ test("ERS meat evidence limits output to the latest two periods and editorial me
   const evidence = extractMeatSpreadEvidence(csv, 2026);
   assert.equal(evidence.length, 2);
   assert.doesNotMatch(evidence.join(" "), /pork/i);
+});
+
+test("blocked article pages fall back only to explicitly source-supplied feed text", async () => {
+  const news = {
+    ...candidate,
+    candidateId: "b".repeat(64),
+    sourceId: "feedstuffs",
+    publisherGroup: "farm-progress",
+    collectionRole: "discovery",
+    contentClass: "news",
+    language: "en",
+    canonicalUrl: "https://feedstuffs.com/dairy/example",
+    citationUrl: "https://feedstuffs.com/dairy/example",
+    summary: "Publisher-provided description of the reported dairy development.",
+    summaryOrigin: "source-supplied",
+    relevanceScore: 0.7,
+    clusterId: "b".repeat(64),
+    relatedUrls: []
+  } as Candidate;
+  const evidence = await evidenceFor(news, async () => { throw new Error("HTTP 403"); });
+  assert.deepEqual(evidence.observations, [
+    "Source-supplied feed summary: Publisher-provided description of the reported dairy development."
+  ]);
+  assert.match(evidence.evidenceLimitations.join(" "), /do not infer details beyond them/);
+
+  await assert.rejects(
+    evidenceFor({ ...news, summary: undefined, summaryOrigin: undefined }, async () => { throw new Error("HTTP 403"); }),
+    /HTTP 403/
+  );
 });
