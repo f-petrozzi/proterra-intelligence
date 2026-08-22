@@ -4,7 +4,7 @@ import test from "node:test";
 import { Miniflare } from "miniflare";
 import reviewWorker, {
   approveIssue, approvePullRequestWorkflowRun, createComment, drainOutbox, invalidateSourceQueue, mutateComment, recordAgentResult,
-  recordProductionFailure, requestChanges, type CommentInput, type Env
+  recordPresentationResult, recordProductionFailure, requestChanges, type CommentInput, type Env
 } from "../../review-worker/src/index";
 import { assertCsrf, assertService, csrfToken, type AuthEnv } from "../../review-worker/src/auth";
 
@@ -285,6 +285,43 @@ test("agent result is idempotent and rejects a stale source SHA", async (context
     recordAgentResult(env, issueDate, { ...input, idempotencyKey: crypto.randomUUID(), previousSha: "c".repeat(40) }),
     (error) => error instanceof Response && error.status === 409
   );
+});
+
+test("presentation refresh changes only image IDs and invalidates the exact preview", async (context) => {
+  const { miniflare, database, env } = await fixture();
+  context.after(() => miniflare.dispose());
+  const storedReport = { ...reportSnapshot, items: [{ imageId: "old-image" }] };
+  await database.prepare("UPDATE review_issues SET report_json = ? WHERE issue_date = ?")
+    .bind(JSON.stringify(storedReport), issueDate).run();
+  const input = {
+    previousSha: oldSha,
+    expectedVersion: 1,
+    newSha,
+    idempotencyKey: crypto.randomUUID(),
+    report: { ...storedReport, items: [{ imageId: "new-image" }] }
+  } as any;
+  assert.equal((await recordPresentationResult(env, issueDate, input)).duplicate, false);
+  assert.equal((await recordPresentationResult(env, issueDate, input)).duplicate, true);
+  const stored = await database.prepare(`SELECT state, version, draft_sha, preview_sha, report_sha, report_json
+    FROM review_issues WHERE issue_date = ?`).bind(issueDate).first<any>();
+  assert.equal(stored.state, "in-review");
+  assert.equal(stored.version, 2);
+  assert.equal(stored.draft_sha, newSha);
+  assert.equal(stored.preview_sha, null);
+  assert.equal(stored.report_sha, newSha);
+  assert.equal(JSON.parse(stored.report_json).items[0].imageId, "new-image");
+});
+
+test("presentation refresh rejects editorial text changes", async (context) => {
+  const { miniflare, env } = await fixture();
+  context.after(() => miniflare.dispose());
+  await assert.rejects(recordPresentationResult(env, issueDate, {
+    previousSha: oldSha,
+    expectedVersion: 1,
+    newSha,
+    idempotencyKey: crypto.randomUUID(),
+    report: { ...reportSnapshot, title: "Changed weekly brief title" }
+  } as any), (error) => error instanceof Response && error.status === 409);
 });
 
 test("collection failure idempotently invalidates only a source-ready queue", async (context) => {

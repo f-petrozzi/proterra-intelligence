@@ -451,6 +451,14 @@ const agentResultSchema = z.object({
   report: reviewReportSchema
 });
 export type AgentResultInput = z.infer<typeof agentResultSchema>;
+const presentationResultSchema = z.object({
+  previousSha: shaSchema,
+  expectedVersion: z.number().int().positive(),
+  newSha: shaSchema,
+  idempotencyKey: z.uuid(),
+  report: reviewReportSchema
+});
+export type PresentationResultInput = z.infer<typeof presentationResultSchema>;
 
 const collectionFailureSchema = z.object({
   branch: z.string().regex(/^research-\d{4}-\d{2}-\d{2}$/),
@@ -499,6 +507,57 @@ export async function recordAgentResult(env: Env, issueDate: string, input: Agen
     if (results[0].meta.changes !== 1) throw new Response("Draft state conflict", { status: 409 });
   } catch (error) {
     const raced = await existingOperation(env, input.idempotencyKey, "agent-completed");
+    if (raced) return { duplicate: true, newSha: String(raced.newSha) };
+    throw error;
+  }
+  return { duplicate: false, newSha: input.newSha };
+}
+
+function canonicalJson(value: unknown): string {
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
+  if (value && typeof value === "object") {
+    const record = value as Record<string, unknown>;
+    return `{${Object.keys(record).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(record[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function withoutEditorialImages(report: unknown) {
+  const normalized = structuredClone(report) as { items?: Array<Record<string, unknown>> };
+  for (const item of normalized.items ?? []) delete item.imageId;
+  return canonicalJson(normalized);
+}
+
+export async function recordPresentationResult(env: Env, issueDate: string, input: PresentationResultInput) {
+  const duplicate = await existingOperation(env, input.idempotencyKey, "presentation-refreshed");
+  if (duplicate) return { duplicate: true, newSha: String(duplicate.newSha) };
+  const current = await issue(env, issueDate);
+  if (current.state !== "in-review" || current.draft_sha !== input.previousSha
+    || current.report_sha !== input.previousSha || current.version !== input.expectedVersion) {
+    throw new Response("Presentation refresh state conflict", { status: 409 });
+  }
+  if (!current.report_json || withoutEditorialImages(JSON.parse(String(current.report_json))) !== withoutEditorialImages(input.report)) {
+    throw new Response("Presentation refresh may change only editorial image IDs", { status: 409 });
+  }
+  const payload = { previousSha: input.previousSha, newSha: input.newSha };
+  try {
+    const results = await env.REVIEW_DB.batch([
+      env.REVIEW_DB.prepare(`UPDATE review_issues SET version = version + 1, draft_sha = ?,
+        preview_sha = NULL, preview_url = NULL, preview_deployment_id = NULL, preview_alias_url = NULL,
+        preview_completed_at = NULL, report_sha = ?, report_json = ?, transition_key = ?, updated_at = CURRENT_TIMESTAMP
+        WHERE issue_date = ? AND state = 'in-review' AND version = ? AND draft_sha = ? AND report_sha = ?`)
+        .bind(input.newSha, input.newSha, JSON.stringify(input.report), input.idempotencyKey,
+          issueDate, input.expectedVersion, input.previousSha, input.previousSha),
+      eventStatement(env, {
+        id: crypto.randomUUID(), issueDate, type: "presentation-refreshed", actor: "operator",
+        idempotencyKey: input.idempotencyKey, payload, transitionKey: input.idempotencyKey
+      })
+    ]);
+    if (results[0].meta.changes !== 1 || results[1].meta.changes !== 1) {
+      throw new Response("Presentation refresh state conflict", { status: 409 });
+    }
+  } catch (error) {
+    const raced = await existingOperation(env, input.idempotencyKey, "presentation-refreshed");
     if (raced) return { duplicate: true, newSha: String(raced.newSha) };
     throw error;
   }
@@ -667,6 +726,12 @@ async function handleInternalApi(request: Request, env: Env, path: string[]) {
     const issueDate = issueDateSchema.parse(path[1]);
     const input = agentResultSchema.parse(await body(request, 100_000));
     await recordAgentResult(env, issueDate, input);
+    return json(await issuePayload(env, issueDate));
+  }
+  if (request.method === "POST" && path[0] === "issues" && path[2] === "presentation-result") {
+    const issueDate = issueDateSchema.parse(path[1]);
+    const input = presentationResultSchema.parse(await body(request, 100_000));
+    await recordPresentationResult(env, issueDate, input);
     return json(await issuePayload(env, issueDate));
   }
   if (request.method === "POST" && path[0] === "issues" && path[2] === "snapshot") {
