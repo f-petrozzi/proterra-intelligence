@@ -215,6 +215,8 @@ test("known coverage gaps stop before Codex unless an editorial lead explicitly 
   assert.match(overridePrompt, /does not authorize filler, invented evidence, unsupported claims/);
   assert.match(overridePrompt, /\.review\/evidence\.json as the complete, deterministically extracted evidence universe/);
   assert.match(overridePrompt, /Do not browse, search the web, use curl/);
+  assert.match(overridePrompt, /relatedUrls show grouped coverage, not necessarily independent corroboration/);
+  assert.match(overridePrompt, /only independentPublisherCount counts separate publisher groups/);
   assert.match(overridePrompt, /Do not run npm, tests, validation, Git commands/);
   const policy = await readFile("automation/source-review-prompt.md", "utf8");
   assert.match(policy, /scope: "manifest-readiness-only"/);
