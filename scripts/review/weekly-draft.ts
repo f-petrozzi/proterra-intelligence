@@ -1,4 +1,4 @@
-import { access, chmod, copyFile, mkdir, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
+import { access, chmod, copyFile, mkdir, mkdtemp, readFile, readdir, rm, stat, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { homedir, tmpdir } from "node:os";
 import { join, resolve } from "node:path";
@@ -93,9 +93,42 @@ export function buildDraftPrompt(issueDate: string, manifest: RunManifest, edito
     "Use .review/evidence.json as the complete, deterministically extracted evidence universe. Do not browse, search the web, use curl, or fetch any source again.",
     "Lead the reel with news-led items (contentClass 'news'). Treat contentClass 'dataset' releases as supporting evidence or dashboard material; promote a dataset into the reel only when the release itself is materially newsworthy.",
     "For every citation, use the supplied citationUrl as the reader-facing readable link and keep evidenceUrl (the raw API/PDF release) plus releaseId as the auditable evidence. Never make a raw JSON or PDF response the primary reader-facing link when a citationUrl landing page exists. relatedUrls show grouped coverage, not necessarily independent corroboration; only independentPublisherCount counts separate publisher groups.",
+    "Use only the report enums defined in src/lib/content.ts; a conventional reported article is documentType 'news', never 'article'. If no honest two-value comparison chart is supported, omit dashboard.charts entirely rather than writing an empty array.",
     "Read submitted feedback only from .review/feedback.json. Read the editorial rubric, report template, image registry, source registry, and the target report only as needed; do not inspect history.json or unrelated reports.",
     `Edit only src/data/reports/${issueDate}.json. Do not run npm, tests, validation, Git commands, commits, or pushes; the orchestration runner handles those once.`
   ].join("\n");
+}
+
+export function normalizeGeneratedReport(report: unknown, issueDate: string, issueNumber: number) {
+  if (!report || typeof report !== "object" || Array.isArray(report)) return report;
+  const normalized = structuredClone(report) as Record<string, any>;
+  normalized.slug = issueDate;
+  normalized.issueNumber = issueNumber;
+  normalized.status = "draft";
+  normalized.publishedAt = issueDate;
+  if (Array.isArray(normalized.dashboard?.charts) && normalized.dashboard.charts.length === 0) {
+    delete normalized.dashboard.charts;
+  }
+  if (Array.isArray(normalized.items)) {
+    for (const item of normalized.items) {
+      if (item?.documentType === "article") item.documentType = "news";
+    }
+  }
+  return normalized;
+}
+
+async function reportIssueNumber(worktree: string, issueDate: string) {
+  const directory = resolve(worktree, "src", "data", "reports");
+  const files = (await readdir(directory)).filter((file) => /^\d{4}-\d{2}-\d{2}\.json$/.test(file));
+  let highest = 0;
+  for (const file of files) {
+    const candidate = JSON.parse(await readFile(resolve(directory, file), "utf8"));
+    if (file === `${issueDate}.json` && Number.isInteger(candidate.issueNumber) && candidate.issueNumber > 0) {
+      return candidate.issueNumber;
+    }
+    if (Number.isInteger(candidate.issueNumber) && candidate.issueNumber > highest) highest = candidate.issueNumber;
+  }
+  return highest + 1;
 }
 
 export function run(command: string, args: string[], options: { cwd?: string; inherit?: boolean; silent?: boolean; env?: NodeJS.ProcessEnv } = {}) {
@@ -336,10 +369,12 @@ async function main() {
     }
 
     const feedbackHash = digest(feedbackText);
+    const issueNumber = await reportIssueNumber(worktree, issueDate);
     const draftCachePath = resolve(cacheDirectory, `${issueDate}-${checkedOutSha}-${feedbackHash}.draft.json`);
     const cachedDraft = await loadDraftCache(draftCachePath);
     if (cachedDraft) {
-      await writeFile(resolve(worktree, "src", "data", "reports", `${issueDate}.json`), `${JSON.stringify(cachedDraft.report, null, 2)}\n`);
+      const report = normalizeGeneratedReport(cachedDraft.report, issueDate, issueNumber);
+      await writeFile(resolve(worktree, "src", "data", "reports", `${issueDate}.json`), `${JSON.stringify(report, null, 2)}\n`);
       await writeFile(resolve(reviewDirectory, "codex-result.json"), `${JSON.stringify(cachedDraft.result, null, 2)}\n`, { mode: 0o600 });
       process.stdout.write("Reused the saved Codex draft for this exact source SHA and feedback revision.\n");
     } else {
@@ -375,7 +410,10 @@ async function main() {
       throw new Error(`Codex changed unexpected paths: ${changedPaths.join(", ") || "none"}.`);
     }
     if (!cachedDraft) {
-      const report = JSON.parse(await readFile(resolve(worktree, reportPath), "utf8"));
+      const report = normalizeGeneratedReport(
+        JSON.parse(await readFile(resolve(worktree, reportPath), "utf8")), issueDate, issueNumber
+      );
+      await writeFile(resolve(worktree, reportPath), `${JSON.stringify(report, null, 2)}\n`);
       await writeFile(draftCachePath, `${JSON.stringify({
         schemaVersion: 1, issueDate, sourceSha: checkedOutSha, feedbackHash, report, result,
         createdAt: new Date().toISOString()
