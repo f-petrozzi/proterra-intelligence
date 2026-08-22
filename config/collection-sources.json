@@ -3,6 +3,7 @@
   "sources": [
     {
       "sourceId": "fao-americas",
+      "publisherGroup": "fao",
       "enabled": true,
       "collectionRole": "discovery",
       "trustTier": "official",
@@ -55,6 +56,7 @@
     },
     {
       "sourceId": "fao-newsroom",
+      "publisherGroup": "fao",
       "enabled": true,
       "collectionRole": "discovery",
       "trustTier": "official",
@@ -100,6 +102,7 @@
     },
     {
       "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
       "enabled": true,
       "collectionRole": "discovery",
       "trustTier": "trade-press",
@@ -119,6 +122,7 @@
     },
     {
       "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
       "enabled": true,
       "collectionRole": "discovery",
       "trustTier": "trade-press",
@@ -138,6 +142,7 @@
     },
     {
       "sourceId": "farm-progress",
+      "publisherGroup": "farm-progress",
       "enabled": true,
       "collectionRole": "discovery",
       "trustTier": "trade-press",
@@ -157,6 +162,7 @@
     },
     {
       "sourceId": "drovers",
+      "publisherGroup": "farm-journal",
       "enabled": false,
       "collectionRole": "manual",
       "method": "manual",
@@ -167,6 +173,7 @@
     },
     {
       "sourceId": "dairy-herd",
+      "publisherGroup": "farm-journal",
       "enabled": false,
       "collectionRole": "manual",
       "method": "manual",
@@ -177,6 +184,7 @@
     },
     {
       "sourceId": "bovine-veterinarian",
+      "publisherGroup": "farm-journal",
       "enabled": false,
       "collectionRole": "manual",
       "method": "manual",
@@ -211,6 +219,7 @@
     },
     {
       "sourceId": "usda-ams-dairy",
+      "publisherGroup": "usda",
       "enabled": false,
       "collectionRole": "manual",
       "method": "manual",
@@ -222,6 +231,7 @@
     {
       "sourceId": "usda-ams-livestock",
       "adapterId": "usda-ams-boxed-beef-weekly",
+      "publisherGroup": "usda",
       "enabled": true,
       "collectionRole": "evidence",
       "trustTier": "official",
@@ -249,6 +259,7 @@
     {
       "sourceId": "usda-ams-livestock",
       "adapterId": "usda-ams-processing-beef-weekly",
+      "publisherGroup": "usda",
       "enabled": true,
       "collectionRole": "evidence",
       "trustTier": "official",
@@ -276,6 +287,7 @@
     {
       "sourceId": "usda-ams-livestock",
       "adapterId": "usda-ams-fed-cattle-weekly",
+      "publisherGroup": "usda",
       "enabled": true,
       "collectionRole": "evidence",
       "trustTier": "official",
@@ -302,6 +314,7 @@
     },
     {
       "sourceId": "usda-ers-dairy",
+      "publisherGroup": "usda",
       "enabled": true,
       "collectionRole": "evidence",
       "trustTier": "official",
@@ -328,6 +341,7 @@
     },
     {
       "sourceId": "usda-ers-livestock",
+      "publisherGroup": "usda",
       "enabled": true,
       "collectionRole": "evidence",
       "trustTier": "official",
@@ -354,6 +368,7 @@
     },
     {
       "sourceId": "usda-nass",
+      "publisherGroup": "usda",
       "enabled": true,
       "collectionRole": "discovery",
       "trustTier": "official",
@@ -373,6 +388,7 @@
     },
     {
       "sourceId": "usda-fas",
+      "publisherGroup": "usda",
       "enabled": false,
       "collectionRole": "manual",
       "method": "manual",
@@ -383,6 +399,7 @@
     },
     {
       "sourceId": "usda-waob",
+      "publisherGroup": "usda",
       "enabled": false,
       "collectionRole": "manual",
       "method": "manual",
@@ -393,6 +410,7 @@
     },
     {
       "sourceId": "usda-aphis",
+      "publisherGroup": "usda",
       "enabled": true,
       "collectionRole": "discovery",
       "trustTier": "official",
@@ -458,6 +476,7 @@
     },
     {
       "sourceId": "fao-faostat",
+      "publisherGroup": "fao",
       "enabled": false,
       "collectionRole": "manual",
       "method": "manual",

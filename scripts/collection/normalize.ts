@@ -7,6 +7,10 @@ export function contentClassOf(source: Pick<CollectionSource, "collectionRole" |
   return source.collectionRole === "discovery" ? "news" : "dataset";
 }
 
+export function publisherGroupOf(source: Pick<CollectionSource, "publisherGroup" | "sourceId">) {
+  return source.publisherGroup ?? source.sourceId;
+}
+
 const trackingParameters = new Set([
   "fbclid", "gclid", "mc_cid", "mc_eid", "ref", "ref_src", "source",
   "utm_campaign", "utm_content", "utm_medium", "utm_source", "utm_term"
@@ -252,6 +256,7 @@ export function normalizeCandidate(
   return {
     candidateId: candidateId(canonicalUrl),
     sourceId: source.sourceId,
+    publisherGroup: publisherGroupOf(source),
     collectionRole: source.collectionRole,
     contentClass,
     language: detectLanguage(raw.title, raw.summary),
