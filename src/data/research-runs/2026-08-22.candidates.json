@@ -6,11 +6,12 @@
     "end": "2026-08-22T04:00:00.000Z",
     "timezone": "America/New_York"
   },
-  "generatedAt": "2026-08-22T17:16:38.024Z",
+  "generatedAt": "2026-08-22T19:38:27.145Z",
   "candidates": [
     {
       "candidateId": "83ab602323e0831cea2d95b2895599aeb404f13c45796beecf4e21ddd3f861dd",
       "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
       "collectionRole": "discovery",
       "contentClass": "news",
       "language": "en",
@@ -29,7 +30,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.795204,
       "scoreBreakdown": {
         "version": 1,
@@ -71,1245 +72,15 @@
         "total": 0.795204
       },
       "clusterId": "bdee151b117cf49582f3b8d08219521a35cb934cbd48670e6507befca5ea4349",
-      "relatedUrls": [],
-      "duplicateMatches": []
-    },
-    {
-      "candidateId": "7bc458fc95752df3f502ffeed7f64e228e5eef3e6475f7f8a60016fe00f48f05",
-      "sourceId": "beef-magazine",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://beefmagazine.com/market-news/cattle-group-reacts-to-trump-s-beef-import-post",
-      "citationUrl": "https://beefmagazine.com/market-news/cattle-group-reacts-to-trump-s-beef-import-post",
-      "title": "Cattle groups react to Trump’s beef import post",
-      "publishedAt": "2026-08-21T17:14:42.000Z",
-      "summary": "Trump says U.S. will allow up to 300K metric tons of beef to be imported tariff free for 90 days.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.727139,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.879822,
-            "weight": 0.34,
-            "contribution": 0.299139,
-            "ageDays": 0.448125
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.333333,
-            "weight": 0.14,
-            "contribution": 0.046667,
-            "keywordHits": 4
-          },
-          "corroboration": {
-            "signal": 0.333333,
-            "weight": 0.1,
-            "contribution": 0.033333,
-            "supportingSources": 1
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.727139
-      },
-      "clusterId": "0dc5bed074acd4e9daf96828e6020b2dcac75ded92426100a16e72e2bc5a3509",
-      "relatedUrls": [
-        "https://farmprogress.com/farm-policy/trump-announces-tariff-relief-for-ground-beef-imports"
-      ],
-      "duplicateMatches": [
-        {
-          "candidateId": "5b345c9e703af78a3a3d9de7d5dc74a997bb15a4faf2aca29f3fcc3dc3e2b70f",
-          "sourceId": "farm-progress",
-          "title": "Trump announces tariff relief for ground beef imports",
-          "citationUrl": "https://farmprogress.com/farm-policy/trump-announces-tariff-relief-for-ground-beef-imports",
-          "method": "event-signature",
-          "sharedTerms": [
-            "import",
-            "tariff",
-            "trump"
-          ],
-          "linkedToCandidateId": "7bc458fc95752df3f502ffeed7f64e228e5eef3e6475f7f8a60016fe00f48f05"
-        }
-      ]
-    },
-    {
-      "candidateId": "90c616891183f9985b32a8e4ef3eb35f6e2d72d50b7948cb25d76094b1eec89a",
-      "sourceId": "beef-magazine",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://beefmagazine.com/market-news/u-s-red-meat-gains-expanded-nigeria-market-access",
-      "citationUrl": "https://beefmagazine.com/market-news/u-s-red-meat-gains-expanded-nigeria-market-access",
-      "title": "U.S. red meat gains expanded Nigeria market access",
-      "publishedAt": "2026-08-21T13:06:16.000Z",
-      "summary": "Beef cuts and all pork cuts except bone-in hams now eligible to be shipped to the third largest economy in Africa.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.701085,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.837505,
-            "weight": 0.34,
-            "contribution": 0.284752,
-            "ageDays": 0.620648
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.25,
-            "weight": 0.14,
-            "contribution": 0.035,
-            "keywordHits": 3
-          },
-          "corroboration": {
-            "signal": 0.333333,
-            "weight": 0.1,
-            "contribution": 0.033333,
-            "supportingSources": 1
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.701085
-      },
-      "clusterId": "63373c85e970d3e4d10399705fbb2c2bd6677f2edc26c81f9cf5949679089ec0",
-      "relatedUrls": [
-        "https://feedstuffs.com/livestock-and-poultry-market-news/u-s-red-meat-gains-expanded-nigeria-market-access"
-      ],
-      "duplicateMatches": [
-        {
-          "candidateId": "d0a64ce8663f0e72b5118952463b3e5e9fa3a5b5c30ca5eeed2f5b94f6542290",
-          "sourceId": "feedstuffs",
-          "title": "U.S. red meat gains expanded Nigeria market access",
-          "citationUrl": "https://feedstuffs.com/livestock-and-poultry-market-news/u-s-red-meat-gains-expanded-nigeria-market-access",
-          "method": "strict-text",
-          "sharedTerms": [
-            "access",
-            "africa",
-            "all",
-            "beef",
-            "bone",
-            "cuts",
-            "economy",
-            "eligible",
-            "except",
-            "expanded",
-            "gains",
-            "hams",
-            "largest",
-            "market",
-            "meat",
-            "nigeria",
-            "now",
-            "pork",
-            "red",
-            "shipped",
-            "third"
-          ],
-          "linkedToCandidateId": "90c616891183f9985b32a8e4ef3eb35f6e2d72d50b7948cb25d76094b1eec89a"
-        }
-      ]
-    },
-    {
-      "candidateId": "5261a4f090e5f45e6dbc42854fe4c2d4679bd4cb5830b0d6afdaca285d4d49d5",
-      "sourceId": "feedstuffs",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://feedstuffs.com/agribusiness-news/fairlife-celebrates-production-ramp-up-at-new-york-dairy-plant",
-      "citationUrl": "https://feedstuffs.com/agribusiness-news/fairlife-celebrates-production-ramp-up-at-new-york-dairy-plant",
-      "title": "Fairlife celebrates production ramp-up at New York dairy plant",
-      "publishedAt": "2026-08-21T15:42:10.000Z",
-      "summary": "New 745K square-foot Webster facility will source 5-6M pounds of milk daily from 40 local dairy farms.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "dairy"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.676697,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.863816,
-            "weight": 0.34,
-            "contribution": 0.293697,
-            "ageDays": 0.512384
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.25,
-            "weight": 0.14,
-            "contribution": 0.035,
-            "keywordHits": 3
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.676697
-      },
-      "clusterId": "a993b3b94e4ea799a3cb9b98a52fb7bc980aefcd12e132b368459babb1c4d10c",
-      "relatedUrls": [],
-      "duplicateMatches": []
-    },
-    {
-      "candidateId": "5039d32ad84c0c0a919cc7e34f1f7365603ae72cdd6eeb5df7f7bf84e9324b86",
-      "sourceId": "beef-magazine",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://beefmagazine.com/livestock-management/husker-scientists-unlock-secrets-to-boost-cow-fertility-and-improve-calf-health-through-research",
-      "citationUrl": "https://beefmagazine.com/livestock-management/husker-scientists-unlock-secrets-to-boost-cow-fertility-and-improve-calf-health-through-research",
-      "title": "Wood’s research advances fertility understanding for the cattle sector",
-      "publishedAt": "2026-08-20T12:26:33.000Z",
-      "summary": "Wood's team studies embryo development, nutrition impacts and lab techniques to help producers achieve better reproductive outcomes.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "bovine-genetics",
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.675305,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.624426,
-            "weight": 0.34,
-            "contribution": 0.212305,
-            "ageDays": 1.648229
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.25,
-            "weight": 0.14,
-            "contribution": 0.035,
-            "keywordHits": 3
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0.08,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.675305
-      },
-      "clusterId": "2963a014985e507b0ec1f1bf345bf8ce17eedec633d2a5e75ee8f731f0e8f98f",
-      "relatedUrls": [],
-      "duplicateMatches": []
-    },
-    {
-      "candidateId": "21912a3b1ed8978e7f8353ecee614f22c3e6dd78e5d827712d402b30a35cfe2c",
-      "sourceId": "beef-magazine",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://beefmagazine.com/policy/ranch-act-introduced-to-help-rebuild-cattle-herd",
-      "citationUrl": "https://beefmagazine.com/policy/ranch-act-introduced-to-help-rebuild-cattle-herd",
-      "title": "RANCH Act introduced to help rebuild cattle herd",
-      "publishedAt": "2026-08-21T12:47:00.000Z",
-      "summary": "Bill by Klobuchar and Rounds would create a voluntary working lands program that opens 20M acres for grazing.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.654999,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.83431,
-            "weight": 0.34,
-            "contribution": 0.283665,
-            "ageDays": 0.634028
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.166667,
-            "weight": 0.14,
-            "contribution": 0.023333,
-            "keywordHits": 2
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.654999
-      },
-      "clusterId": "22b0b5532607c176924e96b6ab7239a7351d4e751c490846d3bab375f5ea5194",
-      "relatedUrls": [],
-      "duplicateMatches": []
-    },
-    {
-      "candidateId": "b0737e746b30d571d666685156220355c48c7750c5a619010f1aef40bf2dfc2f",
-      "sourceId": "usda-ams-livestock",
-      "collectionRole": "evidence",
-      "contentClass": "dataset",
-      "language": "und",
-      "discoveredBy": "json-api",
-      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D08%2F21%2F2026",
-      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
-      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D08%2F21%2F2026",
-      "title": "National/Regional Weekly Boneless Processing Beef and Beef Trimmings (PDF) (LM_XB460)",
-      "publishedAt": "2026-08-21T15:00:57.000Z",
-      "releaseId": "08/21/2026",
-      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.620639,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.856781,
-            "weight": 0.34,
-            "contribution": 0.291305,
-            "ageDays": 0.541007
-          },
-          "authority": {
-            "signal": 0.9,
-            "weight": 0.24,
-            "contribution": 0.216
-          },
-          "contentClass": {
-            "signal": 0.5,
-            "weight": 0.18,
-            "contribution": 0.09
-          },
-          "topic": {
-            "signal": 0.166667,
-            "weight": 0.14,
-            "contribution": 0.023333,
-            "keywordHits": 2
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.620639
-      },
-      "clusterId": "448be32ac26cbf08c855036bfc59b8e732c9eabfd5b208ed6f357c1968bd4f65",
-      "relatedUrls": [],
-      "duplicateMatches": [
-        {
-          "candidateId": "74de3b1a82528f20c020a46bafef7ebc07306f5a3a2fc5ce2ab5cb7e18ebc35b",
-          "sourceId": "usda-ams-livestock",
-          "title": "National/Regional Weekly Boneless Processing Beef and Beef Trimmings (PDF) (LM_XB460)",
-          "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
-          "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D08%2F14%2F2026",
-          "releaseId": "08/14/2026",
-          "method": "recurring-series",
-          "sharedTerms": [],
-          "linkedToCandidateId": "b0737e746b30d571d666685156220355c48c7750c5a619010f1aef40bf2dfc2f"
-        }
-      ]
-    },
-    {
-      "candidateId": "204cca85dd71024b1fe4731475fcc25183f0d604c2b28302597e4f9cabf8ba66",
-      "sourceId": "usda-ams-livestock",
-      "collectionRole": "evidence",
-      "contentClass": "dataset",
-      "language": "und",
-      "discoveredBy": "json-api",
-      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F21%2F2026",
-      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
-      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F21%2F2026",
-      "title": "National Weekly Boxed Beef Cutout & Boxed Beef Cuts - Negotiated Sales (PDF) (LM_XB459)",
-      "publishedAt": "2026-08-21T14:52:53.000Z",
-      "releaseId": "08/21/2026",
-      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.620173,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.85541,
-            "weight": 0.34,
-            "contribution": 0.29084,
-            "ageDays": 0.546609
-          },
-          "authority": {
-            "signal": 0.9,
-            "weight": 0.24,
-            "contribution": 0.216
-          },
-          "contentClass": {
-            "signal": 0.5,
-            "weight": 0.18,
-            "contribution": 0.09
-          },
-          "topic": {
-            "signal": 0.166667,
-            "weight": 0.14,
-            "contribution": 0.023333,
-            "keywordHits": 2
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.620173
-      },
-      "clusterId": "2b188ecc1ddd71af8721dee298de0ae4c6331dff10490926c46e8ebfa55b1c2b",
-      "relatedUrls": [],
-      "duplicateMatches": [
-        {
-          "candidateId": "d98d7591209927c41a835358ead355c43476b967ef983750045f5bb69a39d116",
-          "sourceId": "usda-ams-livestock",
-          "title": "National Weekly Boxed Beef Cutout & Boxed Beef Cuts - Negotiated Sales (PDF) (LM_XB459)",
-          "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
-          "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F14%2F2026",
-          "releaseId": "08/14/2026",
-          "method": "recurring-series",
-          "sharedTerms": [],
-          "linkedToCandidateId": "204cca85dd71024b1fe4731475fcc25183f0d604c2b28302597e4f9cabf8ba66"
-        }
-      ]
-    },
-    {
-      "candidateId": "0ba08e71f18d6679aa961c9f8ca00e4beeccc48789fdabba3f59afae444bc4f1",
-      "sourceId": "feedstuffs",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://feedstuffs.com/market-news/reopening-southern-ports-to-cattle-may-not-boost-herd",
-      "citationUrl": "https://feedstuffs.com/market-news/reopening-southern-ports-to-cattle-may-not-boost-herd",
-      "title": "Reopening southern ports to cattle may not boost herd",
-      "publishedAt": "2026-08-20T16:22:22.000Z",
-      "summary": "There’s no backlog of Mexican cattle waiting at the border as they have been processed already.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.593808,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.654336,
-            "weight": 0.34,
-            "contribution": 0.222474,
-            "ageDays": 1.484468
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.166667,
-            "weight": 0.14,
-            "contribution": 0.023333,
-            "keywordHits": 2
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.593808
-      },
-      "clusterId": "7bbdf36334836a8f5b5d48247fbee2f9d91a0e192c859b41d41659226ca9d45d",
-      "relatedUrls": [],
-      "duplicateMatches": []
-    },
-    {
-      "candidateId": "4c58d8b1e856dc42d7ecf65487646b3dbbf7165ecaeb02e104cdb094bd667267",
-      "sourceId": "farm-progress",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://farmprogress.com/marketing/can-cattle-producers-protect-profit-",
-      "citationUrl": "https://farmprogress.com/marketing/can-cattle-producers-protect-profit-",
-      "title": "Can cattle producers protect profit?",
-      "publishedAt": "2026-08-20T11:44:20.000Z",
-      "summary": "Ag Marketing IQ: With the Mexican border opening Monday, prices declining and meat packers restructuring, beef’s high dollar days are in jeopardy. It’s time for producers to practice risk management.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.593201,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.619217,
-            "weight": 0.34,
-            "contribution": 0.210534,
-            "ageDays": 1.677546
-          },
-          "authority": {
-            "signal": 0.65,
-            "weight": 0.24,
-            "contribution": 0.156
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.333333,
-            "weight": 0.14,
-            "contribution": 0.046667,
-            "keywordHits": 4
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.593201
-      },
-      "clusterId": "223b389a08159f00d546f950dfbf2c4f337a17bcf3dd6668fa0f13a5dee4aeee",
-      "relatedUrls": [],
-      "duplicateMatches": []
-    },
-    {
-      "candidateId": "8eb38994bd14a00bb315476e8a864f417d1b611d991d93105d50060a633f9869",
-      "sourceId": "farm-progress",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://farmprogress.com/farm-policy/is-the-u-s-ready-for-mexican-cattle-imports-",
-      "citationUrl": "https://farmprogress.com/farm-policy/is-the-u-s-ready-for-mexican-cattle-imports-",
-      "title": "Is the U.S. ready for Mexican cattle imports?",
-      "publishedAt": "2026-08-20T17:21:58.000Z",
-      "summary": "U.S. set to reopen the southern border to cattle trade as screwworm numbers decline.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.584454,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.66212,
-            "weight": 0.34,
-            "contribution": 0.225121,
-            "ageDays": 1.443079
-          },
-          "authority": {
-            "signal": 0.65,
-            "weight": 0.24,
-            "contribution": 0.156
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.166667,
-            "weight": 0.14,
-            "contribution": 0.023333,
-            "keywordHits": 2
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.584454
-      },
-      "clusterId": "952fc04ed7f34f6bdc000d09a60e7e2335b33a728d860af3e98da65893c434e0",
-      "relatedUrls": [],
-      "duplicateMatches": []
-    },
-    {
-      "candidateId": "d56fba59607cbffc58bc699ccc5871b292fa6f59acb3c70c94c456caf5205639",
-      "sourceId": "beef-magazine",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://beefmagazine.com/market-news/structural-adjustments-continue-in-packing-sector",
-      "citationUrl": "https://beefmagazine.com/market-news/structural-adjustments-continue-in-packing-sector",
-      "title": "Structural adjustments continue in packing sector",
-      "publishedAt": "2026-08-20T15:30:41.000Z",
-      "summary": "The industry remains over capacity, but future beef packer margins have the potential to be less terrible.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.579871,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.647661,
-            "weight": 0.34,
-            "contribution": 0.220205,
-            "ageDays": 1.520359
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.083333,
-            "weight": 0.14,
-            "contribution": 0.011667,
-            "keywordHits": 1
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.579871
-      },
-      "clusterId": "3595aa10d09fdf300bde95d1cdc779c174e77ba5e7c504723d0cdf46ab9b7008",
-      "relatedUrls": [],
-      "duplicateMatches": []
-    },
-    {
-      "candidateId": "531cf8ea00a225aa466bfc062a8d87adccb662d6176c9e38fbc8d144a38ff7c3",
-      "sourceId": "beef-magazine",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://beefmagazine.com/market-news/tyson-facing-warn-act-investigation-after-beef-plant-closures",
-      "citationUrl": "https://beefmagazine.com/market-news/tyson-facing-warn-act-investigation-after-beef-plant-closures",
-      "title": "Tyson facing WARN Act investigation after beef plant closures",
-      "publishedAt": "2026-08-19T19:30:33.000Z",
-      "summary": "Law firm investigating whether Tyson provided sufficient notice to employees before closing Joslin and Eagle Mountain facilities.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.578211,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.510426,
-            "weight": 0.34,
-            "contribution": 0.173545,
-            "ageDays": 2.353785
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.166667,
-            "weight": 0.14,
-            "contribution": 0.023333,
-            "keywordHits": 2
-          },
-          "corroboration": {
-            "signal": 0.333333,
-            "weight": 0.1,
-            "contribution": 0.033333,
-            "supportingSources": 1
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.578211
-      },
-      "clusterId": "febeb4935f1388b64bb9c6e21b8c9ecedcb5399cf4b04a27b30a69c343c575f1",
-      "relatedUrls": [
-        "https://feedstuffs.com/agribusiness-news/tyson-facing-warn-act-investigation-after-beef-plant-closures"
-      ],
-      "duplicateMatches": [
-        {
-          "candidateId": "b9a8404b7d4d90ea614df92458719c233b8a5d2ed194fc5a02623ca3c953445a",
-          "sourceId": "feedstuffs",
-          "title": "Tyson facing WARN Act investigation after beef plant closures",
-          "citationUrl": "https://feedstuffs.com/agribusiness-news/tyson-facing-warn-act-investigation-after-beef-plant-closures",
-          "method": "strict-text",
-          "sharedTerms": [
-            "act",
-            "after",
-            "beef",
-            "before",
-            "close",
-            "closure",
-            "eagle",
-            "employees",
-            "facilities",
-            "facing",
-            "firm",
-            "investigating",
-            "investigation",
-            "joslin",
-            "law",
-            "mountain",
-            "notice",
-            "plant",
-            "provided",
-            "sufficient",
-            "tyson",
-            "warn",
-            "whether"
-          ],
-          "linkedToCandidateId": "531cf8ea00a225aa466bfc062a8d87adccb662d6176c9e38fbc8d144a38ff7c3"
-        }
-      ]
-    },
-    {
-      "candidateId": "c30e6568ebbf4c6adb20c428c7f577b7e440a78907058d9276e60800a8aa247e",
-      "sourceId": "usda-ers-dairy",
-      "collectionRole": "evidence",
-      "contentClass": "dataset",
-      "language": "en",
-      "discoveredBy": "json-api",
-      "canonicalUrl": "https://ers.usda.gov/publications/115136",
-      "citationUrl": "https://ers.usda.gov/publications/115136",
-      "evidenceUrl": "https://ers.usda.gov/publications/115136",
-      "title": "Livestock, Dairy, and Poultry Outlook: August 2026",
-      "publishedAt": "2026-08-18T15:00:00.000Z",
-      "summary": "The Livestock, Dairy, and Poultry Outlook for August 2026 analyzes economic impacts of month-to-month changes in USDA’s “World Agricultural Supply and Demand Estimates” report on domestic and international markets for beef, lamb, pork, poultry, eggs, and dairy products.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "dairy",
-        "meat"
-      ],
-      "geographies": [
-        "International",
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.547932,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.363526,
-            "weight": 0.34,
-            "contribution": 0.123599,
-            "ageDays": 3.541667
-          },
-          "authority": {
-            "signal": 0.9,
-            "weight": 0.24,
-            "contribution": 0.216
-          },
-          "contentClass": {
-            "signal": 0.5,
-            "weight": 0.18,
-            "contribution": 0.09
-          },
-          "topic": {
-            "signal": 0.416667,
-            "weight": 0.14,
-            "contribution": 0.058333,
-            "keywordHits": 5
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0.06,
-          "nonEnglish": 0
-        },
-        "total": 0.547932
-      },
-      "clusterId": "0c0b0860bed46872cdf64493bd362c7a5ec03763f7fe83e9d11267efac8c2d07",
-      "relatedUrls": [],
-      "duplicateMatches": []
-    },
-    {
-      "candidateId": "e42de9db1b068f34184f1084fb888e59accc14293f2127fe2a94ec8bc470369b",
-      "sourceId": "beef-magazine",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "und",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://beefmagazine.com/market-news/lockout-at-cargill-fort-morgan-beef-plant-ends",
-      "citationUrl": "https://beefmagazine.com/market-news/lockout-at-cargill-fort-morgan-beef-plant-ends",
-      "title": "Lockout at Cargill Fort Morgan beef plant ends",
-      "publishedAt": "2026-08-18T15:13:30.000Z",
-      "summary": "Teamsters Local 455 members ratify new five-year contract agreement.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.528597,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.364501,
-            "weight": 0.34,
-            "contribution": 0.12393,
-            "ageDays": 3.532292
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.166667,
-            "weight": 0.14,
-            "contribution": 0.023333,
-            "keywordHits": 2
-          },
-          "corroboration": {
-            "signal": 0.333333,
-            "weight": 0.1,
-            "contribution": 0.033333,
-            "supportingSources": 1
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.528597
-      },
-      "clusterId": "c71a22fc5d5b131b5e5d8fc920f9bc7949ba98b090ac6c17892ff414da98e6d2",
-      "relatedUrls": [
-        "https://feedstuffs.com/agribusiness-news/lockout-at-cargill-fort-morgan-beef-plant-ends"
-      ],
-      "duplicateMatches": [
-        {
-          "candidateId": "a349302228de818539cdea96564c4c402b8a3e5b2d9aab5c3391ff4558f9970d",
-          "sourceId": "feedstuffs",
-          "title": "Lockout at Cargill Fort Morgan beef plant ends",
-          "citationUrl": "https://feedstuffs.com/agribusiness-news/lockout-at-cargill-fort-morgan-beef-plant-ends",
-          "method": "strict-text",
-          "sharedTerms": [
-            "455",
-            "agreement",
-            "beef",
-            "cargill",
-            "contract",
-            "ends",
-            "five",
-            "fort",
-            "local",
-            "lockout",
-            "members",
-            "morgan",
-            "plant",
-            "ratify",
-            "teamsters",
-            "year"
-          ],
-          "linkedToCandidateId": "e42de9db1b068f34184f1084fb888e59accc14293f2127fe2a94ec8bc470369b"
-        }
-      ]
-    },
-    {
-      "candidateId": "f664264e2fd594695e2795c2be6ff42f50d6c3787c31fb34c2dc9bcc09508a7a",
-      "sourceId": "feedstuffs",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://feedstuffs.com/policy/u-s-suspends-section-338-tariffs-on-canada",
-      "citationUrl": "https://feedstuffs.com/policy/u-s-suspends-section-338-tariffs-on-canada",
-      "title": "U.S. suspends Section 338 tariffs on Canada",
-      "publishedAt": "2026-08-19T15:18:41.000Z",
-      "summary": "Three-day pause on 50% duties will provide more time to address Canada’s administration of dairy TRQs.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "dairy"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.524752,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.485545,
-            "weight": 0.34,
-            "contribution": 0.165085,
-            "ageDays": 2.528692
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.083333,
-            "weight": 0.14,
-            "contribution": 0.011667,
-            "keywordHits": 1
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.524752
-      },
-      "clusterId": "bce8cf78eea8b985ea958d93788d5c65d63f3ee56eff2ebc3a737db69752ac2a",
-      "relatedUrls": [],
-      "duplicateMatches": []
-    },
-    {
-      "candidateId": "b6e38d62cfce13268f05818140bb2afcc043bb86b26f64935eb00cc7c7c7f852",
-      "sourceId": "beef-magazine",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://beefmagazine.com/market-news/cool-vs-growing-the-business",
-      "citationUrl": "https://beefmagazine.com/market-news/cool-vs-growing-the-business",
-      "title": "COOL vs growing the business",
-      "publishedAt": "2026-08-19T13:46:01.000Z",
-      "summary": "Contrasting emails highlight the ongoing COOL controversy while beef industry experiences record demand and producer prosperity without mandates.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.521744,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.476699,
-            "weight": 0.34,
-            "contribution": 0.162078,
-            "ageDays": 2.593044
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.083333,
-            "weight": 0.14,
-            "contribution": 0.011667,
-            "keywordHits": 1
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.521744
-      },
-      "clusterId": "c04310463e433f714dec9932b62ad91592726c59610651422a5b5869a035c41f",
-      "relatedUrls": [],
-      "duplicateMatches": []
-    },
-    {
-      "candidateId": "0d0a4d860233a9a100ca51fa74a8f9f7db94e05be244b293e5905fde968a308b",
-      "sourceId": "beef-magazine",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://beefmagazine.com/farm-business-management/mid-august-2026-catch-pen",
-      "citationUrl": "https://beefmagazine.com/farm-business-management/mid-august-2026-catch-pen",
-      "title": "Mid-August 2026 catch pen",
-      "publishedAt": "2026-08-19T13:33:59.000Z",
-      "summary": "News and notes from American cow country—and some things we might have missed.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.521358,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.475562,
-            "weight": 0.34,
-            "contribution": 0.161691,
-            "ageDays": 2.6014
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.083333,
-            "weight": 0.14,
-            "contribution": 0.011667,
-            "keywordHits": 1
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.521358
-      },
-      "clusterId": "723d90bd6084205e23f1bdd19d80dfa53beb20408f9a1ed6faaf7f5b6867d645",
+      "reviewTier": "review-first",
+      "selectionBasis": "coverage-balance",
       "relatedUrls": [],
       "duplicateMatches": []
     },
     {
       "candidateId": "81fce3b70572537c3d48ceb9a52022c69676c728aefbc66138be37523976f56f",
       "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
       "collectionRole": "discovery",
       "contentClass": "news",
       "language": "en",
@@ -1327,7 +98,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.507848,
       "scoreBreakdown": {
         "version": 1,
@@ -1369,140 +140,15 @@
         "total": 0.507848
       },
       "clusterId": "203d1dbbb235e10796daa7a1d5ba0df79dd62f8e2757e2ec0637732a7aff0a61",
-      "relatedUrls": [],
-      "duplicateMatches": []
-    },
-    {
-      "candidateId": "7ca6b730a25149411bdff92cbba88566ccdf80cecb04cf295d5d50e8f2510d26",
-      "sourceId": "beef-magazine",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://beefmagazine.com/livestock-management/drought-brings-increased-risk-of-livestock-nitrate-poisoning",
-      "citationUrl": "https://beefmagazine.com/livestock-management/drought-brings-increased-risk-of-livestock-nitrate-poisoning",
-      "title": "Drought brings increased risk of livestock nitrate poisoning",
-      "publishedAt": "2026-08-18T12:10:25.000Z",
-      "summary": "The best way to prevent nitrate poisoning is to control the type and quantity of forage offered to livestock.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.490843,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.351498,
-            "weight": 0.34,
-            "contribution": 0.119509,
-            "ageDays": 3.659433
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.166667,
-            "weight": 0.14,
-            "contribution": 0.023333,
-            "keywordHits": 2
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.490843
-      },
-      "clusterId": "304dd7b40a7f212471e1cfc7d5bd062cf12e9981b760bec15d68b34af5bce82a",
-      "relatedUrls": [],
-      "duplicateMatches": []
-    },
-    {
-      "candidateId": "fc52c43bf6d781bc7a7a36c9764e52bf66426fb8b813fef6f259f4d85d28571f",
-      "sourceId": "beef-magazine",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://beefmagazine.com/livestock-management/screwworm-found-in-jaurez",
-      "citationUrl": "https://beefmagazine.com/livestock-management/screwworm-found-in-jaurez",
-      "title": "Screwworm found in Juárez",
-      "publishedAt": "2026-08-18T12:00:02.000Z",
-      "summary": "The reopening of the ports to cattle trade could be paused if U.S. authorities identify an increased risk in Sonora or Chihuahua.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.47893,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.350774,
-            "weight": 0.34,
-            "contribution": 0.119263,
-            "ageDays": 3.666644
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.083333,
-            "weight": 0.14,
-            "contribution": 0.011667,
-            "keywordHits": 1
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.47893
-      },
-      "clusterId": "d12ca0452fbc2707edbd2bbad8c7fa1928eee1cbb8833253c6f8d4f97a30328f",
+      "reviewTier": "review-first",
+      "selectionBasis": "coverage-balance",
       "relatedUrls": [],
       "duplicateMatches": []
     },
     {
       "candidateId": "02ff3be97e72256ba6b74114400d4d279b2c6b3f6febe8a5ed3153dcf960fc9d",
       "sourceId": "fao-americas",
+      "publisherGroup": "fao",
       "collectionRole": "discovery",
       "contentClass": "news",
       "language": "en",
@@ -1519,7 +165,7 @@
       "geographies": [
         "Latin America & Caribbean"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.474516,
       "scoreBreakdown": {
         "version": 1,
@@ -1561,12 +207,1207 @@
         "total": 0.474516
       },
       "clusterId": "fa2e17b5a84f133f9e8d5791c65444acaf9f39315353aa6664a71255fa68c9ef",
+      "reviewTier": "review-first",
+      "selectionBasis": "coverage-balance",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "7bc458fc95752df3f502ffeed7f64e228e5eef3e6475f7f8a60016fe00f48f05",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/cattle-group-reacts-to-trump-s-beef-import-post",
+      "citationUrl": "https://beefmagazine.com/market-news/cattle-group-reacts-to-trump-s-beef-import-post",
+      "title": "Cattle groups react to Trump’s beef import post",
+      "publishedAt": "2026-08-21T17:14:42.000Z",
+      "summary": "Trump says U.S. will allow up to 300K metric tons of beef to be imported tariff free for 90 days.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.693806,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.879822,
+            "weight": 0.34,
+            "contribution": 0.299139,
+            "ageDays": 0.448125
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.333333,
+            "weight": 0.14,
+            "contribution": 0.046667,
+            "keywordHits": 4
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.693806
+      },
+      "clusterId": "0dc5bed074acd4e9daf96828e6020b2dcac75ded92426100a16e72e2bc5a3509",
+      "reviewTier": "review-first",
+      "selectionBasis": "queue-order",
+      "relatedUrls": [
+        "https://farmprogress.com/farm-policy/trump-announces-tariff-relief-for-ground-beef-imports"
+      ],
+      "duplicateMatches": [
+        {
+          "candidateId": "5b345c9e703af78a3a3d9de7d5dc74a997bb15a4faf2aca29f3fcc3dc3e2b70f",
+          "sourceId": "farm-progress",
+          "publisherGroup": "farm-progress",
+          "title": "Trump announces tariff relief for ground beef imports",
+          "citationUrl": "https://farmprogress.com/farm-policy/trump-announces-tariff-relief-for-ground-beef-imports",
+          "method": "event-signature",
+          "sharedTerms": [
+            "import",
+            "tariff",
+            "trump"
+          ],
+          "linkedToCandidateId": "7bc458fc95752df3f502ffeed7f64e228e5eef3e6475f7f8a60016fe00f48f05"
+        }
+      ]
+    },
+    {
+      "candidateId": "5261a4f090e5f45e6dbc42854fe4c2d4679bd4cb5830b0d6afdaca285d4d49d5",
+      "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/agribusiness-news/fairlife-celebrates-production-ramp-up-at-new-york-dairy-plant",
+      "citationUrl": "https://feedstuffs.com/agribusiness-news/fairlife-celebrates-production-ramp-up-at-new-york-dairy-plant",
+      "title": "Fairlife celebrates production ramp-up at New York dairy plant",
+      "publishedAt": "2026-08-21T15:42:10.000Z",
+      "summary": "New 745K square-foot Webster facility will source 5-6M pounds of milk daily from 40 local dairy farms.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.676697,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.863816,
+            "weight": 0.34,
+            "contribution": 0.293697,
+            "ageDays": 0.512384
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.25,
+            "weight": 0.14,
+            "contribution": 0.035,
+            "keywordHits": 3
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.676697
+      },
+      "clusterId": "a993b3b94e4ea799a3cb9b98a52fb7bc980aefcd12e132b368459babb1c4d10c",
+      "reviewTier": "review-first",
+      "selectionBasis": "publisher-cap-exception",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "5039d32ad84c0c0a919cc7e34f1f7365603ae72cdd6eeb5df7f7bf84e9324b86",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/husker-scientists-unlock-secrets-to-boost-cow-fertility-and-improve-calf-health-through-research",
+      "citationUrl": "https://beefmagazine.com/livestock-management/husker-scientists-unlock-secrets-to-boost-cow-fertility-and-improve-calf-health-through-research",
+      "title": "Wood’s research advances fertility understanding for the cattle sector",
+      "publishedAt": "2026-08-20T12:26:33.000Z",
+      "summary": "Wood's team studies embryo development, nutrition impacts and lab techniques to help producers achieve better reproductive outcomes.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "bovine-genetics",
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.675305,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.624426,
+            "weight": 0.34,
+            "contribution": 0.212305,
+            "ageDays": 1.648229
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.25,
+            "weight": 0.14,
+            "contribution": 0.035,
+            "keywordHits": 3
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0.08,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.675305
+      },
+      "clusterId": "2963a014985e507b0ec1f1bf345bf8ce17eedec633d2a5e75ee8f731f0e8f98f",
+      "reviewTier": "review-first",
+      "selectionBasis": "publisher-cap-exception",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "90c616891183f9985b32a8e4ef3eb35f6e2d72d50b7948cb25d76094b1eec89a",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/u-s-red-meat-gains-expanded-nigeria-market-access",
+      "citationUrl": "https://beefmagazine.com/market-news/u-s-red-meat-gains-expanded-nigeria-market-access",
+      "title": "U.S. red meat gains expanded Nigeria market access",
+      "publishedAt": "2026-08-21T13:06:16.000Z",
+      "summary": "Beef cuts and all pork cuts except bone-in hams now eligible to be shipped to the third largest economy in Africa.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.667752,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.837505,
+            "weight": 0.34,
+            "contribution": 0.284752,
+            "ageDays": 0.620648
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.25,
+            "weight": 0.14,
+            "contribution": 0.035,
+            "keywordHits": 3
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.667752
+      },
+      "clusterId": "63373c85e970d3e4d10399705fbb2c2bd6677f2edc26c81f9cf5949679089ec0",
+      "reviewTier": "review-first",
+      "selectionBasis": "publisher-cap-exception",
+      "relatedUrls": [
+        "https://feedstuffs.com/livestock-and-poultry-market-news/u-s-red-meat-gains-expanded-nigeria-market-access"
+      ],
+      "duplicateMatches": [
+        {
+          "candidateId": "d0a64ce8663f0e72b5118952463b3e5e9fa3a5b5c30ca5eeed2f5b94f6542290",
+          "sourceId": "feedstuffs",
+          "publisherGroup": "farm-progress",
+          "title": "U.S. red meat gains expanded Nigeria market access",
+          "citationUrl": "https://feedstuffs.com/livestock-and-poultry-market-news/u-s-red-meat-gains-expanded-nigeria-market-access",
+          "method": "strict-text",
+          "sharedTerms": [
+            "access",
+            "africa",
+            "all",
+            "beef",
+            "bone",
+            "cuts",
+            "economy",
+            "eligible",
+            "except",
+            "expanded",
+            "gains",
+            "hams",
+            "largest",
+            "market",
+            "meat",
+            "nigeria",
+            "now",
+            "pork",
+            "red",
+            "shipped",
+            "third"
+          ],
+          "linkedToCandidateId": "90c616891183f9985b32a8e4ef3eb35f6e2d72d50b7948cb25d76094b1eec89a"
+        }
+      ]
+    },
+    {
+      "candidateId": "21912a3b1ed8978e7f8353ecee614f22c3e6dd78e5d827712d402b30a35cfe2c",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/policy/ranch-act-introduced-to-help-rebuild-cattle-herd",
+      "citationUrl": "https://beefmagazine.com/policy/ranch-act-introduced-to-help-rebuild-cattle-herd",
+      "title": "RANCH Act introduced to help rebuild cattle herd",
+      "publishedAt": "2026-08-21T12:47:00.000Z",
+      "summary": "Bill by Klobuchar and Rounds would create a voluntary working lands program that opens 20M acres for grazing.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.654999,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.83431,
+            "weight": 0.34,
+            "contribution": 0.283665,
+            "ageDays": 0.634028
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.654999
+      },
+      "clusterId": "22b0b5532607c176924e96b6ab7239a7351d4e751c490846d3bab375f5ea5194",
+      "reviewTier": "review-first",
+      "selectionBasis": "publisher-cap-exception",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "0ba08e71f18d6679aa961c9f8ca00e4beeccc48789fdabba3f59afae444bc4f1",
+      "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/market-news/reopening-southern-ports-to-cattle-may-not-boost-herd",
+      "citationUrl": "https://feedstuffs.com/market-news/reopening-southern-ports-to-cattle-may-not-boost-herd",
+      "title": "Reopening southern ports to cattle may not boost herd",
+      "publishedAt": "2026-08-20T16:22:22.000Z",
+      "summary": "There’s no backlog of Mexican cattle waiting at the border as they have been processed already.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.593808,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.654336,
+            "weight": 0.34,
+            "contribution": 0.222474,
+            "ageDays": 1.484468
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.593808
+      },
+      "clusterId": "7bbdf36334836a8f5b5d48247fbee2f9d91a0e192c859b41d41659226ca9d45d",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "4c58d8b1e856dc42d7ecf65487646b3dbbf7165ecaeb02e104cdb094bd667267",
+      "sourceId": "farm-progress",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://farmprogress.com/marketing/can-cattle-producers-protect-profit-",
+      "citationUrl": "https://farmprogress.com/marketing/can-cattle-producers-protect-profit-",
+      "title": "Can cattle producers protect profit?",
+      "publishedAt": "2026-08-20T11:44:20.000Z",
+      "summary": "Ag Marketing IQ: With the Mexican border opening Monday, prices declining and meat packers restructuring, beef’s high dollar days are in jeopardy. It’s time for producers to practice risk management.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.593201,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.619217,
+            "weight": 0.34,
+            "contribution": 0.210534,
+            "ageDays": 1.677546
+          },
+          "authority": {
+            "signal": 0.65,
+            "weight": 0.24,
+            "contribution": 0.156
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.333333,
+            "weight": 0.14,
+            "contribution": 0.046667,
+            "keywordHits": 4
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.593201
+      },
+      "clusterId": "223b389a08159f00d546f950dfbf2c4f337a17bcf3dd6668fa0f13a5dee4aeee",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "8eb38994bd14a00bb315476e8a864f417d1b611d991d93105d50060a633f9869",
+      "sourceId": "farm-progress",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://farmprogress.com/farm-policy/is-the-u-s-ready-for-mexican-cattle-imports-",
+      "citationUrl": "https://farmprogress.com/farm-policy/is-the-u-s-ready-for-mexican-cattle-imports-",
+      "title": "Is the U.S. ready for Mexican cattle imports?",
+      "publishedAt": "2026-08-20T17:21:58.000Z",
+      "summary": "U.S. set to reopen the southern border to cattle trade as screwworm numbers decline.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.584454,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.66212,
+            "weight": 0.34,
+            "contribution": 0.225121,
+            "ageDays": 1.443079
+          },
+          "authority": {
+            "signal": 0.65,
+            "weight": 0.24,
+            "contribution": 0.156
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.584454
+      },
+      "clusterId": "952fc04ed7f34f6bdc000d09a60e7e2335b33a728d860af3e98da65893c434e0",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "d56fba59607cbffc58bc699ccc5871b292fa6f59acb3c70c94c456caf5205639",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/structural-adjustments-continue-in-packing-sector",
+      "citationUrl": "https://beefmagazine.com/market-news/structural-adjustments-continue-in-packing-sector",
+      "title": "Structural adjustments continue in packing sector",
+      "publishedAt": "2026-08-20T15:30:41.000Z",
+      "summary": "The industry remains over capacity, but future beef packer margins have the potential to be less terrible.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.579871,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.647661,
+            "weight": 0.34,
+            "contribution": 0.220205,
+            "ageDays": 1.520359
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.083333,
+            "weight": 0.14,
+            "contribution": 0.011667,
+            "keywordHits": 1
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.579871
+      },
+      "clusterId": "3595aa10d09fdf300bde95d1cdc779c174e77ba5e7c504723d0cdf46ab9b7008",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "531cf8ea00a225aa466bfc062a8d87adccb662d6176c9e38fbc8d144a38ff7c3",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/tyson-facing-warn-act-investigation-after-beef-plant-closures",
+      "citationUrl": "https://beefmagazine.com/market-news/tyson-facing-warn-act-investigation-after-beef-plant-closures",
+      "title": "Tyson facing WARN Act investigation after beef plant closures",
+      "publishedAt": "2026-08-19T19:30:33.000Z",
+      "summary": "Law firm investigating whether Tyson provided sufficient notice to employees before closing Joslin and Eagle Mountain facilities.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.544878,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.510426,
+            "weight": 0.34,
+            "contribution": 0.173545,
+            "ageDays": 2.353785
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.544878
+      },
+      "clusterId": "febeb4935f1388b64bb9c6e21b8c9ecedcb5399cf4b04a27b30a69c343c575f1",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [
+        "https://feedstuffs.com/agribusiness-news/tyson-facing-warn-act-investigation-after-beef-plant-closures"
+      ],
+      "duplicateMatches": [
+        {
+          "candidateId": "b9a8404b7d4d90ea614df92458719c233b8a5d2ed194fc5a02623ca3c953445a",
+          "sourceId": "feedstuffs",
+          "publisherGroup": "farm-progress",
+          "title": "Tyson facing WARN Act investigation after beef plant closures",
+          "citationUrl": "https://feedstuffs.com/agribusiness-news/tyson-facing-warn-act-investigation-after-beef-plant-closures",
+          "method": "strict-text",
+          "sharedTerms": [
+            "act",
+            "after",
+            "beef",
+            "before",
+            "close",
+            "closure",
+            "eagle",
+            "employees",
+            "facilities",
+            "facing",
+            "firm",
+            "investigating",
+            "investigation",
+            "joslin",
+            "law",
+            "mountain",
+            "notice",
+            "plant",
+            "provided",
+            "sufficient",
+            "tyson",
+            "warn",
+            "whether"
+          ],
+          "linkedToCandidateId": "531cf8ea00a225aa466bfc062a8d87adccb662d6176c9e38fbc8d144a38ff7c3"
+        }
+      ]
+    },
+    {
+      "candidateId": "f664264e2fd594695e2795c2be6ff42f50d6c3787c31fb34c2dc9bcc09508a7a",
+      "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/policy/u-s-suspends-section-338-tariffs-on-canada",
+      "citationUrl": "https://feedstuffs.com/policy/u-s-suspends-section-338-tariffs-on-canada",
+      "title": "U.S. suspends Section 338 tariffs on Canada",
+      "publishedAt": "2026-08-19T15:18:41.000Z",
+      "summary": "Three-day pause on 50% duties will provide more time to address Canada’s administration of dairy TRQs.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.524752,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.485545,
+            "weight": 0.34,
+            "contribution": 0.165085,
+            "ageDays": 2.528692
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.083333,
+            "weight": 0.14,
+            "contribution": 0.011667,
+            "keywordHits": 1
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.524752
+      },
+      "clusterId": "bce8cf78eea8b985ea958d93788d5c65d63f3ee56eff2ebc3a737db69752ac2a",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "b6e38d62cfce13268f05818140bb2afcc043bb86b26f64935eb00cc7c7c7f852",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/cool-vs-growing-the-business",
+      "citationUrl": "https://beefmagazine.com/market-news/cool-vs-growing-the-business",
+      "title": "COOL vs growing the business",
+      "publishedAt": "2026-08-19T13:46:01.000Z",
+      "summary": "Contrasting emails highlight the ongoing COOL controversy while beef industry experiences record demand and producer prosperity without mandates.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.521744,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.476699,
+            "weight": 0.34,
+            "contribution": 0.162078,
+            "ageDays": 2.593044
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.083333,
+            "weight": 0.14,
+            "contribution": 0.011667,
+            "keywordHits": 1
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.521744
+      },
+      "clusterId": "c04310463e433f714dec9932b62ad91592726c59610651422a5b5869a035c41f",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "0d0a4d860233a9a100ca51fa74a8f9f7db94e05be244b293e5905fde968a308b",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/farm-business-management/mid-august-2026-catch-pen",
+      "citationUrl": "https://beefmagazine.com/farm-business-management/mid-august-2026-catch-pen",
+      "title": "Mid-August 2026 catch pen",
+      "publishedAt": "2026-08-19T13:33:59.000Z",
+      "summary": "News and notes from American cow country—and some things we might have missed.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.521358,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.475562,
+            "weight": 0.34,
+            "contribution": 0.161691,
+            "ageDays": 2.6014
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.083333,
+            "weight": 0.14,
+            "contribution": 0.011667,
+            "keywordHits": 1
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.521358
+      },
+      "clusterId": "723d90bd6084205e23f1bdd19d80dfa53beb20408f9a1ed6faaf7f5b6867d645",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "e42de9db1b068f34184f1084fb888e59accc14293f2127fe2a94ec8bc470369b",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "und",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/lockout-at-cargill-fort-morgan-beef-plant-ends",
+      "citationUrl": "https://beefmagazine.com/market-news/lockout-at-cargill-fort-morgan-beef-plant-ends",
+      "title": "Lockout at Cargill Fort Morgan beef plant ends",
+      "publishedAt": "2026-08-18T15:13:30.000Z",
+      "summary": "Teamsters Local 455 members ratify new five-year contract agreement.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.495264,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.364501,
+            "weight": 0.34,
+            "contribution": 0.12393,
+            "ageDays": 3.532292
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.495264
+      },
+      "clusterId": "c71a22fc5d5b131b5e5d8fc920f9bc7949ba98b090ac6c17892ff414da98e6d2",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [
+        "https://feedstuffs.com/agribusiness-news/lockout-at-cargill-fort-morgan-beef-plant-ends"
+      ],
+      "duplicateMatches": [
+        {
+          "candidateId": "a349302228de818539cdea96564c4c402b8a3e5b2d9aab5c3391ff4558f9970d",
+          "sourceId": "feedstuffs",
+          "publisherGroup": "farm-progress",
+          "title": "Lockout at Cargill Fort Morgan beef plant ends",
+          "citationUrl": "https://feedstuffs.com/agribusiness-news/lockout-at-cargill-fort-morgan-beef-plant-ends",
+          "method": "strict-text",
+          "sharedTerms": [
+            "455",
+            "agreement",
+            "beef",
+            "cargill",
+            "contract",
+            "ends",
+            "five",
+            "fort",
+            "local",
+            "lockout",
+            "members",
+            "morgan",
+            "plant",
+            "ratify",
+            "teamsters",
+            "year"
+          ],
+          "linkedToCandidateId": "e42de9db1b068f34184f1084fb888e59accc14293f2127fe2a94ec8bc470369b"
+        }
+      ]
+    },
+    {
+      "candidateId": "7ca6b730a25149411bdff92cbba88566ccdf80cecb04cf295d5d50e8f2510d26",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/drought-brings-increased-risk-of-livestock-nitrate-poisoning",
+      "citationUrl": "https://beefmagazine.com/livestock-management/drought-brings-increased-risk-of-livestock-nitrate-poisoning",
+      "title": "Drought brings increased risk of livestock nitrate poisoning",
+      "publishedAt": "2026-08-18T12:10:25.000Z",
+      "summary": "The best way to prevent nitrate poisoning is to control the type and quantity of forage offered to livestock.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.490843,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.351498,
+            "weight": 0.34,
+            "contribution": 0.119509,
+            "ageDays": 3.659433
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.490843
+      },
+      "clusterId": "304dd7b40a7f212471e1cfc7d5bd062cf12e9981b760bec15d68b34af5bce82a",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "fc52c43bf6d781bc7a7a36c9764e52bf66426fb8b813fef6f259f4d85d28571f",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/screwworm-found-in-jaurez",
+      "citationUrl": "https://beefmagazine.com/livestock-management/screwworm-found-in-jaurez",
+      "title": "Screwworm found in Juárez",
+      "publishedAt": "2026-08-18T12:00:02.000Z",
+      "summary": "The reopening of the ports to cattle trade could be paused if U.S. authorities identify an increased risk in Sonora or Chihuahua.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.47893,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.350774,
+            "weight": 0.34,
+            "contribution": 0.119263,
+            "ageDays": 3.666644
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.083333,
+            "weight": 0.14,
+            "contribution": 0.011667,
+            "keywordHits": 1
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.47893
+      },
+      "clusterId": "d12ca0452fbc2707edbd2bbad8c7fa1928eee1cbb8833253c6f8d4f97a30328f",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
       "relatedUrls": [],
       "duplicateMatches": []
     },
     {
       "candidateId": "bdda42314d5586d6d7d3a6e29ad951fce4836cee9b6854ed21b410f83b18d8c1",
       "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
       "collectionRole": "discovery",
       "contentClass": "news",
       "language": "en",
@@ -1583,7 +1424,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.472892,
       "scoreBreakdown": {
         "version": 1,
@@ -1625,109 +1466,15 @@
         "total": 0.472892
       },
       "clusterId": "382b48f6258ebd6ab5304dbb5563de2ea285b1264d91322ee91857ce751b26ef",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
       "relatedUrls": [],
       "duplicateMatches": []
     },
     {
-      "candidateId": "cfd20351b48be6994c78d72c03513ca70e4658d25e58193e2225262e1c5c7316",
-      "sourceId": "beef-magazine",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://beefmagazine.com/market-news/beef-enjoys-growth-while-total-july-2026-retail-meat-sales-drop",
-      "citationUrl": "https://beefmagazine.com/market-news/beef-enjoys-growth-while-total-july-2026-retail-meat-sales-drop",
-      "title": "Beef enjoys growth while total July 2026 retail meat sales drop",
-      "publishedAt": "2026-08-12T20:39:34.000Z",
-      "summary": "Decline in chicken sales could be related to consumers avoiding leafy greens and salads.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.451811,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.070031,
-            "weight": 0.34,
-            "contribution": 0.023811,
-            "ageDays": 9.305856
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.333333,
-            "weight": 0.14,
-            "contribution": 0.046667,
-            "keywordHits": 4
-          },
-          "corroboration": {
-            "signal": 0.333333,
-            "weight": 0.1,
-            "contribution": 0.033333,
-            "supportingSources": 1
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.451811
-      },
-      "clusterId": "dfc3cb2bb306769f64bca2fc34f99d1bb37828fbe63c31cabad9b32b0c4dc77a",
-      "relatedUrls": [
-        "https://feedstuffs.com/livestock-and-poultry-market-news/beef-enjoys-growth-while-total-july-2026-retail-meat-sales-drop"
-      ],
-      "duplicateMatches": [
-        {
-          "candidateId": "e3ca49c1e767a3454043a60653c368a723d620776bafa3a0b12ee0988ecf3e5a",
-          "sourceId": "feedstuffs",
-          "title": "Beef enjoys growth while total July 2026 retail meat sales drop",
-          "citationUrl": "https://feedstuffs.com/livestock-and-poultry-market-news/beef-enjoys-growth-while-total-july-2026-retail-meat-sales-drop",
-          "method": "strict-text",
-          "sharedTerms": [
-            "2026",
-            "avoiding",
-            "beef",
-            "chicken",
-            "consumers",
-            "could",
-            "decline",
-            "drop",
-            "enjoys",
-            "greens",
-            "growth",
-            "july",
-            "leafy",
-            "meat",
-            "related",
-            "retail",
-            "salads",
-            "sales",
-            "total",
-            "while"
-          ],
-          "linkedToCandidateId": "cfd20351b48be6994c78d72c03513ca70e4658d25e58193e2225262e1c5c7316"
-        }
-      ]
-    },
-    {
       "candidateId": "19baf57d246c967c41b87a63915b8c0c9a184b4bed5563f4eb6bb40fbdafb6cb",
       "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
       "collectionRole": "discovery",
       "contentClass": "news",
       "language": "en",
@@ -1744,7 +1491,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.450026,
       "scoreBreakdown": {
         "version": 1,
@@ -1786,278 +1533,15 @@
         "total": 0.450026
       },
       "clusterId": "7b0a79d47d64c499d2584de1bc47896d39da7b3d9cf001ddaaed28b2655f9f6c",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
       "relatedUrls": [],
       "duplicateMatches": []
-    },
-    {
-      "candidateId": "03da56665fd9e9336141a048f7d4dbe0ba103b6368f6918f0f86b03ea2f6e712",
-      "sourceId": "beef-magazine",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://beefmagazine.com/policy/manager-of-bovine-a-i-firm-pleads-guilty-to-bid-rigging",
-      "citationUrl": "https://beefmagazine.com/policy/manager-of-bovine-a-i-firm-pleads-guilty-to-bid-rigging",
-      "title": "Manager of bovine A.I. firm pleads guilty to bid rigging",
-      "publishedAt": "2026-08-13T19:33:05.000Z",
-      "summary": "Herbert Lutz is first to be charged and plead guilty in conspiracy to rig bids during sales of cattle used for artificial insemination purposes.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.447603,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.09197,
-            "weight": 0.34,
-            "contribution": 0.03127,
-            "ageDays": 8.352025
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.25,
-            "weight": 0.14,
-            "contribution": 0.035,
-            "keywordHits": 3
-          },
-          "corroboration": {
-            "signal": 0.333333,
-            "weight": 0.1,
-            "contribution": 0.033333,
-            "supportingSources": 1
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.447603
-      },
-      "clusterId": "2c33e845c8047f9d9dc53455cf8d085e13f840be5ff33b3cef08ff75117e320a",
-      "relatedUrls": [
-        "https://feedstuffs.com/agribusiness-news/manager-of-bovine-a-i-firm-pleads-guilty-to-bid-rigging"
-      ],
-      "duplicateMatches": [
-        {
-          "candidateId": "7f79e4b5b3437db1ea3e64d0abebe3d1deaf862b0fb37c3a120b1b8e0cefa86f",
-          "sourceId": "feedstuffs",
-          "title": "Manager of bovine A.I. firm pleads guilty to bid rigging",
-          "citationUrl": "https://feedstuffs.com/agribusiness-news/manager-of-bovine-a-i-firm-pleads-guilty-to-bid-rigging",
-          "method": "strict-text",
-          "sharedTerms": [
-            "artificial",
-            "bid",
-            "bids",
-            "bovine",
-            "cattle",
-            "charged",
-            "conspiracy",
-            "during",
-            "firm",
-            "first",
-            "guilty",
-            "herbert",
-            "insemination",
-            "lutz",
-            "manager",
-            "plead",
-            "pleads",
-            "purposes",
-            "rig",
-            "rigging",
-            "sales",
-            "used"
-          ],
-          "linkedToCandidateId": "03da56665fd9e9336141a048f7d4dbe0ba103b6368f6918f0f86b03ea2f6e712"
-        }
-      ]
-    },
-    {
-      "candidateId": "b515f3749a9dc5fd7f5a5bfe264aa9bd6c33edb7266e168eb8bd57de86a3baf3",
-      "sourceId": "usda-ams-livestock",
-      "collectionRole": "evidence",
-      "contentClass": "dataset",
-      "language": "und",
-      "discoveredBy": "json-api",
-      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2477?q=report_date%3D08%2F17%2F2026",
-      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2477",
-      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2477?q=report_date%3D08%2F17%2F2026",
-      "title": "5 Area Weekly Weighted Average Direct Slaughter Cattle (PDF) (LM_CT150)",
-      "publishedAt": "2026-08-17T11:50:29.000Z",
-      "releaseId": "08/17/2026",
-      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2477",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.442121,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.2631,
-            "weight": 0.34,
-            "contribution": 0.089454,
-            "ageDays": 4.673275
-          },
-          "authority": {
-            "signal": 0.9,
-            "weight": 0.24,
-            "contribution": 0.216
-          },
-          "contentClass": {
-            "signal": 0.5,
-            "weight": 0.18,
-            "contribution": 0.09
-          },
-          "topic": {
-            "signal": 0.333333,
-            "weight": 0.14,
-            "contribution": 0.046667,
-            "keywordHits": 4
-          },
-          "corroboration": {
-            "signal": 0,
-            "weight": 0.1,
-            "contribution": 0,
-            "supportingSources": 0
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.442121
-      },
-      "clusterId": "692962b4d22f1f8955424f0fbb307bb5cfe186d12b179387d1a379aa280bfd4c",
-      "relatedUrls": [],
-      "duplicateMatches": []
-    },
-    {
-      "candidateId": "21bdf89f28b360eb77564cd3db776cfc8c7858b14b53a22d8ee3fd782b21baa2",
-      "sourceId": "beef-magazine",
-      "collectionRole": "discovery",
-      "contentClass": "news",
-      "language": "en",
-      "discoveredBy": "rss",
-      "canonicalUrl": "https://beefmagazine.com/livestock-management/improving-leptospirosis-diagnostics-in-cattle",
-      "citationUrl": "https://beefmagazine.com/livestock-management/improving-leptospirosis-diagnostics-in-cattle",
-      "title": "Improving leptospirosis diagnostics in cattle",
-      "publishedAt": "2026-08-13T13:31:50.000Z",
-      "summary": "Project will home in on proteins that better match current circulating strains of the bacteria; goal is a single test that uses just one or two proteins to identify infected animals.",
-      "summaryOrigin": "source-supplied",
-      "sectors": [
-        "meat"
-      ],
-      "geographies": [
-        "United States"
-      ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
-      "relevanceScore": 0.433774,
-      "scoreBreakdown": {
-        "version": 1,
-        "factors": {
-          "recency": {
-            "signal": 0.085609,
-            "weight": 0.34,
-            "contribution": 0.029107,
-            "ageDays": 8.602894
-          },
-          "authority": {
-            "signal": 0.7,
-            "weight": 0.24,
-            "contribution": 0.168
-          },
-          "contentClass": {
-            "signal": 1,
-            "weight": 0.18,
-            "contribution": 0.18
-          },
-          "topic": {
-            "signal": 0.166667,
-            "weight": 0.14,
-            "contribution": 0.023333,
-            "keywordHits": 2
-          },
-          "corroboration": {
-            "signal": 0.333333,
-            "weight": 0.1,
-            "contribution": 0.033333,
-            "supportingSources": 1
-          }
-        },
-        "adjustments": {
-          "bovineGenetics": 0,
-          "international": 0,
-          "nonEnglish": 0
-        },
-        "total": 0.433774
-      },
-      "clusterId": "15e25e9987c9a0e50791c8fbdd145b23433a5674636be38b4e9c5c33254de515",
-      "relatedUrls": [
-        "https://feedstuffs.com/nutrition-and-health/improving-leptospirosis-diagnostics-in-cattle"
-      ],
-      "duplicateMatches": [
-        {
-          "candidateId": "c00522cb63c6b4b7b361356883558bfbfa772018159f21c8e4b79621363f6a3c",
-          "sourceId": "feedstuffs",
-          "title": "Improving leptospirosis diagnostics in cattle",
-          "citationUrl": "https://feedstuffs.com/nutrition-and-health/improving-leptospirosis-diagnostics-in-cattle",
-          "method": "strict-text",
-          "sharedTerms": [
-            "animals",
-            "bacteria",
-            "better",
-            "cattle",
-            "circulating",
-            "current",
-            "diagnostics",
-            "goal",
-            "home",
-            "identify",
-            "improving",
-            "infected",
-            "just",
-            "leptospirosis",
-            "match",
-            "one",
-            "project",
-            "proteins",
-            "single",
-            "strains",
-            "test",
-            "that",
-            "two",
-            "uses",
-            "will"
-          ],
-          "linkedToCandidateId": "21bdf89f28b360eb77564cd3db776cfc8c7858b14b53a22d8ee3fd782b21baa2"
-        }
-      ]
     },
     {
       "candidateId": "8e57e8b133f572f61495858f0cee678c2335cf4e11d33dee36f0ff0b64b2dc00",
       "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
       "collectionRole": "discovery",
       "contentClass": "news",
       "language": "en",
@@ -2074,7 +1558,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.433437,
       "scoreBreakdown": {
         "version": 1,
@@ -2116,12 +1600,15 @@
         "total": 0.433437
       },
       "clusterId": "c977f6795a033af09ccbb059b743edab7f9becf9d2bdbd32b247aa6777aeb451",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
       "relatedUrls": [],
       "duplicateMatches": []
     },
     {
       "candidateId": "ce6e2ffe1577f3ab5902d48cc4c91614876b283c13e50f24b9418278c86e20e2",
       "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
       "collectionRole": "discovery",
       "contentClass": "news",
       "language": "en",
@@ -2138,7 +1625,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.423128,
       "scoreBreakdown": {
         "version": 1,
@@ -2180,12 +1667,15 @@
         "total": 0.423128
       },
       "clusterId": "26a46a6cb679ccfbd6f3fde4cd9c9b5d449b883dd780f4d08ff834b81e38cd77",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
       "relatedUrls": [],
       "duplicateMatches": []
     },
     {
       "candidateId": "dc9ec279c9a9eca1ba7230a4731f39e997c24cd021c1f38c060da4171bdb044e",
       "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
       "collectionRole": "discovery",
       "contentClass": "news",
       "language": "en",
@@ -2202,7 +1692,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.420824,
       "scoreBreakdown": {
         "version": 1,
@@ -2244,12 +1734,219 @@
         "total": 0.420824
       },
       "clusterId": "1bf6a25c2c4375c7b384d5a179d73dab2e29a790def8b3e4c36c2e71055591f3",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
       "relatedUrls": [],
       "duplicateMatches": []
     },
     {
+      "candidateId": "cfd20351b48be6994c78d72c03513ca70e4658d25e58193e2225262e1c5c7316",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/beef-enjoys-growth-while-total-july-2026-retail-meat-sales-drop",
+      "citationUrl": "https://beefmagazine.com/market-news/beef-enjoys-growth-while-total-july-2026-retail-meat-sales-drop",
+      "title": "Beef enjoys growth while total July 2026 retail meat sales drop",
+      "publishedAt": "2026-08-12T20:39:34.000Z",
+      "summary": "Decline in chicken sales could be related to consumers avoiding leafy greens and salads.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.418477,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.070031,
+            "weight": 0.34,
+            "contribution": 0.023811,
+            "ageDays": 9.305856
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.333333,
+            "weight": 0.14,
+            "contribution": 0.046667,
+            "keywordHits": 4
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.418477
+      },
+      "clusterId": "dfc3cb2bb306769f64bca2fc34f99d1bb37828fbe63c31cabad9b32b0c4dc77a",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [
+        "https://feedstuffs.com/livestock-and-poultry-market-news/beef-enjoys-growth-while-total-july-2026-retail-meat-sales-drop"
+      ],
+      "duplicateMatches": [
+        {
+          "candidateId": "e3ca49c1e767a3454043a60653c368a723d620776bafa3a0b12ee0988ecf3e5a",
+          "sourceId": "feedstuffs",
+          "publisherGroup": "farm-progress",
+          "title": "Beef enjoys growth while total July 2026 retail meat sales drop",
+          "citationUrl": "https://feedstuffs.com/livestock-and-poultry-market-news/beef-enjoys-growth-while-total-july-2026-retail-meat-sales-drop",
+          "method": "strict-text",
+          "sharedTerms": [
+            "2026",
+            "avoiding",
+            "beef",
+            "chicken",
+            "consumers",
+            "could",
+            "decline",
+            "drop",
+            "enjoys",
+            "greens",
+            "growth",
+            "july",
+            "leafy",
+            "meat",
+            "related",
+            "retail",
+            "salads",
+            "sales",
+            "total",
+            "while"
+          ],
+          "linkedToCandidateId": "cfd20351b48be6994c78d72c03513ca70e4658d25e58193e2225262e1c5c7316"
+        }
+      ]
+    },
+    {
+      "candidateId": "03da56665fd9e9336141a048f7d4dbe0ba103b6368f6918f0f86b03ea2f6e712",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/policy/manager-of-bovine-a-i-firm-pleads-guilty-to-bid-rigging",
+      "citationUrl": "https://beefmagazine.com/policy/manager-of-bovine-a-i-firm-pleads-guilty-to-bid-rigging",
+      "title": "Manager of bovine A.I. firm pleads guilty to bid rigging",
+      "publishedAt": "2026-08-13T19:33:05.000Z",
+      "summary": "Herbert Lutz is first to be charged and plead guilty in conspiracy to rig bids during sales of cattle used for artificial insemination purposes.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.41427,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.09197,
+            "weight": 0.34,
+            "contribution": 0.03127,
+            "ageDays": 8.352025
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.25,
+            "weight": 0.14,
+            "contribution": 0.035,
+            "keywordHits": 3
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.41427
+      },
+      "clusterId": "2c33e845c8047f9d9dc53455cf8d085e13f840be5ff33b3cef08ff75117e320a",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [
+        "https://feedstuffs.com/agribusiness-news/manager-of-bovine-a-i-firm-pleads-guilty-to-bid-rigging"
+      ],
+      "duplicateMatches": [
+        {
+          "candidateId": "7f79e4b5b3437db1ea3e64d0abebe3d1deaf862b0fb37c3a120b1b8e0cefa86f",
+          "sourceId": "feedstuffs",
+          "publisherGroup": "farm-progress",
+          "title": "Manager of bovine A.I. firm pleads guilty to bid rigging",
+          "citationUrl": "https://feedstuffs.com/agribusiness-news/manager-of-bovine-a-i-firm-pleads-guilty-to-bid-rigging",
+          "method": "strict-text",
+          "sharedTerms": [
+            "artificial",
+            "bid",
+            "bids",
+            "bovine",
+            "cattle",
+            "charged",
+            "conspiracy",
+            "during",
+            "firm",
+            "first",
+            "guilty",
+            "herbert",
+            "insemination",
+            "lutz",
+            "manager",
+            "plead",
+            "pleads",
+            "purposes",
+            "rig",
+            "rigging",
+            "sales",
+            "used"
+          ],
+          "linkedToCandidateId": "03da56665fd9e9336141a048f7d4dbe0ba103b6368f6918f0f86b03ea2f6e712"
+        }
+      ]
+    },
+    {
       "candidateId": "da965ae54b4bbbc3fbbe51319edfbef5fca78a131274890e102192b625477679",
       "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
       "collectionRole": "discovery",
       "contentClass": "news",
       "language": "en",
@@ -2266,7 +1963,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.403338,
       "scoreBreakdown": {
         "version": 1,
@@ -2308,12 +2005,15 @@
         "total": 0.403338
       },
       "clusterId": "5b987dbb06d687ee6668840eb9772e822cd138d2814fb6b314dde987b6cfe0f2",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
       "relatedUrls": [],
       "duplicateMatches": []
     },
     {
       "candidateId": "f643ef8fc15bf06ff083d681e3f7eef97f9184764b2010049827eb608194233b",
       "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
       "collectionRole": "discovery",
       "contentClass": "news",
       "language": "en",
@@ -2330,7 +2030,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.403069,
       "scoreBreakdown": {
         "version": 1,
@@ -2372,12 +2072,121 @@
         "total": 0.403069
       },
       "clusterId": "b24b8000198be350eff1fd434cce874040c2c933ec6d9d6488b42df3a6f5b2a7",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
       "relatedUrls": [],
       "duplicateMatches": []
     },
     {
+      "candidateId": "21bdf89f28b360eb77564cd3db776cfc8c7858b14b53a22d8ee3fd782b21baa2",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/improving-leptospirosis-diagnostics-in-cattle",
+      "citationUrl": "https://beefmagazine.com/livestock-management/improving-leptospirosis-diagnostics-in-cattle",
+      "title": "Improving leptospirosis diagnostics in cattle",
+      "publishedAt": "2026-08-13T13:31:50.000Z",
+      "summary": "Project will home in on proteins that better match current circulating strains of the bacteria; goal is a single test that uses just one or two proteins to identify infected animals.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.40044,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.085609,
+            "weight": 0.34,
+            "contribution": 0.029107,
+            "ageDays": 8.602894
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.40044
+      },
+      "clusterId": "15e25e9987c9a0e50791c8fbdd145b23433a5674636be38b4e9c5c33254de515",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [
+        "https://feedstuffs.com/nutrition-and-health/improving-leptospirosis-diagnostics-in-cattle"
+      ],
+      "duplicateMatches": [
+        {
+          "candidateId": "c00522cb63c6b4b7b361356883558bfbfa772018159f21c8e4b79621363f6a3c",
+          "sourceId": "feedstuffs",
+          "publisherGroup": "farm-progress",
+          "title": "Improving leptospirosis diagnostics in cattle",
+          "citationUrl": "https://feedstuffs.com/nutrition-and-health/improving-leptospirosis-diagnostics-in-cattle",
+          "method": "strict-text",
+          "sharedTerms": [
+            "animals",
+            "bacteria",
+            "better",
+            "cattle",
+            "circulating",
+            "current",
+            "diagnostics",
+            "goal",
+            "home",
+            "identify",
+            "improving",
+            "infected",
+            "just",
+            "leptospirosis",
+            "match",
+            "one",
+            "project",
+            "proteins",
+            "single",
+            "strains",
+            "test",
+            "that",
+            "two",
+            "uses",
+            "will"
+          ],
+          "linkedToCandidateId": "21bdf89f28b360eb77564cd3db776cfc8c7858b14b53a22d8ee3fd782b21baa2"
+        }
+      ]
+    },
+    {
       "candidateId": "85a37960bb2e731702ac923fde99df379aa537278f8d9e441b3a5a49336b3c5d",
       "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
       "collectionRole": "discovery",
       "contentClass": "news",
       "language": "en",
@@ -2394,7 +2203,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.399273,
       "scoreBreakdown": {
         "version": 1,
@@ -2436,12 +2245,15 @@
         "total": 0.399273
       },
       "clusterId": "44d71a1d7c3097e7735419709a2fa7d83a8b6dfd569e6d749ee79e11e593ecb8",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
       "relatedUrls": [],
       "duplicateMatches": []
     },
     {
       "candidateId": "403887fa96ea6676ff17641aea2425040bddddb566a020140f039fc23c377db0",
       "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
       "collectionRole": "discovery",
       "contentClass": "news",
       "language": "en",
@@ -2458,7 +2270,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.399208,
       "scoreBreakdown": {
         "version": 1,
@@ -2500,12 +2312,15 @@
         "total": 0.399208
       },
       "clusterId": "ec1e44ae4d8e532d866c408b5c2c220fd3fd448392e32c7471b0b7545ba73da4",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
       "relatedUrls": [],
       "duplicateMatches": []
     },
     {
       "candidateId": "5c7e2ed605d1922c22a7c1944e4ff0c6e2bb1dfce49b382a5ebaf2ee963dec10",
       "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
       "collectionRole": "discovery",
       "contentClass": "news",
       "language": "und",
@@ -2522,7 +2337,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.395318,
       "scoreBreakdown": {
         "version": 1,
@@ -2564,12 +2379,15 @@
         "total": 0.395318
       },
       "clusterId": "0029e04bbda03e4c2b3557330d148ee9dcf10ce026800361653360c2434b1b8a",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
       "relatedUrls": [],
       "duplicateMatches": []
     },
     {
       "candidateId": "bc3ef1f12973163acc11b009cf7ac8c67b3538e0532df6878f9a764c10add64d",
       "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
       "collectionRole": "discovery",
       "contentClass": "news",
       "language": "en",
@@ -2586,7 +2404,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.39286,
       "scoreBreakdown": {
         "version": 1,
@@ -2628,12 +2446,315 @@
         "total": 0.39286
       },
       "clusterId": "98dc862a6c9bb269aa43d105573e6c763fc19621488ea27ca784272007cab2d3",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "b0737e746b30d571d666685156220355c48c7750c5a619010f1aef40bf2dfc2f",
+      "sourceId": "usda-ams-livestock",
+      "publisherGroup": "usda",
+      "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "und",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D08%2F21%2F2026",
+      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
+      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D08%2F21%2F2026",
+      "title": "National/Regional Weekly Boneless Processing Beef and Beef Trimmings (PDF) (LM_XB460)",
+      "publishedAt": "2026-08-21T15:00:57.000Z",
+      "releaseId": "08/21/2026",
+      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.620639,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.856781,
+            "weight": 0.34,
+            "contribution": 0.291305,
+            "ageDays": 0.541007
+          },
+          "authority": {
+            "signal": 0.9,
+            "weight": 0.24,
+            "contribution": 0.216
+          },
+          "contentClass": {
+            "signal": 0.5,
+            "weight": 0.18,
+            "contribution": 0.09
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.620639
+      },
+      "clusterId": "448be32ac26cbf08c855036bfc59b8e732c9eabfd5b208ed6f357c1968bd4f65",
+      "reviewTier": "supporting-data",
+      "selectionBasis": "official-data",
+      "relatedUrls": [],
+      "duplicateMatches": [
+        {
+          "candidateId": "74de3b1a82528f20c020a46bafef7ebc07306f5a3a2fc5ce2ab5cb7e18ebc35b",
+          "sourceId": "usda-ams-livestock",
+          "publisherGroup": "usda",
+          "title": "National/Regional Weekly Boneless Processing Beef and Beef Trimmings (PDF) (LM_XB460)",
+          "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
+          "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D08%2F14%2F2026",
+          "releaseId": "08/14/2026",
+          "method": "recurring-series",
+          "sharedTerms": [],
+          "linkedToCandidateId": "b0737e746b30d571d666685156220355c48c7750c5a619010f1aef40bf2dfc2f"
+        }
+      ]
+    },
+    {
+      "candidateId": "204cca85dd71024b1fe4731475fcc25183f0d604c2b28302597e4f9cabf8ba66",
+      "sourceId": "usda-ams-livestock",
+      "publisherGroup": "usda",
+      "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "und",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F21%2F2026",
+      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
+      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F21%2F2026",
+      "title": "National Weekly Boxed Beef Cutout & Boxed Beef Cuts - Negotiated Sales (PDF) (LM_XB459)",
+      "publishedAt": "2026-08-21T14:52:53.000Z",
+      "releaseId": "08/21/2026",
+      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.620173,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.85541,
+            "weight": 0.34,
+            "contribution": 0.29084,
+            "ageDays": 0.546609
+          },
+          "authority": {
+            "signal": 0.9,
+            "weight": 0.24,
+            "contribution": 0.216
+          },
+          "contentClass": {
+            "signal": 0.5,
+            "weight": 0.18,
+            "contribution": 0.09
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.620173
+      },
+      "clusterId": "2b188ecc1ddd71af8721dee298de0ae4c6331dff10490926c46e8ebfa55b1c2b",
+      "reviewTier": "supporting-data",
+      "selectionBasis": "official-data",
+      "relatedUrls": [],
+      "duplicateMatches": [
+        {
+          "candidateId": "d98d7591209927c41a835358ead355c43476b967ef983750045f5bb69a39d116",
+          "sourceId": "usda-ams-livestock",
+          "publisherGroup": "usda",
+          "title": "National Weekly Boxed Beef Cutout & Boxed Beef Cuts - Negotiated Sales (PDF) (LM_XB459)",
+          "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
+          "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D08%2F14%2F2026",
+          "releaseId": "08/14/2026",
+          "method": "recurring-series",
+          "sharedTerms": [],
+          "linkedToCandidateId": "204cca85dd71024b1fe4731475fcc25183f0d604c2b28302597e4f9cabf8ba66"
+        }
+      ]
+    },
+    {
+      "candidateId": "c30e6568ebbf4c6adb20c428c7f577b7e440a78907058d9276e60800a8aa247e",
+      "sourceId": "usda-ers-dairy",
+      "publisherGroup": "usda",
+      "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "en",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://ers.usda.gov/publications/115136",
+      "citationUrl": "https://ers.usda.gov/publications/115136",
+      "evidenceUrl": "https://ers.usda.gov/publications/115136",
+      "title": "Livestock, Dairy, and Poultry Outlook: August 2026",
+      "publishedAt": "2026-08-18T15:00:00.000Z",
+      "summary": "The Livestock, Dairy, and Poultry Outlook for August 2026 analyzes economic impacts of month-to-month changes in USDA’s “World Agricultural Supply and Demand Estimates” report on domestic and international markets for beef, lamb, pork, poultry, eggs, and dairy products.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy",
+        "meat"
+      ],
+      "geographies": [
+        "International",
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.547932,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.363526,
+            "weight": 0.34,
+            "contribution": 0.123599,
+            "ageDays": 3.541667
+          },
+          "authority": {
+            "signal": 0.9,
+            "weight": 0.24,
+            "contribution": 0.216
+          },
+          "contentClass": {
+            "signal": 0.5,
+            "weight": 0.18,
+            "contribution": 0.09
+          },
+          "topic": {
+            "signal": 0.416667,
+            "weight": 0.14,
+            "contribution": 0.058333,
+            "keywordHits": 5
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0.06,
+          "nonEnglish": 0
+        },
+        "total": 0.547932
+      },
+      "clusterId": "0c0b0860bed46872cdf64493bd362c7a5ec03763f7fe83e9d11267efac8c2d07",
+      "reviewTier": "supporting-data",
+      "selectionBasis": "official-data",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "b515f3749a9dc5fd7f5a5bfe264aa9bd6c33edb7266e168eb8bd57de86a3baf3",
+      "sourceId": "usda-ams-livestock",
+      "publisherGroup": "usda",
+      "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "und",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2477?q=report_date%3D08%2F17%2F2026",
+      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2477",
+      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2477?q=report_date%3D08%2F17%2F2026",
+      "title": "5 Area Weekly Weighted Average Direct Slaughter Cattle (PDF) (LM_CT150)",
+      "publishedAt": "2026-08-17T11:50:29.000Z",
+      "releaseId": "08/17/2026",
+      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2477",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
+      "relevanceScore": 0.442121,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.2631,
+            "weight": 0.34,
+            "contribution": 0.089454,
+            "ageDays": 4.673275
+          },
+          "authority": {
+            "signal": 0.9,
+            "weight": 0.24,
+            "contribution": 0.216
+          },
+          "contentClass": {
+            "signal": 0.5,
+            "weight": 0.18,
+            "contribution": 0.09
+          },
+          "topic": {
+            "signal": 0.333333,
+            "weight": 0.14,
+            "contribution": 0.046667,
+            "keywordHits": 4
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.442121
+      },
+      "clusterId": "692962b4d22f1f8955424f0fbb307bb5cfe186d12b179387d1a379aa280bfd4c",
+      "reviewTier": "supporting-data",
+      "selectionBasis": "official-data",
       "relatedUrls": [],
       "duplicateMatches": []
     },
     {
       "candidateId": "e47aee83a51ef3e29baad6fc20835d623e097daa038c66340c3dad4013fe2838",
       "sourceId": "usda-ers-dairy",
+      "publisherGroup": "usda",
       "collectionRole": "evidence",
       "contentClass": "dataset",
       "language": "en",
@@ -2651,7 +2772,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.37027,
       "scoreBreakdown": {
         "version": 1,
@@ -2693,12 +2814,15 @@
         "total": 0.37027
       },
       "clusterId": "05d074f10cf58296532df8debfd14b85e002d87cdd224a481cb09e4fcb1d4d81",
+      "reviewTier": "supporting-data",
+      "selectionBasis": "official-data",
       "relatedUrls": [],
       "duplicateMatches": []
     },
     {
       "candidateId": "9c1971969312474cdef45b327466d61101f34c304e802bf1676a9351753b3545",
       "sourceId": "usda-ers-livestock",
+      "publisherGroup": "usda",
       "collectionRole": "evidence",
       "contentClass": "dataset",
       "language": "en",
@@ -2716,7 +2840,7 @@
       "geographies": [
         "United States"
       ],
-      "retrievedAt": "2026-08-22T17:16:16.195Z",
+      "retrievedAt": "2026-08-22T19:38:06.706Z",
       "relevanceScore": 0.362996,
       "scoreBreakdown": {
         "version": 1,
@@ -2758,6 +2882,8 @@
         "total": 0.362996
       },
       "clusterId": "21905aa86086e19a9cd572ea15a850db47313468e22d995d32bdfd5b2a3e22b8",
+      "reviewTier": "supporting-data",
+      "selectionBasis": "official-data",
       "relatedUrls": [],
       "duplicateMatches": []
     }
