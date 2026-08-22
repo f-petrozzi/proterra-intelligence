@@ -9,6 +9,7 @@ import { prepareImageContext } from "./prepare-image-context";
 
 const issuePattern = /^research-(\d{4}-\d{2}-\d{2})$/;
 const shaPattern = /^[a-f0-9]{40}$/;
+export const weeklyPullRequestDiscoveryLabels = ["source-review-ready", "changes-requested", "brief-review-ready"] as const;
 const resultSchema = z.object({
   status: z.enum(["draft-ready", "coverage-gap"]),
   summary: z.string().min(1).max(4000),
@@ -205,9 +206,8 @@ async function reviewRequest(path: string, init?: RequestInit) {
 }
 
 async function actionablePullRequest() {
-  const labels = ["source-review-ready", "changes-requested"];
   const found = new Map<number, any>();
-  for (const label of labels) {
+  for (const label of weeklyPullRequestDiscoveryLabels) {
     const result = await requireCommand("gh", ["pr", "list", "--state", "open", "--label", label, "--json", "number,headRefName,headRefOid,url,labels"]);
     for (const pullRequest of JSON.parse(result.stdout) as any[]) found.set(pullRequest.number, pullRequest);
   }
@@ -317,6 +317,9 @@ async function main() {
     process.stdout.write(`Reconciled GitHub labels and draft-ready comment for ${pendingReceipt.newSha}. No Codex run was needed.\n`);
     return;
   }
+  if (!["source-ready", "changes-requested"].includes(String(context.issue.state))) {
+    throw new Error(`The review issue is not actionable from state ${context.issue.state}.`);
+  }
 
   const tempRoot = await mkdtemp(join(tmpdir(), `proterra-intelligence-${issueDate}-`));
   const worktree = join(tempRoot, "worktree");
@@ -332,9 +335,6 @@ async function main() {
     await Promise.all([access(candidatesPath), access(manifestPath)]);
     const manifest = runManifestSchema.parse(JSON.parse(await readFile(manifestPath, "utf8")));
     if (manifest.issueDate !== issueDate) throw new Error("The collection manifest does not match the actionable issue date.");
-    if (!["source-ready", "changes-requested"].includes(String(context.issue.state))) {
-      throw new Error(`The review issue is not actionable from state ${context.issue.state}.`);
-    }
     assertQueueMayDraft(manifest, String(context.issue.state), allowCoverageGap);
     const editorialOverrideApproved = manifest.editorialReadiness === "coverage-gap"
       && (allowCoverageGap || context.issue.state === "changes-requested");
