@@ -80,7 +80,7 @@ For the homelab portion of setup, `npm run weekly:setup` performs the safe read-
 4. Wait for “draft ready,” then use the stable review link in the email.
 5. Click or select report content to attach comments. Source buttons open separately and do not change the active comment anchor.
 6. Add all instructions, then select **Request changes** once.
-7. When the change-request email arrives, run the same command again.
+7. The review service stores the immutable feedback batch, mirrors `changes-requested` on the pull request, and emails the operator. When the email arrives, run the same command again. D1 remains authoritative: the runner also discovers `brief-review-ready` as a safe fallback if GitHub label synchronization is delayed.
 8. Confirm each addressed thread against the refreshed exact-SHA report snapshot and resolve it.
 9. Either publisher selects **Approve & publish**. No GitHub action or merge is needed from the reviewer.
 

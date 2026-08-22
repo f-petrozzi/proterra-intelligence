@@ -9,7 +9,7 @@ import { assertEditorialImageAssignments } from "../../src/lib/image-policy";
 import { assertWeeklyDiff } from "../../scripts/review/assert-weekly-diff";
 import {
   assertQueueMayDraft, buildDraftPrompt, chatGptOnlyEnvironment, matchesReconciliation,
-  normalizeGeneratedReport, type DraftReceipt
+  normalizeGeneratedReport, weeklyPullRequestDiscoveryLabels, type DraftReceipt
 } from "../../scripts/review/weekly-draft";
 import { parseCommentInput } from "../../review-worker/src/index";
 import { validateCollectionOutput } from "../../scripts/collection/validate-output";
@@ -221,6 +221,25 @@ test("runner retains its receipt until checked idempotent GitHub finalization su
   const finalization = runner.indexOf("await markPullRequestReady(pullRequest, result.summary, newSha)");
   const receiptRemoval = runner.indexOf("await rm(receiptPath, { force: true })", finalization);
   assert.ok(finalization > 0 && receiptRemoval > finalization);
+});
+
+test("submitted feedback remains discoverable while GitHub mirrors the review state", async () => {
+  assert.deepEqual(weeklyPullRequestDiscoveryLabels, [
+    "source-review-ready", "changes-requested", "brief-review-ready"
+  ]);
+  const runner = await readFile("scripts/review/weekly-draft.ts", "utf8");
+  const contextLoad = runner.indexOf("const context = await reviewRequest");
+  const stateGuard = runner.indexOf('if (!["source-ready", "changes-requested"].includes', contextLoad);
+  const dependencyInstall = runner.indexOf('await run("npm", ["ci"]', stateGuard);
+  assert.ok(contextLoad > 0 && stateGuard > contextLoad && dependencyInstall > stateGuard);
+
+  const notification = await readFile(".github/workflows/notify-review.yml", "utf8");
+  assert.match(notification, /issues: write/);
+  assert.match(notification, /pull-requests: read/);
+  assert.match(notification, /Mirror changes-requested state on the pull request/);
+  assert.match(notification, /continue-on-error: true/);
+  assert.match(notification, /--add-label changes-requested/);
+  assert.match(notification, /--remove-label brief-review-ready/);
 });
 
 test("approval CI uses the guarded PR run and preserves a resumable prepared commit", async () => {
