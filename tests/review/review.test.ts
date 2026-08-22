@@ -8,7 +8,8 @@ import { fallbackStoryReviewId, reviewAnchor } from "../../src/lib/review";
 import { assertEditorialImageAssignments } from "../../src/lib/image-policy";
 import { assertWeeklyDiff } from "../../scripts/review/assert-weekly-diff";
 import {
-  assertQueueMayDraft, buildDraftPrompt, chatGptOnlyEnvironment, matchesReconciliation, type DraftReceipt
+  assertQueueMayDraft, buildDraftPrompt, chatGptOnlyEnvironment, matchesReconciliation,
+  normalizeGeneratedReport, type DraftReceipt
 } from "../../scripts/review/weekly-draft";
 import { validateCollectionOutput } from "../../scripts/collection/validate-output";
 
@@ -48,6 +49,23 @@ test("the Worker accepts the validated automated-draft contract", () => {
     }))
   };
   assert.equal(reviewReportSchema.parse(report).slug, "2026-08-24");
+});
+
+test("generated reports receive deterministic issue metadata and harmless enum cleanup", () => {
+  const normalized = normalizeGeneratedReport({
+    slug: "wrong",
+    issueNumber: 1,
+    status: "approved",
+    publishedAt: "2020-01-01",
+    dashboard: { charts: [] },
+    items: [{ documentType: "article" }, { documentType: "report" }]
+  }, "2026-08-22", 3) as any;
+  assert.equal(normalized.slug, "2026-08-22");
+  assert.equal(normalized.issueNumber, 3);
+  assert.equal(normalized.status, "draft");
+  assert.equal(normalized.publishedAt, "2026-08-22");
+  assert.equal("charts" in normalized.dashboard, false);
+  assert.deepEqual(normalized.items.map((item: any) => item.documentType), ["news", "report"]);
 });
 
 test("weekly setup helper is shell-valid, discoverable, and non-mutating by default", async () => {
@@ -280,6 +298,9 @@ test("automated reports use unique, headline-specific editorial images", async (
   assert.doesNotThrow(() => assertEditorialImageAssignments([
     { rank: 1, headline: "Nonfat dry milk leads the week", imageId: "milk-powder" }
   ], policyImages, "test-report"));
+  assert.doesNotThrow(() => assertEditorialImageAssignments([
+    { rank: 1, headline: "Temporary allowance for beef import shipments", imageId: "cattle-loading" }
+  ], new Map([["cattle-loading", { subjects: ["cattle imports"] }]]), "test-report"));
   assert.throws(() => assertEditorialImageAssignments([
     { rank: 1, headline: "Nonfat dry milk leads the week", imageId: "butter-output" }
   ], policyImages, "test-report"), /does not match a declared subject/);
