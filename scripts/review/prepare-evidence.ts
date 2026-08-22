@@ -8,7 +8,11 @@ export type EvidenceItem = {
   candidateId: string;
   reviewId: string;
   sourceId: string;
+  publisherGroup: string;
   contentClass: string;
+  reviewTier: string;
+  selectionBasis: string;
+  independentPublisherCount: number;
   language: string;
   relevanceScore: number;
   title: string;
@@ -238,7 +242,11 @@ async function evidenceFor(candidate: Candidate, fetchText: FetchText): Promise<
     candidateId: candidate.candidateId,
     reviewId: `story-${candidate.candidateId.slice(0, 16)}`,
     sourceId: candidate.sourceId,
+    publisherGroup: candidate.publisherGroup ?? candidate.sourceId,
     contentClass: candidate.contentClass,
+    reviewTier: candidate.reviewTier ?? (candidate.contentClass === "dataset" ? "supporting-data" : "also-review"),
+    selectionBasis: candidate.selectionBasis ?? (candidate.contentClass === "dataset" ? "official-data" : "eligible-news"),
+    independentPublisherCount: candidate.scoreBreakdown?.factors.corroboration.supportingSources ?? 0,
     language: candidate.language,
     relevanceScore: candidate.relevanceScore,
     title: candidate.title,

@@ -64,7 +64,7 @@ For the homelab portion of setup, `npm run weekly:setup` performs the safe read-
 ## Normal week
 
 1. Wait for “Proterra Intelligence sources are ready.”
-2. Open the linked draft pull request and inspect **Deterministic source audit**. It lists every configured adapter, health and rejection counts, every accepted candidate, and the exact additive reason for its score. Confirm that the leading developments and collapsed related links look sensible before spending Codex usage.
+2. Open the linked draft pull request and inspect **Source review**. Read **Review first** as the suggested 8–10-item starting set, not a verdict. Check its plain-language reasons, sector/geography coverage, and publisher mix before spending Codex usage. **Also worth reviewing**, supporting data, source health, grouped coverage, and exact score math remain available in collapsed sections.
 3. From the repository root on the homelab, load the review secrets and run:
 
    ```sh

@@ -9,6 +9,7 @@ import { parseRss } from "./adapters/rss";
 import { fetchWithPolicy, type FetchLike } from "./fetch";
 import { clusterCandidates } from "./cluster";
 import { deduplicateCandidates, normalizeCandidate, stableCandidateSort } from "./normalize";
+import { buildReviewQueue } from "./select-review";
 import { authorityWeightOf, scoreCandidateBreakdown, type ScoreBreakdown } from "./score";
 import {
   candidateFileSchema, collectionRegistrySchema, rawCandidateSchema, runManifestSchema,
@@ -165,14 +166,18 @@ export async function collectSources(options: {
     const sectors = [...new Set(cluster.members.flatMap((candidate) => candidate.sectors))].sort() as Candidate["sectors"];
     const geographies = [...new Set(cluster.members.flatMap((candidate) => candidate.geographies))].sort();
     for (const member of cluster.members) {
+      const memberGroup = member.publisherGroup ?? member.sourceId;
+      const corroboratingPublisherCount = new Set(cluster.members
+        .map((candidate) => candidate.publisherGroup ?? candidate.sourceId)
+        .filter((group) => group !== memberGroup)).size;
       scoreOf.set(member.candidateId, scoreCandidateBreakdown({ ...member, sectors, geographies }, {
         authorityWeight: authority.get(member.sourceId) ?? 0.6,
-        corroboratingSourceCount: Math.max(0, new Set(cluster.members.map((candidate) => candidate.sourceId)).size - 1),
+        corroboratingPublisherCount,
         windowEnd: window.end
       }));
     }
   }
-  const candidates: Candidate[] = clusters.map((cluster) => {
+  const rankedCandidates: Candidate[] = clusters.map((cluster) => {
     const ranked = [...cluster.members].sort((a, b) =>
       (scoreOf.get(b.candidateId)!.total - scoreOf.get(a.candidateId)!.total) || stableCandidateSort(a, b));
     const [representative, ...rest] = ranked;
@@ -198,6 +203,7 @@ export async function collectSources(options: {
         return {
           candidateId: member.candidateId,
           sourceId: member.sourceId,
+          publisherGroup: member.publisherGroup ?? member.sourceId,
           title: member.title,
           citationUrl: member.citationUrl,
           ...(member.evidenceUrl ? { evidenceUrl: member.evidenceUrl } : {}),
@@ -209,6 +215,7 @@ export async function collectSources(options: {
       }).sort((a, b) => a.citationUrl.localeCompare(b.citationUrl))
     };
   }).sort((a, b) => (b.relevanceScore - a.relevanceScore) || stableCandidateSort(a, b));
+  const { candidates, summary: reviewSelection } = buildReviewQueue(rankedCandidates);
 
   const completedAt = (options.now ?? new Date()).toISOString();
   const failed = adapters.filter((adapter) => adapter.status === "failed").length;
@@ -257,6 +264,7 @@ export async function collectSources(options: {
       geographies: geographyCounts,
       languages: languageCounts
     },
+    reviewSelection,
     warnings
   });
   return { candidateFile, manifest };
@@ -273,6 +281,7 @@ async function main() {
       candidates: result.manifest.candidateCount, newsCandidates: result.manifest.newsCandidateCount,
       datasetCandidates: result.manifest.datasetCandidateCount, clusters: result.manifest.clusterCount,
       coverage: result.manifest.coverage, coverageGaps: result.manifest.coverageGaps,
+      reviewSelection: result.manifest.reviewSelection,
       warnings: result.manifest.warnings, adapters: result.manifest.adapters
     }, null, 2)}\n`);
     return;
