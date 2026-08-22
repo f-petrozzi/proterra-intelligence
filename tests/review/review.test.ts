@@ -11,6 +11,7 @@ import {
   assertQueueMayDraft, buildDraftPrompt, chatGptOnlyEnvironment, matchesReconciliation,
   normalizeGeneratedReport, type DraftReceipt
 } from "../../scripts/review/weekly-draft";
+import { parseCommentInput } from "../../review-worker/src/index";
 import { validateCollectionOutput } from "../../scripts/collection/validate-output";
 import { createImageContext } from "../../scripts/review/prepare-image-context";
 
@@ -171,6 +172,26 @@ test("review shell exposes comment editing and orphaned-anchor warnings", () => 
   assert.match(html, /data-review-anchor/);
   assert.match(html, /selectField\(target\)/);
   assert.match(html, /idempotencyKey:crypto\.randomUUID\(\)/);
+  assert.match(html, /anchorLabel:target\.dataset\.reviewLabel/);
+  assert.doesNotMatch(html, /,label:target\.dataset\.reviewLabel/);
+});
+
+test("comment input accepts the current anchor label and normalizes the legacy browser key", () => {
+  const base = {
+    anchorKey: "2026-08-24:story-12345678:summary",
+    storyReviewId: "story-12345678",
+    fieldPath: "summary",
+    selectedText: "",
+    contextBefore: "",
+    contextAfter: "",
+    fieldValueHash: "f".repeat(64),
+    body: "Clarify the supporting evidence in this summary.",
+    expectedSha: "a".repeat(40),
+    expectedVersion: 1,
+    idempotencyKey: crypto.randomUUID()
+  };
+  assert.equal(parseCommentInput({ ...base, anchorLabel: "Story 1 summary" }).anchorLabel, "Story 1 summary");
+  assert.equal(parseCommentInput({ ...base, label: "Story 1 summary" }).anchorLabel, "Story 1 summary");
 });
 
 test("collection deletes stale issue artifacts before a rerun", async () => {

@@ -13,7 +13,12 @@ export interface Env extends AuthEnv {
 
 const issueDateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 const shaSchema = z.string().regex(/^[a-f0-9]{40}$/);
-const commentInputSchema = z.object({
+const commentInputSchema = z.preprocess((value) => {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return value;
+  const candidate = value as Record<string, unknown>;
+  if (typeof candidate.anchorLabel === "string" || typeof candidate.label !== "string") return value;
+  return { ...candidate, anchorLabel: candidate.label };
+}, z.object({
   anchorKey: z.string().min(3).max(300),
   storyReviewId: z.string().regex(/^story-[a-z0-9-]{8,80}$/),
   fieldPath: z.string().min(1).max(300),
@@ -26,7 +31,7 @@ const commentInputSchema = z.object({
   expectedSha: shaSchema,
   expectedVersion: z.number().int().positive(),
   idempotencyKey: z.uuid()
-});
+}));
 const commentMutationSchema = z.object({
   action: z.enum(["resolve", "reopen", "edit"]),
   body: z.string().trim().min(1).max(4000).optional(),
@@ -41,6 +46,10 @@ export type CommentInput = z.infer<typeof commentInputSchema>;
 export type CommentMutationInput = z.infer<typeof commentMutationSchema>;
 const stateInputSchema = z.object({ expectedSha: shaSchema, expectedVersion: z.number().int().positive(), idempotencyKey: z.uuid() });
 export type StateInput = z.infer<typeof stateInputSchema>;
+
+export function parseCommentInput(value: unknown) {
+  return commentInputSchema.parse(value);
+}
 
 function json(value: unknown, status = 200) {
   return Response.json(value, { status, headers: { "cache-control": "no-store", "x-content-type-options": "nosniff" } });
@@ -662,7 +671,7 @@ async function handleUserApi(request: Request, env: Env, path: string[]) {
   }
   if (request.method === "POST" && path[0] === "issues" && path[2] === "comments") {
     const issueDate = issueDateSchema.parse(path[1]);
-    const input = commentInputSchema.parse(await body(request));
+    const input = parseCommentInput(await body(request));
     const result = await createComment(env, email, issueDate, input);
     return json(await issuePayload(env, issueDate), result.duplicate ? 200 : 201);
   }
