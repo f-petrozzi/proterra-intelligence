@@ -5,7 +5,7 @@
   "compatibility_date": "2026-08-17",
   "workers_dev": true,
   "triggers": {
-    "crons": ["*/5 * * * *"]
+    "crons": ["*/15 * * * *"]
   },
   "d1_databases": [
     {
