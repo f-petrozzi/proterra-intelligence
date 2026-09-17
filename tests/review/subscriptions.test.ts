@@ -260,6 +260,21 @@ test("public requests verify the bot token hostname and action before queuing em
   assert.equal((await subscriptionRecipients(env)).length, 1);
 });
 
+test("the Gmail unsubscribe migration does not reset other hourly IP limits", async context => {
+  const { env, miniflare } = await fixture();
+  context.after(() => miniflare.dispose());
+  env.SUBSCRIPTIONS_TURNSTILE_SECRET = "test-secret";
+  context.mock.method(globalThis, "fetch", async () => Response.json({ success: true, hostname: "review.example.org", action: "subscription" }));
+  const submit = (email: string, intent: "subscribe" | "unsubscribe") => subscriptionRoutes(new Request(`${env.REVIEW_ORIGIN}/subscriptions/request`, {
+    method: "POST", headers: { origin: env.REVIEW_ORIGIN, "content-type": "application/x-www-form-urlencoded", "cf-connecting-ip": "192.0.2.44" },
+    body: `email=${encodeURIComponent(email)}&intent=${intent}&cf-turnstile-response=challenge`
+  }), env);
+  for (let index = 0; index < 5; index++) assert.equal((await submit(`reader${index}@example.org`, "subscribe"))?.status, 200);
+  assert.equal((await submit("blocked@example.org", "subscribe"))?.status, 429);
+  assert.equal((await submit("reader@gmail.com", "unsubscribe"))?.status, 200);
+  assert.equal((await submit("still-blocked@example.org", "unsubscribe"))?.status, 429);
+});
+
 test("concurrent acceptance and decline cannot both change consent", async context => {
   const { env, miniflare } = await fixture();
   context.after(() => miniflare.dispose());
