@@ -3,9 +3,9 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { Miniflare } from "miniflare";
 import type { Env } from "../../review-worker/src/index";
-import { claimMail, consumeRequest, importSubscribers, removeSubscriber, requestSubscription, subscriptionRecipients, subscriptionRoutes } from "../../review-worker/src/subscriptions";
+import { claimMail, consumeRequest, importSubscribers, inviterNameSchema, removeSubscriber, requestSubscription, subscriptionRecipients, subscriptionRoutes, unsubscribeAddress } from "../../review-worker/src/subscriptions";
 import { loadDigest } from "../../scripts/email/digest";
-import { renderDigest, getDigestSubject } from "../../scripts/email/render";
+import { renderDigest, getDigestSubject, getSubscriptionSubject, renderSubscriptionEmail } from "../../scripts/email/render";
 
 async function fixture(initialize = true) {
   const miniflare = new Miniflare({ workers: [{ config: {
@@ -15,8 +15,10 @@ async function fixture(initialize = true) {
     } }, env: { REVIEW_DB: { type: "d1", name: "subscriptions-test" } }
   } }] });
   const database = await miniflare.getD1Database("REVIEW_DB", "subscriptions-test");
-  const sql = await readFile("review-worker/migrations/0004_subscriptions.sql", "utf8");
-  for (const statement of sql.split(";").map(value => value.trim()).filter(Boolean)) await database.prepare(statement).run();
+  for (const migration of ["0004_subscriptions.sql", "0005_subscription_inviter.sql"]) {
+    const sql = (await readFile(`review-worker/migrations/${migration}`, "utf8")).replace(/^--.*$/gm, "");
+    for (const statement of sql.split(";").map(value => value.trim()).filter(Boolean)) await database.prepare(statement).run();
+  }
   const env = {
     REVIEW_DB: database, REVIEW_ORIGIN: "https://review.example.org", SITE_ORIGIN: "https://site.example.org",
     CSRF_SECRET: "c".repeat(64), REVIEW_SERVICE_KEY: "s".repeat(64)
@@ -25,8 +27,8 @@ async function fixture(initialize = true) {
   return { miniflare, database, env };
 }
 
-async function requestToken(env: Env, email: string, kind: "invite" | "subscribe" | "unsubscribe") {
-  await requestSubscription(env, email, kind);
+async function requestToken(env: Env, email: string, kind: "invite" | "subscribe", inviterName?: string) {
+  await requestSubscription(env, email, kind, inviterName);
   const message = await claimMail(env);
   assert.ok(message);
   assert.equal(message.email, email.toLowerCase().trim());
@@ -54,11 +56,12 @@ test("an invitation requires an explicit POST; accept activates once and consume
   const page = await subscriptionRoutes(new Request(url), env);
   assert.equal(page?.status, 200);
   assert.equal(page!.headers.get("referrer-policy"), "same-origin", "no-referrer makes browsers post Origin: null, which the origin check rejects");
-  assert.match(await page!.text(), /Accept and subscribe/);
+  assert.match(await page!.text(), /Accept invitation/);
   assert.equal((await subscriptionRecipients(env)).length, 1, "email link scanners cannot subscribe recipients");
   await assert.rejects(subscriptionRoutes(new Request(url, { method: "POST", headers: { origin: "https://evil.example.org", "content-type": "application/x-www-form-urlencoded" }, body: "action=accept" }), env), error => error instanceof Response && error.status === 403);
   const response = await subscriptionRoutes(new Request(url, { method: "POST", headers: { origin: env.REVIEW_ORIGIN, "content-type": "application/x-www-form-urlencoded" }, body: "action=accept" }), env);
   assert.equal(response?.status, 200);
+  assert.match(await response!.text(), new RegExp(`http-equiv="refresh" content="5;url=${env.SITE_ORIGIN}/"`), "a finished step returns to the publication");
   assert.equal((await subscriptionRecipients(env)).length, 2);
   assert.equal(await consumeRequest(env, token, "accept"), false);
 });
@@ -105,14 +108,14 @@ test("unsubscribe removes a recipient immediately, GET is harmless, and old link
   assert.equal((await subscriptionRecipients(env)).length, 1);
 });
 
-test("unsubscribe-by-email requires its own confirmation and rejects the accept action", async context => {
-  const { env, miniflare } = await fixture();
+test("unsubscribe-by-email takes effect immediately and is a no-op for unknown or repeated addresses", async context => {
+  const { env, database, miniflare } = await fixture();
   context.after(() => miniflare.dispose());
-  const { token } = await requestToken(env, "legacy@example.org", "unsubscribe");
-  assert.equal(await consumeRequest(env, token, "accept"), false);
-  assert.equal((await subscriptionRecipients(env)).length, 1);
-  assert.equal(await consumeRequest(env, token, "unsubscribe"), true);
+  assert.equal(await unsubscribeAddress(env, " Legacy@Example.org "), true);
   assert.equal((await subscriptionRecipients(env)).length, 0);
+  assert.equal(await unsubscribeAddress(env, "legacy@example.org"), false, "a repeat is a harmless no-op");
+  assert.equal(await unsubscribeAddress(env, "unknown@example.org"), false);
+  assert.equal((await database.prepare("SELECT COUNT(*) AS n FROM subscribers WHERE email = 'unknown@example.org'").first<any>())!.n, 0);
 });
 
 test("mail leases prevent simultaneous delivery and acknowledgment erases the raw confirmation token", async context => {
@@ -141,7 +144,7 @@ test("duplicate requests are limited, unknown unsubscribes do not create recipie
   context.after(() => miniflare.dispose());
   await Promise.all(Array.from({ length: 5 }, () => requestSubscription(env, "friend@example.org", "subscribe")));
   assert.equal((await database.prepare("SELECT COUNT(*) AS n FROM subscription_requests").first<any>())!.n, 1);
-  await requestSubscription(env, "unknown@example.org", "unsubscribe");
+  assert.equal(await unsubscribeAddress(env, "unknown@example.org"), false);
   assert.equal((await database.prepare("SELECT COUNT(*) AS n FROM subscribers").first<any>())!.n, 2);
   await assert.rejects(requestSubscription(env, "bad\r\nBcc: bad@example.org", "invite"));
 });
@@ -200,4 +203,73 @@ test("concurrent acceptance and decline cannot both change consent", async conte
   const { token } = await requestToken(env, "friend@example.org", "invite");
   const changed = await Promise.all([consumeRequest(env, token, "accept"), consumeRequest(env, token, "decline")]);
   assert.equal(changed.filter(Boolean).length, 1);
+});
+
+test("invitations carry an optional plain inviter name and expire after 30 days; self-subscriptions after 7", async context => {
+  const { env, miniflare } = await fixture();
+  context.after(() => miniflare.dispose());
+  const now = Date.now();
+  const { message: invite, token } = await requestToken(env, "friend@example.org", "invite", "  Fabrizio   Petrozzi ");
+  assert.equal(invite.inviterName, "Fabrizio Petrozzi");
+  assert.ok(Math.abs(Date.parse(invite.expiresAt) - now - 30 * 86_400_000) < 60_000);
+  const page = await subscriptionRoutes(new Request(`${env.REVIEW_ORIGIN}/subscriptions/confirm?token=${token}`), env);
+  assert.match(await page!.text(), /Fabrizio Petrozzi invited you to the weekly digest/);
+  const { message: own } = await requestToken(env, "self@example.org", "subscribe", "Ignored for self-subscriptions");
+  assert.equal(own.inviterName, undefined);
+  assert.ok(Math.abs(Date.parse(own.expiresAt) - now - 7 * 86_400_000) < 60_000);
+  for (const name of ["Visit https://example.org", "Name\r\nBcc: bad@example.org", "a".repeat(61), "<b>Name</b>"]) {
+    assert.equal(inviterNameSchema.safeParse(name).success, false, name);
+  }
+  await assert.rejects(requestSubscription(env, "other@example.org", "invite", "https://example.org"));
+});
+
+test("the public form unsubscribes immediately without email, answers the same for unknown addresses, and dispatches delivery for requests", async context => {
+  const { env, miniflare } = await fixture();
+  context.after(() => miniflare.dispose());
+  env.SUBSCRIPTIONS_TURNSTILE_SECRET = "test-secret";
+  env.GITHUB_WORKFLOW_TOKEN = "workflow-token";
+  env.GITHUB_OWNER = "owner";
+  env.GITHUB_REPO = "repo";
+  const dispatches: string[] = [];
+  context.mock.method(globalThis, "fetch", async (input: RequestInfo | URL) => {
+    const target = String(input);
+    if (target.startsWith("https://api.github.com/")) {
+      dispatches.push(target);
+      return new Response(null, { status: 204 });
+    }
+    return Response.json({ success: true, hostname: "review.example.org", action: "subscription" });
+  });
+  const submit = (body: string, ip: string) => subscriptionRoutes(new Request(`${env.REVIEW_ORIGIN}/subscriptions/request`, {
+    method: "POST", headers: { origin: env.REVIEW_ORIGIN, "content-type": "application/x-www-form-urlencoded", "cf-connecting-ip": ip },
+    body: `${body}&cf-turnstile-response=challenge`
+  }), env);
+  const known = await submit("email=legacy%40example.org&intent=unsubscribe", "192.0.2.10");
+  const unknown = await submit("email=nobody%40example.org&intent=unsubscribe", "192.0.2.11");
+  assert.equal(known?.status, 200);
+  assert.equal((await subscriptionRecipients(env)).length, 0);
+  assert.equal(await claimMail(env), null, "no confirmation email is queued");
+  assert.equal(await known!.text(), await unknown!.text(), "the response does not reveal whether an address was subscribed");
+  assert.deepEqual(dispatches, []);
+  const invited = await submit("email=friend%40example.org&intent=invite&name=Fabrizio", "192.0.2.12");
+  assert.equal(invited?.status, 200);
+  assert.deepEqual(dispatches, ["https://api.github.com/repos/owner/repo/actions/workflows/subscriptions.yml/dispatches"]);
+  assert.equal((await claimMail(env))?.inviterName, "Fabrizio");
+  const badName = await submit("email=other%40example.org&intent=invite&name=https%3A%2F%2Fexample.org", "192.0.2.13");
+  assert.equal(badName?.status, 400);
+  assert.match(await badName!.text(), /Check your name/);
+});
+
+test("subscription emails are branded, hide the token behind a button, and name the inviter", async () => {
+  const url = `https://review.example.org/subscriptions/confirm?token=${"a".repeat(64)}`;
+  const invite = { kind: "invite" as const, url, inviterName: "Fabrizio <Petrozzi>", expiresAt: "2026-10-17T12:00:00.000Z" };
+  const { html, text } = await renderSubscriptionEmail(invite, "https://proterra-intelligence.pages.dev");
+  assert.match(getSubscriptionSubject(invite), /^Fabrizio <Petrozzi> invited you to Proterra Intelligence$/);
+  assert.ok(html.includes(`href="${url}"`));
+  assert.ok(html.includes("Fabrizio &lt;Petrozzi&gt;"));
+  assert.ok(!html.replace(/href="[^"]*"/g, "").includes("a".repeat(64)), "the raw token appears only inside link targets");
+  assert.ok(text.includes(url));
+  assert.match(text, /October 17, 2026/);
+  const self = await renderSubscriptionEmail({ kind: "subscribe", url, expiresAt: "2026-09-24T12:00:00.000Z" }, "https://proterra-intelligence.pages.dev");
+  assert.match(self.text, /Confirm subscription/i);
+  assert.match(getSubscriptionSubject({ kind: "invite", url, expiresAt: invite.expiresAt }), /invited to/);
 });
