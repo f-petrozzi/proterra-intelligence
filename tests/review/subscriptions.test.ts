@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 import { Miniflare } from "miniflare";
 import type { Env } from "../../review-worker/src/index";
@@ -7,6 +7,7 @@ import { claimMail, consumeRequest, importSubscribers, inviterNameSchema, remove
 import { onRequest as subscriptionsRoute } from "../../functions/subscriptions/[[path]]";
 import { loadDigest } from "../../scripts/email/digest";
 import { escapeHtml } from "../../review-worker/src/html";
+import { bannerPath } from "../../emails/theme";
 import { renderDigest, getDigestSubject, getSubscriptionSubject, renderSubscriptionEmail } from "../../scripts/email/render";
 
 async function fixture(initialize = true) {
@@ -161,6 +162,14 @@ test("public request processing fails closed until bot protection is configured"
   assert.equal(await claimMail(env), null);
 });
 
+test("every editorial image ships a banner derivative", async () => {
+  const images = JSON.parse(await readFile("src/data/editorial-images.json", "utf8")) as { id: string }[];
+  for (const image of images) {
+    // Missing banners render as a broken image in email. Rebuild with `npm run images:banners`.
+    await access(`public${bannerPath(image.id)}`);
+  }
+});
+
 test("catch-up renders three dated sections, all 18 articles, and recipient-specific unsubscribe links", async () => {
   const reports = loadDigest("2026-08-31,2026-09-07,2026-09-14", true);
   const link = "https://review.example.org/subscriptions/unsubscribe?id=test&token=private";
@@ -178,7 +187,7 @@ test("catch-up renders three dated sections, all 18 articles, and recipient-spec
     assert.ok(html.includes(escapeHtml(top.whyItMatters)), `why it matters for ${report.slug}`);
     for (const point of top.keyPoints.slice(0, 3)) assert.ok(html.includes(escapeHtml(point)), `key point for ${report.slug}`);
     for (const pulse of report.dashboard?.sectorPulses ?? []) assert.ok(html.includes(escapeHtml(pulse.value)), `pulse for ${report.slug}`);
-    assert.ok(html.includes(`/images/editorial/`), "lead stories keep their editorial image");
+    assert.ok(html.includes(bannerPath(top.imageId)), `lead story banner for ${report.slug}`);
     assert.match(html, new RegExp(`Open issue (<!-- -->)?${report.issueNumber}`), `issue button for ${report.slug}`);
     assert.ok(html.includes(`/reports/${report.slug}/`), `issue link for ${report.slug}`);
     for (const item of report.items) assert.ok(html.includes(`href="${item.citations[0].url}"`), `source link for ${item.headline}`);
