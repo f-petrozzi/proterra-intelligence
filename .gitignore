@@ -25,3 +25,6 @@ Thumbs.db
 # logs
 *.log
 npm-debug.log*
+
+# Generated email browser previews; never recipient-specific.
+/public/*-preview.html

@@ -33,7 +33,7 @@ if (mode === "import") {
     let count = 0;
     for (; count < 25; count++) {
       const { message } = z.object({ message: z.object({
-        id: z.uuid(), lease: z.uuid(), email: z.email(), kind: z.enum(["invite", "subscribe"]), url: z.url(),
+        id: z.uuid(), lease: z.uuid(), email: z.email(), kind: z.enum(["invite", "subscribe", "unsubscribe"]), url: z.url(),
         expiresAt: z.iso.datetime(), inviterName: z.string().max(60).optional()
       }).nullable() }).parse(await subscriptionApi("claim", {}));
       if (!message) break;

@@ -3,7 +3,7 @@ import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 import { Miniflare } from "miniflare";
 import type { Env } from "../../review-worker/src/index";
-import { claimMail, consumeRequest, importSubscribers, inviterNameSchema, removeSubscriber, requestSubscription, subscriptionRecipients, subscriptionRoutes, unsubscribeAddress } from "../../review-worker/src/subscriptions";
+import { claimMail, consumeRequest, importSubscribers, inviterNameSchema, removeSubscriber, requestSubscription, subscriptionRecipients, subscriptionRoutes } from "../../review-worker/src/subscriptions";
 import { onRequest as subscriptionsRoute } from "../../functions/subscriptions/[[path]]";
 import { loadDigest } from "../../scripts/email/digest";
 import { escapeHtml } from "../../review-worker/src/html";
@@ -30,7 +30,7 @@ async function fixture(initialize = true) {
   return { miniflare, database, env };
 }
 
-async function requestToken(env: Env, email: string, kind: "invite" | "subscribe", inviterName?: string) {
+async function requestToken(env: Env, email: string, kind: "invite" | "subscribe" | "unsubscribe", inviterName?: string) {
   await requestSubscription(env, email, kind, inviterName);
   const message = await claimMail(env);
   assert.ok(message);
@@ -64,18 +64,20 @@ test("an invitation requires an explicit POST; accept activates once and consume
   await assert.rejects(subscriptionRoutes(new Request(url, { method: "POST", headers: { origin: "https://evil.example.org", "content-type": "application/x-www-form-urlencoded" }, body: "action=accept" }), env), error => error instanceof Response && error.status === 403);
   const response = await subscriptionRoutes(new Request(url, { method: "POST", headers: { origin: env.REVIEW_ORIGIN, "content-type": "application/x-www-form-urlencoded" }, body: "action=accept" }), env);
   assert.equal(response?.status, 200);
-  assert.match(await response!.text(), new RegExp(`http-equiv="refresh" content="5;url=${env.SITE_ORIGIN}/"`), "a finished step returns to the publication");
+  const resultHtml = await response!.text();
+  assert.ok(!resultHtml.includes('http-equiv="refresh"'), "readers can read the result at their own pace");
+  assert.match(resultHtml, /Read the latest brief/);
   assert.equal((await subscriptionRecipients(env)).length, 2);
   assert.equal(await consumeRequest(env, token, "accept"), false);
 });
 
-test("a self-subscription link completes in one click, while an invitation still asks", async context => {
+test("email action links complete via a nonce-scoped POST, with a manual fallback", async context => {
   const { env, miniflare } = await fixture();
   context.after(() => miniflare.dispose());
   const own = await requestToken(env, "self@example.org", "subscribe");
   const confirming = await subscriptionRoutes(new Request(`${env.SITE_ORIGIN}/subscriptions/confirm?token=${own.token}`), env);
   const confirmingHtml = await confirming!.text();
-  const nonce = confirmingHtml.match(/<script nonce="([a-f0-9]{32})">document\.forms\[0\]\.submit\(\)<\/script>/);
+  const nonce = confirmingHtml.match(/<script nonce="([a-f0-9]{32})">/);
   assert.ok(nonce, "the page submits its own form");
   assert.ok(confirming!.headers.get("content-security-policy")!.includes(`script-src 'nonce-${nonce![1]}'`), "only that script may run");
   assert.match(confirmingHtml, /<input type="hidden" name="action" value="accept">/, "form.submit() carries no button, so the action is a field");
@@ -84,7 +86,8 @@ test("a self-subscription link completes in one click, while an invitation still
   const invited = await requestToken(env, "friend@example.org", "invite");
   const invitation = await subscriptionRoutes(new Request(`${env.SITE_ORIGIN}/subscriptions/confirm?token=${invited.token}`), env);
   const invitationHtml = await invitation!.text();
-  assert.ok(!invitationHtml.includes("<script"), "an invitation is a choice between accept and decline, so it waits");
+  assert.match(invitationHtml, /location.hash/, "the email button identifies accept or decline");
+  assert.match(invitationHtml, /form.requestSubmit\(selected\)/);
   assert.match(invitationHtml, /Accept invitation/);
   assert.match(invitationHtml, /Decline/);
 });
@@ -133,14 +136,17 @@ test("unsubscribe removes a recipient immediately, GET is harmless, and old link
   assert.equal((await subscriptionRecipients(env)).length, 1);
 });
 
-test("unsubscribe-by-email takes effect immediately and is a no-op for unknown or repeated addresses", async context => {
-  const { env, database, miniflare } = await fixture();
+test("public unsubscribe needs the recipient's emailed capability", async context => {
+  const { env, miniflare } = await fixture();
   context.after(() => miniflare.dispose());
-  assert.equal(await unsubscribeAddress(env, " Legacy@Example.org "), true);
+  const { token } = await requestToken(env, "legacy@example.org", "unsubscribe");
+  assert.equal((await subscriptionRecipients(env)).length, 1);
+  assert.equal(await consumeRequest(env, token, "accept"), false);
+  assert.equal(await consumeRequest(env, token, "unsubscribe"), true);
   assert.equal((await subscriptionRecipients(env)).length, 0);
-  assert.equal(await unsubscribeAddress(env, "legacy@example.org"), false, "a repeat is a harmless no-op");
-  assert.equal(await unsubscribeAddress(env, "unknown@example.org"), false);
-  assert.equal((await database.prepare("SELECT COUNT(*) AS n FROM subscribers WHERE email = 'unknown@example.org'").first<any>())!.n, 0);
+  assert.equal(await consumeRequest(env, token, "unsubscribe"), false);
+  await requestSubscription(env, "unknown@example.org", "unsubscribe");
+  assert.equal(await claimMail(env), null);
 });
 
 test("mail leases prevent simultaneous delivery and acknowledgment erases the raw confirmation token", async context => {
@@ -169,7 +175,7 @@ test("duplicate requests are limited, unknown unsubscribes do not create recipie
   context.after(() => miniflare.dispose());
   await Promise.all(Array.from({ length: 5 }, () => requestSubscription(env, "friend@example.org", "subscribe")));
   assert.equal((await database.prepare("SELECT COUNT(*) AS n FROM subscription_requests").first<any>())!.n, 1);
-  assert.equal(await unsubscribeAddress(env, "unknown@example.org"), false);
+  await requestSubscription(env, "unknown@example.org", "unsubscribe");
   assert.equal((await database.prepare("SELECT COUNT(*) AS n FROM subscribers").first<any>())!.n, 2);
   await assert.rejects(requestSubscription(env, "bad\r\nBcc: bad@example.org", "invite"));
 });
@@ -268,7 +274,7 @@ test("invitations carry an optional plain inviter name and expire after 30 days;
   await assert.rejects(requestSubscription(env, "other@example.org", "invite", "https://example.org"));
 });
 
-test("the public form unsubscribes immediately without email, answers the same for unknown addresses, and dispatches delivery for requests", async context => {
+test("the public form emails unsubscribe confirmation without revealing membership and dispatches delivery", async context => {
   const { env, miniflare } = await fixture();
   context.after(() => miniflare.dispose());
   env.SUBSCRIPTIONS_TURNSTILE_SECRET = "test-secret";
@@ -291,10 +297,12 @@ test("the public form unsubscribes immediately without email, answers the same f
   const known = await submit("email=legacy%40example.org&intent=unsubscribe", "192.0.2.10");
   const unknown = await submit("email=nobody%40example.org&intent=unsubscribe", "192.0.2.11");
   assert.equal(known?.status, 200);
-  assert.equal((await subscriptionRecipients(env)).length, 0);
-  assert.equal(await claimMail(env), null, "no confirmation email is queued");
+  assert.equal((await subscriptionRecipients(env)).length, 1, "the public form cannot remove another person");
+  const removal = await claimMail(env);
+  assert.equal(removal?.kind, "unsubscribe");
   assert.equal(await known!.text(), await unknown!.text(), "the response does not reveal whether an address was subscribed");
-  assert.deepEqual(dispatches, []);
+  assert.equal(dispatches.length, 2);
+  dispatches.length = 0;
   const invited = await submit("email=friend%40example.org&intent=invite&name=Fabrizio", "192.0.2.12");
   assert.equal(invited?.status, 200);
   assert.deepEqual(dispatches, ["https://api.github.com/repos/owner/repo/actions/workflows/subscriptions.yml/dispatches"]);
@@ -309,7 +317,8 @@ test("subscription emails are branded, hide the token behind a button, and name 
   const invite = { kind: "invite" as const, url, inviterName: "Fabrizio <Petrozzi>", expiresAt: "2026-10-17T12:00:00.000Z" };
   const { html, text } = await renderSubscriptionEmail(invite, "https://proterra-intelligence.pages.dev");
   assert.match(getSubscriptionSubject(invite), /^Fabrizio <Petrozzi> invited you to Proterra Intelligence$/);
-  assert.ok(html.includes(`href="${url}"`));
+  assert.ok(html.includes(`href="${url}#accept"`));
+  assert.ok(html.includes(`href="${url}#decline"`));
   assert.ok(html.includes("Fabrizio &lt;Petrozzi&gt;"));
   assert.ok(!html.replace(/href="[^"]*"/g, "").includes("a".repeat(64)), "the raw token appears only inside link targets");
   assert.ok(text.includes(url));
@@ -347,4 +356,85 @@ test("the site hosts the pages: links point at it, the Worker host redirects, an
   }
   assert.deepEqual(forwarded.length, 3, "review and admin routes are never forwarded from the site");
   assert.equal((await subscriptionsRoute({ request: new Request(`${env.SITE_ORIGIN}/subscriptions`), env: {} })).status, 503);
+});
+
+
+test("public requests reject oversized streamed bodies and handle verification outages", async context => {
+  const { env, miniflare } = await fixture();
+  context.after(() => miniflare.dispose());
+  env.SUBSCRIPTIONS_TURNSTILE_SECRET = "test";
+  const submit = (body: string) => subscriptionRoutes(new Request(`${env.SITE_ORIGIN}/subscriptions/request`, {
+    method: "POST", headers: { origin: env.SITE_ORIGIN, "content-type": "application/x-www-form-urlencoded" }, body
+  }), env);
+  await assert.rejects(submit("email=" + "a".repeat(9000)), error => error instanceof Response && error.status === 413);
+  context.mock.method(globalThis, "fetch", async () => { throw new Error("unavailable"); });
+  assert.equal((await submit("email=test%40example.org&intent=subscribe"))?.status, 503);
+  assert.equal(await claimMail(env), null);
+});
+
+test("unsubscribe confirmation email contains one explicit action with a seven-day expiry", async () => {
+  const url = "https://site.example.org/subscriptions/confirm?token=" + "a".repeat(64);
+  const input = { kind: "unsubscribe" as const, url, expiresAt: "2026-09-24T12:00:00.000Z" };
+  const { html, text } = await renderSubscriptionEmail(input, "https://site.example.org");
+  assert.ok(html.includes(`${url}#unsubscribe`));
+  assert.ok(text.includes(`${url}#unsubscribe`));
+  assert.match(text, /September 24, 2026/);
+  assert.match(getSubscriptionSubject(input), /^Unsubscribe/);
+});
+
+test("a stale consent attempt cannot cancel a newer unsubscribe request", async context => {
+  const { env, miniflare } = await fixture();
+  context.after(() => miniflare.dispose());
+  const { token } = await requestToken(env, "race@example.org", "invite");
+  let captured!: () => void;
+  let release!: () => void;
+  const read = new Promise<void>(resolve => { captured = resolve; });
+  const gate = new Promise<void>(resolve => { release = resolve; });
+  const pausedEnv: Env = { ...env, REVIEW_DB: new Proxy(env.REVIEW_DB, {
+    get(target, key) {
+      if (key === "prepare") return (query: string) => {
+        const statement = target.prepare(query);
+        if (!query.startsWith("SELECT r.*, s.version")) return statement;
+        return { bind: (...values: unknown[]) => {
+          const bound = statement.bind(...values);
+          return { first: async () => {
+            const row = await bound.first();
+            captured();
+            await gate;
+            return row;
+          } };
+        } };
+      };
+      const value = Reflect.get(target, key);
+      return typeof value === "function" ? value.bind(target) : value;
+    }
+  }) };
+  const stale = consumeRequest(pausedEnv, token, "decline");
+  await read;
+  try {
+    assert.equal(await consumeRequest(env, token, "accept"), true);
+    const removal = await requestToken(env, "race@example.org", "unsubscribe");
+    release();
+    assert.equal(await stale, false);
+    assert.equal(await consumeRequest(env, removal.token, "unsubscribe"), true, "the newer request remains valid");
+  } finally { release(); }
+});
+
+test("mail-client one-click accepts multipart forms without cookies or Origin", async context => {
+  const { env, miniflare } = await fixture();
+  context.after(() => miniflare.dispose());
+  const [recipient] = await subscriptionRecipients(env);
+  const body = new FormData();
+  body.set("List-Unsubscribe", "One-Click");
+  const response = await subscriptionRoutes(new Request(recipient.unsubscribeUrl, { method: "POST", body }), env);
+  assert.equal(response?.status, 200);
+  assert.equal((await subscriptionRecipients(env)).length, 0);
+});
+
+test("preview subscription GETs use the canonical public host before form submission", async context => {
+  const { env, miniflare } = await fixture();
+  context.after(() => miniflare.dispose());
+  const response = await subscriptionRoutes(new Request("https://preview.example.org/subscriptions?intent=invite"), env);
+  assert.equal(response?.status, 302);
+  assert.equal(response?.headers.get("location"), `${env.SITE_ORIGIN}/subscriptions?intent=invite`);
 });

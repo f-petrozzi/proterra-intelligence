@@ -11,10 +11,9 @@ const kindSchema = z.enum(["invite", "subscribe", "unsubscribe"]);
 // Shown to a third party in an invitation: plain name characters only, so it cannot carry links or header breaks.
 export const inviterNameSchema = z.string().trim().max(60).regex(/^[\p{L}\p{M}\p{N} .,'’()&-]*$/u).transform(value => value.replace(/\s+/g, " ") || undefined);
 // Invitations wait on someone who did not ask for them; self-subscriptions are confirmed right away.
-export const requestLifetimeDays = { invite: 30, subscribe: 7 } as const;
-const redirectSeconds = 5;
+export const requestLifetimeDays = { invite: 30, subscribe: 7, unsubscribe: 7 } as const;
 const seconds = () => Math.floor(Date.now() / 1000);
-const genericMessage = "If this address can receive the digest, an email with the next step is on its way. It can take a minute or two, so check your spam folder if it doesn't arrive. Nothing changes until the recipient confirms.";
+const genericMessage = "If this address can receive the digest, an email with the next step is on its way. Delivery usually takes a few minutes, but can take longer. Check your spam folder too.";
 
 const pageStyles = `
 :root{--ink:#17201c;--muted:#5e6963;--paper:#f4f3ed;--paper-deep:#e9e9e1;--surface:#fafaf6;--forest:#173f32;--forest-deep:#0c2c22;--mint:#b7d7c1;--line:rgba(23,32,28,.14);--line-strong:rgba(23,32,28,.28);--focus:0 0 0 3px rgba(23,63,50,.22)}
@@ -27,9 +26,9 @@ body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circl
 .lockup strong{font-size:.94rem;letter-spacing:-.015em}
 .lockup small{margin-top:.2rem;color:var(--muted);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}
 .nav{display:flex;align-items:center;gap:.25rem;margin:0;padding:0;list-style:none}
-.nav a{display:block;padding:.62rem .82rem;border-radius:999px;color:var(--muted);font-size:.82rem;text-decoration:none;transition:color 180ms ease,background-color 180ms ease}
+.nav a{display:block;padding:.62rem .82rem;border-radius:2px;color:var(--muted);font-size:.82rem;text-decoration:none;transition:color 180ms ease,background-color 180ms ease}
 .nav a:hover{color:var(--ink);background:rgba(255,255,255,.5)}
-main{width:min(calc(100% - 2rem),33rem);margin:clamp(2rem,9vh,5rem) auto 4rem;padding:clamp(1.5rem,5vw,2.5rem);border:1px solid var(--line);border-radius:1.25rem;background:var(--surface);box-shadow:0 20px 55px rgba(18,43,34,.08)}
+main{width:min(calc(100% - 2rem),33rem);margin:clamp(2rem,9vh,5rem) auto 4rem;padding:clamp(1.5rem,5vw,2.5rem);border:1px solid var(--line);border-top:2px solid var(--forest);border-radius:2px;background:var(--surface);box-shadow:0 20px 55px rgba(18,43,34,.08)}
 main.wide{width:min(calc(100% - 2rem),60rem)}
 h1{margin:0;font-size:clamp(1.8rem,5vw,2.35rem);font-weight:540;letter-spacing:-.04em;line-height:1.08}
 p{margin:.85rem 0 0;color:var(--muted)}
@@ -41,12 +40,12 @@ form{margin-top:1.6rem}
 form>label:first-of-type,form>.actions:first-child{margin-top:0}
 label{display:block;margin-top:1.15rem;font-size:.86rem;font-weight:650}
 label small{margin-left:.35rem;color:var(--muted);font-size:.8rem;font-weight:400}
-input:not([type=hidden]){display:block;width:100%;margin-top:.45rem;padding:.78rem .95rem;border:1px solid var(--line-strong);border-radius:.65rem;color:var(--ink);background:#fff;font:inherit;font-size:1rem}
+input:not([type=hidden]){display:block;width:100%;margin-top:.45rem;padding:.78rem .95rem;border:1px solid var(--line-strong);border-radius:2px;color:var(--ink);background:#fff;font:inherit;font-size:1rem}
 input:focus{outline:0;border-color:var(--forest);box-shadow:var(--focus)}
 .hint{margin-top:.4rem;font-size:.8rem}
 .cf-turnstile{min-height:65px;margin-top:1.3rem}
 .actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.4rem}
-button,.button{display:inline-flex;align-items:center;justify-content:center;min-height:2.9rem;padding:.7rem 1.35rem;border:1px solid var(--forest);border-radius:999px;color:var(--surface);background:var(--forest);font:inherit;font-size:.93rem;font-weight:650;text-decoration:none;cursor:pointer;transition:background-color 160ms ease,border-color 160ms ease}
+button,.button{display:inline-flex;align-items:center;justify-content:center;min-height:2.9rem;padding:.7rem 1.35rem;border:1px solid var(--forest);border-radius:2px;color:var(--surface);background:var(--forest);font:inherit;font-size:.93rem;font-weight:650;text-decoration:none;cursor:pointer;transition:background-color 160ms ease,border-color 160ms ease}
 button:hover,.button:hover{background:var(--forest-deep)}
 button.quiet,.button.quiet{color:var(--ink);background:transparent;border-color:var(--line-strong)}
 button.quiet:hover,.button.quiet:hover{border-color:var(--forest);background:var(--paper)}
@@ -54,33 +53,43 @@ button.quiet:hover,.button.quiet:hover{border-color:var(--forest);background:var
 .trap{position:absolute;left:-10000px}
 .return{margin-top:1.75rem}
 .return p{margin:0;font-size:.85rem}
-.bar{height:3px;margin-bottom:.8rem;border-radius:3px;background:var(--paper-deep);overflow:hidden}
-.bar span{display:block;height:100%;background:var(--forest);transform-origin:left;animation:fill ${redirectSeconds}s linear forwards}
-@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .table{margin-top:1.5rem;overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:.9rem}
 th,td{padding:.7rem .6rem;border-bottom:1px solid var(--line);text-align:left;overflow-wrap:anywhere}
 th{color:var(--muted);font-size:.78rem;font-weight:650}
-@media (max-width:900px){.site-header{width:min(calc(100% - 2rem),78rem);flex-direction:column;align-items:flex-start;padding:1.4rem 0 1rem}.nav{width:100%;overflow-x:auto;padding-bottom:.2rem;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav a{white-space:nowrap}}
+@media (max-width:900px){.site-header{width:min(calc(100% - 2rem),78rem);flex-direction:column;align-items:flex-start;padding:1.4rem 0 1rem}.site-header nav{width:100%;min-width:0}.nav{width:100%;overflow-x:auto;padding-bottom:.2rem;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav a{white-space:nowrap}}
 @media (max-width:640px){.lockup small{display:none}}
 @media (max-width:30rem){.actions>*{flex:1 1 100%}}
-@media (prefers-reduced-motion:reduce){.bar{display:none}button,.button,.nav a{transition:none}}
+@media (prefers-reduced-motion:reduce){button,.button,.nav a{transition:none}}
 `;
 const doneIcon = `<div class="done" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>`;
 
-type PageOptions = { status?: number; done?: boolean; wide?: boolean; submitOnLoad?: boolean };
+type PageOptions = { status?: number; done?: boolean; wide?: boolean; submitOnLoad?: boolean; chooseAction?: boolean };
 
-// done: a finished step. It shows a check mark and returns the visitor to the publication after a short pause.
+// done: a finished step with a check mark and a link back to the publication.
 // submitOnLoad: the page's only action runs itself, so a link from email takes one click. Consent still needs a
 // POST, and mail-security scanners that fetch the link without running scripts still cannot act on someone's behalf.
-function page(env: Env, title: string, content: string, { status = 200, done = false, wide = false, submitOnLoad = false }: PageOptions = {}) {
+function page(env: Env, title: string, content: string, { status = 200, done = false, wide = false, submitOnLoad = false, chooseAction = false }: PageOptions = {}) {
   const siteOrigin = env.SITE_ORIGIN.replace(/\/$/, "");
   const home = `${siteOrigin}/`;
   const header = `<header class="site-header"><a class="brand" href="${e(home)}" aria-label="${e(site.name)} home"><span class="mark" aria-hidden="true">${e(site.initials)}</span><span class="lockup"><strong>${e(site.name)}</strong><small>${e(site.descriptor)}</small></span></a><nav aria-label="Primary navigation"><ul class="nav">${site.nav.map(item => `<li><a href="${e(siteOrigin + item.href)}">${e(item.label)}</a></li>`).join("")}</ul></nav></header>`;
-  const refresh = done ? `<meta http-equiv="refresh" content="${redirectSeconds};url=${e(home)}">` : "";
-  const nonce = submitOnLoad ? crypto.randomUUID().replaceAll("-", "") : "";
-  const submitScript = submitOnLoad ? `<script nonce="${nonce}">document.forms[0].submit()</script>` : "";
-  const returning = done ? `<div class="return"><div class="bar"><span></span></div><p>Taking you back to Proterra Intelligence. <a href="${e(home)}">Go now</a></p></div>` : "";
+  const refresh = "";
+  const nonce = (submitOnLoad || chooseAction) ? crypto.randomUUID().replaceAll("-", "") : "";
+  const submitScript = (submitOnLoad || chooseAction) ? `<script nonce="${nonce}">
+    const form = document.forms[0];
+    const action = location.hash.slice(1);
+    const selected = Array.from(form.querySelectorAll('button[name="action"]')).find(button => button.value === action);
+    const run = () => {
+      if (document.visibilityState !== 'visible') return;
+      document.removeEventListener('visibilitychange', run);
+      if (${chooseAction} && !selected) return;
+      form.hidden = true;
+      if (selected) form.requestSubmit(selected); else form.submit();
+    };
+    document.addEventListener('visibilitychange', run);
+    run();
+  </script>` : "";
+  const returning = done ? `<div class="return"><a class="button" href="${e(home)}">Read the latest brief</a></div>` : "";
   return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#173f32">${refresh}<title>${e(title)} | Proterra Intelligence</title><style>${pageStyles}</style></head><body>${header}<main${wide ? ' class="wide"' : ""}>${done ? doneIcon : ""}<h1>${e(title)}</h1>${content}${returning}</main>${submitScript}</body></html>`, {
     status, headers: {
       "content-type": "text/html; charset=utf-8", "cache-control": "no-store",
@@ -96,11 +105,45 @@ function json(value: unknown, status = 200) {
   return Response.json(value, { status, headers: { "cache-control": "no-store", "x-content-type-options": "nosniff" } });
 }
 
-async function form(request: Request) {
-  const text = await request.text();
-  if (new TextEncoder().encode(text).length > 8192) throw new Response("Request too large", { status: 413 });
-  if (!request.headers.get("content-type")?.startsWith("application/x-www-form-urlencoded")) throw new Response("Expected form data", { status: 415 });
-  return new URLSearchParams(text);
+async function readLimited(request: Request, maximum: number) {
+  if (Number(request.headers.get("content-length") ?? 0) > maximum) throw new Response("Request too large", { status: 413 });
+  const reader = request.body?.getReader();
+  if (!reader) return "";
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > maximum) {
+        await reader.cancel();
+        throw new Response("Request too large", { status: 413 });
+      }
+      chunks.push(value);
+    }
+  } finally { reader.releaseLock(); }
+  const body = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) { body.set(chunk, offset); offset += chunk.byteLength; }
+  return new TextDecoder().decode(body);
+}
+
+async function form(request: Request, allowMultipart = false) {
+  const contentType = request.headers.get("content-type") ?? "";
+  if (contentType.startsWith("application/x-www-form-urlencoded")) return new URLSearchParams(await readLimited(request, 8192));
+  if (allowMultipart && contentType.startsWith("multipart/form-data")) {
+    const text = await readLimited(request, 8192);
+    const data = await new Response(text, { headers: { "content-type": contentType } }).formData()
+      .catch(() => { throw new Response("Invalid form data", { status: 400 }); });
+    const values = new URLSearchParams();
+    for (const [key, value] of data) {
+      if (typeof value !== "string") throw new Response("Unexpected file", { status: 400 });
+      values.append(key, value);
+    }
+    return values;
+  }
+  throw new Response("Expected form data", { status: 415 });
 }
 
 // The pages are served on the site (through the Pages service binding); the Worker's own host still answers
@@ -139,13 +182,14 @@ async function limit(env: Env, key: string, maximum: number, duration: number) {
   return Boolean(result);
 }
 
-export async function requestSubscription(env: Env, email: string, kind: "invite" | "subscribe", inviterName?: string) {
+export async function requestSubscription(env: Env, email: string, kind: Kind, inviterName?: string) {
   await initialized(env);
   email = emailSchema.parse(email);
   inviterName = kind === "invite" ? inviterNameSchema.parse(inviterName ?? "") : undefined;
   if (!await limit(env, `address:${kind}:${email}`, 1, 86400)) return;
   const existing = await env.REVIEW_DB.prepare("SELECT * FROM subscribers WHERE email = ?").bind(email).first<Subscriber>();
-  if (existing?.status === "active") return;
+  if (kind === "unsubscribe" && existing?.status !== "active") return;
+  if (kind !== "unsubscribe" && existing?.status === "active") return;
   // A declined invitation or unsubscribe suppresses future third-party invitations.
   // The address owner can still explicitly request a new subscription.
   if (kind === "invite" && ["declined", "unsubscribed"].includes(existing?.status ?? "")) return;
@@ -153,20 +197,12 @@ export async function requestSubscription(env: Env, email: string, kind: "invite
   const token = `${crypto.randomUUID()}${crypto.randomUUID()}`.replaceAll("-", "");
   const subscriberId = existing?.id ?? crypto.randomUUID();
   await env.REVIEW_DB.batch([
-    env.REVIEW_DB.prepare("INSERT OR IGNORE INTO subscribers (id, email, status, source) VALUES (?, ?, 'pending', ?)").bind(subscriberId, email, kind),
+    env.REVIEW_DB.prepare("INSERT OR IGNORE INTO subscribers (id, email, status, source) VALUES (?, ?, 'pending', ?)").bind(subscriberId, email, kind === "unsubscribe" ? "subscribe" : kind),
     env.REVIEW_DB.prepare(`INSERT INTO subscription_requests (id, subscriber_id, kind, token_hash, subscriber_version, expires_at, inviter_name)
       SELECT ?, id, ?, ?, version, ?, ? FROM subscribers WHERE email = ?`)
       .bind(id, kind, await hash(token), seconds() + requestLifetimeDays[kind] * 86400, inviterName ?? null, email),
     env.REVIEW_DB.prepare("INSERT INTO subscription_mail (id, token) VALUES (?, ?)").bind(id, token)
   ]);
-}
-
-// Unsubscribing by address takes effect immediately; there is no confirmation email.
-// Callers show the same response whether or not the address was subscribed.
-export async function unsubscribeAddress(env: Env, email: string) {
-  await initialized(env);
-  const subscriber = await env.REVIEW_DB.prepare("SELECT * FROM subscribers WHERE email = ? AND status = 'active'").bind(emailSchema.parse(email)).first<Subscriber>();
-  return subscriber ? unsubscribe(env, subscriber) : false;
 }
 
 // Start the delivery workflow now instead of waiting for the schedule. The schedule still retries anything this misses.
@@ -185,7 +221,7 @@ async function triggerDelivery(env: Env) {
     });
     if (!response.ok) console.error(`Subscription delivery dispatch failed (${response.status})`);
   } catch (error) {
-    console.error("Subscription delivery dispatch failed", error);
+    console.error("Subscription delivery dispatch failed");
   }
 }
 
@@ -203,8 +239,8 @@ export async function consumeRequest(env: Env, token: string, action: string) {
       updated_at = CURRENT_TIMESTAMP WHERE id = ? AND version = ?
       AND EXISTS (SELECT 1 FROM subscription_requests WHERE id = ? AND consumed_at IS NULL AND expires_at > ?)`)
       .bind(status, status, request.kind, status, request.subscriber_id, request.version, request.id, seconds()),
-    env.REVIEW_DB.prepare("UPDATE subscription_requests SET consumed_at = CURRENT_TIMESTAMP WHERE subscriber_id = ? AND consumed_at IS NULL").bind(request.subscriber_id),
-    env.REVIEW_DB.prepare("UPDATE subscription_mail SET status = 'cancelled', token = NULL WHERE id IN (SELECT id FROM subscription_requests WHERE subscriber_id = ?) AND status != 'sent'").bind(request.subscriber_id)
+    env.REVIEW_DB.prepare("UPDATE subscription_requests SET consumed_at = CURRENT_TIMESTAMP WHERE subscriber_id = ? AND subscriber_version <= ? AND consumed_at IS NULL").bind(request.subscriber_id, request.version),
+    env.REVIEW_DB.prepare("UPDATE subscription_mail SET status = 'cancelled', token = NULL WHERE id IN (SELECT id FROM subscription_requests WHERE subscriber_id = ? AND subscriber_version <= ?) AND status != 'sent'").bind(request.subscriber_id, request.version)
   ]);
   return results[0].meta.changes === 1;
 }
@@ -227,8 +263,8 @@ export async function removeSubscriber(env: Env, id: string, token: string) {
 async function unsubscribe(env: Env, subscriber: Subscriber) {
   const results = await env.REVIEW_DB.batch([
     env.REVIEW_DB.prepare("UPDATE subscribers SET status = 'unsubscribed', version = version + 1, updated_at = CURRENT_TIMESTAMP WHERE id = ? AND version = ? AND status = 'active'").bind(subscriber.id, subscriber.version),
-    env.REVIEW_DB.prepare("UPDATE subscription_requests SET consumed_at = CURRENT_TIMESTAMP WHERE subscriber_id = ? AND consumed_at IS NULL").bind(subscriber.id),
-    env.REVIEW_DB.prepare("UPDATE subscription_mail SET status = 'cancelled', token = NULL WHERE id IN (SELECT id FROM subscription_requests WHERE subscriber_id = ?) AND status != 'sent'").bind(subscriber.id)
+    env.REVIEW_DB.prepare("UPDATE subscription_requests SET consumed_at = CURRENT_TIMESTAMP WHERE subscriber_id = ? AND subscriber_version <= ? AND consumed_at IS NULL").bind(subscriber.id, subscriber.version),
+    env.REVIEW_DB.prepare("UPDATE subscription_mail SET status = 'cancelled', token = NULL WHERE id IN (SELECT id FROM subscription_requests WHERE subscriber_id = ? AND subscriber_version <= ?) AND status != 'sent'").bind(subscriber.id, subscriber.version)
   ]);
   return results[0].meta.changes === 1;
 }
@@ -279,8 +315,7 @@ export async function subscriptionRoutes(request: Request, env: Env): Promise<Re
     const action = url.pathname.slice("/api/internal/subscriptions/".length);
     if (action === "recipients" && request.method === "GET") return json({ recipients: await subscriptionRecipients(env) });
     if (request.method !== "POST") return new Response("Method not allowed", { status: 405 });
-    const raw = await request.text();
-    if (new TextEncoder().encode(raw).length > 150_000) return new Response("Request too large", { status: 413 });
+    const raw = await readLimited(request, 150_000);
     let input: unknown;
     try { input = JSON.parse(raw || "{}"); } catch { return new Response("Invalid JSON", { status: 400 }); }
     if (action === "import") return json({ count: await importSubscribers(env, z.object({ emails: z.array(z.string()) }).parse(input).emails) });
@@ -302,8 +337,8 @@ export async function subscriptionRoutes(request: Request, env: Env): Promise<Re
     return page(env, "Digest subscribers", `<p>${count} active ${count === 1 ? "recipient" : "recipients"}. Only active subscribers receive the digest.</p><div class="table"><table><thead><tr><th>Email</th><th>Status</th><th>Source</th><th>Updated (UTC)</th></tr></thead><tbody>${rows.results.map(row => `<tr><td>${e(row.email)}</td><td>${e(row.status)}</td><td>${e(row.source)}</td><td>${e(row.updated_at)}</td></tr>`).join("")}</tbody></table></div>`, { wide: true });
   }
   if (!url.pathname.startsWith("/subscriptions")) return null;
-  // Emails sent before the pages moved to the site link to the Worker's host; send those visitors to the site.
-  if (request.method === "GET" && url.origin === new URL(env.REVIEW_ORIGIN).origin) {
+  // Old Worker links and branch previews use the canonical public origin, where form POSTs are allowed.
+  if (request.method === "GET" && url.origin !== new URL(env.SITE_ORIGIN).origin) {
     return Response.redirect(`${env.SITE_ORIGIN.replace(/\/$/, "")}${url.pathname}${url.search}`, 302);
   }
   const homeLink = `<p><a href="${e(env.SITE_ORIGIN.replace(/\/$/, ""))}/">Go to Proterra Intelligence</a></p>`;
@@ -312,7 +347,7 @@ export async function subscriptionRoutes(request: Request, env: Env): Promise<Re
     const id = url.searchParams.get("id") ?? "";
     const token = url.searchParams.get("token") ?? "";
     if (request.method === "POST") {
-      const data = await form(request);
+      const data = await form(request, true);
       // RFC 8058 mailbox requests carry the unguessable per-subscriber capability.
       if (data.get("List-Unsubscribe") !== "One-Click") sameOrigin(request, env);
       // Mail clients retry one-click requests that fail, so an already-used link still answers 200.
@@ -343,9 +378,9 @@ export async function subscriptionRoutes(request: Request, env: Env): Promise<Re
       if (row.kind === "unsubscribe") return page(env, "Unsubscribing", `<p>One moment. If nothing happens, use the button below.</p><form method="post"><input type="hidden" name="action" value="unsubscribe"><div class="actions"><button name="action" value="unsubscribe">Unsubscribe</button></div></form>`, { submitOnLoad: true });
       const about = "<p>Weekly coverage of dairy, meat, and bovine genetics, reviewed from direct sources. Every issue has an unsubscribe link.</p>";
       if (row.kind === "invite") {
-        return page(env, row.inviter_name ? `${row.inviter_name} invited you to the weekly digest` : "You're invited to the weekly digest", `${about}<form method="post"><div class="actions"><button name="action" value="accept">Accept invitation</button><button class="quiet" name="action" value="decline">Decline</button></div></form>`);
+        return page(env, row.inviter_name ? `${row.inviter_name} invited you to the weekly digest` : "You're invited to the weekly digest", `${about}<form method="post"><div class="actions"><button name="action" value="accept">Accept invitation</button><button class="quiet" name="action" value="decline">Decline</button></div></form>`, { chooseAction: true });
       }
-      return page(env, "Confirming your subscription", `${about}<form method="post"><input type="hidden" name="action" value="accept"><div class="actions"><button name="action" value="accept">Confirm subscription</button></div></form><p class="hint">One moment. If nothing happens, use the button above. Didn't ask for this? Close this page and nothing changes.</p>`, { submitOnLoad: true });
+      return page(env, "Confirming your subscription", `${about}<form method="post"><input type="hidden" name="action" value="accept"><div class="actions"><button name="action" value="accept">Confirm subscription</button></div></form><p class="hint">Your email link confirms this request. If it doesn’t finish automatically, use the button above.</p>`, { submitOnLoad: true });
     }
   }
   if (url.pathname === "/subscriptions/request" && request.method === "POST") {
@@ -354,9 +389,7 @@ export async function subscriptionRoutes(request: Request, env: Env): Promise<Re
     if (!env.SUBSCRIPTIONS_TURNSTILE_SECRET) return page(env, "Subscriptions are unavailable", `<p>The subscription form isn't available right now. Try again later.</p>${homeLink}`, { status: 503 });
     const data = await form(request);
     const kind = kindSchema.catch("subscribe").parse(data.get("intent"));
-    const finished = () => kind === "unsubscribe"
-      ? page(env, "You're unsubscribed", "<p>If this address was subscribed, it won't receive the weekly digest anymore.</p>", { done: true })
-      : page(env, kind === "invite" ? "Thanks for sharing" : "Check your inbox", `<p>${genericMessage}</p>`, { done: true });
+    const finished = () => page(env, kind === "invite" ? "Invitation requested" : "Check your inbox", `<p>${kind === "unsubscribe" ? "If this address is subscribed, we’ll email a link to stop the digest. Click it once to unsubscribe." : genericMessage}</p>`, { done: true });
     const retry = (title: string, message: string, status = 400) => page(env, title, `<p>${message}</p><div class="actions"><a class="button" href="/subscriptions?intent=${kind}">Back to the form</a></div>`, { status });
     if (data.get("website")) return finished();
     const email = emailSchema.safeParse(data.get("email"));
@@ -367,14 +400,11 @@ export async function subscriptionRoutes(request: Request, env: Env): Promise<Re
     if (!await limit(env, `ip:${ip}`, 5, 3600)) return retry("Too many attempts", "Wait an hour, then try again.", 429);
     const verification = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
       method: "POST", body: new URLSearchParams({ secret: env.SUBSCRIPTIONS_TURNSTILE_SECRET, response: data.get("cf-turnstile-response") ?? "", remoteip: ip }), signal: AbortSignal.timeout(10000)
-    });
-    const result = await verification.json() as { success: boolean; hostname?: string; action?: string };
+    }).catch(() => null);
+    if (!verification?.ok) return retry("Verification unavailable", "Please try again shortly.", 503);
+    const result = await verification.json().catch(() => ({ success: false })) as { success: boolean; hostname?: string; action?: string };
     if (!result.success || ![new URL(env.SITE_ORIGIN).hostname, new URL(env.REVIEW_ORIGIN).hostname].includes(result.hostname ?? "") || result.action !== "subscription") return retry("Verification didn't finish", "Complete the check on the form, then send it again.");
     if (!await limit(env, "global", 100, 86400)) return page(env, "Too many requests today", `<p>The form has reached its daily limit. Try again tomorrow.</p>${homeLink}`, { status: 429 });
-    if (kind === "unsubscribe") {
-      await unsubscribeAddress(env, email.data);
-      return finished();
-    }
     await requestSubscription(env, email.data, kind, inviterName.success ? inviterName.data : undefined);
     await triggerDelivery(env);
     return finished();
@@ -393,10 +423,10 @@ export async function subscriptionRoutes(request: Request, env: Env): Promise<Re
     const copy = {
       subscribe: { title: "Subscribe to the weekly digest", lead: "We'll email you a link to confirm. You're added once you click it.", label: "Your email address", button: "Send confirmation link" },
       invite: { title: "Invite someone to the digest", lead: "We'll email them an invitation. They're added only if they accept.", label: "Their email address", button: "Send invitation" },
-      unsubscribe: { title: "Unsubscribe from the weekly digest", lead: "Enter the address that receives the digest. It stops right away.", label: "Your email address", button: "Unsubscribe" }
+      unsubscribe: { title: "Unsubscribe from the weekly digest", lead: "We’ll email a link to this address. Click it once to stop the digest.", label: "Your email address", button: "Email my unsubscribe link" }
     }[kind];
     const nameField = kind === "invite" ? `<label for="name">Your name <small>Optional</small></label><input id="name" name="name" autocomplete="name" maxlength="60"><p class="hint">Shown in the invitation so they know who it's from.</p>` : "";
-    return page(env, copy.title, `<p>${copy.lead}</p><form method="post" action="/subscriptions/request"><input type="hidden" name="intent" value="${kind}"><label for="email">${copy.label}</label><input id="email" type="email" name="email" value="${e(email)}" autocomplete="${kind === "invite" ? "off" : "email"}" maxlength="254" required>${nameField}<label class="trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label><div class="cf-turnstile" data-sitekey="${e(env.SUBSCRIPTIONS_TURNSTILE_SITE_KEY)}" data-action="subscription"></div><div class="actions"><button type="submit">${copy.button}</button></div></form><script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>`);
+    return page(env, copy.title, `<p>${copy.lead}</p><form method="post" action="/subscriptions/request"><input type="hidden" name="intent" value="${kind}"><label for="email">${copy.label}</label><input id="email" type="email" name="email" value="${e(email)}" autocomplete="${kind === "invite" ? "off" : "email"}" maxlength="254" required>${nameField}<label class="trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label><div class="cf-turnstile" data-sitekey="${e(env.SUBSCRIPTIONS_TURNSTILE_SITE_KEY)}" data-action="subscription" data-size="compact"></div><div class="actions"><button type="submit">${copy.button}</button></div></form><script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>`);
   }
   return new Response("Not found", { status: 404 });
 }

@@ -1,116 +1,31 @@
 <section class="digest-signup" aria-labelledby="digest-signup-title">
   <div class="digest-copy">
-    <h2 id="digest-signup-title">Get the weekly digest by email</h2>
-    <p>Every issue's top story and summaries, with links to the original sources. You'll confirm from your inbox before you're added.</p>
+    <span class="digest-eyebrow">Stay informed</span>
+    <h2 id="digest-signup-title">The weekly digest, in your inbox.</h2>
+    <p>Reviewed news on dairy, meat, and bovine genetics. One weekly email, with the sources that matter.</p>
   </div>
-  <form class="digest-form" method="post" action="/subscriptions/start">
-    <input type="hidden" name="intent" value="subscribe" />
-    <label for="digest-email">Your email address</label>
-    <div class="digest-field">
-      <input id="digest-email" type="email" name="email" autocomplete="email" maxlength="254" placeholder="you@company.com" required />
-      <button type="submit">Subscribe</button>
+  <div class="digest-options">
+    <div class="digest-actions">
+      <a class="digest-primary" href={"/subscriptions"}>Subscribe to the digest <span aria-hidden="true">→</span></a>
+      <a class="digest-secondary" href={"/subscriptions?intent=invite"}>Invite someone</a>
     </div>
-    <p class="digest-links">
-      <a href="/subscriptions?intent=invite">Invite someone</a>
-      <a href="/subscriptions?intent=unsubscribe">Unsubscribe</a>
-    </p>
-  </form>
+    <p>Confirm once by email. Unsubscribe at any time.</p>
+    <a class="digest-manage" href={"/subscriptions?intent=unsubscribe"}>Already subscribed? Unsubscribe</a>
+  </div>
 </section>
-
 <style>
-  .digest-signup {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-    align-items: center;
-    gap: clamp(1.5rem, 4vw, 4rem);
-    margin: clamp(2.5rem, 5vw, 4rem) 0 0;
-    padding: clamp(1.75rem, 4vw, 3rem);
-    border-radius: var(--radius-lg);
-    color: var(--surface);
-    background: var(--forest-deep);
-  }
-  h2 {
-    max-width: 16ch;
-    font-size: clamp(1.75rem, 3.2vw, 2.6rem);
-    letter-spacing: -0.045em;
-  }
-  .digest-copy p {
-    max-width: 40ch;
-    margin-top: 0.9rem;
-    color: var(--mint);
-    font-size: 0.98rem;
-    line-height: 1.6;
-  }
-  label {
-    display: block;
-    margin-bottom: 0.55rem;
-    color: var(--mint);
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  .digest-field {
-    display: flex;
-    gap: 0.35rem;
-    padding: 0.35rem;
-    border: 1px solid rgba(250, 250, 246, 0.2);
-    border-radius: 999px;
-    background: rgba(250, 250, 246, 0.08);
-    transition: border-color 160ms ease, background-color 160ms ease;
-  }
-  .digest-field:focus-within {
-    border-color: var(--lime);
-    background: rgba(250, 250, 246, 0.12);
-  }
-  input {
-    flex: 1;
-    width: 100%;
-    min-width: 0;
-    padding: 0.6rem 0.9rem;
-    border: 0;
-    border-radius: 999px;
-    color: var(--surface);
-    background: transparent;
-    font-size: 1rem;
-  }
-  input::placeholder { color: rgba(183, 215, 193, 0.62); }
-  input:focus { outline: 0; box-shadow: none; }
-  button {
-    flex: none;
-    padding: 0.7rem 1.35rem;
-    border: 0;
-    border-radius: 999px;
-    color: var(--forest-deep);
-    background: var(--lime);
-    font-size: 0.92rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 160ms ease;
-  }
-  button:hover { background: #e9f1c4; }
-  button:focus-visible { box-shadow: 0 0 0 3px rgba(220, 232, 174, 0.45); }
-  .digest-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem 1.4rem;
-    margin-top: 0.9rem;
-    padding-inline: 0.9rem;
-    font-size: 0.82rem;
-  }
-  .digest-links a {
-    color: var(--mint);
-    text-decoration: underline;
-    text-decoration-color: rgba(183, 215, 193, 0.4);
-    text-underline-offset: 0.2em;
-  }
-  .digest-links a:hover, .digest-links a:focus-visible { color: var(--surface); text-decoration-color: currentColor; }
-  @media (max-width: 760px) {
-    .digest-signup { grid-template-columns: minmax(0, 1fr); }
-  }
-  @media (max-width: 380px) {
-    .digest-field { flex-direction: column; border-radius: var(--radius-md); }
-    button { padding-block: 0.8rem; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .digest-field, button { transition: none; }
-  }
+  .digest-signup { margin: clamp(3rem, 6vw, 5rem) 0 0; padding: clamp(1.5rem, 4vw, 3rem); border: 1px solid var(--line-strong); border-top: 2px solid var(--forest); border-radius: 2px; background: var(--paper-deep); display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; gap: 2rem; }
+  .digest-eyebrow { color: var(--forest); font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  h2 { margin: .65rem 0; font-size: clamp(1.5rem, 2.5vw, 2rem); line-height: 1.2; max-width: 26ch; }
+  p { color: var(--ink-muted); font-size: .85rem; line-height: 1.6; max-width: 48ch; }
+  .digest-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-bottom: .85rem; }
+  .digest-actions a { display: inline-flex; justify-content: center; align-items: center; gap: 1.25rem; min-height: 46px; padding: .75rem 1rem; border: 1px solid var(--forest); border-radius: 2px; font-size: .8rem; font-weight: 650; text-decoration: none; }
+  .digest-primary { background: var(--forest); color: var(--surface); }
+  .digest-primary:hover { background: var(--forest-deep); }
+  .digest-secondary { background: var(--surface); color: var(--forest); }
+  .digest-secondary:hover { background: var(--mint); }
+  .digest-options p, .digest-manage { font-size: .7rem; }
+  .digest-manage { display: inline-block; margin-top: .6rem; color: var(--ink-muted); text-decoration: underline; text-underline-offset: .2em; }
+  @media (max-width: 760px) { .digest-signup { grid-template-columns: 1fr; gap: 1.5rem; } }
+  @media (max-width: 420px) { .digest-actions { flex-direction: column; } }
 </style>
