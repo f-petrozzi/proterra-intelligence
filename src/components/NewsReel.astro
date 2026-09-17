@@ -6,9 +6,10 @@ import { fallbackStoryReviewId, reviewAttributes } from "../lib/review";
 
 interface Props {
   report: Report;
+  showPeriod?: boolean;
 }
 
-const { report } = Astro.props;
+const { report, showPeriod = false } = Astro.props;
 const groups = Array.from(
   report.items.reduce((map, item) => {
     const key = item.citations[0].url;
@@ -96,7 +97,8 @@ const reportHref = `/reports/${report.slug}`;
   <header class="news-reel-header">
     <div>
       <span>Issue {String(report.issueNumber).padStart(2, "0")} · {formatDate(report.publishedAt)}</span>
-      <h2 id="news-reel-title">This week</h2>
+      <h1 id="news-reel-title">This week</h1>
+      {showPeriod && <p class="news-reel-period">Coverage: {formatDate(report.period.start, { month: "short" })} to {formatDate(report.period.end, { month: "short" })}</p>}
     </div>
     <nav aria-label="Issue sections">
       <a href={`#item-${leadGroup[0].rank}`}>Top story</a>

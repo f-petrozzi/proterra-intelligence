@@ -1,7 +1,6 @@
 ---
 import ArrowLink from "../components/ArrowLink.astro";
 import NewsReel from "../components/NewsReel.astro";
-import SectionLabel from "../components/SectionLabel.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { reports } from "../lib/content";
 
@@ -9,25 +8,15 @@ const latest = reports[0];
 ---
 
 <BaseLayout>
-  <section class="hero reveal">
-    <SectionLabel>Weekly Brief</SectionLabel>
-    <h1>This week in livestock and genetics.</h1>
-    <p class="hero-summary">
-      The important stories, the useful context, and the original sources.
-    </p>
-  </section>
-
   {latest ? (
-    <>
-      <div class="reveal delay-1"><NewsReel report={latest} /></div>
-    </>
+    <div class="reveal"><NewsReel report={latest} /></div>
   ) : (
     <section class="empty-issue reveal delay-2">
       <div>
         <span class="status-dot" aria-hidden="true"></span>
         <p>Awaiting first review</p>
       </div>
-      <h2>No Weekly Brief published yet.</h2>
+      <h1>No Weekly Brief published yet.</h1>
       <p>The first reviewed issue will appear here.</p>
       <div class="empty-actions">
         <ArrowLink href="/methodology" label="Review methodology" />
