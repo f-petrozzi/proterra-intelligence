@@ -844,7 +844,17 @@
   .history-callout > div > span { color: var(--mint); font-size: 0.63rem; font-weight: 700; text-transform: uppercase; }
   .history-callout h3 { margin-top: 0.55rem; font-size: clamp(1.7rem, 3vw, 2.5rem); }
   .history-callout p { max-width: 38rem; margin-top: 0.7rem; color: rgba(255,255,255,0.72); font-size: 0.82rem; }
-  .history-callout .arrow-link { color: var(--lime); }
+  .history-callout .arrow-link {
+    min-height: 46px;
+    flex: none;
+    gap: 1.5rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(220, 232, 174, 0.5);
+    border-radius: 2px;
+    color: var(--lime);
+    transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease;
+  }
+  .history-callout .arrow-link:hover, .history-callout .arrow-link:focus-visible { color: var(--forest-deep); border-color: var(--lime); background: var(--lime); }
 
   .history-update { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 0.9rem 0; border-block: 1px solid var(--line-strong); }
   .history-update span { color: var(--forest); font-size: 0.7rem; font-weight: 720; }

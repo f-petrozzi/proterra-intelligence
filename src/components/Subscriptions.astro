@@ -2,28 +2,29 @@
   <div class="digest-copy">
     <h2 id="digest-signup-title">Get the weekly digest</h2>
     <p>Reviewed coverage of dairy, meat, and bovine genetics, with links to the original sources. Delivered once a week.</p>
+    <div class="digest-meta">
+      <p class="digest-note">Confirm from your inbox. Unsubscribe anytime.</p>
+      <nav class="digest-links" aria-label="Digest subscription options">
+        <a href={"/subscriptions?intent=invite"}>Invite someone</a>
+        <span aria-hidden="true">·</span>
+        <a href={"/subscriptions?intent=unsubscribe"}>Unsubscribe</a>
+      </nav>
+    </div>
   </div>
-  <div class="digest-options">
-    <a class="digest-primary" href={"/subscriptions"}>Subscribe by email <span aria-hidden="true">→</span></a>
-    <p class="digest-note">Confirm from your inbox. Unsubscribe anytime.</p>
-    <nav class="digest-links" aria-label="Digest subscription options">
-      <a href={"/subscriptions?intent=invite"}>Invite someone</a>
-      <span aria-hidden="true">·</span>
-      <a href={"/subscriptions?intent=unsubscribe"}>Unsubscribe</a>
-    </nav>
-  </div>
+  <a class="digest-primary" href={"/subscriptions"}>Subscribe by email <span aria-hidden="true">→</span></a>
 </section>
 <style>
-  .digest-signup { margin: clamp(3rem, 6vw, 5rem) 0 0; padding: clamp(1.5rem, 4vw, 3rem); border: 1px solid var(--line-strong); border-top: 2px solid var(--forest); border-radius: 2px; background: var(--paper-deep); display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(15rem, .8fr); align-items: center; gap: clamp(1.75rem, 5vw, 4.5rem); }
-  h2 { margin: 0 0 .7rem; font-size: clamp(1.65rem, 2.8vw, 2.2rem); line-height: 1.15; max-width: 24ch; }
+  .digest-signup { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 2rem; margin: clamp(1.25rem, 2.5vw, 2rem) 0 0; padding: clamp(1.75rem, 3.5vw, 2.5rem) 0; border-block: 1px solid var(--line-strong); }
+  h2 { margin: 0 0 .65rem; font-size: clamp(1.55rem, 2.6vw, 2rem); line-height: 1.15; max-width: 24ch; }
   .digest-copy p { color: var(--ink-muted); font-size: .88rem; line-height: 1.65; max-width: 52ch; }
-  .digest-options { display: grid; justify-items: start; }
-  .digest-primary { display: inline-flex; justify-content: center; align-items: center; gap: 1.5rem; min-height: 46px; padding: .75rem 1rem; border: 1px solid var(--forest); border-radius: 2px; background: var(--forest); color: var(--surface); font-size: .82rem; font-weight: 650; text-decoration: none; }
+  .digest-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .7rem; margin-top: .8rem; }
+  .digest-primary { display: inline-flex; justify-content: center; align-items: center; gap: 1.5rem; min-height: 46px; padding: .75rem 1rem; border: 1px solid var(--forest); border-radius: 2px; background: var(--forest); color: var(--surface); font-size: .82rem; font-weight: 650; text-decoration: none; transition: background-color 160ms ease; }
   .digest-primary:hover { background: var(--forest-deep); }
-  .digest-note { margin-top: .75rem; color: var(--ink-muted); font-size: .72rem; }
-  .digest-links { display: flex; align-items: center; gap: .55rem; margin-top: .45rem; color: var(--ink-muted); font-size: .72rem; }
+  .digest-note { margin: 0; color: var(--ink-muted); font-size: .72rem; }
+  .digest-links { display: flex; align-items: center; gap: .55rem; color: var(--ink-muted); font-size: .72rem; }
   .digest-links a { text-decoration: underline; text-decoration-color: rgba(23, 32, 28, .28); text-underline-offset: .2em; }
   .digest-links a:hover, .digest-links a:focus-visible { color: var(--forest); text-decoration-color: currentColor; }
-  @media (max-width: 760px) { .digest-signup { grid-template-columns: 1fr; gap: 1.5rem; } }
+  @media (max-width: 760px) { .digest-signup { grid-template-columns: 1fr; gap: 1.25rem; } }
   @media (max-width: 420px) { .digest-primary { width: 100%; justify-content: space-between; } }
+  @media (prefers-reduced-motion: reduce) { .digest-primary { transition: none; } }
 </style>
