@@ -53,6 +53,7 @@ test("an invitation requires an explicit POST; accept activates once and consume
   const url = `${env.REVIEW_ORIGIN}/subscriptions/confirm?token=${token}`;
   const page = await subscriptionRoutes(new Request(url), env);
   assert.equal(page?.status, 200);
+  assert.equal(page!.headers.get("referrer-policy"), "same-origin", "no-referrer makes browsers post Origin: null, which the origin check rejects");
   assert.match(await page!.text(), /Accept and subscribe/);
   assert.equal((await subscriptionRecipients(env)).length, 1, "email link scanners cannot subscribe recipients");
   await assert.rejects(subscriptionRoutes(new Request(url, { method: "POST", headers: { origin: "https://evil.example.org", "content-type": "application/x-www-form-urlencoded" }, body: "action=accept" }), env), error => error instanceof Response && error.status === 403);
