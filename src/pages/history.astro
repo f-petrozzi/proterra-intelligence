@@ -47,15 +47,11 @@ const weeklyContext = latestReport?.overview?.points ?? [];
 ---
 
 <BaseLayout title="Market dashboard" description="Interactive global and U.S. livestock, dairy, and bovine genetics indicators for Proterra business owners.">
-  <PageHeader
-    label="Market dashboard"
-    title="Market conditions at a glance"
-    description="Track the recurring indicators behind the weekly brief, then use the news to understand what changed."
-  />
+  <PageHeader title="Market dashboard" />
 
   <div class="history-update reveal delay-1">
     <span>Dashboard refreshed {formatDate(history.updatedAt)}</span>
-    <p>Official recurring datasets only. Article claims are kept in the weekly brief, not blended into these series.</p>
+    <p>Official datasets · Reporting dates vary by series.</p>
   </div>
 
   <nav class="page-section-nav reveal delay-1" aria-label="Dashboard sections">
@@ -66,15 +62,13 @@ const weeklyContext = latestReport?.overview?.points ?? [];
   </nav>
 
   <section class="dashboard-narrative reveal delay-2" aria-labelledby="dashboard-narrative-title">
-    <span>This period</span>
     <h2 id="dashboard-narrative-title">{marketNarrative}</h2>
-    <p>Each comparison uses the prior year when the source history supports it. Reporting dates differ by dataset.</p>
+    <p>Comparisons use the prior year where available.</p>
   </section>
 
   <section class="dashboard-summary reveal delay-2" id="snapshot" aria-labelledby="dashboard-summary-title">
     <header>
-      <div><span>Select a market</span><h2 id="dashboard-summary-title">Market snapshot</h2></div>
-      <p>Choose a reading to update the market explorer.</p>
+      <div><h2 id="dashboard-summary-title">Market snapshot</h2></div>
     </header>
     <div class="dashboard-kpi-grid">
       {dashboardMetrics.map((metric, index) => (
@@ -108,8 +102,8 @@ const weeklyContext = latestReport?.overview?.points ?? [];
 
   <section class="history-chart-list reveal delay-3" aria-labelledby="historical-bars-title">
     <header class="history-list-heading">
-      <div><span>Interactive history</span><h2 id="historical-bars-title">Market explorer</h2></div>
-      <p>Change the market above, select a range, then inspect individual values.</p>
+      <div><h2 id="historical-bars-title">Market explorer</h2></div>
+      <p>Select a market above, then explore its history.</p>
     </header>
     <MarketExplorer charts={history.charts} />
   </section>
@@ -128,8 +122,8 @@ const weeklyContext = latestReport?.overview?.points ?? [];
 
   <section class="genetics-watch" id="genetics-watch" aria-labelledby="genetics-watch-title">
     <header>
-      <div><span>Event-driven tracker</span><h2 id="genetics-watch-title">Bovine genetics watch</h2></div>
-      <p>Genetic evaluations change on release schedules, not in a clean monthly market series. The latest reviewed releases stay visible here.</p>
+      <div><h2 id="genetics-watch-title">Bovine genetics watch</h2></div>
+      <p>Latest reviewed genetics developments from the weekly brief.</p>
     </header>
     <div>
       {geneticsItems.map((item) => (
