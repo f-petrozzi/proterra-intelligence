@@ -18,7 +18,7 @@ async function fixture(initialize = true) {
     } }, env: { REVIEW_DB: { type: "d1", name: "subscriptions-test" } }
   } }] });
   const database = await miniflare.getD1Database("REVIEW_DB", "subscriptions-test");
-  for (const migration of ["0004_subscriptions.sql", "0005_subscription_inviter.sql"]) {
+  for (const migration of ["0004_subscriptions.sql", "0005_subscription_inviter.sql", "0006_subscription_email_keys.sql"]) {
     const sql = (await readFile(`review-worker/migrations/${migration}`, "utf8")).replace(/^--.*$/gm, "");
     for (const statement of sql.split(";").map(value => value.trim()).filter(Boolean)) await database.prepare(statement).run();
   }
@@ -48,6 +48,18 @@ test("legacy import is normalized, atomic, sends nothing, and cannot overwrite a
   await assert.rejects(importSubscribers(env, ["replacement@example.org"]), error => error instanceof Response && error.status === 409);
   assert.equal((await database.prepare("SELECT COUNT(*) AS n FROM subscribers").first<any>())!.n, 2);
   assert.equal((await database.prepare("SELECT COUNT(*) AS n FROM subscribers WHERE confirmed_at IS NOT NULL").first<any>())!.n, 0, "legacy import is not a new opt-in confirmation");
+});
+
+test("Gmail plus tags share a subscription while preserving the delivery address", async context => {
+  const { env, miniflare } = await fixture(false);
+  context.after(() => miniflare.dispose());
+  assert.equal(await importSubscribers(env, ["reader+new@gmail.com", "reader+other@gmail.com", "reader+tag@example.org"]), 2);
+  await requestSubscription(env, "reader@gmail.com", "unsubscribe");
+  const removal = await claimMail(env);
+  assert.equal(removal?.kind, "unsubscribe");
+  assert.equal(removal?.email, "reader+new@gmail.com", "mail goes to the subscribed delivery address");
+  await requestSubscription(env, "reader@example.org", "unsubscribe");
+  assert.equal(await claimMail(env), null, "plus tags remain significant for providers where that behavior is unknown");
 });
 
 test("an invitation requires an explicit POST; accept activates once and consumes the token", async context => {
@@ -322,6 +334,7 @@ test("subscription emails are branded, hide the token behind a button, and name 
   assert.ok(html.includes("Fabrizio &lt;Petrozzi&gt;"));
   assert.ok(!html.replace(/href="[^"]*"/g, "").includes("a".repeat(64)), "the raw token appears only inside link targets");
   assert.ok(text.includes(url));
+  assert.doesNotMatch(text, /You received this because/);
   assert.match(text, /October 17, 2026/);
   const self = await renderSubscriptionEmail({ kind: "subscribe", url, expiresAt: "2026-09-24T12:00:00.000Z" }, "https://proterra-intelligence.pages.dev");
   assert.match(self.text, /Confirm subscription/i);

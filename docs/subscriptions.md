@@ -14,6 +14,7 @@ D1 is the authoritative list. `/subscribers` on the Review Worker displays addre
 - Declining or unsubscribing suppresses future third-party invitations. An address owner can request a new self-subscription.
 - Every production digest is sent individually with an opaque, recipient-specific unsubscribe link. Clicking it completes the request and displays the result. Mail clients can POST the RFC 8058 key/value using either URL-encoded or multipart form data, without Origin or cookies. Old unsubscribe links become invalid after resubscription.
 - The public unsubscribe form sends a seven-day confirmation link to the address owner. Knowing an address alone cannot remove it. That email link completes the unsubscribe without a second confirmation question. Responses do not reveal whether an address is subscribed.
+- Gmail and Googlemail `+tag` variants share one internal subscription identity. The originally subscribed address remains the delivery address, so inbox filters continue to work, while an unsubscribe request made with the untagged address still reaches that subscription.
 - Result pages stay visible, with a **Read the latest brief** button rather than a timed redirect.
 - Rate limits: five form attempts per IP per hour, one request of each kind per address per UTC day, and 100 verified requests globally per UTC day. Stored rate-limit identifiers are keyed hashes; raw IPs are not retained.
 
