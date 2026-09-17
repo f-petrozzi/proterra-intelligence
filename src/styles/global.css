@@ -853,8 +853,7 @@
   .page-section-nav::-webkit-scrollbar { display: none; }
   .page-section-nav a { flex: none; padding: 0.45rem 0.7rem; border-radius: 999px; color: var(--ink-muted); font-size: 0.66rem; font-weight: 650; }
   .page-section-nav a:hover, .page-section-nav a:focus-visible { color: var(--surface); background: var(--forest); }
-  .dashboard-narrative { display: grid; grid-template-columns: minmax(8rem, 0.28fr) minmax(0, 1.35fr) minmax(15rem, 0.48fr); align-items: start; gap: clamp(1.5rem, 4vw, 4rem); margin-top: clamp(2.25rem, 4vw, 3.5rem); padding: clamp(1.5rem, 3vw, 2.25rem) 0; border-block: 1px solid var(--line-strong); }
-  .dashboard-narrative > span { color: var(--forest); font-size: 0.62rem; font-weight: 740; letter-spacing: 0.06em; text-transform: uppercase; }
+  .dashboard-narrative { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(15rem, 0.48fr); align-items: start; gap: clamp(1.5rem, 4vw, 4rem); margin-top: clamp(2.25rem, 4vw, 3.5rem); padding: clamp(1.5rem, 3vw, 2.25rem) 0; border-block: 1px solid var(--line-strong); }
   .dashboard-narrative h2 { max-width: 38ch; font-size: clamp(1.45rem, 2.5vw, 2.15rem); line-height: 1.18; }
   .dashboard-narrative p { color: var(--ink-muted); font-size: 0.68rem; line-height: 1.5; }
   .dashboard-summary { padding-top: clamp(2rem, 4vw, 3.25rem); }
@@ -1324,8 +1323,7 @@
     .regional-story { display: grid; grid-template-columns: minmax(14rem, 0.72fr) minmax(0, 1fr); column-gap: 0; padding-bottom: 0; }
     .regional-story figure { height: 100%; grid-row: 1 / span 5; aspect-ratio: auto; }
     .history-chart-header { grid-template-columns: 1fr; }
-    .dashboard-narrative { grid-template-columns: minmax(7rem, 0.3fr) minmax(0, 1fr); }
-    .dashboard-narrative p { grid-column: 2; }
+    .dashboard-narrative { grid-template-columns: 1fr; gap: 0.8rem; }
     .dashboard-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .dashboard-kpi, .dashboard-kpi:nth-child(3n) { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .dashboard-kpi:nth-child(2n) { border-right: 0; }
@@ -1421,8 +1419,6 @@
     .history-chart-context > div + div, .genetics-watch article + article { border-top: 1px solid var(--line); border-left: 0; }
     .dashboard-summary > header { align-items: flex-start; flex-direction: column; gap: 0.25rem; }
     .dashboard-summary > header > p { text-align: left; }
-    .dashboard-narrative { grid-template-columns: 1fr; gap: 0.8rem; }
-    .dashboard-narrative p { grid-column: 1; }
     .dashboard-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .dashboard-kpi, .dashboard-kpi:nth-child(2), .dashboard-kpi:nth-child(3n), .dashboard-kpi:nth-child(2n) { padding: 0.95rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .dashboard-kpi:nth-child(2n) { border-right: 0; }
