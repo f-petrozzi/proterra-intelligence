@@ -168,9 +168,9 @@ export function WeeklyBriefEmail({ report, siteUrl, images, unsubscribeUrl }: We
               {" · "}
               <Link href={`${siteUrl}/archive/`} style={footerLink}>Archive</Link>
               {" · "}
-              <Link href={`${siteUrl}/#digest-signup-title`} style={footerLink}>Share with others</Link>
+              <Link href={`${siteUrl}/subscriptions?intent=invite`} style={footerLink}>Invite someone</Link>
               {" · "}
-              <Link href={unsubscribeUrl ?? `${siteUrl}/#digest-signup-title`} style={footerLink}>Unsubscribe</Link>
+              <Link href={unsubscribeUrl ?? `${siteUrl}/subscriptions?intent=unsubscribe`} style={footerLink}>Unsubscribe</Link>
             </Text>
           </Section>
         </Container>

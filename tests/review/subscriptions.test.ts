@@ -4,6 +4,7 @@ import test from "node:test";
 import { Miniflare } from "miniflare";
 import type { Env } from "../../review-worker/src/index";
 import { claimMail, consumeRequest, importSubscribers, inviterNameSchema, removeSubscriber, requestSubscription, subscriptionRecipients, subscriptionRoutes, unsubscribeAddress } from "../../review-worker/src/subscriptions";
+import { onRequest as subscriptionsRoute } from "../../functions/subscriptions/[[path]]";
 import { loadDigest } from "../../scripts/email/digest";
 import { renderDigest, getDigestSubject, getSubscriptionSubject, renderSubscriptionEmail } from "../../scripts/email/render";
 
@@ -52,10 +53,10 @@ test("an invitation requires an explicit POST; accept activates once and consume
   context.after(() => miniflare.dispose());
   const { token } = await requestToken(env, "friend@example.org", "invite");
   assert.equal((await subscriptionRecipients(env)).length, 1);
-  const url = `${env.REVIEW_ORIGIN}/subscriptions/confirm?token=${token}`;
+  const url = `${env.SITE_ORIGIN}/subscriptions/confirm?token=${token}`;
   const page = await subscriptionRoutes(new Request(url), env);
   assert.equal(page?.status, 200);
-  assert.equal(page!.headers.get("referrer-policy"), "same-origin", "no-referrer makes browsers post Origin: null, which the origin check rejects");
+  assert.equal(page!.headers.get("referrer-policy"), "strict-origin", "no-referrer makes browsers post Origin: null; same-origin would leak the token to other site pages");
   assert.match(await page!.text(), /Accept invitation/);
   assert.equal((await subscriptionRecipients(env)).length, 1, "email link scanners cannot subscribe recipients");
   await assert.rejects(subscriptionRoutes(new Request(url, { method: "POST", headers: { origin: "https://evil.example.org", "content-type": "application/x-www-form-urlencoded" }, body: "action=accept" }), env), error => error instanceof Response && error.status === 403);
@@ -191,8 +192,8 @@ test("public requests verify the bot token hostname and action before queuing em
   verification = { success: true, hostname: "review.example.org", action: "wrong" };
   assert.equal((await submit())?.status, 400);
   assert.equal(await claimMail(env), null);
-  verification = { success: true, hostname: "review.example.org", action: "subscription" };
-  assert.equal((await submit())?.status, 200);
+  verification = { success: true, hostname: "site.example.org", action: "subscription" };
+  assert.equal((await submit())?.status, 200, "the widget is solved on the site, which hosts the pages");
   assert.equal((await claimMail(env))?.email, "friend@example.org");
   assert.equal((await subscriptionRecipients(env)).length, 1);
 });
@@ -212,7 +213,7 @@ test("invitations carry an optional plain inviter name and expire after 30 days;
   const { message: invite, token } = await requestToken(env, "friend@example.org", "invite", "  Fabrizio   Petrozzi ");
   assert.equal(invite.inviterName, "Fabrizio Petrozzi");
   assert.ok(Math.abs(Date.parse(invite.expiresAt) - now - 30 * 86_400_000) < 60_000);
-  const page = await subscriptionRoutes(new Request(`${env.REVIEW_ORIGIN}/subscriptions/confirm?token=${token}`), env);
+  const page = await subscriptionRoutes(new Request(`${env.SITE_ORIGIN}/subscriptions/confirm?token=${token}`), env);
   assert.match(await page!.text(), /Fabrizio Petrozzi invited you to the weekly digest/);
   const { message: own } = await requestToken(env, "self@example.org", "subscribe", "Ignored for self-subscriptions");
   assert.equal(own.inviterName, undefined);
@@ -272,4 +273,34 @@ test("subscription emails are branded, hide the token behind a button, and name 
   const self = await renderSubscriptionEmail({ kind: "subscribe", url, expiresAt: "2026-09-24T12:00:00.000Z" }, "https://proterra-intelligence.pages.dev");
   assert.match(self.text, /Confirm subscription/i);
   assert.match(getSubscriptionSubject({ kind: "invite", url, expiresAt: invite.expiresAt }), /invited to/);
+});
+
+test("the site hosts the pages: links point at it, the Worker host redirects, and only subscription paths are forwarded", async context => {
+  const { env, miniflare } = await fixture();
+  context.after(() => miniflare.dispose());
+  const [recipient] = await subscriptionRecipients(env);
+  assert.ok(recipient.unsubscribeUrl.startsWith(`${env.SITE_ORIGIN}/subscriptions/unsubscribe?`), recipient.unsubscribeUrl);
+  const { message } = await requestToken(env, "friend@example.org", "invite");
+  assert.ok(message.url.startsWith(`${env.SITE_ORIGIN}/subscriptions/confirm?`), message.url);
+
+  const moved = await subscriptionRoutes(new Request(`${env.REVIEW_ORIGIN}/subscriptions?intent=invite`), env);
+  assert.equal(moved?.status, 302);
+  assert.equal(moved?.headers.get("location"), `${env.SITE_ORIGIN}/subscriptions?intent=invite`);
+  env.SUBSCRIPTIONS_TURNSTILE_SITE_KEY = "test-site-key";
+  env.SUBSCRIPTIONS_TURNSTILE_SECRET = "test-secret";
+  const page = await subscriptionRoutes(new Request(`${env.SITE_ORIGIN}/subscriptions?intent=invite`), env);
+  assert.equal(page?.status, 200);
+  assert.match(await page!.text(), /Primary navigation/, "the site header stays available on subscription pages");
+
+  const forwarded: string[] = [];
+  const binding = { fetch: async (request: Request) => { forwarded.push(new URL(request.url).pathname); return new Response("ok"); } };
+  for (const path of ["/subscriptions", "/subscriptions/confirm", "/subscriptions/unsubscribe"]) {
+    assert.equal((await subscriptionsRoute({ request: new Request(`${env.SITE_ORIGIN}${path}`), env: { SUBSCRIPTIONS: binding } })).status, 200);
+  }
+  assert.deepEqual(forwarded, ["/subscriptions", "/subscriptions/confirm", "/subscriptions/unsubscribe"]);
+  for (const path of ["/subscribers", "/api/internal/subscriptions/claim", "/review/2026-09-14", "/subscriptionsX"]) {
+    assert.equal((await subscriptionsRoute({ request: new Request(`${env.SITE_ORIGIN}${path}`), env: { SUBSCRIPTIONS: binding } })).status, 404, path);
+  }
+  assert.deepEqual(forwarded.length, 3, "review and admin routes are never forwarded from the site");
+  assert.equal((await subscriptionsRoute({ request: new Request(`${env.SITE_ORIGIN}/subscriptions`), env: {} })).status, 503);
 });

@@ -38,7 +38,7 @@ if (mode === "import") {
       }).nullable() }).parse(await subscriptionApi("claim", {}));
       if (!message) break;
       const link = new URL(message.url);
-      if (link.origin !== new URL(process.env.REVIEW_API_URL!).origin || link.pathname !== "/subscriptions/confirm") throw new Error("Unexpected subscription confirmation URL.");
+      if (link.origin !== new URL(getSiteUrl()).origin || link.pathname !== "/subscriptions/confirm") throw new Error("Unexpected subscription confirmation URL.");
       if (process.env.GITHUB_ACTIONS === "true") {
         console.log(`::add-mask::${message.email}`);
         console.log(`::add-mask::${message.url}`);

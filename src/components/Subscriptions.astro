@@ -1,12 +1,9 @@
----
-const origin = (import.meta.env.PUBLIC_REVIEW_ORIGIN || "https://proterra-intelligence-review.petrozzi.workers.dev").replace(/\/$/, "");
----
 <section class="digest-signup" aria-labelledby="digest-signup-title">
   <div class="digest-copy">
     <h2 id="digest-signup-title">Get the weekly digest by email</h2>
     <p>Every issue's top story and summaries, with links to the original sources. You'll confirm from your inbox before you're added.</p>
   </div>
-  <form class="digest-form" method="post" action={`${origin}/subscriptions/start`}>
+  <form class="digest-form" method="post" action="/subscriptions/start">
     <input type="hidden" name="intent" value="subscribe" />
     <label for="digest-email">Your email address</label>
     <div class="digest-field">
@@ -14,8 +11,8 @@ const origin = (import.meta.env.PUBLIC_REVIEW_ORIGIN || "https://proterra-intell
       <button type="submit">Subscribe</button>
     </div>
     <p class="digest-links">
-      <a href={`${origin}/subscriptions?intent=invite`}>Invite someone</a>
-      <a href={`${origin}/subscriptions?intent=unsubscribe`}>Unsubscribe</a>
+      <a href="/subscriptions?intent=invite">Invite someone</a>
+      <a href="/subscriptions?intent=unsubscribe">Unsubscribe</a>
     </p>
   </form>
 </section>

@@ -34,7 +34,7 @@ export function CatchupEmail({ reports, siteUrl, unsubscribeUrl }: { reports: Re
         <Section style={{ padding: "24px", backgroundColor: "#edf1ef" }}>
           <Text style={{ fontSize: "11px", lineHeight: "18px", color: "#62706b" }}>Proterra Intelligence · Dairy, meat, and bovine genetics. Prepared from reviewed public sources. Reply with corrections or source suggestions.</Text>
           <Hr />
-          <Text style={{ fontSize: "12px", lineHeight: "20px" }}><Link href={`${siteUrl}/archive/`}>Archive</Link>{" · "}<Link href={`${siteUrl}/#digest-signup-title`}>Share with others</Link>{" · "}<Link href={unsubscribeUrl}>Unsubscribe</Link></Text>
+          <Text style={{ fontSize: "12px", lineHeight: "20px" }}><Link href={`${siteUrl}/archive/`}>Archive</Link>{" · "}<Link href={`${siteUrl}/subscriptions?intent=invite`}>Invite someone</Link>{" · "}<Link href={unsubscribeUrl}>Unsubscribe</Link></Text>
         </Section>
       </Container>
     </Body>
