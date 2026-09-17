@@ -19,7 +19,6 @@ import {
   footerQuiet,
   footerQuietLink,
   footerText,
-  h1,
   h2,
   h3,
   headlineLink,
@@ -29,7 +28,6 @@ import {
   linkGap,
   keyPoint,
   keyPointBox,
-  lead,
   masthead,
   primaryButton,
   pulseBasis,
@@ -67,7 +65,7 @@ export function CatchupEmail({ reports, siteUrl, images, unsubscribeUrl }: { rep
 
   return (
     <Html lang="en">
-      <Head />
+      <Head><style>{`@media only screen and (max-width:480px){.pulse-column{box-sizing:border-box!important;display:block!important;width:100%!important;text-align:left!important;padding:12px 18px!important}}`}</style></Head>
       <Preview>{`Issues ${first.issueNumber}–${last.issueNumber} in one email: every story from ${window}.`}</Preview>
       <Body style={body}>
         <Container style={container}>
@@ -95,7 +93,7 @@ export function CatchupEmail({ reports, siteUrl, images, unsubscribeUrl }: { rep
                     <Link href={topStory.citations[0].url}>
                       <Img src={absoluteUrl(siteUrl, bannerPath(topImage.id))} width={552} height={230} alt={topImage.alt} style={bannerImage} />
                     </Link>
-                    <Text style={bannerCredit}>Photo: {topImage.creator} · {topImage.license}</Text>
+                    <Text style={bannerCredit}>Illustrative photo: <Link href={topImage.sourceUrl} style={footerQuietLink}>{topImage.creator} · {topImage.license}</Link></Text>
                   </>
                 )}
                 <Text style={sectionLabel}>ISSUE {report.issueNumber} · {readableDate(report.period.start)} – {readableDate(report.period.end)}</Text>
@@ -107,7 +105,7 @@ export function CatchupEmail({ reports, siteUrl, images, unsubscribeUrl }: { rep
                     <Section style={pulseSection}>
                       <Row>
                         {report.dashboard.sectorPulses.map((pulse) => (
-                          <Column key={pulse.sector} style={pulseColumn}>
+                          <Column key={pulse.sector} className="pulse-column" style={pulseColumn}>
                             <Text style={pulseLabel}>{sectorNames[pulse.sector]}</Text>
                             <Text style={pulseValue}>{pulse.value}</Text>
                             <Text style={pulseBasis}>{pulse.basis}</Text>

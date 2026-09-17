@@ -37,6 +37,7 @@ export async function renderDigest(reports: Report[], siteUrl: string, unsubscri
 export type SubscriptionEmailInput = Omit<SubscriptionEmailProps, "siteUrl">;
 
 export function getSubscriptionSubject({ kind, inviterName }: SubscriptionEmailInput) {
+  if (kind === "unsubscribe") return "Unsubscribe from Proterra Intelligence";
   if (kind === "subscribe") return "Confirm your Proterra Intelligence subscription";
   return inviterName ? `${inviterName} invited you to Proterra Intelligence` : "You're invited to the Proterra Intelligence weekly digest";
 }

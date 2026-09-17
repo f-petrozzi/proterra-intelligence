@@ -27,7 +27,6 @@ type WeeklyBriefEmailProps = {
 
 import {
   absoluteUrl,
-  colors,
   formatDate,
   issueUrl,
   linkGap,
@@ -88,7 +87,7 @@ export function WeeklyBriefEmail({ report, siteUrl, images, unsubscribeUrl }: We
 
   return (
     <Html lang="en">
-      <Head />
+      <Head><style>{`@media only screen and (max-width:480px){.pulse-column{box-sizing:border-box!important;display:block!important;width:100%!important;text-align:left!important;padding:12px 18px!important}}`}</style></Head>
       <Preview>{previewText}</Preview>
       <Body style={body}>
         <Container style={container}>
@@ -114,7 +113,7 @@ export function WeeklyBriefEmail({ report, siteUrl, images, unsubscribeUrl }: We
               <Section style={pulseSection}>
                 <Row>
                   {report.dashboard.sectorPulses.map((pulse) => (
-                    <Column key={pulse.sector} style={pulseColumn}>
+                    <Column key={pulse.sector} className="pulse-column" style={pulseColumn}>
                       <Text style={pulseLabel}>{sectorNames[pulse.sector]}</Text>
                       <Text style={pulseValue}>{pulse.value}</Text>
                       <Text style={pulseBasis}>{pulse.basis}</Text>
@@ -137,7 +136,7 @@ export function WeeklyBriefEmail({ report, siteUrl, images, unsubscribeUrl }: We
                     style={heroImage}
                   />
                 </Link>
-                <Text style={{ ...credit, textAlign: heroSize(topImage).width < 552 ? "center" : "left" }}>Photo: {topImage.creator} · {topImage.license}</Text>
+                <Text style={{ ...credit, textAlign: heroSize(topImage).width < 552 ? "center" : "left" }}>Illustrative photo: <Link href={topImage.sourceUrl} style={footerQuietLink}>{topImage.creator} · {topImage.license}</Link></Text>
               </>
             )}
             <Text style={storyMeta}>
