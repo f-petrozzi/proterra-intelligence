@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       report:
-        description: Issue date in YYYY-MM-DD format
+        description: One issue date, or three comma-separated issue dates in chronological order
         required: true
         type: string
       mode:
@@ -17,7 +17,7 @@ on:
           - test
           - send
       confirmation:
-        description: For a production send, enter the same issue date again
+        description: For production, repeat the exact issue date or comma-separated dates
         required: false
         type: string
 
@@ -115,5 +115,8 @@ jobs:
           SITE_URL: ${{ vars.SITE_URL }}
           GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
+          REVIEW_API_URL: https://proterra-intelligence-review.petrozzi.workers.dev
+          REVIEW_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_ACCESS_CLIENT_ID }}
+          REVIEW_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_ACCESS_CLIENT_SECRET }}
+          REVIEW_SERVICE_KEY: ${{ secrets.REVIEW_SERVICE_KEY }}
         run: npm run email:send -- --report "$INPUT_REPORT" --mode send --confirm "$INPUT_CONFIRMATION"

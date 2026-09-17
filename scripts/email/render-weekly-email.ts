@@ -1,18 +1,20 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { getArgument, getSiteUrl, hasFlag, loadReport } from "./report";
-import { getEmailSubject, renderWeeklyBrief } from "./render";
+import { getArgument, getSiteUrl, hasFlag } from "./report";
+import { getDigestSubject, renderDigest } from "./render";
+import { digestId, loadDigest } from "./digest";
 
-const report = loadReport(getArgument("report"));
+const reports = loadDigest(getArgument("report"));
 const siteUrl = getSiteUrl();
-const { html, text } = await renderWeeklyBrief(report, siteUrl);
+const { html, text } = await renderDigest(reports, siteUrl);
+const id = digestId(reports);
 
 if (!hasFlag("check")) {
   const outputDirectory = resolve("email-preview");
   mkdirSync(outputDirectory, { recursive: true });
-  writeFileSync(resolve(outputDirectory, `${report.slug}.html`), html);
-  writeFileSync(resolve(outputDirectory, `${report.slug}.txt`), text);
-  console.log(`Email preview written to email-preview/${report.slug}.html`);
+  writeFileSync(resolve(outputDirectory, `${id}.html`), html);
+  writeFileSync(resolve(outputDirectory, `${id}.txt`), text);
+  console.log(`Email preview written to email-preview/${id}.html`);
 }
 
-console.log(`Validated issue ${report.slug}: ${getEmailSubject(report)}`);
+console.log(`Validated digest ${id}: ${getDigestSubject(reports)}`);

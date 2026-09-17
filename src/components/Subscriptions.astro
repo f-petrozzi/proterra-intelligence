@@ -1,0 +1,29 @@
+---
+const origin = (import.meta.env.PUBLIC_REVIEW_ORIGIN || "https://proterra-intelligence-review.petrozzi.workers.dev").replace(/\/$/, "");
+---
+<section class="digest-signup" aria-labelledby="digest-signup-title">
+  <div>
+    <h2 id="digest-signup-title">The weekly digest, in your inbox</h2>
+    <p>Subscribe for weekly coverage, or invite someone to join. Recipients join only after they accept.</p>
+  </div>
+  <form method="post" action={`${origin}/subscriptions/start`}>
+    <label for="digest-email">Email address</label>
+    <input id="digest-email" type="email" name="email" autocomplete="email" maxlength="254" placeholder="name@example.com" required />
+    <div class="digest-actions">
+      <button type="submit" name="intent" value="subscribe">Subscribe</button>
+      <button type="submit" name="intent" value="invite">Share with others</button>
+    </div>
+    <a href={`${origin}/subscriptions?intent=unsubscribe`}>Unsubscribe</a>
+  </form>
+</section>
+<style>
+  .digest-signup { margin: 3rem 0; padding: clamp(1.25rem, 4vw, 2.5rem); border: 1px solid #dce4e0; border-radius: 12px; background: #e8f1ed; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  h2 { margin-top: 0; font-size: 1.6rem; }
+  p { line-height: 1.6; max-width: 42ch; }
+  label { display: block; margin-bottom: .5rem; font-weight: 600; }
+  input { width: 100%; box-sizing: border-box; font: inherit; padding: .8rem; border: 1px solid #62706b; border-radius: 5px; background: white; }
+  .digest-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin: .75rem 0; }
+  button { font: inherit; padding: .75rem 1rem; background: #145f4a; color: white; border: 0; border-radius: 5px; cursor: pointer; }
+  a { font-size: .9rem; text-decoration: underline; }
+  @media (max-width: 640px) { .digest-signup { grid-template-columns: 1fr; gap: 1rem; } }
+</style>
