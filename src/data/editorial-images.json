@@ -174,5 +174,215 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Beef_meat_on_display_at_a_butchery_store.jpg",
     "subjects": ["beef cuts", "African beef market", "beef market access", "beef exports", "beef retail"],
     "introducedForIssue": "2026-08-22"
+  },
+  {
+    "id": "milk-components-glass",
+    "src": "/images/editorial/milk-components-glass.webp",
+    "alt": "Glass filled with milk on a kitchen counter",
+    "creator": "Ngophuongthanh",
+    "provider": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_glass_of_milk.jpg",
+    "subjects": [
+      "milk protein",
+      "butterfat",
+      "milk components",
+      "milk supply"
+    ],
+    "introducedForIssue": "2026-08-31"
+  },
+  {
+    "id": "creamery-cheese-production",
+    "src": "/images/editorial/creamery-cheese-production.webp",
+    "alt": "Workers washing cheese blocks at Chaseholm Farm Creamery in New York",
+    "creator": "Baynard",
+    "provider": "Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cheesemaking_at_Chaseholm_Farm_Creamery.jpg",
+    "subjects": [
+      "cheese processing",
+      "dairy plant",
+      "creamery",
+      "milk processing"
+    ],
+    "introducedForIssue": "2026-08-31"
+  },
+  {
+    "id": "screwworm-specimens",
+    "src": "/images/editorial/screwworm-specimens.webp",
+    "alt": "Two metallic green screwworm flies photographed against a pale background",
+    "creator": "division, CSIRO",
+    "provider": "Wikimedia Commons",
+    "license": "CC BY 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:CSIRO_ScienceImage_1437_Screw_worm_fly.jpg",
+    "subjects": [
+      "screwworm",
+      "livestock parasites",
+      "fly control"
+    ],
+    "introducedForIssue": "2026-08-31"
+  },
+  {
+    "id": "dairy-processing-vats",
+    "src": "/images/editorial/dairy-processing-vats.webp",
+    "alt": "Cheese production vats inside a dairy facility in Affoltern im Emmental Switzerland",
+    "creator": "Max Richard",
+    "provider": "Wikimedia Commons",
+    "license": "CC0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Emmental_Production.jpg",
+    "subjects": [
+      "dairy processing",
+      "dairy plant",
+      "cheese production",
+      "processing investment"
+    ],
+    "introducedForIssue": "2026-09-07"
+  },
+  {
+    "id": "livestock-genomic-sequencers",
+    "src": "/images/editorial/livestock-genomic-sequencers.webp",
+    "alt": "Genomic sequencing equipment at the USDA livestock insects research laboratory in Texas",
+    "creator": "USDAgov",
+    "provider": "Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Secretary_Rollins_New_World_Screwworm_Press_Conf_,_and_Knipling-Bushland_U_S_Livestock_Insects_Research_Laboratory,_Tour_(55326002964).jpg",
+    "subjects": [
+      "genomic research",
+      "cattle research",
+      "genetic research",
+      "laboratory"
+    ],
+    "introducedForIssue": "2026-09-07"
+  },
+  {
+    "id": "virtual-fencing-collar",
+    "src": "/images/editorial/virtual-fencing-collar.webp",
+    "alt": "Dairy cow wearing a Halter virtual fencing collar in a New Zealand pasture",
+    "creator": "Halter",
+    "provider": "Wikimedia Commons",
+    "license": "CC BY 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cow_with_Halter_Collar.jpg",
+    "subjects": [
+      "virtual fencing",
+      "cattle collar",
+      "grazing management",
+      "livestock monitoring"
+    ],
+    "introducedForIssue": "2026-09-07"
+  },
+  {
+    "id": "dairy-products-display",
+    "src": "/images/editorial/dairy-products-display.webp",
+    "alt": "Packaged cheese and dairy products displayed on refrigerated grocery shelves",
+    "creator": "Bezik",
+    "provider": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Karat_products_in_grocery_shop.jpg",
+    "subjects": [
+      "dairy prices",
+      "dairy products",
+      "cheese",
+      "global dairy market"
+    ],
+    "introducedForIssue": "2026-09-07"
+  },
+  {
+    "id": "small-farm-cattle",
+    "src": "/images/editorial/small-farm-cattle.webp",
+    "alt": "Brown and white cattle standing near a wooden fence on a small farm",
+    "creator": "APHIS.gov",
+    "provider": "Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Veterinary_Services_(35327687005).jpg",
+    "subjects": [
+      "cattle ranching",
+      "rancher",
+      "herd",
+      "animal health",
+      "regional livestock",
+      "herd retention"
+    ],
+    "introducedForIssue": "2026-09-07"
+  },
+  {
+    "id": "cattle-record-identification",
+    "src": "/images/editorial/cattle-record-identification.webp",
+    "alt": "Ranch workers applying an identification ear tag to a restrained young cow",
+    "creator": "Loren Kerns from Tigard, Oregon, USA",
+    "provider": "Wikimedia Commons",
+    "license": "CC BY 2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ear_tagging_with_a_cattle_crush_1_(7275982534).jpg",
+    "subjects": [
+      "cattle records",
+      "genomic data",
+      "animal identification",
+      "cattle supply chains"
+    ],
+    "introducedForIssue": "2026-08-31"
+  },
+  {
+    "id": "bovine-veterinary-exam",
+    "src": "/images/editorial/bovine-veterinary-exam.webp",
+    "alt": "Veterinarian examining a restrained cow during an animal health check",
+    "creator": "Bobjgalindo",
+    "provider": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:AshtonCow.jpg",
+    "subjects": [
+      "cattle health",
+      "animal health",
+      "FMD",
+      "veterinary examination"
+    ],
+    "introducedForIssue": "2026-08-31"
+  },
+  {
+    "id": "pasture-cattle-health",
+    "src": "/images/editorial/pasture-cattle-health.webp",
+    "alt": "Cattle grazing on a grassy pasture in the Scottish countryside",
+    "creator": "Calum McRoberts",
+    "provider": "Wikimedia Commons",
+    "license": "CC BY-SA 2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cattle_on_the_pasture_-_geograph.org.uk_-_843103.jpg",
+    "subjects": [
+      "pasture",
+      "cattle grazing",
+      "tick control",
+      "animal health"
+    ],
+    "introducedForIssue": "2026-08-31"
+  },
+  {
+    "id": "veterinary-cattle-inspection",
+    "src": "/images/editorial/veterinary-cattle-inspection.webp",
+    "alt": "Ethiopian and United States veterinarians examining a cow during a veterinary clinic",
+    "creator": "US Army Africa from Vicenza, Italy",
+    "provider": "Wikimedia Commons",
+    "license": "CC BY 2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ethiopia,_U.S._partner_for_veterinarian_project_(8144892684).jpg",
+    "subjects": [
+      "cattle inspection",
+      "animal health",
+      "biosecurity",
+      "livestock disease",
+      "screwworm"
+    ],
+    "introducedForIssue": "2026-09-07"
+  },
+  {
+    "id": "cattle-monitoring-tag",
+    "src": "/images/editorial/cattle-monitoring-tag.webp",
+    "alt": "Numbered cattle identification ear tag shown in close view",
+    "creator": "Eliran t",
+    "provider": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cattle_ear_tag_(1).jpg",
+    "subjects": [
+      "cattle monitoring",
+      "ear tag",
+      "animal identification",
+      "cattle data"
+    ],
+    "introducedForIssue": "2026-09-14"
   }
 ]

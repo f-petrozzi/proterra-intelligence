@@ -174,7 +174,7 @@ const reportHref = `/reports/${report.slug}`;
                   <img src={image.src} alt={image.alt} width="1280" height="720" loading="lazy" />
                 </a>
                 <figcaption>
-                  <a href={image.sourceUrl} target="_blank" rel="noreferrer">Photo: {image.creator}</a>
+                  <a href={image.sourceUrl} target="_blank" rel="noreferrer">Illustrative photo: {image.creator}</a>
                 </figcaption>
               </figure>
               <div class="news-row-copy">
@@ -256,7 +256,7 @@ const reportHref = `/reports/${report.slug}`;
               <a href={citation.url} target="_blank" rel="noreferrer" aria-label={`Open source: ${citation.title}`}>
                 <img src={image.src} alt={image.alt} width="1280" height="720" loading="lazy" />
               </a>
-              <figcaption><a href={image.sourceUrl} target="_blank" rel="noreferrer">Photo: {image.creator}</a></figcaption>
+              <figcaption><a href={image.sourceUrl} target="_blank" rel="noreferrer">Illustrative photo: {image.creator}</a></figcaption>
             </figure>
             <span class="regional-publisher">{publisherFor(items)} · {formatDate(citation.publishedAt, { month: "short" })}</span>
             <h4 {...reviewField(items[0], "headline", `Story ${items[0].rank} headline`)}><a href={citation.url} target="_blank" rel="noreferrer">{items[0].headline}</a></h4>

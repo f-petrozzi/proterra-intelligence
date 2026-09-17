@@ -1,0 +1,317 @@
+{
+  "slug": "2026-09-07",
+  "issueNumber": 5,
+  "title": "Weekly Brief",
+  "status": "draft",
+  "period": {
+    "start": "2026-08-31",
+    "end": "2026-09-06"
+  },
+  "publishedAt": "2026-09-07",
+  "scope": {
+    "basis": "public-sources-only",
+    "disclosure": "This brief uses public industry sources and does not assess Proterra-owned animals, customers, sales, or commercial performance."
+  },
+  "executiveSummary": "Dairy investment plans and contrasting international price movements lead this retrospective brief. Cattle monitoring, genetic-susceptibility research and localized disease-control changes add context, while USDA outlines further support for heifer retention and processing.",
+  "editorNote": "Retrospective draft prepared September 16–17, 2026. The issue date identifies the reporting slot, not an actual historical publication. Roslin research coverage was syndicated August 31 after its August 25 original announcement, which is disclosed in the story. A dedicated Latin America and Puerto Rico search found no additional qualifying local announcement; FAO provides Latin American trade context. Human factual approval and image review are pending.",
+  "overview": {
+    "headline": "Dairy expansion plans meet shifting prices and cattle-management initiatives",
+    "points": [
+      {
+        "label": "Genetics",
+        "text": "Roslin’s research program will investigate susceptibility to BSE; results are not yet available."
+      },
+      {
+        "label": "Dairy",
+        "text": "Chobani outlines new milk-processing investment as FAO records firmer dairy quotations."
+      },
+      {
+        "label": "Meat",
+        "text": "Texas eases localized movement controls and USDA outlines retention and processing support."
+      }
+    ]
+  },
+  "dashboard": {
+    "sectorPulses": [
+      {
+        "sector": "dairy",
+        "label": "Global dairy price index",
+        "value": "+2.3%",
+        "basis": "August versus July 2026, FAO",
+        "direction": "up",
+        "note": "FAO attributes much of the rise to tighter EU milk supplies.",
+        "itemRank": 5
+      },
+      {
+        "sector": "meat",
+        "label": "Texas screwworm zones",
+        "value": "Partial easing",
+        "basis": "APHIS notices, September 4, 2026",
+        "direction": "new",
+        "note": "Other infested zones and general movement requirements remain.",
+        "itemRank": 4
+      },
+      {
+        "sector": "bovine-genetics",
+        "label": "BSE susceptibility study",
+        "value": "Planned research",
+        "basis": "Roslin account syndicated August 31, 2026",
+        "direction": "new",
+        "note": "Original announcement August 25; no validated selection test reported.",
+        "itemRank": 2
+      }
+    ],
+    "keyMetrics": [
+      {
+        "label": "Chobani planned investment",
+        "value": "$1.2 billion",
+        "basis": "Company projection over five years",
+        "itemRank": 1
+      },
+      {
+        "label": "Allentown planned milk sourcing",
+        "value": "More than 3 billion lb/year",
+        "basis": "Company projection at full capacity",
+        "itemRank": 1
+      },
+      {
+        "label": "Proposed retention coverage",
+        "value": "Two years",
+        "basis": "USDA BRAND endorsement announcement",
+        "itemRank": 6
+      }
+    ]
+  },
+  "items": [
+    {
+      "rank": 1,
+      "reviewId": "story-fc002f78ec019c58",
+      "headline": "Chobani plans Pennsylvania dairy campus with major milk demand",
+      "imageId": "dairy-processing-vats",
+      "sectors": [
+        "dairy"
+      ],
+      "regions": [
+        "United States"
+      ],
+      "summary": "Chobani announced plans to invest approximately $1.2 billion over five years in an Allentown, Pennsylvania manufacturing and warehouse campus. The company plans to acquire the existing Keurig Dr Pepper facility and add capabilities for higher-protein milk and related dairy products.",
+      "keyPoints": [
+        "At full capacity, Chobani expects the campus to source more than 3 billion pounds of Pennsylvania milk annually.",
+        "The announced acquisition and investment would adapt an existing site rather than establish immediate new milk demand."
+      ],
+      "whyItMatters": "A processing project of this scale could change regional milk procurement as production develops.",
+      "businessRelevance": "For Proterra, the plan could inform monitoring of processor demand for milk and protein-focused products.",
+      "uncertainty": "Investment, milk intake and production capacity are company projections; the release does not establish realized purchases or producer-price effects.",
+      "watchNext": "Watch for acquisition completion, production-line commissioning and published milk-sourcing arrangements.",
+      "confidence": "medium",
+      "documentType": "news",
+      "reviewStatus": "shortlisted",
+      "discoveryChannel": "manual",
+      "signal": "new",
+      "citations": [
+        {
+          "sourceId": "feedstuffs",
+          "title": "Chobani investing $1.2B in Pennsylvania campus",
+          "url": "https://www.feedstuffs.com/agribusiness-news/chobani-investing-1-2b-in-pennsylvania-campus",
+          "publishedAt": "2026-09-01",
+          "sourceNote": "Company release syndicated by Feedstuffs. Planned investment and full-capacity milk intake remain attributed projections."
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "reviewId": "story-b9bf713bd9d07168",
+      "headline": "BSE research program will examine cattle genetic susceptibility",
+      "imageId": "livestock-genomic-sequencers",
+      "sectors": [
+        "bovine-genetics",
+        "dairy",
+        "meat"
+      ],
+      "regions": [
+        "United Kingdom",
+        "Germany",
+        "France"
+      ],
+      "summary": "An August 31 Roslin Institute account in Feedstuffs describes a European research program investigating why bovine spongiform encephalopathy persists. The original institutional announcement appeared August 25; this is later coverage of that launch, not a new September discovery.",
+      "keyPoints": [
+        "Researchers plan whole-genome comparisons between post-feed-ban BSE cases and healthy cattle to identify possible susceptibility variants.",
+        "The program also addresses infection origins, environmental detection and methods to reduce contamination."
+      ],
+      "whyItMatters": "Understanding susceptibility could eventually improve disease surveillance and inform the assessment of genetic risk.",
+      "businessRelevance": "For Proterra, this research could be worth monitoring as evidence develops around inherited disease susceptibility.",
+      "uncertainty": "The announcement reports research plans, not identified protective variants, a validated selection test or demonstrated eradication.",
+      "watchNext": "Watch for published methods, replicated associations and validation before drawing breeding conclusions.",
+      "confidence": "medium",
+      "documentType": "news",
+      "reviewStatus": "shortlisted",
+      "discoveryChannel": "manual",
+      "signal": "new",
+      "citations": [
+        {
+          "sourceId": "feedstuffs",
+          "title": "Disease insights aim to speed BSE eradication",
+          "url": "https://www.feedstuffs.com/dairy/disease-insights-aim-to-speed-bse-eradication",
+          "publishedAt": "2026-08-31",
+          "sourceNote": "Roslin-authored syndication of an August 25 institutional announcement; research outcomes remain prospective."
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "reviewId": "story-3c4fda10fa0e063b",
+      "headline": "Nofence combines virtual fencing and cattle monitoring in N3 launch",
+      "imageId": "global-pasture",
+      "sectors": [
+        "meat",
+        "bovine-genetics"
+      ],
+      "regions": [
+        "United States",
+        "Norway",
+        "Europe"
+      ],
+      "summary": "Nofence announced its N3 cattle collar on September 2, combining virtual fencing with animal monitoring and grazing-management functions. The Norwegian company describes cellular, satellite and collar-to-collar connections intended to extend the system across different grazing conditions.",
+      "keyPoints": [
+        "The announced platform includes activity and rumination monitoring alongside heat-cycle scores and calving alerts.",
+        "Fence boundaries, grazing records and reproductive-management information are accessed through the same application."
+      ],
+      "whyItMatters": "Combining these functions could reduce the number of separate systems used to observe cattle and manage pasture.",
+      "businessRelevance": "For Proterra, reproductive monitoring is relevant context for following tools that could support breeding-management decisions.",
+      "uncertainty": "These are manufacturer-described capabilities. The release does not independently validate fertility outcomes, alert accuracy or financial returns.",
+      "watchNext": "Watch for independent evaluations, deployment requirements and evidence of performance across cattle systems.",
+      "confidence": "medium",
+      "documentType": "news",
+      "reviewStatus": "shortlisted",
+      "discoveryChannel": "manual",
+      "signal": "new",
+      "citations": [
+        {
+          "sourceId": "beef-magazine",
+          "title": "Nofence launches N3 virtual fencing cattle collar",
+          "url": "https://www.beefmagazine.com/livestock-management/nofence-launches-n3-virtual-fencing-cattle-collar",
+          "publishedAt": "2026-09-02",
+          "sourceNote": "Industry release published by BEEF. Product features are attributed to Nofence; promotional performance claims are excluded."
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "reviewId": "story-56cbafceb3af70af",
+      "headline": "Texas releases two screwworm zones and modifies another",
+      "imageId": "veterinary-cattle-inspection",
+      "sectors": [
+        "meat",
+        "dairy"
+      ],
+      "regions": [
+        "United States"
+      ],
+      "summary": "Texas animal-health officials, with APHIS concurrence, released New World screwworm infested zones 01.B and 05 and modified zone 06. APHIS listed both announcements on September 4 after officials determined that the affected areas met the relevant release criteria.",
+      "keyPoints": [
+        "The decisions remove screwworm-specific livestock and pet movement requirements in the released areas.",
+        "Other Texas infested zones remain, and ordinary interstate and international requirements still apply."
+      ],
+      "whyItMatters": "Changes to zone boundaries can alter movement conditions for cattle businesses in the affected locations.",
+      "businessRelevance": "For Proterra, the notices could inform monitoring of official movement restrictions and continuity of livestock trade.",
+      "uncertainty": "These localized decisions do not establish that Texas is free of screwworm or that all movement restrictions have ended.",
+      "watchNext": "Watch official zone maps and subsequent state and federal notices before interpreting the geographic scope of a release.",
+      "confidence": "high",
+      "documentType": "news",
+      "reviewStatus": "shortlisted",
+      "discoveryChannel": "manual",
+      "signal": "new",
+      "citations": [
+        {
+          "sourceId": "usda-aphis",
+          "title": "Texas Releases Additional New World Screwworm Infested Zones",
+          "url": "https://www.aphis.usda.gov/news/agency-announcements/texas-releases-additional-new-world-screwworm-infested-zones",
+          "publishedAt": "2026-09-04",
+          "sourceNote": "Primary notice; September 4 date corroborated by the APHIS current-status news listing."
+        },
+        {
+          "sourceId": "usda-aphis",
+          "title": "Texas Modifies New World Screwworm Infested Zone in Texas",
+          "url": "https://www.aphis.usda.gov/news/agency-announcements/texas-modifies-new-world-screwworm-infested-zone-texas",
+          "publishedAt": "2026-09-04",
+          "sourceNote": "Companion primary notice for zone 06; consolidated with releases of zones 01.B and 05."
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "reviewId": "story-0927f3df6ddeb104",
+      "headline": "Global dairy prices rise while bovine meat quotations decline",
+      "imageId": "dairy-products-display",
+      "sectors": [
+        "dairy",
+        "meat"
+      ],
+      "regions": [
+        "International",
+        "European Union",
+        "Brazil",
+        "Australia",
+        "China"
+      ],
+      "summary": "FAO reported a 2.3% monthly rise in its Dairy Price Index for August, attributing much of the increase to tighter European Union milk supplies amid hot and dry weather. Its aggregate Meat Price Index rose 1.0%, but bovine meat quotations declined.",
+      "keyPoints": [
+        "FAO links weaker bovine quotations to Chinese import-quota allocations intensifying competition among Brazilian and Australian exporters for alternative markets.",
+        "The September 4 release updates the earlier monthly price declines covered in previous briefs."
+      ],
+      "whyItMatters": "Different directions across dairy and beef illustrate why the aggregate food index cannot describe every livestock market.",
+      "businessRelevance": "For Proterra, the divergence could inform monitoring of milk supply and competing beef-export destinations.",
+      "uncertainty": "These are international commodity benchmarks, not local farmgate prices; the August data do not establish subsequent market outcomes.",
+      "watchNext": "Watch later FAO releases and country-specific trade data for persistence of the reported divergence.",
+      "confidence": "high",
+      "documentType": "news",
+      "reviewStatus": "shortlisted",
+      "discoveryChannel": "manual",
+      "signal": "new",
+      "citations": [
+        {
+          "sourceId": "fao-newsroom",
+          "title": "Supply concerns drive FAO Food Price Index higher in August",
+          "url": "https://www.fao.org/newsroom/detail/supply-concerns-drive-fao-food-price-index-higher/en",
+          "publishedAt": "2026-09-04",
+          "sourceNote": "Primary FAO release. Dairy and meat findings are consolidated; market explanations remain attributed to FAO."
+        }
+      ]
+    },
+    {
+      "rank": 6,
+      "reviewId": "story-357cd0298d7076e9",
+      "headline": "USDA outlines heifer-retention insurance and processor support plans",
+      "imageId": "small-farm-cattle",
+      "sectors": [
+        "meat"
+      ],
+      "regions": [
+        "United States"
+      ],
+      "summary": "USDA announced the Ranchers First Initiative on August 31, outlining new support intended for breeding-heifer retention and regional meat processing. The agency-authored account describes future program development rather than demonstrating that herd rebuilding has already occurred.",
+      "keyPoints": [
+        "The planned BRAND endorsement would insure the economic value of retaining a breeding heifer over two years through Livestock Risk Protection.",
+        "USDA also described a planned SPUR Guaranteed Loan Program to support regional processing, including cooperatives and small businesses."
+      ],
+      "whyItMatters": "Retention decisions and access to processing are separate constraints that can influence the development of cattle supply.",
+      "businessRelevance": "For Proterra, implementation details could provide context for monitoring demand for breeding stock and regional cattle-market capacity.",
+      "uncertainty": "The announcement does not supply final enrollment terms, demonstrate producer uptake or quantify achieved herd growth.",
+      "watchNext": "Watch for formal program rules, eligibility details and opening dates before assessing practical availability.",
+      "confidence": "high",
+      "documentType": "news",
+      "reviewStatus": "shortlisted",
+      "discoveryChannel": "manual",
+      "signal": "new",
+      "citations": [
+        {
+          "sourceId": "beef-magazine",
+          "title": "USDA announces Ranchers First Initiative",
+          "url": "https://www.beefmagazine.com/policy/usda-announces-ranchers-first-initiative",
+          "publishedAt": "2026-08-31",
+          "sourceNote": "USDA-authored announcement syndicated by BEEF. Planned measures are distinguished from implemented results."
+        }
+      ]
+    }
+  ]
+}

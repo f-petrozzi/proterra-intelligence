@@ -1,0 +1,2055 @@
+{
+  "schemaVersion": 1,
+  "issueDate": "2026-09-14",
+  "window": {
+    "start": "2026-08-31T04:00:00.000Z",
+    "end": "2026-09-14T04:00:00.000Z",
+    "timezone": "America/New_York"
+  },
+  "generatedAt": "2026-09-17T01:14:53.458Z",
+  "candidates": [
+    {
+      "candidateId": "0fc8c3137c70d0358d2e0b97283f2f2c5230700142b5ab600daeab2a7dc24e9c",
+      "sourceId": "agproud-progressive",
+      "publisherGroup": "agproud-progressive",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://agproud.com/blogs/4-progressive-dairy-the-milk-house/post/63865-the-milk-house-between-the-parlor-and-the-pencil",
+      "citationUrl": "https://agproud.com/blogs/4-progressive-dairy-the-milk-house/post/63865-the-milk-house-between-the-parlor-and-the-pencil",
+      "title": "The Milk House: Between the parlor and the pencil",
+      "publishedAt": "2026-09-12T04:00:00.000Z",
+      "summary": "Soon, I’ll get to take advantage of another honor: attending the World Dairy Expo in the Progressive Dairy booth. Not living in the U.S. now, I haven’t had as many opportunities as I would like to hold readings and speaking events, or to find other opportunities to talk with readers on the ground. However, Progressive Dairy has offered me the chance to sign books and meet with people at their stand.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy"
+      ],
+      "geographies": [
+        "International",
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.639804,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.564718,
+            "weight": 0.34,
+            "contribution": 0.192004,
+            "ageDays": 2
+          },
+          "authority": {
+            "signal": 0.72,
+            "weight": 0.24,
+            "contribution": 0.1728
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.25,
+            "weight": 0.14,
+            "contribution": 0.035,
+            "keywordHits": 3
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0.06,
+          "nonEnglish": 0
+        },
+        "total": 0.639804
+      },
+      "clusterId": "940285528ebe8ce0f828498fc9eea1e77cce7b5e48757d9f1119af44f7f915a0",
+      "reviewTier": "review-first",
+      "selectionBasis": "coverage-balance",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "70815b2adc08b65c45d48c7ca6ddf729d2b5af88ca6af28c15e0a13794b1491d",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/capture-more-of-your-calves-true-value",
+      "citationUrl": "https://beefmagazine.com/livestock-management/capture-more-of-your-calves-true-value",
+      "title": "Capture more of your calves’ true value",
+      "publishedAt": "2026-09-10T13:18:13.000Z",
+      "summary": "Preconditioning programs, strategic marketing, and postweaning growth can boost returns. Retained ownership reveals true genetic potential.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "bovine-genetics",
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.584128,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.356258,
+            "weight": 0.34,
+            "contribution": 0.121128,
+            "ageDays": 3.61235
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.25,
+            "weight": 0.14,
+            "contribution": 0.035,
+            "keywordHits": 3
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0.08,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.584128
+      },
+      "clusterId": "86cb3a4bec3e0afc14fac69c118c1212553264ad3d94a60eb97747bf8e092020",
+      "reviewTier": "review-first",
+      "selectionBasis": "coverage-balance",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "2357aa3bcc2f2c134275ab13268a29efae080d4c3a45a59b4a98e790523e2815",
+      "sourceId": "agproud-progressive",
+      "publisherGroup": "agproud-progressive",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://agproud.com/articles/64129-usda-2026-milk-production-forecast-shows-slight-growth",
+      "citationUrl": "https://agproud.com/articles/64129-usda-2026-milk-production-forecast-shows-slight-growth",
+      "title": "USDA 2026 milk production forecast shows slight growth",
+      "publishedAt": "2026-09-11T18:52:55.000Z",
+      "summary": "USDA’s September WASDE report raised 2026 milk production slightly to 237.2 billion pounds on expectations of a larger cow herd and a increase in milk output per cow.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy",
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.560054,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.506629,
+            "weight": 0.34,
+            "contribution": 0.172254,
+            "ageDays": 2.379919
+          },
+          "authority": {
+            "signal": 0.72,
+            "weight": 0.24,
+            "contribution": 0.1728
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.25,
+            "weight": 0.14,
+            "contribution": 0.035,
+            "keywordHits": 3
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.560054
+      },
+      "clusterId": "bad6c950541bd5bcd19c0993bc4310e25e201589e208c6427a5968fd5caf7447",
+      "reviewTier": "review-first",
+      "selectionBasis": "coverage-balance",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "4aa1f2a98121ea264b83fe08b0490638123cf6307009062729bf71b920d86e57",
+      "sourceId": "fao-newsroom",
+      "publisherGroup": "fao",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "html-list",
+      "canonicalUrl": "https://fao.org/newsroom/detail/nepal-floods-damage-1-800-hectares-of-crops-and-kill-thousands-of-livestock/en",
+      "citationUrl": "https://fao.org/newsroom/detail/nepal-floods-damage-1-800-hectares-of-crops-and-kill-thousands-of-livestock/en",
+      "title": "Nepal floods damage 1,800 hectares of crops and kill thousands of livestock",
+      "publishedAt": "2026-09-10T12:00:00.000Z",
+      "summary": "In this interview, Beth Bechdol, FAO Deputy Director-General, outlines the impact of the floods on rural communities and the urgent path towards agricultural recovery",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "International"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.598596,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.350772,
+            "weight": 0.34,
+            "contribution": 0.119262,
+            "ageDays": 3.666667
+          },
+          "authority": {
+            "signal": 0.9,
+            "weight": 0.24,
+            "contribution": 0.216
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0.06,
+          "nonEnglish": 0
+        },
+        "total": 0.598596
+      },
+      "clusterId": "e2739d9b28cb192d14e072cda49953ed912ad5af14f2b4c9c25ff21f613419fc",
+      "reviewTier": "review-first",
+      "selectionBasis": "publisher-diversity",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "2c017422d0a91a8675a166a4a9e94ffcad9ffe94cebfac7287469aa1eeff54ad",
+      "sourceId": "oirsa",
+      "publisherGroup": "oirsa",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "es",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://web.oirsa.org/en/archivos/20145",
+      "citationUrl": "https://web.oirsa.org/en/archivos/20145",
+      "title": "Ministros de Agricultura y Ganadería de la región asisten a la 97ª reunión extraordinaria del OIRSA",
+      "publishedAt": "2026-09-02T22:28:39.000Z",
+      "summary": "Los ministros, secretarios de Agricultura y Ganadería, y jefes de Entes Descentralizados encargados de la Sanidad Agropecuaria, de México, Centroamérica [&#8230;] La entrada Ministros de Agricultura y Ganadería de la región asisten a la 97ª reunión extraordinaria del OIRSA se publicó primero en OIRSA .",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "Central America",
+        "Mexico"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.423074,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.040413,
+            "weight": 0.34,
+            "contribution": 0.01374,
+            "ageDays": 11.230104
+          },
+          "authority": {
+            "signal": 0.9,
+            "weight": 0.24,
+            "contribution": 0.216
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0.06,
+          "nonEnglish": -0.07
+        },
+        "total": 0.423074
+      },
+      "clusterId": "a60f885fa6bb03ae0a1e258c5f275bbcd084889d496f5f50afa71f5e9c001334",
+      "reviewTier": "review-first",
+      "selectionBasis": "publisher-diversity",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "35d031b27c701017d48c00e126d857dc076eabc89084152cf062d20bc193deae",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/cattle-futures-climb-amid-corn-ease",
+      "citationUrl": "https://beefmagazine.com/market-news/cattle-futures-climb-amid-corn-ease",
+      "title": "Cattle futures climb amid corn ease",
+      "publishedAt": "2026-09-14T02:07:52.000Z",
+      "summary": "October live cattle settled up $1.225 while feeders jumped on weaker corn. Cash remained steady at $218-$223 per hundredweight across regions.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.703852,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.977997,
+            "weight": 0.34,
+            "contribution": 0.332519,
+            "ageDays": 0.07787
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.703852
+      },
+      "clusterId": "c3656741b641cbd5d8470b02dcee1c91a18f64cf54ddb85fc365d646bcbe208f",
+      "reviewTier": "review-first",
+      "selectionBasis": "queue-order",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "2d2471dae3d27bcd5fb2fb34c9b1e094c2be0c824b4a5b9ff06f62259cdbe91a",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/understanding-ionophores",
+      "citationUrl": "https://beefmagazine.com/livestock-management/understanding-ionophores",
+      "title": "Understanding ionophores",
+      "publishedAt": "2026-09-14T02:12:29.000Z",
+      "summary": "This class of feed additive is a consumer-safe tool used to improve efficiency, enhance weight gain and prevent cattle diseases.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.69249,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.978893,
+            "weight": 0.34,
+            "contribution": 0.332824,
+            "ageDays": 0.074664
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.083333,
+            "weight": 0.14,
+            "contribution": 0.011667,
+            "keywordHits": 1
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.69249
+      },
+      "clusterId": "ad6dacc7d492ed7699020540ef93f43da6f9ccb2e00264f68590f038119893f5",
+      "reviewTier": "review-first",
+      "selectionBasis": "queue-order",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "0f7645fb1ac900a5f13784a756c71fb9dce37605cbd929ff51211f114591d2d2",
+      "sourceId": "agproud-progressive",
+      "publisherGroup": "agproud-progressive",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://agproud.com/articles/63959-last-but-certainly-not-least-tom-and-sandy-morris-to-manage-their-final-world-classic-sale",
+      "citationUrl": "https://agproud.com/articles/63959-last-but-certainly-not-least-tom-and-sandy-morris-to-manage-their-final-world-classic-sale",
+      "title": "Last but certainly not least: Tom and Sandy Morris to manage their final World Classic Sale",
+      "publishedAt": "2026-09-12T04:00:00.000Z",
+      "summary": "For the past 38 years, Tom and Sandy Morris have managed the World Classic Sale at World Dairy Expo. Over the years, they have seen changes, built friendships and made memories, but this year will be their last heading up the sale.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy"
+      ],
+      "geographies": [
+        "International"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.616471,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.564718,
+            "weight": 0.34,
+            "contribution": 0.192004,
+            "ageDays": 2
+          },
+          "authority": {
+            "signal": 0.72,
+            "weight": 0.24,
+            "contribution": 0.1728
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.083333,
+            "weight": 0.14,
+            "contribution": 0.011667,
+            "keywordHits": 1
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0.06,
+          "nonEnglish": 0
+        },
+        "total": 0.616471
+      },
+      "clusterId": "d9d0033261b88b932817e8a95b3a5ee968875ba5f0c56e3f120d52fad2fa5ddd",
+      "reviewTier": "review-first",
+      "selectionBasis": "queue-order",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "18d016e0a6834a72f5a55566c8fdcb5c6a7b9479c6f67ad3649f8c1d5d4e646f",
+      "sourceId": "fao-americas",
+      "publisherGroup": "fao",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "html-list",
+      "canonicalUrl": "https://fao.org/americas/news/news-detail/simulacro-frente-emergencias-sanitarias/en",
+      "citationUrl": "https://fao.org/americas/news/news-detail/simulacro-frente-emergencias-sanitarias/en",
+      "title": "FAO conducted simulation exercises on animal health emergencies in Trinidad and Tobago",
+      "publishedAt": "2026-09-09T12:00:00.000Z",
+      "summary": "As part of the region's preparedness efforts and actions for potential animal health emergencies, 100 professionals were trained through simulation of highly pathogenic avian influenza (HPAI) outbreaks, with the aim of identifying strengths and possible gaps for improvement in the response.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "Latin America & Caribbean"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.568956,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.263597,
+            "weight": 0.34,
+            "contribution": 0.089623,
+            "ageDays": 4.666667
+          },
+          "authority": {
+            "signal": 0.9,
+            "weight": 0.24,
+            "contribution": 0.216
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0.06,
+          "nonEnglish": 0
+        },
+        "total": 0.568956
+      },
+      "clusterId": "3ec1d267ad00488c4bd4fa0769fea28c7f0eea2d0ad25d7a895e5f03ae707a4a",
+      "reviewTier": "review-first",
+      "selectionBasis": "queue-order",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "e735abecba43c7a7a4a33aba35dca5ead9d84d7a2a9432cc0a1f641f38500cb3",
+      "sourceId": "agproud-progressive",
+      "publisherGroup": "agproud-progressive",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://agproud.com/articles/63976-beyond-first-service-the-metric-that-separates-repro-programs",
+      "citationUrl": "https://agproud.com/articles/63976-beyond-first-service-the-metric-that-separates-repro-programs",
+      "title": "Beyond first service: The metric that separates repro programs",
+      "publishedAt": "2026-09-11T04:00:00.000Z",
+      "summary": "Two dairies start their breeding programs looking almost identical. The difference often shows up after the first breeding: One farm quickly identifies open cows returning to heat and breeds them again, while the other waits for a pregnancy check and resynchronization.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "bovine-genetics"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.588753,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.424373,
+            "weight": 0.34,
+            "contribution": 0.144287,
+            "ageDays": 3
+          },
+          "authority": {
+            "signal": 0.72,
+            "weight": 0.24,
+            "contribution": 0.1728
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.083333,
+            "weight": 0.14,
+            "contribution": 0.011667,
+            "keywordHits": 1
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0.08,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.588753
+      },
+      "clusterId": "c661e79c23e732b2c9f41354f7a6a194e330dc7fb9aad49382351b5c2ff37c7b",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "aca6dc6bdfcb40052791c770dba1d5b687e05ee7ef1442333ab6c000a1f0e6df",
+      "sourceId": "agproud-progressive",
+      "publisherGroup": "agproud-progressive",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://agproud.com/articles/64128-september-12-2026-progressive-dairy-digital-magazine",
+      "citationUrl": "https://agproud.com/articles/64128-september-12-2026-progressive-dairy-digital-magazine",
+      "title": "September 12, 2026 Progressive Dairy digital magazine",
+      "publishedAt": "2026-09-12T04:00:00.000Z",
+      "summary": "The latest issue of Progressive Dairy magazine is available. To view, make sure you're logged into your agproud.com account. If you do not have access, click \"Subscribe\" in the top-right corner of agproud.com to add permission to view.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.568137,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.564718,
+            "weight": 0.34,
+            "contribution": 0.192004,
+            "ageDays": 2
+          },
+          "authority": {
+            "signal": 0.72,
+            "weight": 0.24,
+            "contribution": 0.1728
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.568137
+      },
+      "clusterId": "323821ebde155370114f93f10b5d4db30240aa0009e4f3caaeb72ae343b652c6",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "8c8cf20a9a3aaea0785f9398540d5de081f36e6d97ef8f85b67710f7e066266f",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/c-lock-and-ceres-tag-partner-to-advance-animal-insights",
+      "citationUrl": "https://beefmagazine.com/livestock-management/c-lock-and-ceres-tag-partner-to-advance-animal-insights",
+      "title": "C-Lock and CERES TAG partner to advance animal insights",
+      "publishedAt": "2026-09-11T16:40:19.000Z",
+      "summary": "Connecting livestock technologies helps producers better understand individual performance and feed efficiency.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.527448,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.493473,
+            "weight": 0.34,
+            "contribution": 0.167781,
+            "ageDays": 2.472002
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.083333,
+            "weight": 0.14,
+            "contribution": 0.011667,
+            "keywordHits": 1
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.527448
+      },
+      "clusterId": "c5283eb998a8442c83cdd212cc4592a24a7ff65abb79c04abd5f3434adf3dfd2",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [
+        "https://feedstuffs.com/agribusiness-news/c-lock-and-ceres-tag-partner-to-advance-animal-insights"
+      ],
+      "duplicateMatches": [
+        {
+          "candidateId": "08c3b05dfd44542343a06a282ebd10512ee92360a937844405a68f7ff532b531",
+          "sourceId": "feedstuffs",
+          "publisherGroup": "farm-progress",
+          "title": "C-Lock and CERES TAG partner to advance animal insights",
+          "citationUrl": "https://feedstuffs.com/agribusiness-news/c-lock-and-ceres-tag-partner-to-advance-animal-insights",
+          "method": "strict-text",
+          "sharedTerms": [
+            "advance",
+            "animal",
+            "better",
+            "ceres",
+            "connecting",
+            "efficiency",
+            "feed",
+            "helps",
+            "individual",
+            "insights",
+            "livestock",
+            "lock",
+            "partner",
+            "performance",
+            "producer",
+            "tag",
+            "technologies",
+            "understand"
+          ],
+          "linkedToCandidateId": "8c8cf20a9a3aaea0785f9398540d5de081f36e6d97ef8f85b67710f7e066266f"
+        }
+      ]
+    },
+    {
+      "candidateId": "c1730492395e9fae175ab077d0eba540b769c43d6c3ca8e34c99245df9df3bf4",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/beef-imports-reality-vs-rhetoric",
+      "citationUrl": "https://beefmagazine.com/market-news/beef-imports-reality-vs-rhetoric",
+      "title": "Beef imports: Reality vs. rhetoric",
+      "publishedAt": "2026-09-10T20:34:58.000Z",
+      "summary": "Absent imported lean trimmings, the 50/50 market would be sharply discounted and would reduce the value of U.S. harvested fed steers and heifers.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.503426,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.388507,
+            "weight": 0.34,
+            "contribution": 0.132093,
+            "ageDays": 3.309051
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.503426
+      },
+      "clusterId": "121ef395794ef8dbb681c8c68a3456ed0093028c5558f6c0ed2931c357c35b9c",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "d8554a350f9ded348cde95df1fc62c1eb690cd5346b5782cafd7428222306199",
+      "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/policy/dairy-coalition-urges-congress-to-reject-s-5026",
+      "citationUrl": "https://feedstuffs.com/policy/dairy-coalition-urges-congress-to-reject-s-5026",
+      "title": "Dairy coalition urges Congress to reject S. 5026",
+      "publishedAt": "2026-09-10T15:04:36.000Z",
+      "summary": "Bill would require warning labels on broadly defined “ultra-processed foods” that could lump in nutrient-dense dairy products and hurt the dairy supply chain.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.495045,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.363858,
+            "weight": 0.34,
+            "contribution": 0.123712,
+            "ageDays": 3.538472
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.495045
+      },
+      "clusterId": "e3eff7e968895e03a9f958694ba6ed8cf3967d0336d6370fca1b4abb66119c3a",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "3824e276b922f9833115a367c4cd5df63353218cdfbf592905c6a54eff8e0ddc",
+      "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/agribusiness-news/land-o-lakes-receives-pennsylvania-ag-innovation-grant",
+      "citationUrl": "https://feedstuffs.com/agribusiness-news/land-o-lakes-receives-pennsylvania-ag-innovation-grant",
+      "title": "Land O’Lakes receives Pennsylvania Ag Innovation Grant",
+      "publishedAt": "2026-09-10T17:04:15.000Z",
+      "summary": "Project at Carlisle milk facility and several member-owners chosen for state funding to support improvements.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.48635,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.372599,
+            "weight": 0.34,
+            "contribution": 0.126684,
+            "ageDays": 3.455382
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.083333,
+            "weight": 0.14,
+            "contribution": 0.011667,
+            "keywordHits": 1
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.48635
+      },
+      "clusterId": "9a9f7d4b7a2c24c0813918d410c13f662558ee3e1641bb59a96584b58a60d51b",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "70655dffb4b2e9e2285c34e87913102392951ec1d1ec34289ae91a3accf087ee",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/policy/political-noise-adds-volatility-to-markets",
+      "citationUrl": "https://beefmagazine.com/policy/political-noise-adds-volatility-to-markets",
+      "title": "Political noise adds volatility to markets",
+      "publishedAt": "2026-09-09T17:45:08.000Z",
+      "summary": "What exactly is impacting the cattle markets and what's just noise? We dig into the topics of mCOOL, beef imports and more.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.467309,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.28228,
+            "weight": 0.34,
+            "contribution": 0.095975,
+            "ageDays": 4.426991
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.467309
+      },
+      "clusterId": "a7e40a84c92b8217d721e2d0cffa3eab8fb0968b456c7c470d9a51daf4d6ac29",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "2bf1b68311baa07d2e504e9880de1dfddb839e8082e53dbb0e27c068bf13194d",
+      "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/livestock-and-poultry-market-news/meat-institute-concerned-by-trump-s-order-to-explore-beef-origin-labeling",
+      "citationUrl": "https://feedstuffs.com/livestock-and-poultry-market-news/meat-institute-concerned-by-trump-s-order-to-explore-beef-origin-labeling",
+      "title": "Meat Institute concerned by Trump’s order to explore beef origin labeling",
+      "publishedAt": "2026-09-08T17:50:27.000Z",
+      "summary": "Group says USDA’s voluntary Product of USA label should get a chance to succeed before Congress revisits costly mCOOL policy.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.466866,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.212351,
+            "weight": 0.34,
+            "contribution": 0.072199,
+            "ageDays": 5.423299
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.333333,
+            "weight": 0.14,
+            "contribution": 0.046667,
+            "keywordHits": 4
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.466866
+      },
+      "clusterId": "b2f32b762c5e56ecc157357414a6f12e48f41b90045e60fbda1bb0f1d3834326",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "a87490ac704e74898390310c781a220e1cd2676ae1011a0df971caf4f620f40b",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/ai-helps-researchers-target-bacteria-behind-beef-browning",
+      "citationUrl": "https://beefmagazine.com/market-news/ai-helps-researchers-target-bacteria-behind-beef-browning",
+      "title": "AI helps researchers target bacteria behind beef browning",
+      "publishedAt": "2026-09-09T16:30:26.000Z",
+      "summary": "Project focuses on color stability to counteract premature browning, which costs beef industry almost $4B per year.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.465897,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.278127,
+            "weight": 0.34,
+            "contribution": 0.094563,
+            "ageDays": 4.478866
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.465897
+      },
+      "clusterId": "6e2caf2b4560e710db73f6d496459f3e232153df8b2cddca3f2c2e7ba792ecdb",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [
+        "https://feedstuffs.com/livestock-and-poultry-market-news/ai-helps-researchers-target-bacteria-behind-beef-browning"
+      ],
+      "duplicateMatches": [
+        {
+          "candidateId": "67f2137aae5b403b46a33262b853bb9f93813d89a0194e0dcda1d4663f008b86",
+          "sourceId": "feedstuffs",
+          "publisherGroup": "farm-progress",
+          "title": "AI helps researchers target bacteria behind beef browning",
+          "citationUrl": "https://feedstuffs.com/livestock-and-poultry-market-news/ai-helps-researchers-target-bacteria-behind-beef-browning",
+          "method": "strict-text",
+          "sharedTerms": [
+            "almost",
+            "bacteria",
+            "beef",
+            "behind",
+            "browning",
+            "color",
+            "costs",
+            "counteract",
+            "focuses",
+            "helps",
+            "industry",
+            "per",
+            "premature",
+            "project",
+            "researchers",
+            "stability",
+            "target",
+            "which",
+            "year"
+          ],
+          "linkedToCandidateId": "a87490ac704e74898390310c781a220e1cd2676ae1011a0df971caf4f620f40b"
+        }
+      ]
+    },
+    {
+      "candidateId": "c7422a7ad11cb58b47e950bb05fbaa825a50890823d27c3ce0187cc534bb1215",
+      "sourceId": "feedstuffs",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://feedstuffs.com/policy/u-s-bans-imports-of-canadian-dairy-products",
+      "citationUrl": "https://feedstuffs.com/policy/u-s-bans-imports-of-canadian-dairy-products",
+      "title": "U.S. bans imports of Canadian dairy products",
+      "publishedAt": "2026-09-09T15:07:01.000Z",
+      "summary": "Trump expands scope of Section 338 tariffs and bans certain dairy products, motorcycles and alcohol from Canada.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "dairy"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.464344,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.273562,
+            "weight": 0.34,
+            "contribution": 0.093011,
+            "ageDays": 4.536794
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.464344
+      },
+      "clusterId": "3e3216688eb3041b2ffad70196822c1d856789cf1ead87a5a8580b59f1e3fd6d",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "0af3c16dc0f3c2d9f25d000cda18ca17e9619597745161ad969c36e2c51f8796",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/should-i-sell-calves-at-weaning-or-after-preconditioning",
+      "citationUrl": "https://beefmagazine.com/livestock-management/should-i-sell-calves-at-weaning-or-after-preconditioning",
+      "title": "Should I sell calves at weaning or after preconditioning?",
+      "publishedAt": "2026-09-08T19:04:36.000Z",
+      "summary": "Producers face a critical choice as weaning approaches. The decision hinges on market prices, available resources, and individual farm operations.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.444603,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.215498,
+            "weight": 0.34,
+            "contribution": 0.073269,
+            "ageDays": 5.371806
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.444603
+      },
+      "clusterId": "343f7494acb209f0272753afe1fe497b43c39ebfa9e8e69556a7ecf3b1985d32",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "4cc05727b73701ca933d2a1554bd9985c453f4e2e9213053480082806959091e",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/its-not-the-imports-that-matter-its-the-interference",
+      "citationUrl": "https://beefmagazine.com/market-news/its-not-the-imports-that-matter-its-the-interference",
+      "title": "It’s not the imports that matter, it’s the interference",
+      "publishedAt": "2026-09-08T18:53:00.000Z",
+      "summary": "Political meddling in beef markets creates unnecessary uncertainty while data proves imports support rather than undermine domestic producer profits.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.432768,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.215003,
+            "weight": 0.34,
+            "contribution": 0.073101,
+            "ageDays": 5.379861
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.083333,
+            "weight": 0.14,
+            "contribution": 0.011667,
+            "keywordHits": 1
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.432768
+      },
+      "clusterId": "61d99703fe4129c222fd6bfe72198c0a162ef5ffdebbce9c29df9d07a80c4e6a",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "129c73303bcf8a44bbc454a497092eabc3232618ce08aa4d0ab32e1e6f5e313c",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/policy/taking-on-trump",
+      "citationUrl": "https://beefmagazine.com/policy/taking-on-trump",
+      "title": "Taking on Trump",
+      "publishedAt": "2026-09-08T14:10:57.000Z",
+      "summary": "Two bills have been introduced in Congress to stuff Trump’s beef imports proclamation at the line of scrimmage.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.428789,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.203301,
+            "weight": 0.34,
+            "contribution": 0.069122,
+            "ageDays": 5.575729
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.083333,
+            "weight": 0.14,
+            "contribution": 0.011667,
+            "keywordHits": 1
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.428789
+      },
+      "clusterId": "d9074ffb88eea8f6e0611cb7b8e0ed33855ff6912befe28ee0f1035ddf7893bd",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "6610da45a2aa638c807fd0fe925063fbc96a00221c6ab079f468c1b9479ab507",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/bill-to-reverse-trump-s-beef-order-and-support-cattle-producers",
+      "citationUrl": "https://beefmagazine.com/market-news/bill-to-reverse-trump-s-beef-order-and-support-cattle-producers",
+      "title": "Bill to reverse Trump’s beef order and support cattle producers",
+      "publishedAt": "2026-09-04T12:38:25.000Z",
+      "summary": "Rep. Figures introduces Protecting American Beef Producers Act to nullify beef import proclamation.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.416309,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.063655,
+            "weight": 0.34,
+            "contribution": 0.021643,
+            "ageDays": 9.639988
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.333333,
+            "weight": 0.14,
+            "contribution": 0.046667,
+            "keywordHits": 4
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.416309
+      },
+      "clusterId": "46f7abbff76e8ed13791c5ae22ed9a2a647129ffe187ff2091c991b11f299324",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "fc875f5a0bc3522138a1d5738c433ae7c02612b5c35332596e209f26902296f8",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/beef-export-value-rises-6-in-july-pork-falls-on-prv-hit",
+      "citationUrl": "https://beefmagazine.com/market-news/beef-export-value-rises-6-in-july-pork-falls-on-prv-hit",
+      "title": "Beef export value rises 6% in July; pork falls on PRV hit",
+      "publishedAt": "2026-09-04T16:39:52.000Z",
+      "summary": "Technical barriers continue to weigh heavily on beef exports to China; pork exports to Mexico rebounded but were still below year-ago.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.394038,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.066778,
+            "weight": 0.34,
+            "contribution": 0.022705,
+            "ageDays": 9.472315
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.394038
+      },
+      "clusterId": "e3c724d0ca07983c1bbaf4e364193b6a77161c09a5794179f70aca04f396449f",
+      "reviewTier": "also-review",
+      "selectionBasis": "eligible-news",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "9c1971969312474cdef45b327466d61101f34c304e802bf1676a9351753b3545",
+      "sourceId": "usda-ers-livestock",
+      "publisherGroup": "usda",
+      "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "en",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://ers.usda.gov/data-products/meat-price-spreads",
+      "citationUrl": "https://ers.usda.gov/data-products/meat-price-spreads",
+      "evidenceUrl": "https://ers.usda.gov/data-products/meat-price-spreads",
+      "title": "Meat Price Spreads",
+      "publishedAt": "2026-09-11T14:00:00.000Z",
+      "summary": "This data set provides monthly average price values, and the differences among those values, at the farm, wholesale, and retail stages of the production and marketing chain for selected cuts of beef, pork, and broilers.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.503528,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.478024,
+            "weight": 0.34,
+            "contribution": 0.162528,
+            "ageDays": 2.583333
+          },
+          "authority": {
+            "signal": 0.9,
+            "weight": 0.24,
+            "contribution": 0.216
+          },
+          "contentClass": {
+            "signal": 0.5,
+            "weight": 0.18,
+            "contribution": 0.09
+          },
+          "topic": {
+            "signal": 0.25,
+            "weight": 0.14,
+            "contribution": 0.035,
+            "keywordHits": 3
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.503528
+      },
+      "clusterId": "21905aa86086e19a9cd572ea15a850db47313468e22d995d32bdfd5b2a3e22b8",
+      "reviewTier": "supporting-data",
+      "selectionBasis": "official-data",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "a4537fa6582f917d360ef1c53e38a241e2ad34f59d40d069f361f09e8f6f4141",
+      "sourceId": "usda-ams-livestock",
+      "publisherGroup": "usda",
+      "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "und",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D09%2F11%2F2026",
+      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
+      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D09%2F11%2F2026",
+      "title": "National/Regional Weekly Boneless Processing Beef and Beef Trimmings (PDF) (LM_XB460)",
+      "publishedAt": "2026-09-11T18:53:33.000Z",
+      "releaseId": "09/11/2026",
+      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.501609,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.506692,
+            "weight": 0.34,
+            "contribution": 0.172275,
+            "ageDays": 2.379479
+          },
+          "authority": {
+            "signal": 0.9,
+            "weight": 0.24,
+            "contribution": 0.216
+          },
+          "contentClass": {
+            "signal": 0.5,
+            "weight": 0.18,
+            "contribution": 0.09
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.501609
+      },
+      "clusterId": "1c9f94075e1b3b4fec56953ef7eb7f46d4d3b98ec01205f4bec8adc8c893edfc",
+      "reviewTier": "supporting-data",
+      "selectionBasis": "official-data",
+      "relatedUrls": [],
+      "duplicateMatches": [
+        {
+          "candidateId": "2114472a2c81633ac6ac9890047176ca2a7ba4799b8e4e484f58556e0d08db57",
+          "sourceId": "usda-ams-livestock",
+          "publisherGroup": "usda",
+          "title": "National/Regional Weekly Boneless Processing Beef and Beef Trimmings (PDF) (LM_XB460)",
+          "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2462",
+          "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2462?q=report_date%3D09%2F04%2F2026",
+          "releaseId": "09/04/2026",
+          "method": "recurring-series",
+          "sharedTerms": [],
+          "linkedToCandidateId": "a4537fa6582f917d360ef1c53e38a241e2ad34f59d40d069f361f09e8f6f4141"
+        }
+      ]
+    },
+    {
+      "candidateId": "4e397ed1b7ed4d59559eee1fcf1b269e91aff78935b5764feddcd15e8cc2fc94",
+      "sourceId": "usda-ams-livestock",
+      "publisherGroup": "usda",
+      "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "und",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D09%2F11%2F2026",
+      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
+      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D09%2F11%2F2026",
+      "title": "National Weekly Boxed Beef Cutout & Boxed Beef Cuts - Negotiated Sales (PDF) (LM_XB459)",
+      "publishedAt": "2026-09-11T18:49:14.000Z",
+      "releaseId": "09/11/2026",
+      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.501461,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.506259,
+            "weight": 0.34,
+            "contribution": 0.172128,
+            "ageDays": 2.382477
+          },
+          "authority": {
+            "signal": 0.9,
+            "weight": 0.24,
+            "contribution": 0.216
+          },
+          "contentClass": {
+            "signal": 0.5,
+            "weight": 0.18,
+            "contribution": 0.09
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.501461
+      },
+      "clusterId": "1dca1242fae8b6e247903b5e431c0f45ca931acb90199e7f3ea2507b0bd28656",
+      "reviewTier": "supporting-data",
+      "selectionBasis": "official-data",
+      "relatedUrls": [],
+      "duplicateMatches": [
+        {
+          "candidateId": "77ce43eb50694a83de102b94a9a4b9b58852f58039210df07d808e119f5c0a77",
+          "sourceId": "usda-ams-livestock",
+          "publisherGroup": "usda",
+          "title": "National Weekly Boxed Beef Cutout & Boxed Beef Cuts - Negotiated Sales (PDF) (LM_XB459)",
+          "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2461",
+          "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2461?q=report_date%3D09%2F04%2F2026",
+          "releaseId": "09/04/2026",
+          "method": "recurring-series",
+          "sharedTerms": [],
+          "linkedToCandidateId": "4e397ed1b7ed4d59559eee1fcf1b269e91aff78935b5764feddcd15e8cc2fc94"
+        }
+      ]
+    },
+    {
+      "candidateId": "727ced2b9ca4c85049dcdc45497c32ce25d359a4874d2b32b1fc97f61c8c6868",
+      "sourceId": "usda-ers-livestock",
+      "publisherGroup": "usda",
+      "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "en",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://ers.usda.gov/data-products/livestock-and-meat-international-trade-data",
+      "citationUrl": "https://ers.usda.gov/data-products/livestock-and-meat-international-trade-data",
+      "evidenceUrl": "https://ers.usda.gov/data-products/livestock-and-meat-international-trade-data",
+      "title": "Livestock and Meat International Trade Data",
+      "publishedAt": "2026-09-04T11:00:00.000Z",
+      "summary": "The Livestock and Meat International Trade data set contains monthly and annual data for imports and exports of live cattle, hogs, sheep, and goats, as well as beef and veal, pork, lamb and mutton, chicken meat, turkey meat, and eggs.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "International"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.457224,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.062424,
+            "weight": 0.34,
+            "contribution": 0.021224,
+            "ageDays": 9.708333
+          },
+          "authority": {
+            "signal": 0.9,
+            "weight": 0.24,
+            "contribution": 0.216
+          },
+          "contentClass": {
+            "signal": 0.5,
+            "weight": 0.18,
+            "contribution": 0.09
+          },
+          "topic": {
+            "signal": 0.5,
+            "weight": 0.14,
+            "contribution": 0.07,
+            "keywordHits": 6
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0.06,
+          "nonEnglish": 0
+        },
+        "total": 0.457224
+      },
+      "clusterId": "159119396c4c8f51ace6ca9b6fbcc317320c7256943b511e55c7957b21e64d3e",
+      "reviewTier": "supporting-data",
+      "selectionBasis": "official-data",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "00f106017d8e2cef73b9f93b8362e69652115df379e37c3ffe50ae6e513611dd",
+      "sourceId": "usda-ams-livestock",
+      "publisherGroup": "usda",
+      "collectionRole": "evidence",
+      "contentClass": "dataset",
+      "language": "und",
+      "discoveredBy": "json-api",
+      "canonicalUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2477?q=report_date%3D09%2F07%2F2026",
+      "citationUrl": "https://mymarketnews.ams.usda.gov/viewReport/2477",
+      "evidenceUrl": "https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2477?q=report_date%3D09%2F07%2F2026",
+      "title": "5 Area Weekly Weighted Average Direct Slaughter Cattle (PDF) (LM_CT150)",
+      "publishedAt": "2026-09-08T16:34:27.000Z",
+      "releaseId": "09/07/2026",
+      "landingUrl": "https://mymarketnews.ams.usda.gov/viewReport/2477",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:14:33.527Z",
+      "relevanceScore": 0.423786,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.209173,
+            "weight": 0.34,
+            "contribution": 0.071119,
+            "ageDays": 5.476076
+          },
+          "authority": {
+            "signal": 0.9,
+            "weight": 0.24,
+            "contribution": 0.216
+          },
+          "contentClass": {
+            "signal": 0.5,
+            "weight": 0.18,
+            "contribution": 0.09
+          },
+          "topic": {
+            "signal": 0.333333,
+            "weight": 0.14,
+            "contribution": 0.046667,
+            "keywordHits": 4
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.423786
+      },
+      "clusterId": "88dacce58d1af1ee17be105cf659065644f0270eee76bb0e15d7cea17df56e01",
+      "reviewTier": "supporting-data",
+      "selectionBasis": "official-data",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    }
+  ]
+}
