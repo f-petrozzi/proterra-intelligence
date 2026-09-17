@@ -1,7 +1,7 @@
 ---
 import NewsReel from "../../components/NewsReel.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { formatDate, reports, type Report } from "../../lib/content";
+import { reports, type Report } from "../../lib/content";
 import { reviewAttributes } from "../../lib/review";
 
 export function getStaticPaths() {
@@ -23,11 +23,6 @@ const pageReview = reviewAttributes({
 
 <BaseLayout title={`${report.status === "draft" ? "Draft · " : ""}Issue ${report.issueNumber}`} description={report.executiveSummary}>
   <article class="report-page" {...pageReview}>
-    <header class="issue-page-heading reveal">
-      <span>Weekly Brief · Issue {String(report.issueNumber).padStart(2, "0")}</span>
-      <h1>Week of {formatDate(report.publishedAt)}</h1>
-      <p>{formatDate(report.period.start, { month: "short" })} to {formatDate(report.period.end, { month: "short" })}</p>
-    </header>
-    <NewsReel report={report} />
+    <NewsReel report={report} showPeriod />
   </article>
 </BaseLayout>

@@ -12,13 +12,7 @@ const coveredSectors = new Set(reports.flatMap((report) => report.items.flatMap(
 ---
 
 <BaseLayout title="Archive" description={`Approved ${site.name} Weekly Briefs.`}>
-  <PageHeader
-    label="Past issues"
-    title="Briefing archive"
-    description={draftReports.length > 0
-      ? "Review the current draft alongside previously published weekly issues."
-      : "Browse every reviewed weekly issue with its original publication date, coverage, and sources."}
-  />
+  <PageHeader title="Archive" />
 
   <section class="archive-shell reveal delay-1">
     <div class="archive-summary" aria-label="Archive summary">
@@ -29,11 +23,7 @@ const coveredSectors = new Set(reports.flatMap((report) => report.items.flatMap(
       <article><strong>{coveredSectors}</strong><span>Sectors covered</span></article>
     </div>
 
-    <header class="archive-toolbar">
-      <div><span>Issue library</span><h2>All briefings</h2></div>
-      <p>Filter by the sectors included in each issue.</p>
-    </header>
-    <div class="filter-bar" role="group" aria-label="Filter reports">
+    <div class="filter-bar" role="group" aria-label="Filter reports by sector">
       <button type="button" class="active" data-filter="all" aria-pressed="true">All</button>
       {sectors.map((sector) => (
         <button type="button" data-filter={sector} aria-pressed="false">{sectorLabel(sector)}</button>
@@ -51,7 +41,7 @@ const coveredSectors = new Set(reports.flatMap((report) => report.items.flatMap(
                 {reportSectors.map((sector) => <span>{sectorLabel(sector)}</span>)}
                 {report.status === "draft" && <span class="draft-tag">Draft preview</span>}
               </div>
-              <h3><a href={`/reports/${report.slug}`}>{formatDate(report.publishedAt)}</a></h3>
+              <h2><a href={`/reports/${report.slug}`}>{formatDate(report.publishedAt)}</a></h2>
               <p>{report.executiveSummary}</p>
             </div>
             <ArrowLink href={`/reports/${report.slug}`} label={`Open Issue ${String(report.issueNumber).padStart(2, "0")}`} />
