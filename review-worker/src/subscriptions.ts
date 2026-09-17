@@ -68,22 +68,26 @@ th{color:var(--muted);font-size:.78rem;font-weight:650}
 `;
 const doneIcon = `<div class="done" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>`;
 
-type PageOptions = { status?: number; done?: boolean; wide?: boolean };
+type PageOptions = { status?: number; done?: boolean; wide?: boolean; submitOnLoad?: boolean };
 
 // done: a finished step. It shows a check mark and returns the visitor to the publication after a short pause.
-function page(env: Env, title: string, content: string, { status = 200, done = false, wide = false }: PageOptions = {}) {
+// submitOnLoad: the page's only action runs itself, so a link from email takes one click. Consent still needs a
+// POST, and mail-security scanners that fetch the link without running scripts still cannot act on someone's behalf.
+function page(env: Env, title: string, content: string, { status = 200, done = false, wide = false, submitOnLoad = false }: PageOptions = {}) {
   const siteOrigin = env.SITE_ORIGIN.replace(/\/$/, "");
   const home = `${siteOrigin}/`;
   const header = `<header class="site-header"><a class="brand" href="${e(home)}" aria-label="${e(site.name)} home"><span class="mark" aria-hidden="true">${e(site.initials)}</span><span class="lockup"><strong>${e(site.name)}</strong><small>${e(site.descriptor)}</small></span></a><nav aria-label="Primary navigation"><ul class="nav">${site.nav.map(item => `<li><a href="${e(siteOrigin + item.href)}">${e(item.label)}</a></li>`).join("")}</ul></nav></header>`;
   const refresh = done ? `<meta http-equiv="refresh" content="${redirectSeconds};url=${e(home)}">` : "";
+  const nonce = submitOnLoad ? crypto.randomUUID().replaceAll("-", "") : "";
+  const submitScript = submitOnLoad ? `<script nonce="${nonce}">document.forms[0].submit()</script>` : "";
   const returning = done ? `<div class="return"><div class="bar"><span></span></div><p>Taking you back to Proterra Intelligence. <a href="${e(home)}">Go now</a></p></div>` : "";
-  return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#173f32">${refresh}<title>${e(title)} | Proterra Intelligence</title><style>${pageStyles}</style></head><body>${header}<main${wide ? ' class="wide"' : ""}>${done ? doneIcon : ""}<h1>${e(title)}</h1>${content}${returning}</main></body></html>`, {
+  return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#173f32">${refresh}<title>${e(title)} | Proterra Intelligence</title><style>${pageStyles}</style></head><body>${header}<main${wide ? ' class="wide"' : ""}>${done ? doneIcon : ""}<h1>${e(title)}</h1>${content}${returning}</main>${submitScript}</body></html>`, {
     status, headers: {
       "content-type": "text/html; charset=utf-8", "cache-control": "no-store",
       // strict-origin: form POSTs still carry Origin for sameOrigin() (no-referrer sends `Origin: null`), and
       // navigating from a tokenized link to the rest of the site sends only the origin, never the token.
       "referrer-policy": "strict-origin", "x-content-type-options": "nosniff",
-      "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; script-src https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; connect-src https://challenges.cloudflare.com; form-action 'self'; base-uri 'none'; frame-ancestors 'none'"
+      "content-security-policy": `default-src 'none'; style-src 'unsafe-inline'; script-src ${nonce ? `'nonce-${nonce}' ` : ""}https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; connect-src https://challenges.cloudflare.com; form-action 'self'; base-uri 'none'; frame-ancestors 'none'`
     }
   });
 }
@@ -318,7 +322,7 @@ export async function subscriptionRoutes(request: Request, env: Env): Promise<Re
     }
     if (request.method === "GET") {
       if (!await tokenSubscriber(env, id, token)) return page(env, "This link is no longer active", `<p>You may already be unsubscribed.</p>${homeLink}`, { status: 410 });
-      return page(env, "Unsubscribe from the weekly digest", `<p>You'll stop receiving the digest at this address.</p><form method="post"><div class="actions"><button type="submit">Unsubscribe</button></div></form>`);
+      return page(env, "Unsubscribing", `<p>One moment. If nothing happens, use the button below.</p><form method="post"><div class="actions"><button type="submit">Unsubscribe</button></div></form>`, { submitOnLoad: true });
     }
   }
   if (url.pathname === "/subscriptions/confirm") {
@@ -336,12 +340,12 @@ export async function subscriptionRoutes(request: Request, env: Env): Promise<Re
       const row = /^[a-f0-9]{64}$/.test(token) ? await env.REVIEW_DB.prepare(`SELECT r.kind, r.inviter_name FROM subscription_requests r JOIN subscribers s ON s.id = r.subscriber_id
         WHERE r.token_hash = ? AND r.consumed_at IS NULL AND r.expires_at > ? AND r.subscriber_version = s.version`).bind(await hash(token), seconds()).first<{ kind: Kind; inviter_name: string | null }>() : null;
       if (!row) return expired();
-      if (row.kind === "unsubscribe") return page(env, "Confirm unsubscribe", `<p>You'll stop receiving the weekly digest at this address.</p><form method="post"><div class="actions"><button name="action" value="unsubscribe">Unsubscribe</button></div></form>`);
+      if (row.kind === "unsubscribe") return page(env, "Unsubscribing", `<p>One moment. If nothing happens, use the button below.</p><form method="post"><input type="hidden" name="action" value="unsubscribe"><div class="actions"><button name="action" value="unsubscribe">Unsubscribe</button></div></form>`, { submitOnLoad: true });
       const about = "<p>Weekly coverage of dairy, meat, and bovine genetics, reviewed from direct sources. Every issue has an unsubscribe link.</p>";
       if (row.kind === "invite") {
         return page(env, row.inviter_name ? `${row.inviter_name} invited you to the weekly digest` : "You're invited to the weekly digest", `${about}<form method="post"><div class="actions"><button name="action" value="accept">Accept invitation</button><button class="quiet" name="action" value="decline">Decline</button></div></form>`);
       }
-      return page(env, "Confirm your subscription", `${about}<form method="post"><div class="actions"><button name="action" value="accept">Confirm subscription</button></div></form><p class="hint">Didn't ask for this? Close this page and nothing changes.</p>`);
+      return page(env, "Confirming your subscription", `${about}<form method="post"><input type="hidden" name="action" value="accept"><div class="actions"><button name="action" value="accept">Confirm subscription</button></div></form><p class="hint">One moment. If nothing happens, use the button above. Didn't ask for this? Close this page and nothing changes.</p>`, { submitOnLoad: true });
     }
   }
   if (url.pathname === "/subscriptions/request" && request.method === "POST") {
