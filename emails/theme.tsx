@@ -57,6 +57,15 @@ export const topStorySection: React.CSSProperties = { padding: "0 24px 36px" };
 export const sectionLabel: React.CSSProperties = { margin: "0 0 14px", color: colors.green, fontSize: "11px", fontWeight: 700, letterSpacing: "1.2px" };
 export const heroImage: React.CSSProperties = { display: "block", margin: "0 auto", maxWidth: "100%", height: "auto", borderRadius: "8px" };
 
+// Editorial photos range from 16:9 to tall portrait. Email clients cannot crop, so each one also ships
+// as a banner of a single shape, built by scripts/images/build-banners.ts.
+export const bannerWidth = 1104;
+export const bannerHeight = 460;
+export function bannerPath(id: string) {
+  return `/images/editorial/banners/${id}.webp`;
+}
+export const bannerImage: React.CSSProperties = { display: "block", width: "100%", height: "auto", borderRadius: "8px" };
+
 // Email clients cannot crop, so a portrait photo at full column width would fill the screen.
 // Size every hero to about the same height instead, never wider than the column.
 export function heroSize(image: EditorialImage, maxWidth = 552, maxHeight = 330) {

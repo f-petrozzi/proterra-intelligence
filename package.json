@@ -11,6 +11,7 @@
     "report:approve": "node --import tsx scripts/reports/approve-report.ts",
     "data:refresh-dashboard": "node --import tsx scripts/data/refresh-dashboard.ts --write",
     "email:preview": "node --import tsx scripts/email/render-weekly-email.ts",
+    "images:banners": "node --import tsx scripts/images/build-banners.ts",
     "email:check": "node --import tsx scripts/email/render-weekly-email.ts --check",
     "email:send": "node --import tsx scripts/email/send-weekly-email.ts",
     "email:automation": "node --import tsx scripts/email/send-automation-email.ts",

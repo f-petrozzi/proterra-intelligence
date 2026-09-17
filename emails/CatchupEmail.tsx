@@ -23,9 +23,8 @@ import {
   h2,
   h3,
   headlineLink,
-  heroImage,
-  heroSize,
-  intro,
+  bannerImage,
+  bannerPath,
   issueUrl,
   linkGap,
   keyPoint,
@@ -84,11 +83,6 @@ export function CatchupEmail({ reports, siteUrl, images, unsubscribeUrl }: { rep
             </Row>
           </Section>
 
-          <Section style={intro}>
-            <Heading as="h1" style={h1}>Your three-week catch-up</Heading>
-            <Text style={lead}>Three reviewed weekly briefs in one email. Each week leads with its top story; the rest follow in brief, every one linked to its original source.</Text>
-          </Section>
-
           {reports.map((report) => {
             const [topStory, ...otherStories] = report.items;
             const topImage = images.get(topStory.imageId);
@@ -96,6 +90,14 @@ export function CatchupEmail({ reports, siteUrl, images, unsubscribeUrl }: { rep
 
             return (
               <Section key={report.slug} style={weekSection}>
+                {topImage && (
+                  <>
+                    <Link href={topStory.citations[0].url}>
+                      <Img src={absoluteUrl(siteUrl, bannerPath(topImage.id))} width={552} height={230} alt={topImage.alt} style={bannerImage} />
+                    </Link>
+                    <Text style={bannerCredit}>Photo: {topImage.creator} · {topImage.license}</Text>
+                  </>
+                )}
                 <Text style={sectionLabel}>ISSUE {report.issueNumber} · {readableDate(report.period.start)} – {readableDate(report.period.end)}</Text>
                 <Heading as="h2" style={h2}>{report.overview?.headline ?? report.title}</Heading>
                 <Text style={weekLead}>{report.executiveSummary}</Text>
@@ -116,15 +118,6 @@ export function CatchupEmail({ reports, siteUrl, images, unsubscribeUrl }: { rep
                   </Section>
                 )}
 
-                <Text style={topStoryLabel}>TOP STORY</Text>
-                {topImage && (
-                  <>
-                    <Link href={topStory.citations[0].url}>
-                      <Img src={absoluteUrl(siteUrl, topImage.src)} {...heroSize(topImage)} alt={topImage.alt} style={heroImage} />
-                    </Link>
-                    <Text style={{ ...credit, textAlign: heroSize(topImage).width < 552 ? "center" : "left" }}>Photo: {topImage.creator} · {topImage.license}</Text>
-                  </>
-                )}
                 <Text style={storyMeta}>{storyLabel(topStory)}</Text>
                 <Heading as="h3" style={h3}>
                   <Link href={topStory.citations[0].url} style={headlineLink}>{topStory.headline}</Link>
@@ -182,10 +175,10 @@ export function CatchupEmail({ reports, siteUrl, images, unsubscribeUrl }: { rep
   );
 }
 
+const bannerCredit: React.CSSProperties = { ...credit, margin: "8px 0 18px" };
 const weekSection: React.CSSProperties = { padding: "30px 24px 34px", borderTop: `1px solid ${colors.line}` };
 const weekLead: React.CSSProperties = { margin: "0 0 22px", color: "#43514c", fontSize: "15px", lineHeight: "24px" };
 const pulseWrapper: React.CSSProperties = { padding: "0 0 26px" };
-const topStoryLabel: React.CSSProperties = { ...sectionLabel, margin: "0 0 12px" };
 const compactHeadline: React.CSSProperties = { margin: "0 0 8px", fontSize: "17px", lineHeight: "24px", letterSpacing: "-0.15px" };
 const issueButtonWrapper: React.CSSProperties = { padding: "26px 0 0" };
 
