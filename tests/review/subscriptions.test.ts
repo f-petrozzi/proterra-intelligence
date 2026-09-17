@@ -343,7 +343,11 @@ test("the site hosts the pages: links point at it, the Worker host redirects, an
   env.SUBSCRIPTIONS_TURNSTILE_SECRET = "test-secret";
   const page = await subscriptionRoutes(new Request(`${env.SITE_ORIGIN}/subscriptions?intent=invite`), env);
   assert.equal(page?.status, 200);
-  assert.match(await page!.text(), /Primary navigation/, "the site header stays available on subscription pages");
+  const html = await page!.text();
+  assert.match(html, /Primary navigation/, "the site header stays available on subscription pages");
+  assert.match(html, /data-size="flexible"/, "Turnstile uses the horizontal responsive widget");
+  assert.doesNotMatch(html, /data-size="compact"/, "Turnstile does not render as the compact square widget");
+  assert.match(html, /They decide whether to subscribe/, "the invitation makes recipient consent clear");
 
   const forwarded: string[] = [];
   const binding = { fetch: async (request: Request) => { forwarded.push(new URL(request.url).pathname); return new Response("ok"); } };
