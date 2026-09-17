@@ -30,21 +30,22 @@ import {
   colors,
   formatDate,
   issueUrl,
+  linkGap,
   sectorNames,
   body,
   boxTitle,
   compactSummary,
   container,
   credit,
-  ctaHeading,
-  ctaSection,
-  ctaText,
-  ctaWrapper,
   dateLine,
   eyebrow,
+  closing,
   footer,
+  footerBrand,
   footerLink,
   footerLinks,
+  footerQuiet,
+  footerQuietLink,
   footerText,
   h1,
   h2,
@@ -67,6 +68,7 @@ import {
   pulseWrapper,
   sectionLabel,
   sourceLine,
+  sourceLabel,
   sourceLink,
   storyDivider,
   storyMeta,
@@ -171,34 +173,28 @@ export function WeeklyBriefEmail({ report, siteUrl, images, unsubscribeUrl }: We
                   </Heading>
                   <Text style={compactSummary}>{item.summary}</Text>
                   <Text style={sourceLine}>
-                    <Link href={primary.url} style={sourceLink}>{primary.title} →</Link>
+                    <Link href={primary.url} style={sourceLink}>{sourceLabel(primary.title)} →</Link>
                   </Text>
                 </React.Fragment>
               );
             })}
           </Section>
 
-          <Section style={ctaWrapper}>
-            <Section style={ctaSection}>
-              <Heading as="h2" style={ctaHeading}>Continue with the full brief</Heading>
-              <Text style={ctaText}>Review every source, expand the key points, and open the current dashboard on Proterra Intelligence.</Text>
-              <Button href={onlineUrl} style={primaryButton}>Open the weekly brief</Button>
-            </Section>
+          <Section style={closing}>
+            <Button href={onlineUrl} style={primaryButton}>Open the full brief</Button>
           </Section>
 
           <Section style={footer}>
-            <Text style={footerText}>Proterra Intelligence · Dairy, meat, and bovine genetics</Text>
-            <Text style={footerText}>Prepared from reviewed public sources. Reply to this email with corrections or source suggestions.</Text>
+            <Text style={footerBrand}>Proterra Intelligence</Text>
+            <Text style={footerText}>Dairy, meat, and bovine genetics. Reply with corrections or source suggestions.</Text>
             <Text style={footerLinks}>
-              <Link href={`${siteUrl}/sources/`} style={footerLink}>Sources</Link>
-              {" · "}
-              <Link href={`${siteUrl}/methodology/`} style={footerLink}>Methodology</Link>
-              {" · "}
-              <Link href={`${siteUrl}/archive/`} style={footerLink}>Archive</Link>
-              {" · "}
+              <Link href={`${siteUrl}/archive/`} style={footerLink}>Archive</Link>{linkGap}
+              <Link href={`${siteUrl}/sources/`} style={footerLink}>Sources</Link>{linkGap}
+              <Link href={`${siteUrl}/methodology/`} style={footerLink}>Methodology</Link>{linkGap}
               <Link href={`${siteUrl}/subscriptions?intent=invite`} style={footerLink}>Invite someone</Link>
-              {" · "}
-              <Link href={unsubscribeUrl ?? `${siteUrl}/subscriptions?intent=unsubscribe`} style={footerLink}>Unsubscribe</Link>
+            </Text>
+            <Text style={footerQuiet}>
+              <Link href={unsubscribeUrl ?? `${siteUrl}/subscriptions?intent=unsubscribe`} style={footerQuietLink}>Unsubscribe</Link>
             </Text>
           </Section>
         </Container>

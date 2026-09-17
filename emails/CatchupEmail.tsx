@@ -10,15 +10,14 @@ import {
   compactSummary,
   container,
   credit,
-  ctaHeading,
-  ctaSection,
-  ctaText,
-  ctaWrapper,
   dateLine,
   eyebrow,
   footer,
+  footerBrand,
   footerLink,
   footerLinks,
+  footerQuiet,
+  footerQuietLink,
   footerText,
   h1,
   h2,
@@ -28,6 +27,7 @@ import {
   heroSize,
   intro,
   issueUrl,
+  linkGap,
   keyPoint,
   keyPointBox,
   lead,
@@ -41,6 +41,7 @@ import {
   sectionLabel,
   sectorNames,
   sourceLine,
+  sourceLabel,
   sourceLink,
   storyDivider,
   storyMeta,
@@ -138,7 +139,7 @@ export function CatchupEmail({ reports, siteUrl, images, unsubscribeUrl }: { rep
                 <Text style={whyLabel}>WHY IT MATTERS TO PROTERRA</Text>
                 <Text style={whyText}>{topStory.whyItMatters}</Text>
                 <Text style={sourceLine}>
-                  <Link href={topStory.citations[0].url} style={sourceLink}>{topStory.citations[0].title}</Link>
+                  <Link href={topStory.citations[0].url} style={sourceLink}>{sourceLabel(topStory.citations[0].title)}</Link>
                 </Text>
 
                 {otherStories.map((item) => (
@@ -150,7 +151,7 @@ export function CatchupEmail({ reports, siteUrl, images, unsubscribeUrl }: { rep
                     </Heading>
                     <Text style={compactSummary}>{item.summary}</Text>
                     <Text style={sourceLine}>
-                      <Link href={item.citations[0].url} style={sourceLink}>{item.citations[0].title}</Link>
+                      <Link href={item.citations[0].url} style={sourceLink}>{sourceLabel(item.citations[0].title)}</Link>
                     </Text>
                   </React.Fragment>
                 ))}
@@ -162,27 +163,17 @@ export function CatchupEmail({ reports, siteUrl, images, unsubscribeUrl }: { rep
             );
           })}
 
-          <Section style={ctaWrapper}>
-            <Section style={ctaSection}>
-              <Heading as="h2" style={ctaHeading}>Back to the weekly rhythm</Heading>
-              <Text style={ctaText}>The next issue arrives on its usual schedule. The archive holds every brief, with sources and the current dashboard.</Text>
-              <Button href={`${siteUrl}/archive/`} style={primaryButton}>Open the archive</Button>
-            </Section>
-          </Section>
-
           <Section style={footer}>
-            <Text style={footerText}>Proterra Intelligence · Dairy, meat, and bovine genetics</Text>
-            <Text style={footerText}>Prepared from reviewed public sources. Reply to this email with corrections or source suggestions.</Text>
+            <Text style={footerBrand}>Proterra Intelligence</Text>
+            <Text style={footerText}>Dairy, meat, and bovine genetics. Reply with corrections or source suggestions.</Text>
             <Text style={footerLinks}>
-              <Link href={`${siteUrl}/sources/`} style={footerLink}>Sources</Link>
-              {" · "}
-              <Link href={`${siteUrl}/methodology/`} style={footerLink}>Methodology</Link>
-              {" · "}
-              <Link href={`${siteUrl}/archive/`} style={footerLink}>Archive</Link>
-              {" · "}
+              <Link href={`${siteUrl}/archive/`} style={footerLink}>Archive</Link>{linkGap}
+              <Link href={`${siteUrl}/sources/`} style={footerLink}>Sources</Link>{linkGap}
+              <Link href={`${siteUrl}/methodology/`} style={footerLink}>Methodology</Link>{linkGap}
               <Link href={`${siteUrl}/subscriptions?intent=invite`} style={footerLink}>Invite someone</Link>
-              {" · "}
-              <Link href={unsubscribeUrl} style={footerLink}>Unsubscribe</Link>
+            </Text>
+            <Text style={footerQuiet}>
+              <Link href={unsubscribeUrl} style={footerQuietLink}>Unsubscribe</Link>
             </Text>
           </Section>
         </Container>

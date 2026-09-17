@@ -81,12 +81,19 @@ export const storyDivider: React.CSSProperties = { margin: "24px 0", borderColor
 export const compactSummary: React.CSSProperties = { margin: "0 0 8px", color: "#53605c", fontSize: "14px", lineHeight: "22px" };
 export const sourceLine: React.CSSProperties = { margin: 0, fontSize: "12px", lineHeight: "18px" };
 export const sourceLink: React.CSSProperties = { color: colors.green, fontWeight: 700, textDecoration: "none" };
-export const ctaWrapper: React.CSSProperties = { padding: "0 24px 28px" };
-export const ctaSection: React.CSSProperties = { width: "100%", padding: "25px", backgroundColor: colors.greenSoft, borderRadius: "8px", textAlign: "center" };
-export const ctaHeading: React.CSSProperties = { margin: "0 0 8px", color: colors.ink, fontSize: "21px", lineHeight: "27px" };
-export const ctaText: React.CSSProperties = { margin: "0 auto 18px", color: "#53605c", fontSize: "14px", lineHeight: "21px" };
-export const footer: React.CSSProperties = { padding: "24px", backgroundColor: "#edf1ef", borderTop: `1px solid ${colors.line}` };
-export const footerText: React.CSSProperties = { margin: "0 0 7px", color: colors.muted, fontSize: "11px", lineHeight: "17px" };
-export const footerLinks: React.CSSProperties = { margin: "13px 0 0", color: colors.muted, fontSize: "11px" };
-export const footerLink: React.CSSProperties = { color: colors.green, textDecoration: "underline" };
+export const closing: React.CSSProperties = { padding: "28px 24px 34px", borderTop: `1px solid ${colors.line}`, textAlign: "center" };
+export const footer: React.CSSProperties = { padding: "22px 24px 28px", backgroundColor: "#edf1ef", borderTop: `1px solid ${colors.line}` };
+export const footerBrand: React.CSSProperties = { margin: "0 0 3px", color: colors.ink, fontSize: "12px", fontWeight: 700, lineHeight: "18px" };
+export const footerText: React.CSSProperties = { margin: 0, color: colors.muted, fontSize: "11px", lineHeight: "17px" };
+export const footerLinks: React.CSSProperties = { margin: "14px 0 0", fontSize: "11px", lineHeight: "18px" };
+export const footerLink: React.CSSProperties = { color: colors.green, fontWeight: 700, textDecoration: "none" };
+export const footerQuiet: React.CSSProperties = { margin: "7px 0 0", fontSize: "11px", lineHeight: "18px" };
+export const footerQuietLink: React.CSSProperties = { color: colors.muted, textDecoration: "underline" };
+// Email clients drop margins between inline links; spaces keep the row readable without separators.
+export const linkGap = "\u00a0\u00a0\u00a0";
+
+// Some source titles run to a full sentence; keep the line under the story it belongs to.
+export function sourceLabel(title: string, maximum = 72) {
+  return title.length <= maximum ? title : `${title.slice(0, maximum - 1).trimEnd()}…`;
+}
 
