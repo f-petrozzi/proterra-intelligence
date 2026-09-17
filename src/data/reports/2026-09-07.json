@@ -2,7 +2,7 @@
   "slug": "2026-09-07",
   "issueNumber": 5,
   "title": "Weekly Brief",
-  "status": "draft",
+  "status": "approved",
   "period": {
     "start": "2026-08-31",
     "end": "2026-09-06"
@@ -105,7 +105,7 @@
       "watchNext": "Watch for acquisition completion, production-line commissioning and published milk-sourcing arrangements.",
       "confidence": "medium",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "signal": "new",
       "citations": [
@@ -144,7 +144,7 @@
       "watchNext": "Watch for published methods, replicated associations and validation before drawing breeding conclusions.",
       "confidence": "medium",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "signal": "new",
       "citations": [
@@ -182,7 +182,7 @@
       "watchNext": "Watch for independent evaluations, deployment requirements and evidence of performance across cattle systems.",
       "confidence": "medium",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "signal": "new",
       "citations": [
@@ -218,7 +218,7 @@
       "watchNext": "Watch official zone maps and subsequent state and federal notices before interpreting the geographic scope of a release.",
       "confidence": "high",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "signal": "new",
       "citations": [
@@ -265,7 +265,7 @@
       "watchNext": "Watch later FAO releases and country-specific trade data for persistence of the reported divergence.",
       "confidence": "high",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "signal": "new",
       "citations": [
@@ -300,7 +300,7 @@
       "watchNext": "Watch for formal program rules, eligibility details and opening dates before assessing practical availability.",
       "confidence": "high",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "signal": "new",
       "citations": [

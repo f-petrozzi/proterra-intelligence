@@ -2,7 +2,7 @@
   "slug": "2026-09-14",
   "issueNumber": 6,
   "title": "Weekly Brief",
-  "status": "draft",
+  "status": "approved",
   "period": {
     "start": "2026-09-07",
     "end": "2026-09-13"
@@ -89,7 +89,7 @@
       "headline": "C-Lock and CERES TAG connect cattle performance records",
       "imageId": "cattle-monitoring-tag",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "sectors": [
         "meat",
@@ -126,7 +126,7 @@
       "headline": "U.S. announces September 29 restrictions on selected Canadian dairy imports",
       "imageId": "milk-powder",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "sectors": [
         "dairy"
@@ -171,7 +171,7 @@
       "headline": "USDA raises milk production forecast and lowers beef outlook",
       "imageId": "dairy-parlor",
       "documentType": "report",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "sectors": [
         "dairy",
@@ -210,7 +210,7 @@
       "headline": "Land O’Lakes announces support for Carlisle butter investment",
       "imageId": "butter-output",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "sectors": [
         "dairy"
@@ -245,7 +245,7 @@
       "headline": "Flyttr plans San Antonio screwworm-response facility",
       "imageId": "screwworm-fly",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "sectors": [
         "meat",
@@ -281,7 +281,7 @@
       "headline": "El Salvador and IICA review livestock drought and health response",
       "imageId": "global-pasture",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "sectors": [
         "dairy",

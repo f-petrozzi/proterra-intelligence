@@ -2,7 +2,7 @@
   "slug": "2026-08-31",
   "issueNumber": 4,
   "title": "Weekly Brief",
-  "status": "draft",
+  "status": "approved",
   "period": {
     "start": "2026-08-24",
     "end": "2026-08-30"
@@ -89,7 +89,7 @@
       "headline": "Butterfat growth leaves U.S. milk protein behind cheesemakers’ needs",
       "imageId": "milk-components-glass",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "sectors": [
         "dairy",
@@ -127,7 +127,7 @@
       "headline": "Breedr funding targets genomic data in cattle supply chains",
       "imageId": "cattle-record-identification",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "sectors": [
         "meat",
@@ -165,7 +165,7 @@
       "headline": "Foremost Farms plans December closure of Marshfield dairy plant",
       "imageId": "creamery-cheese-production",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "sectors": [
         "dairy"
@@ -200,7 +200,7 @@
       "headline": "WOAH details expanding animal-health risk from FMD SAT 1",
       "imageId": "bovine-veterinary-exam",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "sectors": [
         "dairy",
@@ -240,7 +240,7 @@
       "headline": "FDA adds Bimectin injection authorization against cattle screwworm",
       "imageId": "screwworm-specimens",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "sectors": [
         "meat",
@@ -276,7 +276,7 @@
       "headline": "New Mexico lifts screwworm zone and associated cattle movement checks",
       "imageId": "pasture-cattle-health",
       "documentType": "news",
-      "reviewStatus": "shortlisted",
+      "reviewStatus": "reviewed",
       "discoveryChannel": "manual",
       "sectors": [
         "meat",

@@ -1,5 +1,9 @@
 # September catch-up review
 
+## Approval recorded September 17, 2026
+
+The human editor reviewed the catch-up preview and explicitly approved merging these reports to main. Issues 4–6 are now approved and their selected items reviewed. The notes below preserve the original draft handoff and evidence limitations; the draft/pending-approval language describes the state before this approval. This retrospective batch uses the documented manual approval path rather than the single-issue Worker workflow. Scheduling activation still requires its separate complete rehearsal.
+
 Three retrospective drafts were prepared in chronological order, using the documented manual editorial fallback because present-day feeds do not retain a complete August archive. All reports and all selected items remain **draft / shortlisted**. No publication, human approval, historical-report edit, or publication email has occurred.
 
 | Issue | Reporting window | Draft date | Items |
