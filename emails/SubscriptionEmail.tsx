@@ -76,11 +76,6 @@ export function SubscriptionEmail({ kind, url, expiresAt, siteUrl, inviterName }
             <Text style={footerText}>
               <Link href={`${siteUrl}/`} style={footerLink}>Visit Proterra Intelligence</Link>
             </Text>
-            <Text style={footerText}>
-              {invite
-                ? `You received this because ${inviterName ?? "someone"} entered your address on Proterra Intelligence.`
-                : "You received this because your address was entered on Proterra Intelligence."}
-            </Text>
           </Section>
         </Container>
       </Body>

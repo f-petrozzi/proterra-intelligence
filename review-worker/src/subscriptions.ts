@@ -5,7 +5,7 @@ import { escapeHtml as e } from "./html";
 import type { Env } from "./index";
 
 type Kind = "invite" | "subscribe" | "unsubscribe";
-type Subscriber = { id: string; email: string; status: string; version: number };
+type Subscriber = { id: string; email: string; email_key: string; status: string; version: number };
 const emailSchema = z.string().trim().toLowerCase().max(254).pipe(z.email());
 const kindSchema = z.enum(["invite", "subscribe", "unsubscribe"]);
 // Shown to a third party in an invitation: plain name characters only, so it cannot carry links or header breaks.
@@ -14,6 +14,17 @@ export const inviterNameSchema = z.string().trim().max(60).regex(/^[\p{L}\p{M}\p
 export const requestLifetimeDays = { invite: 30, subscribe: 7, unsubscribe: 7 } as const;
 const seconds = () => Math.floor(Date.now() / 1000);
 const genericMessage = "If this address can receive the digest, an email with the next step is on its way. Delivery usually takes a few minutes, but can take longer. Check your spam folder too.";
+
+// Gmail delivers local+tag@gmail.com to the local@gmail.com mailbox. Use the
+// untagged address only as an internal identity key; retain the address the
+// subscriber entered so delivery and their inbox rules remain unchanged.
+function subscriptionEmailKey(email: string) {
+  const at = email.lastIndexOf("@");
+  const local = email.slice(0, at);
+  const domain = email.slice(at + 1);
+  if (!["gmail.com", "googlemail.com"].includes(domain)) return email;
+  return `${local.split("+", 1)[0]}@${domain}`;
+}
 
 const pageStyles = `
 :root{--ink:#17201c;--muted:#5e6963;--paper:#f4f3ed;--paper-deep:#e9e9e1;--surface:#fafaf6;--forest:#173f32;--forest-deep:#0c2c22;--mint:#b7d7c1;--line:rgba(23,32,28,.14);--line-strong:rgba(23,32,28,.28);--focus:0 0 0 3px rgba(23,63,50,.22)}
@@ -193,9 +204,12 @@ async function limit(env: Env, key: string, maximum: number, duration: number) {
 export async function requestSubscription(env: Env, email: string, kind: Kind, inviterName?: string) {
   await initialized(env);
   email = emailSchema.parse(email);
+  const emailKey = subscriptionEmailKey(email);
   inviterName = kind === "invite" ? inviterNameSchema.parse(inviterName ?? "") : undefined;
-  if (!await limit(env, `address:${kind}:${email}`, 1, 86400)) return;
-  const existing = await env.REVIEW_DB.prepare("SELECT * FROM subscribers WHERE email = ?").bind(email).first<Subscriber>();
+  if (!await limit(env, `address:${kind}:${emailKey}`, 1, 86400)) return;
+  const existing = await env.REVIEW_DB.prepare(`SELECT * FROM subscribers WHERE email_key = ?
+    ORDER BY CASE WHEN status = 'active' THEN 0 WHEN email = ? THEN 1 ELSE 2 END, updated_at DESC LIMIT 1`)
+    .bind(emailKey, email).first<Subscriber>();
   if (kind === "unsubscribe" && existing?.status !== "active") return;
   if (kind !== "unsubscribe" && existing?.status === "active") return;
   // A declined invitation or unsubscribe suppresses future third-party invitations.
@@ -205,10 +219,10 @@ export async function requestSubscription(env: Env, email: string, kind: Kind, i
   const token = `${crypto.randomUUID()}${crypto.randomUUID()}`.replaceAll("-", "");
   const subscriberId = existing?.id ?? crypto.randomUUID();
   await env.REVIEW_DB.batch([
-    env.REVIEW_DB.prepare("INSERT OR IGNORE INTO subscribers (id, email, status, source) VALUES (?, ?, 'pending', ?)").bind(subscriberId, email, kind === "unsubscribe" ? "subscribe" : kind),
+    env.REVIEW_DB.prepare("INSERT OR IGNORE INTO subscribers (id, email, email_key, status, source) VALUES (?, ?, ?, 'pending', ?)").bind(subscriberId, email, emailKey, kind === "unsubscribe" ? "subscribe" : kind),
     env.REVIEW_DB.prepare(`INSERT INTO subscription_requests (id, subscriber_id, kind, token_hash, subscriber_version, expires_at, inviter_name)
-      SELECT ?, id, ?, ?, version, ?, ? FROM subscribers WHERE email = ?`)
-      .bind(id, kind, await hash(token), seconds() + requestLifetimeDays[kind] * 86400, inviterName ?? null, email),
+      SELECT ?, id, ?, ?, version, ?, ? FROM subscribers WHERE id = ?`)
+      .bind(id, kind, await hash(token), seconds() + requestLifetimeDays[kind] * 86400, inviterName ?? null, subscriberId),
     env.REVIEW_DB.prepare("INSERT INTO subscription_mail (id, token) VALUES (?, ?)").bind(id, token)
   ]);
 }
@@ -285,13 +299,16 @@ export async function subscriptionRecipients(env: Env): Promise<{ email: string;
 
 export async function importSubscribers(env: Env, emails: string[]) {
   if (await env.REVIEW_DB.prepare("SELECT id FROM subscription_meta WHERE id = 1").first()) throw new Response("Recipients already imported", { status: 409 });
-  const normalized = [...new Set(z.array(emailSchema).min(1).max(500).parse(emails))];
+  const normalized = z.array(emailSchema).min(1).max(500).parse(emails);
+  const byEmailKey = new Map<string, string>();
+  for (const email of normalized) if (!byEmailKey.has(subscriptionEmailKey(email))) byEmailKey.set(subscriptionEmailKey(email), email);
+  const deduplicated = [...byEmailKey.entries()];
   // D1 batches are transactional: initialization cannot become visible before the import.
   await env.REVIEW_DB.batch([
     env.REVIEW_DB.prepare("INSERT INTO subscription_meta (id) VALUES (1)"),
-    ...normalized.map(email => env.REVIEW_DB.prepare("INSERT INTO subscribers (id, email, status, source) VALUES (?, ?, 'active', 'legacy')").bind(crypto.randomUUID(), email))
+    ...deduplicated.map(([emailKey, email]) => env.REVIEW_DB.prepare("INSERT INTO subscribers (id, email, email_key, status, source) VALUES (?, ?, ?, 'active', 'legacy')").bind(crypto.randomUUID(), email, emailKey))
   ]);
-  return normalized.length;
+  return deduplicated.length;
 }
 
 export async function claimMail(env: Env) {
