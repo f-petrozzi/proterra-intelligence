@@ -28,27 +28,34 @@ body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circl
 .nav{display:flex;align-items:center;gap:.25rem;margin:0;padding:0;list-style:none}
 .nav a{display:block;padding:.62rem .82rem;border-radius:2px;color:var(--muted);font-size:.82rem;text-decoration:none;transition:color 180ms ease,background-color 180ms ease}
 .nav a:hover{color:var(--ink);background:rgba(255,255,255,.5)}
-main{width:min(calc(100% - 2rem),33rem);margin:clamp(2rem,9vh,5rem) auto 4rem;padding:clamp(1.5rem,5vw,2.5rem);border:1px solid var(--line);border-top:2px solid var(--forest);border-radius:2px;background:var(--surface);box-shadow:0 20px 55px rgba(18,43,34,.08)}
+main{width:min(calc(100% - 2rem),36rem);margin:clamp(2rem,9vh,5rem) auto 4rem;padding:clamp(1.5rem,5vw,2.75rem);border:1px solid var(--line);border-top:2px solid var(--forest);border-radius:2px;background:var(--surface);box-shadow:0 20px 55px rgba(18,43,34,.08)}
 main.wide{width:min(calc(100% - 2rem),60rem)}
 h1{margin:0;font-size:clamp(1.8rem,5vw,2.35rem);font-weight:540;letter-spacing:-.04em;line-height:1.08}
 p{margin:.85rem 0 0;color:var(--muted)}
+.lede{font-size:1.03rem;line-height:1.65}
 strong{color:var(--ink);font-weight:650}
 a{color:var(--forest);text-underline-offset:.16em}
 .done{display:grid;place-items:center;width:2.75rem;height:2.75rem;margin-bottom:1.25rem;border-radius:50%;background:var(--mint)}
 .done svg{width:1.3rem;height:1.3rem;fill:none;stroke:var(--forest-deep);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-form{margin-top:1.6rem}
+form{margin-top:1.75rem}
 form>label:first-of-type,form>.actions:first-child{margin-top:0}
 label{display:block;margin-top:1.15rem;font-size:.86rem;font-weight:650}
 label small{margin-left:.35rem;color:var(--muted);font-size:.8rem;font-weight:400}
-input:not([type=hidden]){display:block;width:100%;margin-top:.45rem;padding:.78rem .95rem;border:1px solid var(--line-strong);border-radius:2px;color:var(--ink);background:#fff;font:inherit;font-size:1rem}
+input:not([type=hidden]){display:block;width:100%;min-height:3rem;margin-top:.45rem;padding:.78rem .95rem;border:1px solid var(--line-strong);border-radius:2px;color:var(--ink);background:#fff;font:inherit;font-size:1rem}
 input:focus{outline:0;border-color:var(--forest);box-shadow:var(--focus)}
 .hint{margin-top:.4rem;font-size:.8rem}
-.cf-turnstile{min-height:65px;margin-top:1.3rem}
+.process-note{padding:.9rem 1rem;border-left:2px solid var(--forest);background:var(--paper);font-size:.85rem;line-height:1.55}
+.verification{width:100%;min-height:65px;margin-top:1.35rem;overflow:hidden}
+.cf-turnstile{width:100%;min-height:65px}
 .actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.4rem}
 button,.button{display:inline-flex;align-items:center;justify-content:center;min-height:2.9rem;padding:.7rem 1.35rem;border:1px solid var(--forest);border-radius:2px;color:var(--surface);background:var(--forest);font:inherit;font-size:.93rem;font-weight:650;text-decoration:none;cursor:pointer;transition:background-color 160ms ease,border-color 160ms ease}
 button:hover,.button:hover{background:var(--forest-deep)}
 button.quiet,.button.quiet{color:var(--ink);background:transparent;border-color:var(--line-strong)}
 button.quiet:hover,.button.quiet:hover{border-color:var(--forest);background:var(--paper)}
+.subscription-form .actions button{width:100%}
+.flow-links{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem .65rem;margin-top:1.5rem;padding-top:1.1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.8rem}
+.flow-links a{color:var(--muted)}
+.flow-links a:hover{color:var(--forest)}
 :focus-visible{outline:0;box-shadow:var(--focus)}
 .trap{position:absolute;left:-10000px}
 .return{margin-top:1.75rem}
@@ -59,7 +66,8 @@ th,td{padding:.7rem .6rem;border-bottom:1px solid var(--line);text-align:left;ov
 th{color:var(--muted);font-size:.78rem;font-weight:650}
 @media (max-width:900px){.site-header{width:min(calc(100% - 2rem),78rem);flex-direction:column;align-items:flex-start;padding:1.4rem 0 1rem}.site-header nav{width:100%;min-width:0}.nav{width:100%;overflow-x:auto;padding-bottom:.2rem;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav a{white-space:nowrap}}
 @media (max-width:640px){.lockup small{display:none}}
-@media (max-width:30rem){.actions>*{flex:1 1 100%}}
+@media (max-width:30rem){main{width:min(calc(100% - 1rem),36rem);padding:1.5rem 1rem}.actions>*{flex:1 1 100%}}
+@media (max-width:21rem){.verification{width:calc(100% + 1.5rem);margin-left:-.75rem}}
 @media (prefers-reduced-motion:reduce){button,.button,.nav a{transition:none}}
 `;
 const doneIcon = `<div class="done" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>`;
@@ -421,12 +429,32 @@ export async function subscriptionRoutes(request: Request, env: Env): Promise<Re
     }
     if (!env.SUBSCRIPTIONS_TURNSTILE_SITE_KEY || !env.SUBSCRIPTIONS_TURNSTILE_SECRET) return page(env, "Subscriptions are unavailable", `<p>The subscription form isn't available right now. Try again later.</p>${homeLink}`, { status: 503 });
     const copy = {
-      subscribe: { title: "Subscribe to the weekly digest", lead: "We'll email you a link to confirm. You're added once you click it.", label: "Your email address", button: "Send confirmation link" },
-      invite: { title: "Invite someone to the digest", lead: "We'll email them an invitation. They're added only if they accept.", label: "Their email address", button: "Send invitation" },
-      unsubscribe: { title: "Unsubscribe from the weekly digest", lead: "We’ll email a link to this address. Click it once to stop the digest.", label: "Your email address", button: "Email my unsubscribe link" }
+      subscribe: {
+        title: "Subscribe to the weekly digest",
+        lead: "One weekly email with reviewed coverage of dairy, meat, and bovine genetics, plus links to the original sources.",
+        process: "We'll send a confirmation link first. You won't be added until you confirm.",
+        label: "Your email address", placeholder: "you@company.com", button: "Send confirmation link"
+      },
+      invite: {
+        title: "Invite someone to the weekly digest",
+        lead: "Share Proterra Intelligence with someone who would value the coverage.",
+        process: "We'll send one invitation in your name. They decide whether to subscribe.",
+        label: "Their email address", placeholder: "them@company.com", button: "Send invitation"
+      },
+      unsubscribe: {
+        title: "Unsubscribe from the weekly digest",
+        lead: "Stop the weekly digest for this email address.",
+        process: "For security, we'll email a one-time link. The subscription stays active until that link is used.",
+        label: "Your email address", placeholder: "you@company.com", button: "Send unsubscribe link"
+      }
     }[kind];
     const nameField = kind === "invite" ? `<label for="name">Your name <small>Optional</small></label><input id="name" name="name" autocomplete="name" maxlength="60"><p class="hint">Shown in the invitation so they know who it's from.</p>` : "";
-    return page(env, copy.title, `<p>${copy.lead}</p><form method="post" action="/subscriptions/request"><input type="hidden" name="intent" value="${kind}"><label for="email">${copy.label}</label><input id="email" type="email" name="email" value="${e(email)}" autocomplete="${kind === "invite" ? "off" : "email"}" maxlength="254" required>${nameField}<label class="trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label><div class="cf-turnstile" data-sitekey="${e(env.SUBSCRIPTIONS_TURNSTILE_SITE_KEY)}" data-action="subscription" data-size="compact"></div><div class="actions"><button type="submit">${copy.button}</button></div></form><script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>`);
+    const otherActions = {
+      subscribe: '<a href="/subscriptions?intent=invite">Invite someone</a><span aria-hidden="true">·</span><a href="/subscriptions?intent=unsubscribe">Unsubscribe</a>',
+      invite: '<a href="/subscriptions">Subscribe yourself</a><span aria-hidden="true">·</span><a href="/subscriptions?intent=unsubscribe">Unsubscribe</a>',
+      unsubscribe: '<a href="/subscriptions">Subscribe</a><span aria-hidden="true">·</span><a href="/subscriptions?intent=invite">Invite someone</a>'
+    }[kind];
+    return page(env, copy.title, `<p class="lede">${copy.lead}</p><p class="process-note">${copy.process}</p><form class="subscription-form" method="post" action="/subscriptions/request"><input type="hidden" name="intent" value="${kind}"><label for="email">${copy.label}</label><input id="email" type="email" name="email" value="${e(email)}" placeholder="${copy.placeholder}" autocomplete="${kind === "invite" ? "off" : "email"}" maxlength="254" required>${nameField}<label class="trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label><div class="verification"><div class="cf-turnstile" data-sitekey="${e(env.SUBSCRIPTIONS_TURNSTILE_SITE_KEY)}" data-action="subscription" data-size="flexible" data-theme="light"></div></div><div class="actions"><button type="submit">${copy.button}</button></div></form><nav class="flow-links" aria-label="Other subscription options">${otherActions}</nav><script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>`);
   }
   return new Response("Not found", { status: 404 });
 }
