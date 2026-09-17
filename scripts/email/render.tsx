@@ -29,7 +29,7 @@ export function getDigestSubject(reports: Report[], test = false) {
 
 export async function renderDigest(reports: Report[], siteUrl: string, unsubscribeUrl?: string) {
   if (reports.length === 1) return renderWeeklyBrief(reports[0], siteUrl, unsubscribeUrl);
-  const element = <CatchupEmail reports={reports} siteUrl={siteUrl} unsubscribeUrl={unsubscribeUrl ?? `${siteUrl}/subscriptions?intent=unsubscribe`} />;
+  const element = <CatchupEmail reports={reports} siteUrl={siteUrl} images={loadEditorialImages()} unsubscribeUrl={unsubscribeUrl ?? `${siteUrl}/subscriptions?intent=unsubscribe`} />;
   const [html, text] = await Promise.all([render(element), render(element, { plainText: true })]);
   return { html, text };
 }

@@ -1,42 +1,201 @@
 import * as React from "react";
-import { Body, Button, Container, Head, Heading, Hr, Html, Link, Preview, Section, Text } from "react-email";
+import { Body, Button, Column, Container, Head, Heading, Hr, Html, Img, Link, Preview, Row, Section, Text } from "react-email";
 import type { Report } from "../src/lib/content";
+import type { EditorialImage } from "../scripts/email/report";
+import {
+  absoluteUrl,
+  body,
+  boxTitle,
+  colors,
+  compactSummary,
+  container,
+  credit,
+  ctaHeading,
+  ctaSection,
+  ctaText,
+  ctaWrapper,
+  dateLine,
+  eyebrow,
+  footer,
+  footerLink,
+  footerLinks,
+  footerText,
+  h1,
+  h2,
+  h3,
+  headlineLink,
+  heroImage,
+  heroSize,
+  intro,
+  issueUrl,
+  keyPoint,
+  keyPointBox,
+  lead,
+  masthead,
+  primaryButton,
+  pulseBasis,
+  pulseColumn,
+  pulseLabel,
+  pulseSection,
+  pulseValue,
+  sectionLabel,
+  sectorNames,
+  sourceLine,
+  sourceLink,
+  storyDivider,
+  storyMeta,
+  storySummary,
+  utilityLink,
+  viewColumn,
+  whyLabel,
+  whyText
+} from "./theme";
 
 export function readableDate(date: string) {
   return new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${date}T00:00:00Z`));
 }
 
-export function CatchupEmail({ reports, siteUrl, unsubscribeUrl }: { reports: Report[]; siteUrl: string; unsubscribeUrl: string }) {
-  return <Html lang="en">
-    <Head />
-    <Preview>Three weeks of Proterra Intelligence, organized by reporting week.</Preview>
-    <Body style={{ margin: 0, backgroundColor: "#f3f6f4", fontFamily: "Arial, Helvetica, sans-serif", color: "#15231f" }}>
-      <Container style={{ maxWidth: "600px", width: "100%", backgroundColor: "white", margin: "0 auto" }}>
-        <Section style={{ padding: "28px 24px" }}>
-          <Text style={{ color: "#145f4a", fontSize: "12px", letterSpacing: "1px", fontWeight: 700 }}>PROTERRA INTELLIGENCE</Text>
-          <Heading as="h1" style={{ fontSize: "30px", lineHeight: "36px" }}>Your three-week catch-up</Heading>
-          <Text style={{ lineHeight: "24px" }}>{readableDate(reports[0].period.start)} – {readableDate(reports.at(-1)!.period.end)}</Text>
-          <Text style={{ lineHeight: "24px", color: "#53605c" }}>Three reviewed weekly briefs in one email. Each section reflects its original reporting window; open the full issue for key points, context, and supporting sources.</Text>
-        </Section>
-        {reports.map(report => <Section key={report.slug} style={{ padding: "24px", borderTop: "1px solid #dce4e0" }}>
-          <Text style={{ color: "#145f4a", fontSize: "12px", fontWeight: 700 }}>ISSUE {report.issueNumber} · {readableDate(report.publishedAt)}</Text>
-          <Heading as="h2" style={{ fontSize: "22px", lineHeight: "29px", margin: "8px 0" }}>{readableDate(report.period.start)} – {readableDate(report.period.end)}</Heading>
-          <Text style={{ fontWeight: 700, lineHeight: "24px" }}>{report.overview?.headline ?? report.title}</Text>
-          <Text style={{ color: "#53605c", lineHeight: "23px", fontSize: "14px" }}>{report.executiveSummary}</Text>
-          {report.items.map(item => <React.Fragment key={item.rank}>
-            <Heading as="h3" style={{ fontSize: "16px", lineHeight: "23px", margin: "20px 0 6px" }}>
-              <Link href={item.citations[0].url} style={{ color: "#173f32", textDecoration: "none" }}>{item.headline}</Link>
-            </Heading>
-            <Text style={{ fontSize: "13px", lineHeight: "21px", color: "#53605c", margin: "0 0 10px" }}>{item.summary}</Text>
-          </React.Fragment>)}
-          <Button href={`${siteUrl}/reports/${report.slug}/`} style={{ backgroundColor: "#145f4a", color: "white", borderRadius: "5px", padding: "12px 18px", fontSize: "13px", marginTop: "12px" }}>Read the {readableDate(report.publishedAt)} issue</Button>
-        </Section>)}
-        <Section style={{ padding: "24px", backgroundColor: "#edf1ef" }}>
-          <Text style={{ fontSize: "11px", lineHeight: "18px", color: "#62706b" }}>Proterra Intelligence · Dairy, meat, and bovine genetics. Prepared from reviewed public sources. Reply with corrections or source suggestions.</Text>
-          <Hr />
-          <Text style={{ fontSize: "12px", lineHeight: "20px" }}><Link href={`${siteUrl}/archive/`}>Archive</Link>{" · "}<Link href={`${siteUrl}/subscriptions?intent=invite`}>Invite someone</Link>{" · "}<Link href={unsubscribeUrl}>Unsubscribe</Link></Text>
-        </Section>
-      </Container>
-    </Body>
-  </Html>;
+function storyLabel(item: Report["items"][number], rank?: number) {
+  const sectors = item.sectors.map((sector) => sectorNames[sector]).join(" / ");
+  return `${rank ? `${String(rank).padStart(2, "0")} · ` : ""}${sectors} · ${item.regions.join(" / ")}`;
 }
+
+export function CatchupEmail({ reports, siteUrl, images, unsubscribeUrl }: { reports: Report[]; siteUrl: string; images: Map<string, EditorialImage>; unsubscribeUrl: string }) {
+  const first = reports[0];
+  const last = reports.at(-1)!;
+  const window = `${readableDate(first.period.start)} – ${readableDate(last.period.end)}`;
+
+  return (
+    <Html lang="en">
+      <Head />
+      <Preview>{`Issues ${first.issueNumber}–${last.issueNumber} in one email: every story from ${window}.`}</Preview>
+      <Body style={body}>
+        <Container style={container}>
+          <Section style={masthead}>
+            <Row>
+              <Column>
+                <Text style={eyebrow}>PROTERRA INTELLIGENCE</Text>
+                <Text style={dateLine}>{window} · Issues {first.issueNumber}–{last.issueNumber}</Text>
+              </Column>
+              <Column align="right" style={viewColumn}>
+                <Link href={`${siteUrl}/archive/`} style={utilityLink}>View online</Link>
+              </Column>
+            </Row>
+          </Section>
+
+          <Section style={intro}>
+            <Heading as="h1" style={h1}>Your three-week catch-up</Heading>
+            <Text style={lead}>Three reviewed weekly briefs in one email. Each week leads with its top story; the rest follow in brief, every one linked to its original source.</Text>
+          </Section>
+
+          {reports.map((report) => {
+            const [topStory, ...otherStories] = report.items;
+            const topImage = images.get(topStory.imageId);
+            const onlineUrl = issueUrl(siteUrl, report.slug);
+
+            return (
+              <Section key={report.slug} style={weekSection}>
+                <Text style={sectionLabel}>ISSUE {report.issueNumber} · {readableDate(report.period.start)} – {readableDate(report.period.end)}</Text>
+                <Heading as="h2" style={h2}>{report.overview?.headline ?? report.title}</Heading>
+                <Text style={weekLead}>{report.executiveSummary}</Text>
+
+                {report.dashboard?.sectorPulses && (
+                  <Section style={pulseWrapper}>
+                    <Section style={pulseSection}>
+                      <Row>
+                        {report.dashboard.sectorPulses.map((pulse) => (
+                          <Column key={pulse.sector} style={pulseColumn}>
+                            <Text style={pulseLabel}>{sectorNames[pulse.sector]}</Text>
+                            <Text style={pulseValue}>{pulse.value}</Text>
+                            <Text style={pulseBasis}>{pulse.basis}</Text>
+                          </Column>
+                        ))}
+                      </Row>
+                    </Section>
+                  </Section>
+                )}
+
+                <Text style={topStoryLabel}>TOP STORY</Text>
+                {topImage && (
+                  <>
+                    <Link href={topStory.citations[0].url}>
+                      <Img src={absoluteUrl(siteUrl, topImage.src)} {...heroSize(topImage)} alt={topImage.alt} style={heroImage} />
+                    </Link>
+                    <Text style={{ ...credit, textAlign: heroSize(topImage).width < 552 ? "center" : "left" }}>Photo: {topImage.creator} · {topImage.license}</Text>
+                  </>
+                )}
+                <Text style={storyMeta}>{storyLabel(topStory)}</Text>
+                <Heading as="h3" style={h3}>
+                  <Link href={topStory.citations[0].url} style={headlineLink}>{topStory.headline}</Link>
+                </Heading>
+                <Text style={storySummary}>{topStory.summary}</Text>
+                <Section style={keyPointBox}>
+                  <Text style={boxTitle}>Key points</Text>
+                  {topStory.keyPoints.slice(0, 3).map((point) => (
+                    <Text key={point} style={keyPoint}>• {point}</Text>
+                  ))}
+                </Section>
+                <Text style={whyLabel}>WHY IT MATTERS TO PROTERRA</Text>
+                <Text style={whyText}>{topStory.whyItMatters}</Text>
+                <Text style={sourceLine}>
+                  <Link href={topStory.citations[0].url} style={sourceLink}>{topStory.citations[0].title}</Link>
+                </Text>
+
+                {otherStories.map((item) => (
+                  <React.Fragment key={item.rank}>
+                    <Hr style={storyDivider} />
+                    <Text style={storyMeta}>{storyLabel(item, item.rank)}</Text>
+                    <Heading as="h3" style={compactHeadline}>
+                      <Link href={item.citations[0].url} style={headlineLink}>{item.headline}</Link>
+                    </Heading>
+                    <Text style={compactSummary}>{item.summary}</Text>
+                    <Text style={sourceLine}>
+                      <Link href={item.citations[0].url} style={sourceLink}>{item.citations[0].title}</Link>
+                    </Text>
+                  </React.Fragment>
+                ))}
+
+                <Section style={issueButtonWrapper}>
+                  <Button href={onlineUrl} style={primaryButton}>Open issue {report.issueNumber}</Button>
+                </Section>
+              </Section>
+            );
+          })}
+
+          <Section style={ctaWrapper}>
+            <Section style={ctaSection}>
+              <Heading as="h2" style={ctaHeading}>Back to the weekly rhythm</Heading>
+              <Text style={ctaText}>The next issue arrives on its usual schedule. The archive holds every brief, with sources and the current dashboard.</Text>
+              <Button href={`${siteUrl}/archive/`} style={primaryButton}>Open the archive</Button>
+            </Section>
+          </Section>
+
+          <Section style={footer}>
+            <Text style={footerText}>Proterra Intelligence · Dairy, meat, and bovine genetics</Text>
+            <Text style={footerText}>Prepared from reviewed public sources. Reply to this email with corrections or source suggestions.</Text>
+            <Text style={footerLinks}>
+              <Link href={`${siteUrl}/sources/`} style={footerLink}>Sources</Link>
+              {" · "}
+              <Link href={`${siteUrl}/methodology/`} style={footerLink}>Methodology</Link>
+              {" · "}
+              <Link href={`${siteUrl}/archive/`} style={footerLink}>Archive</Link>
+              {" · "}
+              <Link href={`${siteUrl}/subscriptions?intent=invite`} style={footerLink}>Invite someone</Link>
+              {" · "}
+              <Link href={unsubscribeUrl} style={footerLink}>Unsubscribe</Link>
+            </Text>
+          </Section>
+        </Container>
+      </Body>
+    </Html>
+  );
+}
+
+const weekSection: React.CSSProperties = { padding: "30px 24px 34px", borderTop: `1px solid ${colors.line}` };
+const weekLead: React.CSSProperties = { margin: "0 0 22px", color: "#43514c", fontSize: "15px", lineHeight: "24px" };
+const pulseWrapper: React.CSSProperties = { padding: "0 0 26px" };
+const topStoryLabel: React.CSSProperties = { ...sectionLabel, margin: "0 0 12px" };
+const compactHeadline: React.CSSProperties = { margin: "0 0 8px", fontSize: "17px", lineHeight: "24px", letterSpacing: "-0.15px" };
+const issueButtonWrapper: React.CSSProperties = { padding: "26px 0 0" };
+
+export default CatchupEmail;
