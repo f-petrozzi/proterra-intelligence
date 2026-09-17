@@ -1,0 +1,347 @@
+{
+  "schemaVersion": 1,
+  "issueDate": "2026-08-31",
+  "window": {
+    "start": "2026-08-17T04:00:00.000Z",
+    "end": "2026-08-31T04:00:00.000Z",
+    "timezone": "America/New_York"
+  },
+  "generatedAt": "2026-09-17T01:13:20.921Z",
+  "candidates": [
+    {
+      "candidateId": "acb3cb69afef90b527f72b6fb7b10d3bc1ef614a26cb9df4264b08d65d8b66b2",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/neogenyx-builds-nebraska-rng-facility-at-adams-land-cattle",
+      "citationUrl": "https://beefmagazine.com/market-news/neogenyx-builds-nebraska-rng-facility-at-adams-land-cattle",
+      "title": "Neogenyx builds Nebraska RNG facility at Adams Land &amp; Cattle",
+      "publishedAt": "2026-08-28T16:02:56.000Z",
+      "summary": "Project at Broken Bow feedlot will use eight anaerobic digesters to generate 4,400 SCFM of biogas per year.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:13:00.837Z",
+      "relevanceScore": 0.549541,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.489827,
+            "weight": 0.34,
+            "contribution": 0.166541,
+            "ageDays": 2.497963
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.25,
+            "weight": 0.14,
+            "contribution": 0.035,
+            "keywordHits": 3
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.549541
+      },
+      "clusterId": "2a7b9ec0549a910e1a0d13c2fdb8e52ecd50a108d584180162f16374fdfeef52",
+      "reviewTier": "review-first",
+      "selectionBasis": "coverage-balance",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "69a25c6ee9dfe9167199da43f08fc6144108bf1a666606970553c95fa948075a",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/texas-a-m-rebrands-cattle-nutrition-diagnostics-lab",
+      "citationUrl": "https://beefmagazine.com/livestock-management/texas-a-m-rebrands-cattle-nutrition-diagnostics-lab",
+      "title": "Texas A&amp;M rebrands cattle nutrition diagnostics lab",
+      "publishedAt": "2026-08-28T18:13:13.000Z",
+      "summary": "Grazingland Animal Nutrition Lab renamed Ranch Diagnostics Lab to reflect broader ranch and wildlife focus and expanded testing.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:13:00.837Z",
+      "relevanceScore": 0.542236,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.502654,
+            "weight": 0.34,
+            "contribution": 0.170902,
+            "ageDays": 2.407488
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.542236
+      },
+      "clusterId": "5a3fce837a7fa11752ce45ec48a146dddcf641001f1e48014cf0030888e131b5",
+      "reviewTier": "review-first",
+      "selectionBasis": "coverage-balance",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "353258012abc423cfe1d99062c172be39ceccc57272a1ec7998f49db1d0fbbb8",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/market-news/dissecting-trump-s-beef-deal-",
+      "citationUrl": "https://beefmagazine.com/market-news/dissecting-trump-s-beef-deal-",
+      "title": "Dissecting Trump’s beef “deal”",
+      "publishedAt": "2026-08-28T14:47:52.000Z",
+      "summary": "Big questions arise as we continue to ruminate over President Trump’s latest move to increase beef trimmings imports.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:13:00.837Z",
+      "relevanceScore": 0.535412,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.482585,
+            "weight": 0.34,
+            "contribution": 0.164079,
+            "ageDays": 2.550093
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.535412
+      },
+      "clusterId": "3c4d22cf72c753e8ebd4ccd3a9c1dbcd28aa61cb67a9d1927ecdf71311571d6b",
+      "reviewTier": "review-first",
+      "selectionBasis": "queue-order",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "d2e84027093d22b1b6d7ac5afd7242f2cebcbdd0c60c6af1010c04c53ed1efad",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/can-nematodes-curb-spread-of-cattle-fever-ticks-",
+      "citationUrl": "https://beefmagazine.com/livestock-management/can-nematodes-curb-spread-of-cattle-fever-ticks-",
+      "title": "Can nematodes curb spread of cattle fever ticks?",
+      "publishedAt": "2026-08-28T13:38:22.000Z",
+      "summary": "Roundworms that invade and kill insects and ticks may be an innovative and natural means of control.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:13:00.837Z",
+      "relevanceScore": 0.533165,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.475976,
+            "weight": 0.34,
+            "contribution": 0.161832,
+            "ageDays": 2.598356
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.533165
+      },
+      "clusterId": "e7f3dfbbe0385c9323ab41a846b9abd1a7d582d3a5cb3ec0a529eb7fb457f677",
+      "reviewTier": "review-first",
+      "selectionBasis": "publisher-cap-exception",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    },
+    {
+      "candidateId": "070e53ffaa2b915bfc04e2ef48599dc011830e5a2304d493e8a2b8c388ba5250",
+      "sourceId": "beef-magazine",
+      "publisherGroup": "farm-progress",
+      "collectionRole": "discovery",
+      "contentClass": "news",
+      "language": "en",
+      "discoveredBy": "rss",
+      "canonicalUrl": "https://beefmagazine.com/livestock-management/fda-issues-eua-for-ivermectin-injection-against-screwworm-in-cattle",
+      "citationUrl": "https://beefmagazine.com/livestock-management/fda-issues-eua-for-ivermectin-injection-against-screwworm-in-cattle",
+      "title": "FDA issues EUA for ivermectin injection against screwworm in cattle",
+      "publishedAt": "2026-08-27T20:29:08.000Z",
+      "summary": "Emergency use authorization is FDA’s 14th against New World screwworm.",
+      "summaryOrigin": "source-supplied",
+      "sectors": [
+        "meat"
+      ],
+      "geographies": [
+        "United States"
+      ],
+      "retrievedAt": "2026-09-17T01:13:00.837Z",
+      "relevanceScore": 0.503273,
+      "scoreBreakdown": {
+        "version": 1,
+        "factors": {
+          "recency": {
+            "signal": 0.388058,
+            "weight": 0.34,
+            "contribution": 0.13194,
+            "ageDays": 3.313102
+          },
+          "authority": {
+            "signal": 0.7,
+            "weight": 0.24,
+            "contribution": 0.168
+          },
+          "contentClass": {
+            "signal": 1,
+            "weight": 0.18,
+            "contribution": 0.18
+          },
+          "topic": {
+            "signal": 0.166667,
+            "weight": 0.14,
+            "contribution": 0.023333,
+            "keywordHits": 2
+          },
+          "corroboration": {
+            "signal": 0,
+            "weight": 0.1,
+            "contribution": 0,
+            "supportingSources": 0
+          }
+        },
+        "adjustments": {
+          "bovineGenetics": 0,
+          "international": 0,
+          "nonEnglish": 0
+        },
+        "total": 0.503273
+      },
+      "clusterId": "f59a24aa0374fdf39d15fff030a91861ce4e01465078dcf57e69ce5b9d4afea3",
+      "reviewTier": "review-first",
+      "selectionBasis": "publisher-cap-exception",
+      "relatedUrls": [],
+      "duplicateMatches": []
+    }
+  ]
+}

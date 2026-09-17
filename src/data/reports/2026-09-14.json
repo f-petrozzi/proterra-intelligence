@@ -1,0 +1,316 @@
+{
+  "slug": "2026-09-14",
+  "issueNumber": 6,
+  "title": "Weekly Brief",
+  "status": "approved",
+  "period": {
+    "start": "2026-09-07",
+    "end": "2026-09-13"
+  },
+  "publishedAt": "2026-09-14",
+  "scope": {
+    "basis": "public-sources-only",
+    "disclosure": "This brief uses public industry sources and does not assess Proterra-owned animals, customers, sales, or commercial performance."
+  },
+  "executiveSummary": "Selected Canadian dairy restrictions and revised U.S. supply forecasts frame the week. Company announcements concern cattle data, butter processing and screwworm capacity, while IICA’s El Salvador account adds regional drought and animal-health context.",
+  "editorNote": "Retrospective draft prepared September 16–17, 2026 from dated publications. The issue date identifies the reporting slot, not an actual historical publication. Announcements and forecasts describe what was known in the reporting window; subsequent outcomes are not assumed. Human factual approval is pending.",
+  "overview": {
+    "headline": "Dairy trade changes and livestock infrastructure plans lead the week",
+    "points": [
+      {
+        "label": "Genetics",
+        "text": "Cattle data integration is the selection-related development; no new national evaluation was verified."
+      },
+      {
+        "label": "Dairy",
+        "text": "Selected Canadian import restrictions are scheduled for September 29, after this reporting window."
+      },
+      {
+        "label": "Meat",
+        "text": "USDA lowers expected beef output as new screwworm-response capacity is announced."
+      }
+    ]
+  },
+  "dashboard": {
+    "sectorPulses": [
+      {
+        "sector": "dairy",
+        "label": "2026 milk forecast",
+        "value": "237.2bn lb",
+        "basis": "September versus August WASDE: +0.6bn lb",
+        "direction": "up",
+        "note": "This is a revised annual forecast, not realized production.",
+        "itemRank": 3
+      },
+      {
+        "sector": "meat",
+        "label": "2026 beef forecast",
+        "value": "24.877bn lb",
+        "basis": "September versus August WASDE: −0.090bn lb",
+        "direction": "down",
+        "note": "The annual forecast reflects revised slaughter and weight expectations.",
+        "itemRank": 3
+      },
+      {
+        "sector": "bovine-genetics",
+        "label": "Performance data integration",
+        "value": "Announced",
+        "basis": "C-Lock/CERES TAG release, September 11",
+        "direction": "new",
+        "note": "The proposed link may inform selection; no genetic gain is established.",
+        "itemRank": 1
+      }
+    ],
+    "keyMetrics": [
+      {
+        "label": "Import exclusion start",
+        "value": "September 29",
+        "basis": "Selected Canadian dairy exclusions announced September 8",
+        "itemRank": 2
+      },
+      {
+        "label": "Carlisle milk throughput",
+        "value": "~4.5m lb/day",
+        "basis": "Existing throughput reported by cooperative, September 10",
+        "itemRank": 4
+      },
+      {
+        "label": "2026 all-milk price forecast",
+        "value": "$19.90/cwt",
+        "basis": "September WASDE versus $19.85/cwt in August",
+        "itemRank": 3
+      }
+    ]
+  },
+  "items": [
+    {
+      "rank": 1,
+      "reviewId": "story-a1fc01330df85127",
+      "headline": "C-Lock and CERES TAG connect cattle performance records",
+      "imageId": "cattle-monitoring-tag",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "manual",
+      "sectors": [
+        "meat",
+        "bovine-genetics"
+      ],
+      "regions": [
+        "United States",
+        "International"
+      ],
+      "signal": "new",
+      "summary": "C-Lock and CERES TAG announced a partnership to connect individual-animal measurements from feeding facilities and pasture. C-Lock says it will distribute CERES TAG technology and work on software and data integration.",
+      "keyPoints": [
+        "The companies propose linking measurements to the same animal identifier across environments.",
+        "The release identifies breeding and nutrition decisions as intended uses of the combined records."
+      ],
+      "whyItMatters": "Continuity of performance records could improve the information available when comparing animals raised under different conditions.",
+      "businessRelevance": "For Proterra, independently validated links between recorded performance and selection decisions could be worth monitoring.",
+      "uncertainty": "The announcement does not establish a new genetic evaluation, improved breeding values or independently verified gains from the combined system.",
+      "watchNext": "Watch for integration availability and published validation of the combined measurements.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "beef-magazine",
+          "title": "C-Lock and CERES TAG partner to advance animal insights",
+          "url": "https://www.beefmagazine.com/livestock-management/c-lock-and-ceres-tag-partner-to-advance-animal-insights",
+          "publishedAt": "2026-09-11",
+          "sourceNote": "Company release syndicated by BEEF; capabilities and expected benefits are attributed, not treated as demonstrated genetic improvement."
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "reviewId": "story-6265570172143351",
+      "headline": "U.S. announces September 29 restrictions on selected Canadian dairy imports",
+      "imageId": "milk-powder",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "manual",
+      "sectors": [
+        "dairy"
+      ],
+      "regions": [
+        "United States",
+        "Canada"
+      ],
+      "signal": "new",
+      "summary": "September 9 reporting describes new U.S. proclamations restricting selected Canadian imports. USDA’s September 11 outlook confirms that exclusions covering certain Canadian dairy products were announced September 8 and are scheduled to take effect September 29.",
+      "keyPoints": [
+        "The exclusions had not yet taken effect during this reporting week.",
+        "USDA incorporated the announced restrictions into its September forecast assumptions."
+      ],
+      "whyItMatters": "An announced change in market access can affect planning before its effective date.",
+      "businessRelevance": "For Proterra, this could warrant closer attention to cross-border dairy supply assumptions and subsequent official notices.",
+      "uncertainty": "This is not a ban on every Canadian dairy product. Exact tariff classifications and later amendments require the operative legal documents.",
+      "watchNext": "Watch implementation notices and any negotiated change before the scheduled effective date.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "feedstuffs",
+          "title": "U.S. bans imports of Canadian dairy products",
+          "url": "https://www.feedstuffs.com/policy/u-s-bans-imports-of-canadian-dairy-products",
+          "publishedAt": "2026-09-09",
+          "sourceNote": "Trade reporting supplies the announcement context. USDA’s dated outlook independently corroborates the selected-dairy scope and effective date; detailed product classifications are not inferred."
+        },
+        {
+          "sourceId": "usda-waob",
+          "title": "World Agricultural Supply and Demand Estimates, September 2026",
+          "url": "https://www.usda.gov/oce/commodity/wasde/",
+          "evidenceUrl": "https://www.usda.gov/oce/commodity/wasde/wasde0926.pdf",
+          "releaseId": "WASDE-675",
+          "publishedAt": "2026-09-11",
+          "sourceNote": "Page 4 confirms the announcement date, selected Canadian dairy scope and September 29 effective date used in the forecast."
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "reviewId": "story-edf17d9d2fdf7c57",
+      "headline": "USDA raises milk production forecast and lowers beef outlook",
+      "imageId": "dairy-parlor",
+      "documentType": "report",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "manual",
+      "sectors": [
+        "dairy",
+        "meat"
+      ],
+      "regions": [
+        "United States"
+      ],
+      "signal": "new",
+      "summary": "USDA’s September outlook raises its 2026 milk production forecast while reducing expected beef output. The revisions update the August assessment rather than reporting completed annual production.",
+      "keyPoints": [
+        "The 2026 milk forecast rises from 236.6 to 237.2 billion pounds.",
+        "The 2026 beef forecast falls from 24.967 to 24.877 billion pounds.",
+        "The 2026 all-milk price forecast increases from $19.85 to $19.90 per hundredweight."
+      ],
+      "whyItMatters": "Diverging supply expectations provide context for dairy processing plans and cattle-market conditions.",
+      "businessRelevance": "For Proterra, the revisions could inform monitoring of sector demand assumptions without implying a change in any specific operation.",
+      "uncertainty": "These are forecasts that depend on market conditions and policy assumptions; they are not observed annual totals.",
+      "watchNext": "Watch the next outlook for revisions as additional production and slaughter data arrive.",
+      "confidence": "high",
+      "citations": [
+        {
+          "sourceId": "usda-waob",
+          "title": "World Agricultural Supply and Demand Estimates, September 2026",
+          "url": "https://www.usda.gov/oce/commodity/wasde/",
+          "publishedAt": "2026-09-11",
+          "sourceNote": "Dated WASDE-675 tables provide the August-to-September comparison. This material supply revision is the issue’s single supporting-data story.",
+          "evidenceUrl": "https://www.usda.gov/oce/commodity/wasde/wasde0926.pdf",
+          "releaseId": "WASDE-675"
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "reviewId": "story-c48ae5735b0d89df",
+      "headline": "Land O’Lakes announces support for Carlisle butter investment",
+      "imageId": "butter-output",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "manual",
+      "sectors": [
+        "dairy"
+      ],
+      "regions": [
+        "United States"
+      ],
+      "signal": "new",
+      "summary": "Land O’Lakes announced that its Carlisle, Pennsylvania project was selected for state agricultural innovation support. The cooperative says funding will help it invest in a new butter churn at the milk-processing facility.",
+      "keyPoints": [
+        "The release describes the investment as intended to improve capacity and operating efficiency.",
+        "Land O’Lakes reports that the site processes approximately 4.5 million pounds of milk per day."
+      ],
+      "whyItMatters": "Butter processing is part of the infrastructure used to balance regional milk supplies.",
+      "businessRelevance": "For Proterra, investment in milk-balancing capacity could be useful context when following regional processing demand.",
+      "uncertainty": "The article does not disclose the facility’s individual grant amount or quantify the added capacity; announced benefits remain prospective.",
+      "watchNext": "Watch installation timing and any later disclosure of the equipment’s operating results.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "feedstuffs",
+          "title": "Land O’Lakes receives Pennsylvania Ag Innovation Grant",
+          "url": "https://www.feedstuffs.com/agribusiness-news/land-o-lakes-receives-pennsylvania-ag-innovation-grant",
+          "publishedAt": "2026-09-10",
+          "sourceNote": "Cooperative-authored industry release republished by Feedstuffs. Existing throughput is attributed to Land O’Lakes and is not additional capacity."
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "reviewId": "story-e0a9cdc02ed9bfc1",
+      "headline": "Flyttr plans San Antonio screwworm-response facility",
+      "imageId": "screwworm-fly",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "manual",
+      "sectors": [
+        "meat",
+        "dairy"
+      ],
+      "regions": [
+        "United States"
+      ],
+      "signal": "new",
+      "summary": "Flyttr announced plans for a San Antonio research and manufacturing platform addressing pest threats. Its proposed initial focus is New World screwworm through the company’s FastFly sterile-fly initiative.",
+      "keyPoints": [
+        "The announcement combines research, engineering and manufacturing in the planned platform.",
+        "Flyttr describes sterile-fly production as a contribution to the broader U.S. response."
+      ],
+      "whyItMatters": "Additional production capability could matter to outbreak-response capacity if it is delivered and validated.",
+      "businessRelevance": "For Proterra, implementation milestones could be useful indicators when following public animal-health infrastructure.",
+      "uncertainty": "The release does not establish that the facility is operating, a delivery volume has been achieved or biological effectiveness has been demonstrated.",
+      "watchNext": "Watch construction, regulatory and production milestones rather than assuming announced capacity is available.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "beef-magazine",
+          "title": "Flyttr to build first U.S. pest biosecurity platform",
+          "url": "https://www.beefmagazine.com/market-news/flyttr-to-build-first-u-s-pest-biosecurity-platform",
+          "publishedAt": "2026-09-08",
+          "sourceNote": "Company announcement syndicated by BEEF. Superlatives, efficacy claims and unverified capacity projections are omitted."
+        }
+      ]
+    },
+    {
+      "rank": 6,
+      "reviewId": "story-e4af1d17fbfffedd",
+      "headline": "El Salvador and IICA review livestock drought and health response",
+      "imageId": "global-pasture",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "manual",
+      "sectors": [
+        "dairy",
+        "meat"
+      ],
+      "regions": [
+        "El Salvador",
+        "Latin America"
+      ],
+      "signal": "new",
+      "summary": "IICA reported meetings with Salvadoran officials and partners about drought pressures and agricultural cooperation. Livestock water and fodder shortages, animal-feed support and screwworm control formed part of the agenda.",
+      "keyPoints": [
+        "The account describes discussion of feed subsidies and pumps for irrigation and forage production.",
+        "IICA also reports work with USDA representatives on screwworm control plans."
+      ],
+      "whyItMatters": "Feed availability and disease response are connected constraints for cattle systems in the Central American Dry Corridor.",
+      "businessRelevance": "For Proterra, this regional account could help focus monitoring on practical resilience measures and official animal-health updates.",
+      "uncertainty": "The meeting report does not quantify cattle losses or establish a newly funded, livestock-only program.",
+      "watchNext": "Watch for specific implementation notices and measurable results from the assistance discussed.",
+      "confidence": "high",
+      "citations": [
+        {
+          "sourceId": "iica",
+          "title": "The IICA Director General visits El Salvador and works with the Government and strategic partners to design responses to address El Niño and other challenges affecting the agriculture sector",
+          "url": "https://iica.int/en/press/news/the-iica-director-general-visits-el-salvador-and-works-with-the-government-and-strategic-partners-to-design-responses-to-address-el-nino-and-other-challenges-affecting-the-agriculture-sector/",
+          "publishedAt": "2026-09-11",
+          "sourceNote": "Primary IICA institutional account available in English. The brief distinguishes discussions and existing cooperation from newly awarded funding."
+        }
+      ]
+    }
+  ]
+}
