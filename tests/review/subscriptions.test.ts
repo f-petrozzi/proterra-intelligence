@@ -6,6 +6,7 @@ import type { Env } from "../../review-worker/src/index";
 import { claimMail, consumeRequest, importSubscribers, inviterNameSchema, removeSubscriber, requestSubscription, subscriptionRecipients, subscriptionRoutes, unsubscribeAddress } from "../../review-worker/src/subscriptions";
 import { onRequest as subscriptionsRoute } from "../../functions/subscriptions/[[path]]";
 import { loadDigest } from "../../scripts/email/digest";
+import { escapeHtml } from "../../review-worker/src/html";
 import { renderDigest, getDigestSubject, getSubscriptionSubject, renderSubscriptionEmail } from "../../scripts/email/render";
 
 async function fixture(initialize = true) {
@@ -170,6 +171,18 @@ test("catch-up renders three dated sections, all 18 articles, and recipient-spec
     for (const item of report.items) assert.ok(text.toLowerCase().includes(item.headline.toLowerCase()));
   }
   assert.ok(text.includes(link));
+  // The catch-up uses the weekly brief's presentation: per-week metrics, a lead story with image,
+  // key points and why-it-matters, and every story linked to the source it was reported in.
+  for (const report of reports) {
+    const top = report.items[0];
+    assert.ok(html.includes(escapeHtml(top.whyItMatters)), `why it matters for ${report.slug}`);
+    for (const point of top.keyPoints.slice(0, 3)) assert.ok(html.includes(escapeHtml(point)), `key point for ${report.slug}`);
+    for (const pulse of report.dashboard?.sectorPulses ?? []) assert.ok(html.includes(escapeHtml(pulse.value)), `pulse for ${report.slug}`);
+    assert.ok(html.includes(`/images/editorial/`), "lead stories keep their editorial image");
+    assert.match(html, new RegExp(`Open issue (<!-- -->)?${report.issueNumber}`), `issue button for ${report.slug}`);
+    assert.ok(html.includes(`/reports/${report.slug}/`), `issue link for ${report.slug}`);
+    for (const item of report.items) assert.ok(html.includes(`href="${item.citations[0].url}"`), `source link for ${item.headline}`);
+  }
   assert.match(getDigestSubject(reports), /Three-week catch-up/);
   assert.ok(Buffer.byteLength(html) < 95_000, "Keep the combined message below common email clipping thresholds");
   assert.throws(() => loadDigest("2026-09-14,2026-08-31,2026-09-07"), /chronological/);

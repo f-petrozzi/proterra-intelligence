@@ -25,30 +25,58 @@ type WeeklyBriefEmailProps = {
   unsubscribeUrl?: string;
 };
 
-const colors = {
-  ink: "#15231f",
-  muted: "#62706b",
-  line: "#dce4e0",
-  paper: "#ffffff",
-  canvas: "#f3f6f4",
-  green: "#145f4a",
-  greenSoft: "#e8f1ed",
-  warm: "#f6f1e8"
-};
-
-const sectorNames: Record<string, string> = {
-  dairy: "Dairy",
-  meat: "Meat",
-  "bovine-genetics": "Bovine genetics"
-};
-
-function absoluteUrl(siteUrl: string, path: string) {
-  return path.startsWith("http") ? path : `${siteUrl}${path}`;
-}
-
-function issueUrl(siteUrl: string, slug: string) {
-  return `${siteUrl}/reports/${slug}/`;
-}
+import {
+  absoluteUrl,
+  colors,
+  formatDate,
+  issueUrl,
+  sectorNames,
+  body,
+  boxTitle,
+  compactSummary,
+  container,
+  credit,
+  ctaHeading,
+  ctaSection,
+  ctaText,
+  ctaWrapper,
+  dateLine,
+  eyebrow,
+  footer,
+  footerLink,
+  footerLinks,
+  footerText,
+  h1,
+  h2,
+  h3,
+  headlineLink,
+  heroImage,
+  heroSize,
+  intro,
+  keyPoint,
+  keyPointBox,
+  latestSection,
+  lead,
+  masthead,
+  primaryButton,
+  pulseBasis,
+  pulseColumn,
+  pulseLabel,
+  pulseSection,
+  pulseValue,
+  pulseWrapper,
+  sectionLabel,
+  sourceLine,
+  sourceLink,
+  storyDivider,
+  storyMeta,
+  storySummary,
+  topStorySection,
+  utilityLink,
+  viewColumn,
+  whyLabel,
+  whyText
+} from "./theme";
 
 export function WeeklyBriefEmail({ report, siteUrl, images, unsubscribeUrl }: WeeklyBriefEmailProps) {
   const [topStory, ...otherStories] = report.items;
@@ -98,17 +126,17 @@ export function WeeklyBriefEmail({ report, siteUrl, images, unsubscribeUrl }: We
           <Section style={topStorySection}>
             <Text style={sectionLabel}>TOP STORY</Text>
             {topImage && (
-              <Link href={topStory.citations[0].url}>
-                <Img
-                  src={absoluteUrl(siteUrl, topImage.src)}
-                  width="552"
-                  alt={topImage.alt}
-                  style={heroImage}
-                />
-              </Link>
-            )}
-            {topImage && (
-              <Text style={credit}>Photo: {topImage.creator} · {topImage.license}</Text>
+              <>
+                <Link href={topStory.citations[0].url}>
+                  <Img
+                    src={absoluteUrl(siteUrl, topImage.src)}
+                    {...heroSize(topImage)}
+                    alt={topImage.alt}
+                    style={heroImage}
+                  />
+                </Link>
+                <Text style={{ ...credit, textAlign: heroSize(topImage).width < 552 ? "center" : "left" }}>Photo: {topImage.creator} · {topImage.license}</Text>
+              </>
             )}
             <Text style={storyMeta}>
               {topStory.sectors.map((sector) => sectorNames[sector]).join(" · ")} · {topStory.regions.join(" · ")}
@@ -178,59 +206,5 @@ export function WeeklyBriefEmail({ report, siteUrl, images, unsubscribeUrl }: We
     </Html>
   );
 }
-
-function formatDate(value: string) {
-  return new Intl.DateTimeFormat("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "UTC"
-  }).format(new Date(`${value}T00:00:00Z`));
-}
-
-const body: React.CSSProperties = { margin: 0, backgroundColor: colors.canvas, color: colors.ink, fontFamily: "Arial, Helvetica, sans-serif" };
-const container: React.CSSProperties = { width: "100%", maxWidth: "600px", margin: "0 auto", backgroundColor: colors.paper };
-const masthead: React.CSSProperties = { padding: "24px", borderBottom: `1px solid ${colors.line}` };
-const eyebrow: React.CSSProperties = { margin: "0 0 4px", color: colors.green, fontSize: "12px", fontWeight: 700, letterSpacing: "1.4px" };
-const dateLine: React.CSSProperties = { margin: 0, color: colors.muted, fontSize: "12px", lineHeight: "18px" };
-const viewColumn: React.CSSProperties = { width: "105px" };
-const utilityLink: React.CSSProperties = { color: colors.green, fontSize: "12px", textDecoration: "underline" };
-const intro: React.CSSProperties = { padding: "34px 24px 26px" };
-const h1: React.CSSProperties = { margin: "0 0 14px", color: colors.ink, fontSize: "32px", lineHeight: "38px", letterSpacing: "-0.6px" };
-const lead: React.CSSProperties = { margin: 0, color: "#43514c", fontSize: "16px", lineHeight: "25px" };
-const pulseWrapper: React.CSSProperties = { padding: "0 24px 32px" };
-const pulseSection: React.CSSProperties = { width: "100%", backgroundColor: colors.greenSoft, borderRadius: "8px" };
-const pulseColumn: React.CSSProperties = { width: "33.333%", padding: "16px 10px", textAlign: "center", verticalAlign: "top" };
-const pulseLabel: React.CSSProperties = { margin: "0 0 6px", color: colors.muted, fontSize: "10px", fontWeight: 700, letterSpacing: "0.5px", textTransform: "uppercase" };
-const pulseValue: React.CSSProperties = { margin: "0 0 3px", color: colors.ink, fontSize: "22px", fontWeight: 700, lineHeight: "26px" };
-const pulseBasis: React.CSSProperties = { margin: 0, color: colors.muted, fontSize: "10px", lineHeight: "14px" };
-const topStorySection: React.CSSProperties = { padding: "0 24px 36px" };
-const sectionLabel: React.CSSProperties = { margin: "0 0 14px", color: colors.green, fontSize: "11px", fontWeight: 700, letterSpacing: "1.2px" };
-const heroImage: React.CSSProperties = { display: "block", width: "100%", height: "auto", borderRadius: "8px" };
-const credit: React.CSSProperties = { margin: "6px 0 18px", color: "#78847f", fontSize: "10px", lineHeight: "14px" };
-const storyMeta: React.CSSProperties = { margin: "0 0 7px", color: colors.green, fontSize: "11px", fontWeight: 700, lineHeight: "16px", textTransform: "uppercase" };
-const h2: React.CSSProperties = { margin: "0 0 12px", fontSize: "25px", lineHeight: "31px", letterSpacing: "-0.35px" };
-const h3: React.CSSProperties = { margin: "0 0 8px", fontSize: "20px", lineHeight: "26px", letterSpacing: "-0.2px" };
-const headlineLink: React.CSSProperties = { color: colors.ink, textDecoration: "none" };
-const storySummary: React.CSSProperties = { margin: "0 0 18px", color: "#43514c", fontSize: "15px", lineHeight: "24px" };
-const keyPointBox: React.CSSProperties = { margin: "0 0 18px", padding: "16px 18px", backgroundColor: colors.warm, borderRadius: "8px" };
-const boxTitle: React.CSSProperties = { margin: "0 0 9px", color: colors.ink, fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.6px" };
-const keyPoint: React.CSSProperties = { margin: "6px 0", color: "#43514c", fontSize: "14px", lineHeight: "21px" };
-const whyLabel: React.CSSProperties = { margin: "0 0 5px", color: colors.muted, fontSize: "10px", fontWeight: 700, letterSpacing: "0.8px" };
-const whyText: React.CSSProperties = { margin: "0 0 18px", color: "#43514c", fontSize: "14px", lineHeight: "22px" };
-const primaryButton: React.CSSProperties = { backgroundColor: colors.green, borderRadius: "6px", color: "#ffffff", display: "inline-block", fontSize: "13px", fontWeight: 700, padding: "12px 18px", textDecoration: "none" };
-const latestSection: React.CSSProperties = { padding: "30px 24px 36px", borderTop: `1px solid ${colors.line}` };
-const storyDivider: React.CSSProperties = { margin: "24px 0", borderColor: colors.line, borderWidth: "1px 0 0" };
-const compactSummary: React.CSSProperties = { margin: "0 0 8px", color: "#53605c", fontSize: "14px", lineHeight: "22px" };
-const sourceLine: React.CSSProperties = { margin: 0, fontSize: "12px", lineHeight: "18px" };
-const sourceLink: React.CSSProperties = { color: colors.green, fontWeight: 700, textDecoration: "none" };
-const ctaWrapper: React.CSSProperties = { padding: "0 24px 28px" };
-const ctaSection: React.CSSProperties = { width: "100%", padding: "25px", backgroundColor: colors.greenSoft, borderRadius: "8px", textAlign: "center" };
-const ctaHeading: React.CSSProperties = { margin: "0 0 8px", color: colors.ink, fontSize: "21px", lineHeight: "27px" };
-const ctaText: React.CSSProperties = { margin: "0 auto 18px", color: "#53605c", fontSize: "14px", lineHeight: "21px" };
-const footer: React.CSSProperties = { padding: "24px", backgroundColor: "#edf1ef", borderTop: `1px solid ${colors.line}` };
-const footerText: React.CSSProperties = { margin: "0 0 7px", color: colors.muted, fontSize: "11px", lineHeight: "17px" };
-const footerLinks: React.CSSProperties = { margin: "13px 0 0", color: colors.muted, fontSize: "11px" };
-const footerLink: React.CSSProperties = { color: colors.green, textDecoration: "underline" };
 
 export default WeeklyBriefEmail;

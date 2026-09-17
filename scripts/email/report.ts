@@ -6,6 +6,8 @@ import type { Report } from "../../src/lib/content";
 export type EditorialImage = {
   id: string;
   src: string;
+  width?: number;
+  height?: number;
   alt: string;
   creator: string;
   provider: string;
@@ -17,6 +19,29 @@ export type EditorialImage = {
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const reportDirectory = resolve(projectRoot, "src/data/reports");
 const imagesFile = resolve(projectRoot, "src/data/editorial-images.json");
+const publicDirectory = resolve(projectRoot, "public");
+
+// Email clients cannot crop, so the renderer needs each image's real proportions to size it.
+// Editorial images are WebP; anything else, or a missing file, renders at the default width.
+function imageDimensions(src: string) {
+  try {
+    const data = readFileSync(resolve(publicDirectory, src.replace(/^\//, "")));
+    if (data.subarray(0, 4).toString("ascii") !== "RIFF" || data.subarray(8, 12).toString("ascii") !== "WEBP") return undefined;
+    const format = data.subarray(12, 16).toString("ascii");
+    if (format === "VP8X") return { width: data.readUIntLE(24, 3) + 1, height: data.readUIntLE(27, 3) + 1 };
+    if (format === "VP8 ") {
+      const start = data.indexOf(Buffer.from([0x9d, 0x01, 0x2a])) + 3;
+      return { width: data.readUInt16LE(start) & 0x3fff, height: data.readUInt16LE(start + 2) & 0x3fff };
+    }
+    if (format === "VP8L") {
+      const bits = data.readUInt32LE(21);
+      return { width: (bits & 0x3fff) + 1, height: ((bits >>> 14) & 0x3fff) + 1 };
+    }
+  } catch {
+    return undefined;
+  }
+  return undefined;
+}
 const issuePattern = /^\d{4}-\d{2}-\d{2}$/;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -118,7 +143,8 @@ export function loadEditorialImages() {
       if (!Array.isArray(candidate.subjects) || candidate.subjects.length < 2 || candidate.subjects.some((subject) => typeof subject !== "string" || !subject.trim())) {
         throw new Error(`Editorial image ${index + 1}: "subjects" must contain at least two non-empty strings.`);
       }
-      return [(candidate as EditorialImage).id, candidate as EditorialImage] as const;
+      const image = { ...(candidate as EditorialImage), ...imageDimensions((candidate as EditorialImage).src) };
+      return [image.id, image] as const;
     })
   );
 }
