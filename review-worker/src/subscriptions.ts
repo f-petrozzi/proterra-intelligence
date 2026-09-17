@@ -14,7 +14,8 @@ function page(title: string, content: string, status = 200) {
   return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>${e(title)} · Proterra Intelligence</title><style>body{font:16px/1.6 system-ui,sans-serif;color:#173f32;background:#f3f6f4;margin:0;padding:32px 16px}main{max-width:760px;margin:auto;background:white;padding:32px;border-radius:12px}h1{line-height:1.2}label{display:block;margin:16px 0}input{font:inherit;box-sizing:border-box;padding:10px;width:100%;max-width:440px}button{font:inherit;background:#145f4a;color:white;border:0;border-radius:5px;padding:12px 18px;margin:12px 8px 0 0;cursor:pointer}a{color:#145f4a}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;border-bottom:1px solid #dce4e0;overflow-wrap:anywhere}.trap{position:absolute;left:-10000px}small{color:#62706b}</style></head><body><main><p>PROTERRA INTELLIGENCE</p><h1>${e(title)}</h1>${content}</main></body></html>`, {
     status, headers: {
       "content-type": "text/html; charset=utf-8", "cache-control": "no-store",
-      "referrer-policy": "no-referrer", "x-content-type-options": "nosniff",
+      // same-origin, not no-referrer: under no-referrer browsers send `Origin: null` on these forms, which sameOrigin() rejects.
+      "referrer-policy": "same-origin", "x-content-type-options": "nosniff",
       "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; script-src https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; connect-src https://challenges.cloudflare.com; form-action 'self'; base-uri 'none'; frame-ancestors 'none'"
     }
   });
