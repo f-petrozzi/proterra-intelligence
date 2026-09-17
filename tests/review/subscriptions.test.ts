@@ -68,6 +68,26 @@ test("an invitation requires an explicit POST; accept activates once and consume
   assert.equal(await consumeRequest(env, token, "accept"), false);
 });
 
+test("a self-subscription link completes in one click, while an invitation still asks", async context => {
+  const { env, miniflare } = await fixture();
+  context.after(() => miniflare.dispose());
+  const own = await requestToken(env, "self@example.org", "subscribe");
+  const confirming = await subscriptionRoutes(new Request(`${env.SITE_ORIGIN}/subscriptions/confirm?token=${own.token}`), env);
+  const confirmingHtml = await confirming!.text();
+  const nonce = confirmingHtml.match(/<script nonce="([a-f0-9]{32})">document\.forms\[0\]\.submit\(\)<\/script>/);
+  assert.ok(nonce, "the page submits its own form");
+  assert.ok(confirming!.headers.get("content-security-policy")!.includes(`script-src 'nonce-${nonce![1]}'`), "only that script may run");
+  assert.match(confirmingHtml, /<input type="hidden" name="action" value="accept">/, "form.submit() carries no button, so the action is a field");
+  assert.equal((await subscriptionRecipients(env)).length, 1, "rendering the page does not subscribe anyone");
+
+  const invited = await requestToken(env, "friend@example.org", "invite");
+  const invitation = await subscriptionRoutes(new Request(`${env.SITE_ORIGIN}/subscriptions/confirm?token=${invited.token}`), env);
+  const invitationHtml = await invitation!.text();
+  assert.ok(!invitationHtml.includes("<script"), "an invitation is a choice between accept and decline, so it waits");
+  assert.match(invitationHtml, /Accept invitation/);
+  assert.match(invitationHtml, /Decline/);
+});
+
 test("decline suppresses invitations but permits a fresh self-subscription", async context => {
   const { env, miniflare } = await fixture();
   context.after(() => miniflare.dispose());
@@ -98,7 +118,9 @@ test("unsubscribe removes a recipient immediately, GET is harmless, and old link
   context.after(() => miniflare.dispose());
   const [recipient] = await subscriptionRecipients(env);
   const link = new URL(recipient.unsubscribeUrl);
-  assert.equal((await subscriptionRoutes(new Request(link), env))?.status, 200);
+  const page = await subscriptionRoutes(new Request(link), env);
+  assert.equal(page?.status, 200);
+  assert.match(await page!.text(), /<script nonce="[a-f0-9]{32}">/, "an unsubscribe link from a digest takes one click");
   assert.equal((await subscriptionRecipients(env)).length, 1);
   const response = await subscriptionRoutes(new Request(link, { method: "POST", headers: { "content-type": "application/x-www-form-urlencoded" }, body: "List-Unsubscribe=One-Click" }), env);
   assert.equal(response?.status, 200);
