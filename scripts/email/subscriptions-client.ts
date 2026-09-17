@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { getSiteUrl } from "./report";
 
 export async function subscriptionApi(path: string, body?: unknown) {
   const origin = process.env.REVIEW_API_URL?.replace(/\/$/, "");
@@ -21,7 +22,7 @@ export async function subscriptionApi(path: string, body?: unknown) {
 export const recipientSchema = z.object({ email: z.email(), unsubscribeUrl: z.url() });
 export async function currentRecipients() {
   const result = z.object({ recipients: z.array(recipientSchema) }).parse(await subscriptionApi("recipients"));
-  const origin = new URL(process.env.REVIEW_API_URL!).origin;
+  const origin = new URL(getSiteUrl()).origin;
   for (const recipient of result.recipients) {
     const link = new URL(recipient.unsubscribeUrl);
     if (link.origin !== origin || link.pathname !== "/subscriptions/unsubscribe") throw new Error("Invalid unsubscribe link in recipient snapshot.");

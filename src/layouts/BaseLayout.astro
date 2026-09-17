@@ -15,12 +15,7 @@ const {
 
 const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
 const pathname = Astro.url.pathname;
-const nav = [
-  { href: "/", label: "Latest" },
-  { href: "/archive", label: "Archive" },
-  { href: "/history", label: "Dashboard" },
-  { href: "/sources", label: "Source review" }
-];
+const nav = site.nav;
 ---
 
 <!doctype html>

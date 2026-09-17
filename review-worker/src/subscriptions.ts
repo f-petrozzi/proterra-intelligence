@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { site } from "../../src/config/site";
 import { assertService, authenticatedEmail } from "./auth";
 import { escapeHtml as e } from "./html";
 import type { Env } from "./index";
@@ -19,9 +20,15 @@ const pageStyles = `
 :root{--ink:#17201c;--muted:#5e6963;--paper:#f4f3ed;--paper-deep:#e9e9e1;--surface:#fafaf6;--forest:#173f32;--forest-deep:#0c2c22;--mint:#b7d7c1;--line:rgba(23,32,28,.14);--line-strong:rgba(23,32,28,.28);--focus:0 0 0 3px rgba(23,63,50,.22)}
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 86% 5%,rgba(183,215,193,.17),transparent 26rem),var(--paper);font:16px/1.55 "Aptos","Segoe UI","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
-.shell{width:min(calc(100% - 2rem),78rem);margin:0 auto;display:flex;align-items:center;min-height:5.25rem;border-bottom:1px solid var(--line-strong)}
-.brand{display:inline-flex;align-items:center;gap:.8rem;color:var(--ink);font-size:.94rem;font-weight:650;letter-spacing:-.015em;text-decoration:none}
-.mark{display:grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:50%;color:var(--surface);background:var(--forest);font-size:.67rem;font-weight:750;letter-spacing:.08em}
+.site-header{width:min(calc(100% - 3rem),78rem);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:5.25rem;border-bottom:1px solid var(--line-strong)}
+.brand{display:inline-flex;align-items:center;gap:.8rem;color:var(--ink);text-decoration:none}
+.mark{display:grid;place-items:center;flex:none;width:2.4rem;height:2.4rem;border-radius:50%;color:var(--surface);background:var(--forest);font-size:.67rem;font-weight:750;letter-spacing:.08em}
+.lockup{display:grid;line-height:1.15}
+.lockup strong{font-size:.94rem;letter-spacing:-.015em}
+.lockup small{margin-top:.2rem;color:var(--muted);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}
+.nav{display:flex;align-items:center;gap:.25rem;margin:0;padding:0;list-style:none}
+.nav a{display:block;padding:.62rem .82rem;border-radius:999px;color:var(--muted);font-size:.82rem;text-decoration:none;transition:color 180ms ease,background-color 180ms ease}
+.nav a:hover{color:var(--ink);background:rgba(255,255,255,.5)}
 main{width:min(calc(100% - 2rem),33rem);margin:clamp(2rem,9vh,5rem) auto 4rem;padding:clamp(1.5rem,5vw,2.5rem);border:1px solid var(--line);border-radius:1.25rem;background:var(--surface);box-shadow:0 20px 55px rgba(18,43,34,.08)}
 main.wide{width:min(calc(100% - 2rem),60rem)}
 h1{margin:0;font-size:clamp(1.8rem,5vw,2.35rem);font-weight:540;letter-spacing:-.04em;line-height:1.08}
@@ -54,8 +61,10 @@ button.quiet:hover,.button.quiet:hover{border-color:var(--forest);background:var
 table{width:100%;border-collapse:collapse;font-size:.9rem}
 th,td{padding:.7rem .6rem;border-bottom:1px solid var(--line);text-align:left;overflow-wrap:anywhere}
 th{color:var(--muted);font-size:.78rem;font-weight:650}
+@media (max-width:900px){.site-header{width:min(calc(100% - 2rem),78rem);flex-direction:column;align-items:flex-start;padding:1.4rem 0 1rem}.nav{width:100%;overflow-x:auto;padding-bottom:.2rem;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav a{white-space:nowrap}}
+@media (max-width:640px){.lockup small{display:none}}
 @media (max-width:30rem){.actions>*{flex:1 1 100%}}
-@media (prefers-reduced-motion:reduce){.bar{display:none}button,.button{transition:none}}
+@media (prefers-reduced-motion:reduce){.bar{display:none}button,.button,.nav a{transition:none}}
 `;
 const doneIcon = `<div class="done" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>`;
 
@@ -63,14 +72,17 @@ type PageOptions = { status?: number; done?: boolean; wide?: boolean };
 
 // done: a finished step. It shows a check mark and returns the visitor to the publication after a short pause.
 function page(env: Env, title: string, content: string, { status = 200, done = false, wide = false }: PageOptions = {}) {
-  const home = `${env.SITE_ORIGIN.replace(/\/$/, "")}/`;
+  const siteOrigin = env.SITE_ORIGIN.replace(/\/$/, "");
+  const home = `${siteOrigin}/`;
+  const header = `<header class="site-header"><a class="brand" href="${e(home)}" aria-label="${e(site.name)} home"><span class="mark" aria-hidden="true">${e(site.initials)}</span><span class="lockup"><strong>${e(site.name)}</strong><small>${e(site.descriptor)}</small></span></a><nav aria-label="Primary navigation"><ul class="nav">${site.nav.map(item => `<li><a href="${e(siteOrigin + item.href)}">${e(item.label)}</a></li>`).join("")}</ul></nav></header>`;
   const refresh = done ? `<meta http-equiv="refresh" content="${redirectSeconds};url=${e(home)}">` : "";
   const returning = done ? `<div class="return"><div class="bar"><span></span></div><p>Taking you back to Proterra Intelligence. <a href="${e(home)}">Go now</a></p></div>` : "";
-  return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#173f32">${refresh}<title>${e(title)} | Proterra Intelligence</title><style>${pageStyles}</style></head><body><header class="shell"><a class="brand" href="${e(home)}"><span class="mark" aria-hidden="true">PI</span>Proterra Intelligence</a></header><main${wide ? ' class="wide"' : ""}>${done ? doneIcon : ""}<h1>${e(title)}</h1>${content}${returning}</main></body></html>`, {
+  return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#173f32">${refresh}<title>${e(title)} | Proterra Intelligence</title><style>${pageStyles}</style></head><body>${header}<main${wide ? ' class="wide"' : ""}>${done ? doneIcon : ""}<h1>${e(title)}</h1>${content}${returning}</main></body></html>`, {
     status, headers: {
       "content-type": "text/html; charset=utf-8", "cache-control": "no-store",
-      // same-origin, not no-referrer: under no-referrer browsers send `Origin: null` on these forms, which sameOrigin() rejects.
-      "referrer-policy": "same-origin", "x-content-type-options": "nosniff",
+      // strict-origin: form POSTs still carry Origin for sameOrigin() (no-referrer sends `Origin: null`), and
+      // navigating from a tokenized link to the rest of the site sends only the origin, never the token.
+      "referrer-policy": "strict-origin", "x-content-type-options": "nosniff",
       "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; script-src https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; connect-src https://challenges.cloudflare.com; form-action 'self'; base-uri 'none'; frame-ancestors 'none'"
     }
   });
@@ -87,9 +99,10 @@ async function form(request: Request) {
   return new URLSearchParams(text);
 }
 
-function sameOrigin(request: Request, env: Env, allowSite = false) {
-  const allowed = [env.REVIEW_ORIGIN.replace(/\/$/, "")];
-  if (allowSite) allowed.push(env.SITE_ORIGIN.replace(/\/$/, ""));
+// The pages are served on the site (through the Pages service binding); the Worker's own host still answers
+// POSTs from links in emails sent before the move, including mail clients' one-click unsubscribe.
+function sameOrigin(request: Request, env: Env) {
+  const allowed = [env.SITE_ORIGIN.replace(/\/$/, ""), env.REVIEW_ORIGIN.replace(/\/$/, "")];
   if (!allowed.includes(request.headers.get("origin") ?? "")) throw new Response("Invalid origin", { status: 403 });
 }
 
@@ -105,7 +118,7 @@ async function signature(env: Env, value: string) {
 
 export async function unsubscribeUrl(env: Env, subscriber: Subscriber) {
   const token = await signature(env, `${subscriber.id}:${subscriber.version}`);
-  return `${env.REVIEW_ORIGIN}/subscriptions/unsubscribe?id=${encodeURIComponent(subscriber.id)}&token=${token}`;
+  return `${env.SITE_ORIGIN.replace(/\/$/, "")}/subscriptions/unsubscribe?id=${encodeURIComponent(subscriber.id)}&token=${token}`;
 }
 
 async function initialized(env: Env) {
@@ -250,7 +263,7 @@ export async function claimMail(env: Env) {
     JOIN subscription_requests r ON r.id = m.id JOIN subscribers s ON s.id = r.subscriber_id
     WHERE m.lease_id = ? AND m.status = 'sending'`).bind(lease).first<{ id: string; token: string; kind: Kind; expires_at: number; inviter_name: string | null; email: string }>();
   return row ? {
-    id: row.id, lease, email: row.email, kind: row.kind, url: `${env.REVIEW_ORIGIN}/subscriptions/confirm?token=${row.token}`,
+    id: row.id, lease, email: row.email, kind: row.kind, url: `${env.SITE_ORIGIN.replace(/\/$/, "")}/subscriptions/confirm?token=${row.token}`,
     expiresAt: new Date(row.expires_at * 1000).toISOString(), ...(row.inviter_name ? { inviterName: row.inviter_name } : {})
   } : null;
 }
@@ -285,6 +298,10 @@ export async function subscriptionRoutes(request: Request, env: Env): Promise<Re
     return page(env, "Digest subscribers", `<p>${count} active ${count === 1 ? "recipient" : "recipients"}. Only active subscribers receive the digest.</p><div class="table"><table><thead><tr><th>Email</th><th>Status</th><th>Source</th><th>Updated (UTC)</th></tr></thead><tbody>${rows.results.map(row => `<tr><td>${e(row.email)}</td><td>${e(row.status)}</td><td>${e(row.source)}</td><td>${e(row.updated_at)}</td></tr>`).join("")}</tbody></table></div>`, { wide: true });
   }
   if (!url.pathname.startsWith("/subscriptions")) return null;
+  // Emails sent before the pages moved to the site link to the Worker's host; send those visitors to the site.
+  if (request.method === "GET" && url.origin === new URL(env.REVIEW_ORIGIN).origin) {
+    return Response.redirect(`${env.SITE_ORIGIN.replace(/\/$/, "")}${url.pathname}${url.search}`, 302);
+  }
   const homeLink = `<p><a href="${e(env.SITE_ORIGIN.replace(/\/$/, ""))}/">Go to Proterra Intelligence</a></p>`;
   const expired = () => page(env, "This link has expired", `<p>Confirmation links work once. Invitations expire after ${requestLifetimeDays.invite} days and subscription links after ${requestLifetimeDays.subscribe}. You can request a new one from Proterra Intelligence.</p>${homeLink}`, { status: 410 });
   if (url.pathname === "/subscriptions/unsubscribe") {
@@ -348,7 +365,7 @@ export async function subscriptionRoutes(request: Request, env: Env): Promise<Re
       method: "POST", body: new URLSearchParams({ secret: env.SUBSCRIPTIONS_TURNSTILE_SECRET, response: data.get("cf-turnstile-response") ?? "", remoteip: ip }), signal: AbortSignal.timeout(10000)
     });
     const result = await verification.json() as { success: boolean; hostname?: string; action?: string };
-    if (!result.success || result.hostname !== new URL(env.REVIEW_ORIGIN).hostname || result.action !== "subscription") return retry("Verification didn't finish", "Complete the check on the form, then send it again.");
+    if (!result.success || ![new URL(env.SITE_ORIGIN).hostname, new URL(env.REVIEW_ORIGIN).hostname].includes(result.hostname ?? "") || result.action !== "subscription") return retry("Verification didn't finish", "Complete the check on the form, then send it again.");
     if (!await limit(env, "global", 100, 86400)) return page(env, "Too many requests today", `<p>The form has reached its daily limit. Try again tomorrow.</p>${homeLink}`, { status: 429 });
     if (kind === "unsubscribe") {
       await unsubscribeAddress(env, email.data);
@@ -363,7 +380,7 @@ export async function subscriptionRoutes(request: Request, env: Env): Promise<Re
     let email = "";
     let kind: Kind = kindSchema.catch("subscribe").parse(url.searchParams.get("intent"));
     if (request.method === "POST") {
-      sameOrigin(request, env, true);
+      sameOrigin(request, env);
       const data = await form(request);
       email = emailSchema.catch("").parse(data.get("email"));
       kind = kindSchema.catch("subscribe").parse(data.get("intent"));

@@ -35,6 +35,7 @@ jobs:
         env:
           INPUT_MODE: ${{ inputs.mode || 'process' }}
           REVIEW_API_URL: https://proterra-intelligence-review.petrozzi.workers.dev
+          SITE_URL: ${{ vars.SITE_URL }}
           REVIEW_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_ACCESS_CLIENT_ID }}
           REVIEW_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_ACCESS_CLIENT_SECRET }}
           REVIEW_SERVICE_KEY: ${{ secrets.REVIEW_SERVICE_KEY }}
