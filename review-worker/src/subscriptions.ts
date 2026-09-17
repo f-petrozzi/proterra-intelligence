@@ -206,7 +206,8 @@ export async function requestSubscription(env: Env, email: string, kind: Kind, i
   email = emailSchema.parse(email);
   const emailKey = subscriptionEmailKey(email);
   inviterName = kind === "invite" ? inviterNameSchema.parse(inviterName ?? "") : undefined;
-  if (!await limit(env, `address:${kind}:${emailKey}`, 1, 86400)) return;
+  // v2 starts a fresh window after Gmail aliases moved from raw addresses to a shared key.
+  if (!await limit(env, `address:v2:${kind}:${emailKey}`, 1, 86400)) return;
   const existing = await env.REVIEW_DB.prepare(`SELECT * FROM subscribers WHERE email_key = ?
     ORDER BY CASE WHEN status = 'active' THEN 0 WHEN email = ? THEN 1 ELSE 2 END, updated_at DESC LIMIT 1`)
     .bind(emailKey, email).first<Subscriber>();
