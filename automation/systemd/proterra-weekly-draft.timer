@@ -1,0 +1,11 @@
+[Unit]
+Description=Check Proterra weekly source queues and requested revisions every six hours
+
+[Timer]
+OnCalendar=*-*-* 00,06,12,18:15:00
+RandomizedDelaySec=5m
+Persistent=true
+Unit=proterra-weekly-draft.service
+
+[Install]
+WantedBy=timers.target

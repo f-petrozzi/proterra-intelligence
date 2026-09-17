@@ -6,6 +6,7 @@ import { spawn } from "node:child_process";
 import { z } from "zod";
 import { runManifestSchema, type RunManifest } from "../collection/types";
 import { prepareImageContext } from "./prepare-image-context";
+import { loadScheduledEnvironment } from "./scheduled-environment";
 
 const issuePattern = /^research-(\d{4}-\d{2}-\d{2})$/;
 const shaPattern = /^[a-f0-9]{40}$/;
@@ -201,22 +202,33 @@ async function reviewRequest(path: string, init?: RequestInit) {
       ...init?.headers
     }
   });
-  if (!response.ok) throw new Error(`Review service ${path} failed (${response.status}): ${await response.text()}`);
+  // Upstream error pages can echo request data; keep credentials out of unattended logs.
+  if (!response.ok) throw new Error(`Review service ${path} failed (${response.status}).`);
   return response.json() as Promise<any>;
 }
 
-async function actionablePullRequest() {
-  const found = new Map<number, any>();
-  for (const label of weeklyPullRequestDiscoveryLabels) {
-    const result = await requireCommand("gh", ["pr", "list", "--state", "open", "--label", label, "--json", "number,headRefName,headRefOid,url,labels"]);
-    for (const pullRequest of JSON.parse(result.stdout) as any[]) found.set(pullRequest.number, pullRequest);
-  }
-  if (found.size !== 1) throw new Error(`Expected exactly one actionable weekly pull request; found ${found.size}.`);
+export function selectWeeklyPullRequest(pullRequests: any[], scheduled = false) {
+  const found = new Map(pullRequests.map((pullRequest) => [pullRequest.number, pullRequest]));
+  if (scheduled && found.size === 0) return undefined;
+  if (found.size !== 1) throw new Error(`Expected exactly one actionable weekly pull request; found ${found.size}. Resolve the queue chronologically before retrying.`);
   const pullRequest = [...found.values()][0];
   if (!issuePattern.test(pullRequest.headRefName) || !shaPattern.test(pullRequest.headRefOid)) {
     throw new Error("The actionable pull request does not use a valid research branch or head SHA.");
   }
   return pullRequest;
+}
+
+export function scheduledIssueIsIdle(state: string, scheduled: boolean) {
+  return scheduled && ["in-review", "approved", "publishing", "published"].includes(state);
+}
+
+async function actionablePullRequest(scheduled: boolean) {
+  const found = new Map<number, any>();
+  for (const label of weeklyPullRequestDiscoveryLabels) {
+    const result = await requireCommand("gh", ["pr", "list", "--state", "open", "--label", label, "--json", "number,headRefName,headRefOid,url,labels"]);
+    for (const pullRequest of JSON.parse(result.stdout) as any[]) found.set(pullRequest.number, pullRequest);
+  }
+  return selectWeeklyPullRequest([...found.values()], scheduled);
 }
 
 async function apiAgentResult(issueDate: string, payload: unknown) {
@@ -272,21 +284,27 @@ async function markPullRequestReady(pullRequest: any, summary: string, sha: stri
 
 async function main() {
   const arguments_ = process.argv.slice(2);
-  const unknownArguments = arguments_.filter((argument) => argument !== "--allow-coverage-gap");
+  const unknownArguments = arguments_.filter((argument) => !["--allow-coverage-gap", "--scheduled"].includes(argument));
   if (unknownArguments.length > 0) throw new Error(`Unknown weekly:draft option: ${unknownArguments.join(", ")}`);
   const allowCoverageGap = arguments_.includes("--allow-coverage-gap");
+  const scheduled = arguments_.includes("--scheduled");
+  if (scheduled && allowCoverageGap) throw new Error("Scheduled drafting cannot authorize a coverage-gap override.");
+  if (scheduled) await loadScheduledEnvironment();
   const [major, minor] = process.versions.node.split(".").map(Number);
   if (major < 24 || (major === 24 && minor < 19)) throw new Error(`Node 24.19 or newer is required; found ${process.version}.`);
   await requireCommand("git", ["--version"]);
   await requireCommand("git", ["config", "user.name"], /\S/);
   await requireCommand("git", ["config", "user.email"], /\S/);
   await requireCommand("gh", ["auth", "status"]);
-  await verifyChatGptAuthentication();
 
   const dirty = await run("git", ["status", "--porcelain"]);
   if (dirty.stdout.trim()) process.stdout.write("Warning: the primary checkout has unrelated changes; the isolated worktree will not modify them.\n");
 
-  const pullRequest = await actionablePullRequest();
+  const pullRequest = await actionablePullRequest(scheduled);
+  if (!pullRequest) {
+    process.stdout.write("No weekly source queue or revision is ready; skipped.\n");
+    return;
+  }
   const match = issuePattern.exec(pullRequest.headRefName)!;
   const issueDate = match[1];
   const receiptDirectory = resolve(".review", "receipts");
@@ -318,8 +336,13 @@ async function main() {
     return;
   }
   if (!["source-ready", "changes-requested"].includes(String(context.issue.state))) {
+    if (scheduledIssueIsIdle(String(context.issue.state), scheduled)) {
+      process.stdout.write(`Issue ${issueDate} is ${context.issue.state}; no drafting needed.\n`);
+      return;
+    }
     throw new Error(`The review issue is not actionable from state ${context.issue.state}.`);
   }
+  await verifyChatGptAuthentication();
 
   const tempRoot = await mkdtemp(join(tmpdir(), `proterra-intelligence-${issueDate}-`));
   const worktree = join(tempRoot, "worktree");

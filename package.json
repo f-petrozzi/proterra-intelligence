@@ -21,7 +21,8 @@
     "review:config-check": "node --import tsx scripts/review/check-deploy-config.ts",
     "review:test": "node --import tsx --test tests/review/*.test.ts",
     "weekly:setup": "bash scripts/setup/weekly-automation.sh",
-    "weekly:draft": "node --import tsx scripts/review/weekly-draft.ts",
+    "weekly:draft": "bash scripts/review/run-weekly-draft.sh",
+    "weekly:scheduled": "bash scripts/review/run-weekly-draft.sh --scheduled",
     "weekly:guard-diff": "node --import tsx scripts/review/assert-weekly-diff.ts",
     "verify": "npm run check && npm run review:check && npm run email:check && npm run research:test && npm run review:test && npm run build"
   },
