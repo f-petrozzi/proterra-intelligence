@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { site } from "../config/site";
+import Subscriptions from "../components/Subscriptions.astro";
 
 interface Props {
   title?: string;
@@ -62,6 +63,7 @@ const nav = [
 
       <main id="main-content">
         <slot />
+        <Subscriptions />
       </main>
 
       <footer class="site-footer">

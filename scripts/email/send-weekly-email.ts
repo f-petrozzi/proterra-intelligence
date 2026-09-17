@@ -2,10 +2,11 @@ import nodemailer from "nodemailer";
 import {
   getArgument,
   getSiteUrl,
-  loadReport,
   parseRecipients
 } from "./report";
-import { getEmailSubject, renderWeeklyBrief } from "./render";
+import { getDigestSubject, renderDigest } from "./render";
+import { digestId, loadDigest } from "./digest";
+import { currentRecipients } from "./subscriptions-client";
 
 const mode = getArgument("mode");
 if (mode !== "test" && mode !== "send") {
@@ -13,10 +14,11 @@ if (mode !== "test" && mode !== "send") {
 }
 
 const production = mode === "send";
-const report = loadReport(getArgument("report"), production);
+const reports = loadDigest(getArgument("report"), production);
+const reportSelection = reports.map(report => report.slug).join(",");
 const confirmation = getArgument("confirm");
-if (production && confirmation !== report.slug) {
-  throw new Error(`Production send requires --confirm ${report.slug}.`);
+if (production && confirmation !== reportSelection) {
+  throw new Error(`Production send requires --confirm ${reportSelection}.`);
 }
 
 const username = process.env.GMAIL_USERNAME?.trim();
@@ -26,29 +28,36 @@ if (!username || !appPassword) {
 }
 
 const recipients = production
-  ? parseRecipients(process.env.EMAIL_RECIPIENTS)
-  : parseRecipients(process.env.EMAIL_TEST_RECIPIENT || username);
+  ? await currentRecipients()
+  : parseRecipients(process.env.EMAIL_TEST_RECIPIENT || username).map(email => ({ email, unsubscribeUrl: undefined }));
 if (recipients.length === 0) {
-  throw new Error(production ? "EMAIL_RECIPIENTS is empty." : "EMAIL_TEST_RECIPIENT is empty.");
+  throw new Error(production ? "There are no active subscribers." : "EMAIL_TEST_RECIPIENT is empty.");
 }
 
-const { html, text } = await renderWeeklyBrief(report, getSiteUrl());
 const transport = nodemailer.createTransport({
   service: "gmail",
   auth: { user: username, pass: appPassword }
 });
 
 await transport.verify();
-const result = await transport.sendMail({
-  from: `"Proterra Intelligence" <${username}>`,
-  to: production ? username : recipients,
-  bcc: production ? recipients : undefined,
-  replyTo: username,
-  subject: getEmailSubject(report, !production),
-  html,
-  text,
-  headers: { "X-Proterra-Issue": report.slug }
-});
-
-console.log(`${production ? "Production" : "Test"} email sent for issue ${report.slug} to ${recipients.length} recipient(s).`);
-console.log(`Message ID: ${result.messageId}`);
+let sent = 0;
+for (const recipient of recipients) {
+  try {
+    const { html, text } = await renderDigest(reports, getSiteUrl(), recipient.unsubscribeUrl);
+    // Re-read immediately before delivery; never fall back to a stale GitHub snapshot.
+    if (production && !(await currentRecipients()).some(current => current.email === recipient.email && current.unsubscribeUrl === recipient.unsubscribeUrl)) continue;
+    const result = await transport.sendMail({
+      from: `"Proterra Intelligence" <${username}>`, to: recipient.email, replyTo: username,
+      subject: getDigestSubject(reports, !production), html, text,
+      headers: {
+        "X-Proterra-Issue": reportSelection,
+        ...(recipient.unsubscribeUrl ? { "List-Unsubscribe": `<${recipient.unsubscribeUrl}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" } : {})
+      }
+    });
+    if (result.rejected.length || !result.accepted.length) throw new Error("Recipient not accepted");
+    sent++;
+  } catch {
+    throw new Error(`Digest delivery stopped after ${sent} successful message(s). Inspect the sender's Sent folder before retrying to avoid duplicates.`);
+  }
+}
+console.log(`${production ? "Production" : "Test"} digest ${digestId(reports)} sent to ${sent} recipient(s).`);

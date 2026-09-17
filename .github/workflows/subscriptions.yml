@@ -1,0 +1,45 @@
+name: Digest subscriptions
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Import the existing list without sending, sync the GitHub list, or deliver pending confirmations
+        type: choice
+        default: sync
+        options: [import, sync, process]
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: digest-subscriptions
+  cancel-in-progress: false
+
+jobs:
+  subscriptions:
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || vars.SUBSCRIPTIONS_ENABLED == 'true')
+    runs-on: ubuntu-latest
+    environment: email-production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24.19.0
+          cache: npm
+      - run: npm ci
+      - name: Process private subscription records
+        env:
+          INPUT_MODE: ${{ inputs.mode || 'process' }}
+          REVIEW_API_URL: https://proterra-intelligence-review.petrozzi.workers.dev
+          REVIEW_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_ACCESS_CLIENT_ID }}
+          REVIEW_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_ACCESS_CLIENT_SECRET }}
+          REVIEW_SERVICE_KEY: ${{ secrets.REVIEW_SERVICE_KEY }}
+          EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
+          RECIPIENT_SYNC_TOKEN: ${{ secrets.RECIPIENT_SYNC_TOKEN }}
+          GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: node --import tsx scripts/email/process-subscriptions.ts --mode "$INPUT_MODE"

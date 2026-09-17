@@ -22,6 +22,7 @@ type WeeklyBriefEmailProps = {
   report: Report;
   siteUrl: string;
   images: Map<string, EditorialImage>;
+  unsubscribeUrl?: string;
 };
 
 const colors = {
@@ -49,7 +50,7 @@ function issueUrl(siteUrl: string, slug: string) {
   return `${siteUrl}/reports/${slug}/`;
 }
 
-export function WeeklyBriefEmail({ report, siteUrl, images }: WeeklyBriefEmailProps) {
+export function WeeklyBriefEmail({ report, siteUrl, images, unsubscribeUrl }: WeeklyBriefEmailProps) {
   const [topStory, ...otherStories] = report.items;
   const topImage = images.get(topStory.imageId);
   const onlineUrl = issueUrl(siteUrl, report.slug);
@@ -166,6 +167,10 @@ export function WeeklyBriefEmail({ report, siteUrl, images }: WeeklyBriefEmailPr
               <Link href={`${siteUrl}/methodology/`} style={footerLink}>Methodology</Link>
               {" · "}
               <Link href={`${siteUrl}/archive/`} style={footerLink}>Archive</Link>
+              {" · "}
+              <Link href={`${siteUrl}/#digest-signup-title`} style={footerLink}>Share with others</Link>
+              {" · "}
+              <Link href={unsubscribeUrl ?? `${siteUrl}/#digest-signup-title`} style={footerLink}>Unsubscribe</Link>
             </Text>
           </Section>
         </Container>

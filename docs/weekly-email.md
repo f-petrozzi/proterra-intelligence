@@ -1,6 +1,8 @@
 # Weekly email
 
-The pilot uses React Email for the template, Gmail SMTP for delivery, and GitHub Actions for a repeatable review and send flow. The recipient list is sent as BCC, so addresses are not exposed to one another. Production sends only accept an approved report and require the issue date as a second confirmation.
+The pilot uses React Email for the template, Gmail SMTP for delivery, and GitHub Actions for a repeatable review and send flow. Production messages are sent individually with a personal unsubscribe link, so addresses are not exposed to one another. Production sends only accept approved reports and require the issue date (or three comma-separated dates) as a second confirmation.
+
+See [Digest subscriptions](subscriptions.md) for the required subscriber-database import, invitation/subscribe/unsubscribe setup, private recipient list, and combined catch-up workflow. Production sends now require that setup and fail closed if the private subscriber API is unavailable.
 
 ## One-time setup
 
@@ -24,7 +26,7 @@ Add these repository secrets:
 | `GMAIL_USERNAME` | `proterraintelligence@gmail.com` |
 | `GMAIL_APP_PASSWORD` | The Google app password, with or without spaces |
 | `EMAIL_TEST_RECIPIENT` | Your own address for test messages |
-| `EMAIL_RECIPIENTS` | Approved recipients separated by commas, semicolons, or new lines |
+| `EMAIL_RECIPIENTS` | Existing approved recipients for the initial import; subsequently maintained by subscriber synchronization |
 
 Under **Variables**, add `SITE_URL` with the production Cloudflare Pages URL. If it is omitted, the sender falls back to `https://proterra-intelligence.pages.dev`.
 
@@ -39,7 +41,7 @@ Create a GitHub environment named `email-production` under **Settings → Enviro
 5. Run the workflow again in `test` mode. Check the message in Gmail on desktop and mobile, and click the article and site links.
 6. Run it once more in `send` mode. Enter the exact same issue date in the confirmation field and approve the protected environment when prompted.
 
-The production message is sent to the Gmail account and BCCs the approved recipient list. Gmail keeps the sent copy in the account.
+Each active subscriber receives an individual message. Gmail keeps the sent copies in the account. The sender reads the private database and rechecks membership before delivery; it does not fall back to the GitHub secret.
 
 ## Local preview
 

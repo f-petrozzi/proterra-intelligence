@@ -2,6 +2,7 @@ import { z } from "zod";
 import { assertCsrf, assertService, authenticatedEmail, csrfToken, type AuthEnv } from "./auth";
 import { reviewShell } from "./html";
 import { reviewReportSchema, type ReviewReport } from "./report";
+import { subscriptionRoutes } from "./subscriptions";
 
 export interface Env extends AuthEnv {
   REVIEW_DB: D1Database;
@@ -9,6 +10,8 @@ export interface Env extends AuthEnv {
   GITHUB_REPO: string;
   GITHUB_WORKFLOW_TOKEN: string;
   SITE_ORIGIN: string;
+  SUBSCRIPTIONS_TURNSTILE_SITE_KEY?: string;
+  SUBSCRIPTIONS_TURNSTILE_SECRET?: string;
 }
 
 const issueDateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
@@ -892,6 +895,8 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     try {
       const url = new URL(request.url);
+      const subscriptionResponse = await subscriptionRoutes(request, env);
+      if (subscriptionResponse) return subscriptionResponse;
       const path = url.pathname.split("/").filter(Boolean);
       if (path[0] === "api" && path[1] === "internal") return await handleInternalApi(request, env, path.slice(2));
       if (path[0] === "api" && path[1] === "review") return await handleUserApi(request, env, path.slice(2));
