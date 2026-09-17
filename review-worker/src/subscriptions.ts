@@ -423,7 +423,10 @@ export async function subscriptionRoutes(request: Request, env: Env): Promise<Re
     const inviterName = inviterNameSchema.safeParse(data.get("name") ?? "");
     if (kind === "invite" && !inviterName.success) return retry("Check your name", "Use letters, spaces, and simple punctuation, up to 60 characters.");
     const ip = request.headers.get("cf-connecting-ip") ?? "unknown";
-    if (!await limit(env, `ip:${ip}`, 5, 3600)) return retry("Too many attempts", "Wait an hour, then try again.", 429);
+    const domain = email.data.slice(email.data.lastIndexOf("@") + 1);
+    // Only affected Gmail unsubscribe requests get a fresh window; every other flow keeps its current limiter.
+    const ipLimitKey = kind === "unsubscribe" && ["gmail.com", "googlemail.com"].includes(domain) ? `ip:gmail-unsubscribe-v2:${ip}` : `ip:${ip}`;
+    if (!await limit(env, ipLimitKey, 5, 3600)) return retry("Too many attempts", "Wait an hour, then try again.", 429);
     const verification = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
       method: "POST", body: new URLSearchParams({ secret: env.SUBSCRIPTIONS_TURNSTILE_SECRET, response: data.get("cf-turnstile-response") ?? "", remoteip: ip }), signal: AbortSignal.timeout(10000)
     }).catch(() => null);
