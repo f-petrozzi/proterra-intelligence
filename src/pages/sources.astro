@@ -17,17 +17,12 @@ const watchlistUrl = "https://github.com/f-petrozzi/proterra-intelligence/edit/m
 ---
 
 <BaseLayout title="Source review" description={`Review and maintain the ${site.name} source registry.`}>
-  <PageHeader
-    label="Evidence governance"
-    title="Source review"
-    description="Approve reliable publishers, hold uncertain sources for review, and keep weak evidence out of the weekly brief."
-  />
+  <PageHeader title="Source review" />
 
   <section class="source-review-overview reveal delay-1" aria-labelledby="source-review-title">
     <div class="source-review-intro">
-      <span>Registry workflow</span>
-      <h2 id="source-review-title">Every source change is reviewed in GitHub</h2>
-      <p>This site is static, so approval is intentionally handled as a small pull request. That keeps the decision, reviewer, and exact registry change visible in history.</p>
+      <h2 id="source-review-title">Manage sources</h2>
+      <p>Propose or edit a source in GitHub. Each change requires review before it enters the registry.</p>
       <div class="source-review-actions">
         <a class="primary-action" href={proposalUrl} target="_blank" rel="noreferrer">Propose a source</a>
         <a href={linkedinUrl} target="_blank" rel="noreferrer">Submit LinkedIn lead</a>
@@ -39,18 +34,6 @@ const watchlistUrl = "https://github.com/f-petrozzi/proterra-intelligence/edit/m
       <article><strong>{probationaryCount}</strong><span>Probationary</span><p>Requires corroboration and closer review.</p></article>
       <article><strong>{excludedDomains.domains.length}</strong><span>Excluded domains</span><p>Useful for discovery only, never evidence.</p></article>
     </div>
-  </section>
-
-  <section class="source-review-flow reveal delay-2" aria-labelledby="source-review-flow-title">
-    <header>
-      <span>Approval path</span>
-      <h2 id="source-review-flow-title">Propose, verify, decide</h2>
-    </header>
-    <ol>
-      <li><span>01</span><div><strong>Propose</strong><p>Submit the publisher, canonical URL, sector, geography, and reason it belongs.</p></div></li>
-      <li><span>02</span><div><strong>Verify</strong><p>Check ownership, publication history, primary evidence, corrections, and citation stability.</p></div></li>
-      <li><span>03</span><div><strong>Decide</strong><p>Merge as approved or probationary, or record the domain as excluded with a reason.</p></div></li>
-    </ol>
   </section>
 
   <section class="linkedin-watchlist reveal" aria-labelledby="linkedin-watchlist-title">

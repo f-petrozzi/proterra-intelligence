@@ -5,7 +5,7 @@ Last updated: 2026-08-17
 
 ## Decision
 
-Use a deterministic GitHub Actions collector, a manually launched homelab Codex pass, a stable main-only Cloudflare Review Worker, and human approval of an exact deployed revision.
+Use a deterministic GitHub Actions collector, a homelab Codex pass launched manually or by the optional guarded timer, a stable main-only Cloudflare Review Worker, and human approval of an exact deployed revision. The timer templates and activation steps are documented in [weekly research operations](weekly-research-operations.md#unattended-drafting-on-the-homelab); neither their presence nor a draft pull request enables scheduling.
 
 ```text
 GitHub schedule / manual dispatch

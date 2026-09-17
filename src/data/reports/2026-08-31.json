@@ -1,0 +1,310 @@
+{
+  "slug": "2026-08-31",
+  "issueNumber": 4,
+  "title": "Weekly Brief",
+  "status": "approved",
+  "period": {
+    "start": "2026-08-24",
+    "end": "2026-08-30"
+  },
+  "publishedAt": "2026-08-31",
+  "scope": {
+    "basis": "public-sources-only",
+    "disclosure": "This brief uses public industry sources and does not assess Proterra-owned animals, customers, sales, or commercial performance."
+  },
+  "executiveSummary": "Milk-component economics and investment in genomic records lead this retrospective brief. Dairy processing plans and new animal-health publications add context, while international disease surveillance remains important for livestock trade.",
+  "editorNote": "Retrospective draft prepared September 16–17, 2026 from dated publications. The issue date identifies the reporting slot, not an actual historical publication. Announcements and forecasts describe what was known in the reporting window; subsequent outcomes are not assumed. Human factual approval is pending.",
+  "overview": {
+    "headline": "Protein economics, cattle data and disease controls shape the week",
+    "points": [
+      {
+        "label": "Genetics",
+        "text": "Breedr’s funding announcement includes plans to capture additional genomic records."
+      },
+      {
+        "label": "Dairy",
+        "text": "CoBank highlights milk-component imbalance as Foremost Farms plans a cheese-plant closure."
+      },
+      {
+        "label": "Meat",
+        "text": "FDA and WOAH releases describe separate screwworm and FMD developments."
+      }
+    ]
+  },
+  "dashboard": {
+    "sectorPulses": [
+      {
+        "sector": "dairy",
+        "label": "Protein-to-fat ratio",
+        "value": "0.77",
+        "basis": "U.S. 2025 versus 0.83 in 2015, CoBank",
+        "direction": "down",
+        "note": "CoBank describes a decade-long change, not a weekly milk-price move.",
+        "itemRank": 1
+      },
+      {
+        "sector": "meat",
+        "label": "Screwworm product authorization",
+        "value": "New EUA",
+        "basis": "FDA announcement, August 27, 2026",
+        "direction": "new",
+        "note": "The authorization is product-specific and excludes lactating dairy cows.",
+        "itemRank": 5
+      },
+      {
+        "sector": "bovine-genetics",
+        "label": "Genomic data expansion",
+        "value": "Announced",
+        "basis": "Breedr Series B announcement, August 26, 2026",
+        "direction": "new",
+        "note": "Genomic records are a planned use of the new funding, not a completed evaluation.",
+        "itemRank": 2
+      }
+    ],
+    "keyMetrics": [
+      {
+        "label": "Breedr Series B",
+        "value": "$27 million",
+        "basis": "Company-announced round, August 26, 2026",
+        "itemRank": 2
+      },
+      {
+        "label": "Marshfield employees affected",
+        "value": "68",
+        "basis": "Cooperative’s planned December closure",
+        "itemRank": 3
+      },
+      {
+        "label": "Slaughter withdrawal",
+        "value": "35 days",
+        "basis": "Bimectin EUA announcement, August 27, 2026",
+        "itemRank": 5
+      }
+    ]
+  },
+  "items": [
+    {
+      "rank": 1,
+      "reviewId": "story-9285d3cb55d86852",
+      "headline": "Butterfat growth leaves U.S. milk protein behind cheesemakers’ needs",
+      "imageId": "milk-components-glass",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "manual",
+      "sectors": [
+        "dairy",
+        "bovine-genetics"
+      ],
+      "regions": [
+        "United States",
+        "European Union",
+        "New Zealand"
+      ],
+      "signal": "new",
+      "summary": "CoBank’s August 27 analysis says U.S. milk-component incentives are shifting toward protein after years of faster butterfat gains. It describes a mismatch between milk composition and cheesemakers’ needs, with genetic progress an important constraint on the pace of adjustment.",
+      "keyPoints": [
+        "CoBank reports that the U.S. protein-to-fat ratio fell from 0.83 to 0.77 over 2015–2025.",
+        "The analysis says restoring the earlier balance will require sustained protein growth over several years."
+      ],
+      "whyItMatters": "Milk composition affects processing yields and the value of component selection.",
+      "businessRelevance": "For Proterra, the analysis could inform monitoring of protein selection incentives alongside fat yield.",
+      "uncertainty": "This is CoBank’s market analysis, not a new national breeding evaluation or a forecast of any individual herd’s response.",
+      "watchNext": "Watch whether protein incentives persist across later milk-component price announcements.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "feedstuffs",
+          "title": "Butterfat boom still constraining milk protein growth",
+          "url": "https://www.feedstuffs.com/market-news/butterfat-boom-still-constraining-milk-protein-growth",
+          "publishedAt": "2026-08-27",
+          "sourceNote": "CoBank-authored analysis republished by Feedstuffs; its international comparisons and breeding implications remain attributed to the author."
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "reviewId": "story-ec18b073620a46bf",
+      "headline": "Breedr funding targets genomic data in cattle supply chains",
+      "imageId": "cattle-record-identification",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "manual",
+      "sectors": [
+        "meat",
+        "bovine-genetics"
+      ],
+      "regions": [
+        "United States",
+        "United Kingdom",
+        "Australia"
+      ],
+      "signal": "new",
+      "summary": "Breedr announced a $27 million Series B round led by Partech, with Latitude and Outsiders Fund participating. The company says the funding will support expansion and additional animal records, including genomic data.",
+      "keyPoints": [
+        "The announcement puts cumulative funding at $46.6 million.",
+        "Breedr describes operations in the United States, United Kingdom and Australia."
+      ],
+      "whyItMatters": "Connecting genetic records with later animal performance could improve the information available across cattle transactions.",
+      "businessRelevance": "For Proterra, adoption of shared genomic records could be a useful signal when assessing public industry demand for traceable breeding information.",
+      "uncertainty": "The release does not independently establish producer returns, emissions savings or the predictive accuracy of the platform.",
+      "watchNext": "Watch for implementation details and independently evaluated outcomes from the proposed data expansion.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "feedstuffs",
+          "title": "Breedr raises $27M to digitize beef supply chain",
+          "url": "https://www.feedstuffs.com/agribusiness-news/breedr-raises-27m-to-digitize-beef-supply-chain",
+          "publishedAt": "2026-08-26",
+          "sourceNote": "Company announcement syndicated by Feedstuffs. Funding and expansion plans are attributed claims; promotional performance estimates are excluded."
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "reviewId": "story-dc2b8f5e45680cb1",
+      "headline": "Foremost Farms plans December closure of Marshfield dairy plant",
+      "imageId": "creamery-cheese-production",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "manual",
+      "sectors": [
+        "dairy"
+      ],
+      "regions": [
+        "United States"
+      ],
+      "signal": "new",
+      "summary": "Foremost Farms announced that its Marshfield, Wisconsin cheese plant would close in December 2026. The cooperative also plans to discontinue production of 40-pound block cheese as it adjusts its product portfolio.",
+      "keyPoints": [
+        "The release says production will continue during the transition.",
+        "The cooperative said the decision affects 68 employees, informed on August 24."
+      ],
+      "whyItMatters": "The announced change alters the cooperative’s processing footprint and product mix.",
+      "businessRelevance": "For Proterra, changes in regional processing demand could be relevant context when following dairy-market conditions.",
+      "uncertainty": "The announcement does not quantify changes to milk procurement, producer prices or capacity elsewhere in the network.",
+      "watchNext": "Watch for the transition timetable and any announced arrangements for milk supply.",
+      "confidence": "medium",
+      "citations": [
+        {
+          "sourceId": "feedstuffs",
+          "title": "Foremost Farms to close Marshfield cheese facility",
+          "url": "https://www.feedstuffs.com/agribusiness-news/foremost-farms-to-close-marshfield-cheese-facility",
+          "publishedAt": "2026-08-26",
+          "sourceNote": "Foremost Farms industry release republished by Feedstuffs; the closure is a plan as of this reporting window."
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "reviewId": "story-ac0e3502abb14d35",
+      "headline": "WOAH details expanding animal-health risk from FMD SAT 1",
+      "imageId": "bovine-veterinary-exam",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "manual",
+      "sectors": [
+        "dairy",
+        "meat"
+      ],
+      "regions": [
+        "International",
+        "Europe",
+        "Asia",
+        "Africa",
+        "Middle East"
+      ],
+      "signal": "new",
+      "summary": "WOAH’s August 28 update describes foot-and-mouth disease SAT 1 detections beyond its historical range. Its account distinguishes first notifications during 2026 from earlier spread and uses an outbreak map current to August 26.",
+      "keyPoints": [
+        "Israel, Cyprus, Palestine, China and Mongolia reported their first SAT 1 occurrence in 2026, according to WOAH.",
+        "WOAH identifies surveillance, vaccination, movement controls and biosecurity as prevention tools."
+      ],
+      "whyItMatters": "Disease status and movement restrictions can affect livestock production and international trade.",
+      "businessRelevance": "For Proterra, changing disease geography could warrant closer monitoring of official animal-movement notices in relevant markets.",
+      "uncertainty": "The report is a multi-country situation update; it does not mean all listed outbreaks began during this week.",
+      "watchNext": "Watch subsequent WAHIS notifications and country-specific control measures.",
+      "confidence": "high",
+      "citations": [
+        {
+          "sourceId": "woah-wahis",
+          "title": "The spread of FMD to new areas is concerning, but consequences could be worse",
+          "url": "https://www.woah.org/en/article/the-spread-of-fmd-to-new-areas-is-concerning-but-consequences-could-be-worse/",
+          "publishedAt": "2026-08-28",
+          "sourceNote": "Primary WOAH synthesis of member notifications, with its map cutoff explicitly retained. No country-level economic loss is inferred."
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "reviewId": "story-3be18c93230a2696",
+      "headline": "FDA adds Bimectin injection authorization against cattle screwworm",
+      "imageId": "screwworm-specimens",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "manual",
+      "sectors": [
+        "meat",
+        "dairy"
+      ],
+      "regions": [
+        "United States"
+      ],
+      "signal": "new",
+      "summary": "An FDA-authored announcement reports emergency authorization of Bimectin injection for prevention of New World screwworm infestations in specified cattle circumstances. The authorization expands the listed product options; it is not permission to use every Bimectin formulation.",
+      "keyPoints": [
+        "The announcement excludes lactating dairy cows and calves intended for veal.",
+        "It specifies a 35-day slaughter withdrawal period and refers users to the authorized labeling and fact sheet."
+      ],
+      "whyItMatters": "Product-specific restrictions matter for keeping prevention decisions compatible with food-animal requirements.",
+      "businessRelevance": "For Proterra, the announcement could inform monitoring of the changing official response to screwworm.",
+      "uncertainty": "Emergency authorization is conditional and may change; this historical summary is not a treatment protocol.",
+      "watchNext": "Watch FDA updates to the authorization and accompanying labeling.",
+      "confidence": "high",
+      "citations": [
+        {
+          "sourceId": "beef-magazine",
+          "title": "FDA issues EUA for ivermectin injection against screwworm in cattle",
+          "url": "https://www.beefmagazine.com/livestock-management/fda-issues-eua-for-ivermectin-injection-against-screwworm-in-cattle",
+          "publishedAt": "2026-08-27",
+          "sourceNote": "FDA-authored release syndicated by BEEF, linking the authorization letter and fact sheet. The exclusions are retained; no dosing advice is provided."
+        }
+      ]
+    },
+    {
+      "rank": 6,
+      "reviewId": "story-c1defd4c74926d9f",
+      "headline": "New Mexico lifts screwworm zone and associated cattle movement checks",
+      "imageId": "pasture-cattle-health",
+      "documentType": "news",
+      "reviewStatus": "reviewed",
+      "discoveryChannel": "manual",
+      "sectors": [
+        "meat",
+        "dairy"
+      ],
+      "regions": [
+        "United States"
+      ],
+      "signal": "easing",
+      "summary": "APHIS approved release of New Mexico’s only New World screwworm infested zone on August 30. Officials reported no further cases after the June 7 detection in a dog and said the area had met the established release requirements.",
+      "keyPoints": [
+        "The decision removes screwworm-specific domestic movement requirements for livestock and pets from the released area.",
+        "APHIS said fly trapping and wildlife surveillance would continue to monitor the risk of another introduction."
+      ],
+      "whyItMatters": "Removing the zone changes movement conditions for livestock businesses operating in the affected area.",
+      "businessRelevance": "For Proterra, this is a concrete update to monitor when following cattle movement and animal-health conditions.",
+      "uncertainty": "The release does not itself remove foreign trading partners’ restrictions; APHIS describes that as a separate negotiation.",
+      "watchNext": "Watch official movement notices and any subsequent removal of New Mexico-specific export restrictions.",
+      "confidence": "high",
+      "citations": [
+        {
+          "sourceId": "usda-aphis",
+          "title": "APHIS Approves Release of New World Screwworm Infested Zone in New Mexico",
+          "url": "https://www.aphis.usda.gov/news/agency-announcements/aphis-approves-release-new-world-screwworm-infested-zone-new-mexico",
+          "publishedAt": "2026-08-30",
+          "sourceNote": "Primary agency announcement with an August 30 dateline. Domestic zone release and potential changes to foreign restrictions are distinct."
+        }
+      ]
+    }
+  ]
+}

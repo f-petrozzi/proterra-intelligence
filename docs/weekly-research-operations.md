@@ -84,6 +84,30 @@ For the homelab portion of setup, `npm run weekly:setup` performs the safe read-
 8. Confirm each addressed thread against the refreshed exact-SHA report snapshot and resolve it.
 9. Either publisher selects **Approve & publish**. No GitHub action or merge is needed from the reviewer.
 
+## Unattended drafting on the homelab
+
+The checked-in `automation/systemd/proterra-weekly-draft.{service,timer}` units are templates only; adding them does not install or enable scheduling. GitHub still collects the weekly sources, and the homelab polls every six hours for a ready source queue or submitted revision. It does not approve or publish reports. Draft completion continues through the existing preview/review workflow, including its configured notifications.
+
+`npm run weekly:scheduled` loads only the four review credentials from `~/.config/proterra-intelligence/review.env` (or `PROTERRA_REVIEW_ENV_FILE`). The file must be owned by the operator, mode `0600`, and not a symlink. Values use dotenv syntax and are parsed as data; shell commands and variable interpolation are not evaluated. Missing credentials fail the run without printing their contents. GitHub and Codex still use the operator's existing CLI authentication.
+
+Both `weekly:draft` and `weekly:scheduled` acquire `.review/weekly-draft.lock` with `flock`; an overlapping invocation exits successfully without doing work. Always use these entry points from this checkout: direct TypeScript execution or another checkout bypasses this shared lock. No open labeled PR is a successful scheduled skip. A single PR already in review or publication is also a successful skip, after pending receipts have been reconciled. Multiple discovered PRs fail safely so catch-up issues must be processed chronologically. Failed or unknown review states remain errors. Scheduling never supplies a coverage override.
+
+Before activation, finish the catch-up queue and rehearse `npm run weekly:scheduled` against one approved-for-drafting source queue. This command is live: it may draft, push a validated report, and trigger the normal review handoff. Review the service's checkout location and pinned Node/CLI `PATH` for this account. After the rehearsal succeeds, install the templates:
+
+```sh
+install -d -m 700 ~/.config/systemd/user
+install -m 644 automation/systemd/proterra-weekly-draft.service automation/systemd/proterra-weekly-draft.timer ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now proterra-weekly-draft.timer
+systemctl --user list-timers proterra-weekly-draft.timer
+```
+
+Also enable GitHub's `WEEKLY_COLLECTION_ENABLED` only after rehearsal. The timer uses the host's timezone, polls at 00:15, 06:15, 12:15, and 18:15 with up to five minutes of jitter, and catches a missed activation when the user manager resumes. For execution while logged out, confirm `loginctl show-user "$USER" -p Linger`; enabling linger is a separate host administration step. The service does not update the checkout or install dependencies: deploy reviewed code and dependencies before enabling it.
+
+Inspect runs with `journalctl --user -u proterra-weekly-draft.service --since '2 days ago'` and `systemctl --user status proterra-weekly-draft.service`. Each invocation records start/end and exit status. Logs can contain source material and CLI diagnostics; use the operator's restricted journal access. Failed runs retry on the next six-hour tick, without immediate restart loops. A run is stopped after three hours. Persistent failures (coverage, validation, credentials) require operator repair; this timer does not add email alerts. Stop polling with `systemctl --user disable --now proterra-weekly-draft.timer`; stop an active draft separately with `systemctl --user stop proterra-weekly-draft.service`.
+
+Keep `.review/cache` and `.review/receipts` when recovering: retries reuse an exact-source/feedback draft and reconcile a pushed SHA through the existing idempotent handoff. After repairing a failure, `systemctl --user start proterra-weekly-draft.service` retries immediately. A failed drafting pass that produced no valid cached draft may consume another Codex pass on the next tick.
+
 ## Recovery
 
 - Collection or artifact-validation failure—including malformed JSON—removes `source-review-ready` from the existing PR and marks a matching D1 source queue `failed`, so the older queue cannot be drafted. Inspect the `collection-failed` issue and rerun after repairing the adapter or output; a successful rerun restores the queue.
