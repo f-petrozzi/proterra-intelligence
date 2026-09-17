@@ -1,7 +1,8 @@
 import { spawnSync } from "node:child_process";
 import nodemailer from "nodemailer";
 import { z } from "zod";
-import { getArgument, parseRecipients } from "./report";
+import { getSubscriptionSubject, renderSubscriptionEmail } from "./render";
+import { getArgument, getSiteUrl, parseRecipients } from "./report";
 import { currentRecipients, subscriptionApi } from "./subscriptions-client";
 
 const mode = getArgument("mode");
@@ -31,7 +32,10 @@ if (mode === "import") {
     await transport.verify();
     let count = 0;
     for (; count < 25; count++) {
-      const { message } = z.object({ message: z.object({ id: z.uuid(), lease: z.uuid(), email: z.email(), kind: z.enum(["invite", "subscribe", "unsubscribe"]), url: z.url() }).nullable() }).parse(await subscriptionApi("claim", {}));
+      const { message } = z.object({ message: z.object({
+        id: z.uuid(), lease: z.uuid(), email: z.email(), kind: z.enum(["invite", "subscribe"]), url: z.url(),
+        expiresAt: z.iso.datetime(), inviterName: z.string().max(60).optional()
+      }).nullable() }).parse(await subscriptionApi("claim", {}));
       if (!message) break;
       const link = new URL(message.url);
       if (link.origin !== new URL(process.env.REVIEW_API_URL!).origin || link.pathname !== "/subscriptions/confirm") throw new Error("Unexpected subscription confirmation URL.");
@@ -39,13 +43,13 @@ if (mode === "import") {
         console.log(`::add-mask::${message.email}`);
         console.log(`::add-mask::${message.url}`);
       }
-      const subject = message.kind === "invite" ? "You're invited to the Proterra Intelligence weekly digest" : message.kind === "unsubscribe" ? "Confirm your Proterra Intelligence unsubscribe request" : "Confirm your Proterra Intelligence subscription";
-      const introduction = message.kind === "invite" ? "Someone invited you to receive the Proterra Intelligence weekly digest covering dairy, meat, and bovine genetics. You have not been subscribed. Open the link to accept or decline." : message.kind === "unsubscribe" ? "Open the link to confirm that you want to stop receiving the weekly digest." : "Confirm that you want to receive the Proterra Intelligence weekly digest covering dairy, meat, and bovine genetics.";
+      const content = { kind: message.kind, url: message.url, expiresAt: message.expiresAt, inviterName: message.inviterName };
+      const { html, text } = await renderSubscriptionEmail(content, getSiteUrl());
       try {
         const result = await transport.sendMail({
           from: `"Proterra Intelligence" <${username}>`, to: message.email, replyTo: username,
-          messageId: `<subscription-${message.id}@${username.split("@")[1]}>`, subject,
-          text: `${introduction}\n\n${message.url}\n\nThis link expires in 7 days. If you did not expect this email, you can ignore it. No subscription changes occur unless you confirm.`
+          messageId: `<subscription-${message.id}@${username.split("@")[1]}>`, subject: getSubscriptionSubject(content),
+          html, text
         });
         if (result.rejected.length || !result.accepted.length) throw new Error("Recipient not accepted");
       } catch {
