@@ -15,10 +15,11 @@ export function parseHtmlList(input: string, source: CollectionSource): RawCandi
     const summary = source.htmlMapping!.summarySelector
       ? item.find(source.htmlMapping!.summarySelector).first().text()
       : undefined;
+    const shortDate = source.htmlMapping!.dateFormat === "day-first-short" ? /^(\d{2})\/(\d{2})\/(\d{2})$/.exec(rawDate.trim()) : null;
     return {
       title: title.text() || link.text(),
       url: new URL(link.attr("href") ?? "", source.endpoint).toString(),
-      publishedAt: rawDate ?? "",
+      publishedAt: shortDate ? `20${shortDate[3]}-${shortDate[2]}-${shortDate[1]}` : rawDate ?? "",
       ...(summary ? { summary } : {})
     };
   });

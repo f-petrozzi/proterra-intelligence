@@ -1,5 +1,7 @@
 # Weekly automation operations
 
+Source submission, review, and the weekly Puerto Rico and Latin America coverage checks have their own runbook in `docs/source-review.md`, including the order in which that service must be deployed.
+
 ## One-time setup
 
 ### Homelab
@@ -65,13 +67,14 @@ For the homelab portion of setup, `npm run weekly:setup` performs the safe read-
 
 1. Wait for “Proterra Intelligence sources are ready.”
 2. Open the linked draft pull request and inspect **Source review**. Read **Review first** as the suggested 8–10-item starting set, not a verdict. Check its plain-language reasons, sector/geography coverage, and publisher mix before spending Codex usage. **Also worth reviewing**, supporting data, source health, grouped coverage, and exact score math remain available in collapsed sections.
+   For an approved publisher marked `Manual; no lead supplied`, add a date-keyed curated-lead file before drafting when a strong story is known. Copy `templates/manual-leads.template.json` to `src/data/research-runs/YYYY-MM-DD.manual.json`, enter the direct HTTPS publisher URL, exact publication timestamp, headline, and a factual publisher-supplied summary, commit it on the issue branch, and rerun source collection. The collector validates the issue date, approved source ID, registered publisher domain, topic scope, and source lookback before merging and ranking the lead. It does not bypass CAPTCHAs or retrieve gated content.
 3. From the repository root on the homelab, load the review secrets and run:
 
    ```sh
    npm run weekly:draft
    ```
 
-   If the source email says `coverage-gap`, do not run Codex merely to rediscover that result. Add a defensible manual lead and rerun collection. Only when the editorial lead deliberately accepts the documented gaps, run the command below. This waives only the manifest-readiness gate; it never permits filler, invented evidence, weakened verification, or an invalid report.
+   If the source email says `coverage-gap`, do not run Codex merely to rediscover that result. Add a defensible manual lead using the file above and rerun collection. Only when the editorial lead deliberately accepts the documented gaps, run the command below. This waives only the manifest-readiness gate; it never permits filler, invented evidence, weakened verification, or an invalid report.
 
    ```sh
    npm run weekly:draft -- --allow-coverage-gap

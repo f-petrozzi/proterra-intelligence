@@ -1,0 +1,1402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proterra Image Library</title>
+<style>
+  :root {
+    --ink: #17201c;
+    --ink-muted: #5e6963;
+    --ink-faint: #8a938d;
+    --paper: #eeeee6;
+    --surface: #fafaf6;
+    --surface-sunk: #e4e4da;
+    --forest: #173f32;
+    --forest-deep: #0c2c22;
+    --on-forest: #f4f6f3;
+    --mint: #b7d7c1;
+    --dairy: #2f6d56;
+    --meat: #89583f;
+    --genetics: #526884;
+    --warn: #8a5a08;
+    --warn-bg: #f6e9cd;
+    --good: #2f6d56;
+    --good-bg: #d8e8dd;
+    --drop: #8f3d32;
+    --drop-bg: #f2ddd9;
+    --line: rgba(23, 32, 28, 0.14);
+    --line-strong: rgba(23, 32, 28, 0.3);
+    --shadow: 0 10px 30px rgba(18, 43, 34, 0.09);
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #eef2ee;
+      --ink-muted: #9fada5;
+      --ink-faint: #74827a;
+      --paper: #0c1713;
+      --surface: #14231d;
+      --surface-sunk: #0a1410;
+      --forest: #b7d7c1;
+      --forest-deep: #0a1a15;
+      --on-forest: #0c1713;
+      --mint: #b7d7c1;
+      --dairy: #7fc2a3;
+      --meat: #c79877;
+      --genetics: #93aecf;
+      --warn: #e5bf74;
+      --warn-bg: #3a2f14;
+      --good: #8ecfae;
+      --good-bg: #173024;
+      --drop: #e09b8e;
+      --drop-bg: #3a1f1a;
+      --line: rgba(233, 240, 235, 0.14);
+      --line-strong: rgba(233, 240, 235, 0.3);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #eef2ee;
+    --ink-muted: #9fada5;
+    --ink-faint: #74827a;
+    --paper: #0c1713;
+    --surface: #14231d;
+    --surface-sunk: #0a1410;
+    --forest: #b7d7c1;
+    --forest-deep: #0a1a15;
+    --on-forest: #0c1713;
+    --mint: #b7d7c1;
+    --dairy: #7fc2a3;
+    --meat: #c79877;
+    --genetics: #93aecf;
+    --warn: #e5bf74;
+    --warn-bg: #3a2f14;
+    --good: #8ecfae;
+    --good-bg: #173024;
+    --drop: #e09b8e;
+    --drop-bg: #3a1f1a;
+    --line: rgba(233, 240, 235, 0.14);
+    --line-strong: rgba(233, 240, 235, 0.3);
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font: 15px/1.55 var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  [hidden] { display: none !important; }
+  code { font-family: var(--mono); }
+  :focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+
+  .wrap { max-width: 96rem; margin: 0 auto; padding: 0 1.25rem; }
+
+  /* ---- masthead ---- */
+  .masthead {
+    background: var(--forest-deep);
+    color: #eaf2ec;
+    padding-block: 1.6rem 1.4rem;
+    border-bottom: 3px solid var(--mint);
+  }
+  .masthead h1 {
+    font: 600 clamp(1.5rem, 3.4vw, 2.1rem)/1.1 var(--serif);
+    margin: 0 0 .35rem;
+    letter-spacing: -0.01em;
+  }
+  .masthead .sub {
+    margin: 0;
+    color: rgba(234, 242, 236, 0.66);
+    max-width: 62ch;
+    font-size: .9rem;
+  }
+  .tally {
+    display: flex; flex-wrap: wrap; gap: .5rem 2.2rem;
+    margin-top: 1.15rem; padding-top: 1rem;
+    border-top: 1px solid rgba(183, 215, 193, 0.24);
+  }
+  .tally div { display: flex; align-items: baseline; gap: .45rem; }
+  .tally b {
+    font: 600 1.5rem/1 var(--serif);
+    font-variant-numeric: tabular-nums;
+    color: #fff;
+  }
+  .tally span { font-size: .74rem; letter-spacing: .09em; text-transform: uppercase; color: rgba(234,242,236,.6); }
+  .tally .is-warn b { color: #f0cd8a; }
+
+  /* ---- control bar ---- */
+  .bar {
+    position: sticky; top: 0; z-index: 30;
+    background: var(--paper);
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar-in {
+    display: flex; flex-wrap: wrap; align-items: center; gap: .5rem;
+    padding-block: .7rem;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .chip {
+    font: inherit; font-size: .82rem;
+    padding: .34rem .78rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: transparent; color: var(--ink-muted);
+    cursor: pointer;
+  }
+  .chip:hover { border-color: var(--forest); color: var(--ink); }
+  .chip[aria-pressed="true"] {
+    background: var(--forest); border-color: var(--forest);
+    color: var(--on-forest); font-weight: 600;
+  }
+
+  .bar-right { margin-left: auto; display: flex; align-items: center; gap: .55rem; flex-wrap: wrap; }
+  .scoreline { font: .78rem/1 var(--mono); color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+  .btn {
+    font: inherit; font-size: .82rem;
+    padding: .36rem .8rem; border-radius: .4rem;
+    border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink);
+    cursor: pointer;
+  }
+  .btn:hover { border-color: var(--forest); }
+  .btn-primary { background: var(--forest); border-color: var(--forest); color: var(--on-forest); font-weight: 600; }
+
+  .notice {
+    margin: .9rem 0 0; padding: .6rem .8rem;
+    background: var(--warn-bg); color: var(--warn);
+    border-radius: .4rem; font-size: .82rem;
+  }
+
+  /* ---- beats ---- */
+  main { padding-block: 2rem 4rem; }
+  .beat { margin-bottom: 3.2rem; scroll-margin-top: 5rem; }
+  .beat-head {
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem;
+    padding-bottom: .65rem; margin-bottom: 1.2rem;
+    border-bottom: 2px solid var(--accent);
+  }
+  .beat[data-accent="dairy"]    { --accent: var(--dairy); }
+  .beat[data-accent="meat"]     { --accent: var(--meat); }
+  .beat[data-accent="genetics"] { --accent: var(--genetics); }
+  .beat-head h2 {
+    font: 600 1.28rem/1.2 var(--serif); margin: 0 0 .18rem;
+    text-wrap: balance;
+  }
+  .beat-head p { margin: 0; font-size: .85rem; color: var(--ink-muted); max-width: 64ch; }
+  .beat-count {
+    font: 600 1.4rem/1 var(--serif); color: var(--accent);
+    font-variant-numeric: tabular-nums; flex: none;
+  }
+
+  .grid {
+    display: grid; gap: 1.15rem;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  }
+
+  .card {
+    display: flex; flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: .55rem;
+    overflow: hidden;
+  }
+  .card[data-verdict="keep"]    { border-color: var(--good); box-shadow: inset 0 0 0 1px var(--good); }
+  .card[data-verdict="replace"] { border-color: var(--warn); box-shadow: inset 0 0 0 1px var(--warn); }
+  .card[data-verdict="drop"]    { border-color: var(--drop); box-shadow: inset 0 0 0 1px var(--drop); opacity: .72; }
+
+  .frame {
+    display: block; width: 100%; padding: 0; border: 0; cursor: zoom-in;
+    background: var(--surface-sunk); aspect-ratio: 16 / 9; overflow: hidden;
+  }
+  .frame img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+  .frame:hover img { transform: scale(1.035); }
+  @media (prefers-reduced-motion: reduce) { .frame img { transition: none; } .frame:hover img { transform: none; } }
+
+  .body { padding: .8rem .85rem .6rem; display: flex; flex-direction: column; gap: .5rem; flex: 1; }
+  .body h3 { margin: 0; font-size: .88rem; font-weight: 400; }
+  .body h3 code { color: var(--ink); font-size: .84rem; word-break: break-all; }
+
+  .flags { display: flex; flex-wrap: wrap; gap: .3rem; }
+  .flag {
+    font: 600 .66rem/1 var(--sans); letter-spacing: .04em; text-transform: uppercase;
+    padding: .26rem .44rem; border-radius: .25rem; white-space: nowrap;
+  }
+  .flag-new    { background: var(--good-bg); color: var(--good); }
+  .flag-unused { background: var(--surface-sunk); color: var(--ink-muted); }
+  .flag-warn   { background: var(--warn-bg); color: var(--warn); }
+
+  .cred { margin: 0; font-size: .8rem; color: var(--ink-muted); }
+  .cred .lic { font-family: var(--mono); font-size: .74rem; }
+
+  .subs { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .25rem; }
+  .subs li {
+    font-size: .72rem; padding: .18rem .42rem;
+    border: 1px solid var(--line); border-radius: .25rem; color: var(--ink-muted);
+  }
+
+  .stat {
+    margin: auto 0 0; padding-top: .5rem; border-top: 1px dashed var(--line);
+    display: flex; flex-wrap: wrap; gap: .1rem .7rem;
+    font: .71rem/1.5 var(--mono); color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .verdict { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+  .verdict button {
+    font: inherit; font-size: .76rem; padding: .48rem .2rem;
+    border: 0; border-right: 1px solid var(--line);
+    background: transparent; color: var(--ink-muted); cursor: pointer;
+  }
+  .verdict button:last-child { border-right: 0; }
+  .verdict button:hover { background: var(--surface-sunk); color: var(--ink); }
+  .card[data-verdict="keep"]    .verdict button[data-v="keep"]    { background: var(--good-bg); color: var(--good); font-weight: 600; }
+  .card[data-verdict="replace"] .verdict button[data-v="replace"] { background: var(--warn-bg); color: var(--warn); font-weight: 600; }
+  .card[data-verdict="drop"]    .verdict button[data-v="drop"]    { background: var(--drop-bg); color: var(--drop); font-weight: 600; }
+
+  .empty { padding: 2rem 0; color: var(--ink-muted); font-style: italic; }
+
+  /* ---- gaps ---- */
+  .gaps { border-top: 2px solid var(--line-strong); padding-top: 1.4rem; }
+  .gaps h2 { font: 600 1.28rem/1.2 var(--serif); margin: 0 0 .25rem; }
+  .gaps > p { margin: 0 0 1.2rem; font-size: .85rem; color: var(--ink-muted); max-width: 64ch; }
+  .gap-list { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); }
+  .gap {
+    background: var(--surface); border: 1px dashed var(--line-strong);
+    border-radius: .55rem; padding: .85rem .9rem;
+  }
+  .gap h3 { margin: 0 0 .3rem; font: 600 .92rem/1.3 var(--sans); }
+  .gap p { margin: 0; font-size: .82rem; color: var(--ink-muted); }
+
+  /* ---- lightbox ---- */
+  .lb {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(8, 18, 14, .93);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1.25rem;
+  }
+  .lb-panel {
+    background: var(--surface); color: var(--ink);
+    border-radius: .6rem; overflow: auto;
+    max-width: min(76rem, 100%); max-height: 100%;
+    box-shadow: var(--shadow);
+  }
+  .lb-panel img { width: 100%; height: auto; background: var(--surface-sunk); }
+  .lb-meta { padding: 1rem 1.15rem 1.25rem; display: flex; flex-direction: column; gap: .6rem; }
+  .lb-meta h2 { margin: 0; font: 600 1.05rem/1.3 var(--mono); word-break: break-all; }
+  .lb-meta .alt { margin: 0; font-size: .92rem; }
+  .lb-meta .row { margin: 0; font-size: .82rem; color: var(--ink-muted); }
+  .lb-meta a { color: var(--dairy); }
+  .lb-close {
+    position: absolute; top: 1.1rem; right: 1.1rem;
+    font: 600 .82rem/1 var(--sans); padding: .5rem .85rem;
+    border-radius: .4rem; border: 1px solid rgba(255,255,255,.35);
+    background: rgba(0,0,0,.4); color: #fff; cursor: pointer;
+  }
+
+  @media (max-width: 40rem) {
+    .grid { grid-template-columns: 1fr; }
+    .beat-head { flex-direction: column; align-items: flex-start; gap: .4rem; }
+    .bar-right { width: 100%; margin-left: 0; }
+  }
+  @media print {
+    .bar, .verdict, .lb { display: none !important; }
+    .card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Proterra Image Library</h1>
+    <p class="sub">Local vetting sheet for the editorial image registry. Every asset is Wikimedia Commons, encoded to 1280&times;720 WebP. Mark each one Keep / Replace / Drop, then copy the report out. Nothing here is published &mdash; this file lives in <code>tools/</code> and never enters the site build.</p>
+    <div class="tally">
+      <div><b>41</b><span>in registry</span></div>
+      <div><b>11</b><span>added this cycle</span></div>
+      <div><b>15</b><span>never used</span></div>
+      <div class="is-warn"><b>10</b><span>below render size</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap bar-in">
+    <div class="chips" role="group" aria-label="Filter assets">
+      <button class="chip" type="button" data-filter="all" aria-pressed="true">All 41</button>
+      <button class="chip" type="button" data-filter="fresh" aria-pressed="false">Added this cycle 11</button>
+      <button class="chip" type="button" data-filter="unused" aria-pressed="false">Never used 15</button>
+      <button class="chip" type="button" data-filter="small" aria-pressed="false">Needs re-encode</button>
+      <button class="chip" type="button" data-filter="undecided" aria-pressed="false">Not yet vetted</button>
+    </div>
+    <div class="bar-right">
+      <span class="scoreline" id="scoreline">0 vetted</span>
+      <button class="btn btn-primary" type="button" id="copy">Copy report</button>
+      <button class="btn" type="button" id="reset">Clear</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <p class="notice" id="storageNote" hidden>This browser blocks local storage on <code>file://</code> pages, so verdicts live only until you close the tab. Use <b>Copy report</b> before you leave.</p>
+
+      <section class="beat" data-accent="genetics" id="beat-genetics">
+        <header class="beat-head">
+          <div>
+            <h2>Genetics &amp; breeding</h2>
+            <p>The company's own trade. Semen, embryos, genomic evaluation.</p>
+          </div>
+          <span class="beat-count">4</span>
+        </header>
+        <div class="grid">
+        <article class="card" data-id="genetics-lab"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="genetics-lab" aria-label="View genetics-lab full size">
+            <img src="../public/images/editorial/genetics-lab.webp" alt="Laboratory technician pipetting a DNA sample" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>genetics-lab</code></h3>
+            
+            <p class="cred">National Institute of Standards and Technology · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>bovine genetics</li><li>genomics</li><li>breeding evaluation</li><li>genetic ranking</li></ul>
+            <p class="stat"><span>1280×720</span><span>64 KB</span><span>used 2× in 2 issues · 2026-08-13, 2026-08-17</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for genetics-lab">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="bovine-embryos"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="bovine-embryos" aria-label="View bovine-embryos full size">
+            <img src="../public/images/editorial/bovine-embryos.webp" alt="Bovine embryos and ova collected from a Holstein cow under magnification" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>bovine-embryos</code></h3>
+            
+            <p class="cred">Aspron · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>bovine genetics</li><li>beef-on-dairy genetics</li><li>embryo transfer</li><li>dairy genetics</li><li>breeding</li></ul>
+            <p class="stat"><span>1280×720</span><span>34 KB</span><span>used 1× in 1 issue · 2026-08-22</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for bovine-embryos">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="livestock-genomic-sequencers"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="true">
+          <button class="frame" type="button" data-zoom="livestock-genomic-sequencers" aria-label="View livestock-genomic-sequencers full size">
+            <img src="../public/images/editorial/livestock-genomic-sequencers.webp" alt="Genomic sequencing equipment at the USDA livestock insects research laboratory in Texas" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>livestock-genomic-sequencers</code></h3>
+            <div class="flags"><span class="flag flag-warn">shows 84% of frame</span></div>
+            <p class="cred">USDAgov · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>genomic research</li><li>cattle research</li><li>genetic research</li><li>laboratory</li></ul>
+            <p class="stat"><span>1280×853</span><span>199 KB</span><span>used 1× in 1 issue · 2026-09-07</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for livestock-genomic-sequencers">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="bovine-semen-straws"
+                 data-fresh="true"
+                 data-unused="true"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="bovine-semen-straws" aria-label="View bovine-semen-straws full size">
+            <img src="../public/images/editorial/bovine-semen-straws.webp" alt="Frozen bovine semen straws held in a liquid nitrogen storage tank" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>bovine-semen-straws</code></h3>
+            <div class="flags"><span class="flag flag-new">added this cycle</span><span class="flag flag-unused">never used</span></div>
+            <p class="cred">Uwemuell · <span class="lic">CC BY-SA 3.0</span></p>
+            <ul class="subs"><li>artificial insemination</li><li>bovine semen</li><li>semen straws</li><li>bovine genetics</li><li>sire selection</li><li>cattle breeding</li><li>genetics supplier</li></ul>
+            <p class="stat"><span>1280×720</span><span>92 KB</span><span>never used</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for bovine-semen-straws">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article></div>
+      </section>
+      <section class="beat" data-accent="genetics" id="beat-herddata">
+        <header class="beat-head">
+          <div>
+            <h2>Herd data &amp; monitoring</h2>
+            <p>Tags, collars, records — the vendor-funding and interoperability beat.</p>
+          </div>
+          <span class="beat-count">3</span>
+        </header>
+        <div class="grid">
+        <article class="card" data-id="virtual-fencing-collar"
+                 data-fresh="false"
+                 data-unused="true"
+                 data-small="true">
+          <button class="frame" type="button" data-zoom="virtual-fencing-collar" aria-label="View virtual-fencing-collar full size">
+            <img src="../public/images/editorial/virtual-fencing-collar.webp" alt="Dairy cow wearing a Halter virtual fencing collar in a New Zealand pasture" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>virtual-fencing-collar</code></h3>
+            <div class="flags"><span class="flag flag-unused">never used</span><span class="flag flag-warn">960px wide — upscaled</span><span class="flag flag-warn">shows 84% of frame</span></div>
+            <p class="cred">Halter · <span class="lic">CC BY 4.0</span></p>
+            <ul class="subs"><li>virtual fencing</li><li>cattle collar</li><li>grazing management</li><li>livestock monitoring</li></ul>
+            <p class="stat"><span>960×640</span><span>148 KB</span><span>never used</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for virtual-fencing-collar">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="cattle-record-identification"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="true">
+          <button class="frame" type="button" data-zoom="cattle-record-identification" aria-label="View cattle-record-identification full size">
+            <img src="../public/images/editorial/cattle-record-identification.webp" alt="Ranch workers applying an identification ear tag to a restrained young cow" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>cattle-record-identification</code></h3>
+            <div class="flags"><span class="flag flag-warn">500px wide — upscaled</span><span class="flag flag-warn">shows 56% of frame</span></div>
+            <p class="cred">Loren Kerns from Tigard, Oregon, USA · <span class="lic">CC BY 2.0</span></p>
+            <ul class="subs"><li>cattle records</li><li>genomic data</li><li>animal identification</li><li>cattle supply chains</li></ul>
+            <p class="stat"><span>500×500</span><span>71 KB</span><span>used 1× in 1 issue · 2026-08-31</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for cattle-record-identification">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="cattle-monitoring-tag"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="true">
+          <button class="frame" type="button" data-zoom="cattle-monitoring-tag" aria-label="View cattle-monitoring-tag full size">
+            <img src="../public/images/editorial/cattle-monitoring-tag.webp" alt="Numbered cattle identification ear tag shown in close view" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>cattle-monitoring-tag</code></h3>
+            <div class="flags"><span class="flag flag-warn">500px wide — upscaled</span><span class="flag flag-warn">portrait — shows 49% of frame</span></div>
+            <p class="cred">Eliran t · <span class="lic">CC BY-SA 4.0</span></p>
+            <ul class="subs"><li>cattle monitoring</li><li>ear tag</li><li>animal identification</li><li>cattle data</li></ul>
+            <p class="stat"><span>500×575</span><span>17 KB</span><span>used 1× in 1 issue · 2026-09-14</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for cattle-monitoring-tag">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article></div>
+      </section>
+      <section class="beat" data-accent="dairy" id="beat-dairyherd">
+        <header class="beat-head">
+          <div>
+            <h2>Dairy herd &amp; milk production</h2>
+            <p>Cows, calves, heifers, parlours. Supply and herd-rebuilding stories.</p>
+          </div>
+          <span class="beat-count">4</span>
+        </header>
+        <div class="grid">
+        <article class="card" data-id="calf-health"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="calf-health" aria-label="View calf-health full size">
+            <img src="../public/images/editorial/calf-health.webp" alt="Young Holstein calf resting on straw in a dairy stall" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>calf-health</code></h3>
+            
+            <p class="cred">Kirsten Strough, USDA · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>calf health</li><li>young calf</li><li>dairy calf</li><li>animal health</li><li>livestock disease</li><li>screwworm</li></ul>
+            <p class="stat"><span>1280×720</span><span>61 KB</span><span>used 3× in 2 issues · 2026-08-13, 2026-08-17</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for calf-health">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="dairy-parlor"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="dairy-parlor" aria-label="View dairy-parlor full size">
+            <img src="../public/images/editorial/dairy-parlor.webp" alt="Dairy cows in a rotary milking parlor" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>dairy-parlor</code></h3>
+            
+            <p class="cred">USDA Rural Development · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>dairy farm</li><li>milk production</li><li>milk supply</li><li>dairy cows</li></ul>
+            <p class="stat"><span>1280×720</span><span>224 KB</span><span>used 3× in 3 issues · 2026-08-13, 2026-08-17, 2026-09-14</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for dairy-parlor">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="calf-feeding"
+                 data-fresh="false"
+                 data-unused="true"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="calf-feeding" aria-label="View calf-feeding full size">
+            <img src="../public/images/editorial/calf-feeding.webp" alt="A farmer bottle-feeding a young Holstein calf" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>calf-feeding</code></h3>
+            <div class="flags"><span class="flag flag-unused">never used</span></div>
+            <p class="cred">Preston Keres, USDA · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>colostrum</li><li>calf feeding</li><li>calf nutrition</li><li>calf immunity</li></ul>
+            <p class="stat"><span>1280×720</span><span>253 KB</span><span>never used</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for calf-feeding">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="heifer-barn"
+                 data-fresh="true"
+                 data-unused="true"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="heifer-barn" aria-label="View heifer-barn full size">
+            <img src="../public/images/editorial/heifer-barn.webp" alt="Holstein heifers feeding at the bunk in a free-stall barn" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>heifer-barn</code></h3>
+            <div class="flags"><span class="flag flag-new">added this cycle</span><span class="flag flag-unused">never used</span></div>
+            <p class="cred">USDA Rural Development · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>dairy heifers</li><li>heifer retention</li><li>replacement heifers</li><li>young stock</li><li>dairy herd</li><li>herd rebuilding</li></ul>
+            <p class="stat"><span>1280×720</span><span>374 KB</span><span>never used</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for heifer-barn">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article></div>
+      </section>
+      <section class="beat" data-accent="dairy" id="beat-processing">
+        <header class="beat-head">
+          <div>
+            <h2>Dairy processing &amp; products</h2>
+            <p>Plants, butter, powder, cheese. Investment, closure and price stories.</p>
+          </div>
+          <span class="beat-count">9</span>
+        </header>
+        <div class="grid">
+        <article class="card" data-id="butter-output"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="butter-output" aria-label="View butter-output full size">
+            <img src="../public/images/editorial/butter-output.webp" alt="Stick of butter beside a silver butter knife" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>butter-output</code></h3>
+            
+            <p class="cred">Renee Comet, National Cancer Institute · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>butter</li><li>butter production</li><li>butter prices</li></ul>
+            <p class="stat"><span>1280×720</span><span>53 KB</span><span>used 2× in 2 issues · 2026-08-13, 2026-09-14</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for butter-output">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="milk-powder"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="milk-powder" aria-label="View milk-powder full size">
+            <img src="../public/images/editorial/milk-powder.webp" alt="Milk powder with a measuring scoop" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>milk-powder</code></h3>
+            
+            <p class="cred">ProjectManhattan · <span class="lic">CC BY-SA 3.0</span></p>
+            <ul class="subs"><li>milk powder</li><li>nonfat dry milk</li><li>skim milk powder</li><li>dairy powder</li></ul>
+            <p class="stat"><span>1280×720</span><span>123 KB</span><span>used 1× in 1 issue · 2026-09-14</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for milk-powder">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="milk-tanker"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="milk-tanker" aria-label="View milk-tanker full size">
+            <img src="../public/images/editorial/milk-tanker.webp" alt="A stainless steel milk tanker parked beside a Pennsylvania dairy farm" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>milk-tanker</code></h3>
+            
+            <p class="cred">Beyond My Ken · <span class="lic">CC BY-SA 4.0</span></p>
+            <ul class="subs"><li>milk production</li><li>dairy plant</li><li>dairy processing</li><li>milk supply</li><li>dairy expansion</li></ul>
+            <p class="stat"><span>1280×720</span><span>178 KB</span><span>used 1× in 1 issue · 2026-08-22</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for milk-tanker">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="milk-components-glass"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="true">
+          <button class="frame" type="button" data-zoom="milk-components-glass" aria-label="View milk-components-glass full size">
+            <img src="../public/images/editorial/milk-components-glass.webp" alt="Glass filled with milk on a kitchen counter" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>milk-components-glass</code></h3>
+            <div class="flags"><span class="flag flag-warn">905px wide — upscaled</span><span class="flag flag-warn">portrait — shows 32% of frame</span></div>
+            <p class="cred">Ngophuongthanh · <span class="lic">CC BY-SA 4.0</span></p>
+            <ul class="subs"><li>milk protein</li><li>butterfat</li><li>milk components</li><li>milk supply</li></ul>
+            <p class="stat"><span>905×1600</span><span>62 KB</span><span>used 1× in 1 issue · 2026-08-31</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for milk-components-glass">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="creamery-cheese-production"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="true">
+          <button class="frame" type="button" data-zoom="creamery-cheese-production" aria-label="View creamery-cheese-production full size">
+            <img src="../public/images/editorial/creamery-cheese-production.webp" alt="Workers washing cheese blocks at Chaseholm Farm Creamery in New York" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>creamery-cheese-production</code></h3>
+            <div class="flags"><span class="flag flag-warn">960px wide — upscaled</span><span class="flag flag-warn">shows 85% of frame</span></div>
+            <p class="cred">Baynard · <span class="lic">CC BY-SA 3.0</span></p>
+            <ul class="subs"><li>cheese processing</li><li>dairy plant</li><li>creamery</li><li>milk processing</li></ul>
+            <p class="stat"><span>960×638</span><span>98 KB</span><span>used 1× in 1 issue · 2026-08-31</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for creamery-cheese-production">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="dairy-processing-vats"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="true">
+          <button class="frame" type="button" data-zoom="dairy-processing-vats" aria-label="View dairy-processing-vats full size">
+            <img src="../public/images/editorial/dairy-processing-vats.webp" alt="Cheese production vats inside a dairy facility in Affoltern im Emmental Switzerland" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>dairy-processing-vats</code></h3>
+            <div class="flags"><span class="flag flag-warn">960px wide — upscaled</span></div>
+            <p class="cred">Max Richard · <span class="lic">CC0</span></p>
+            <ul class="subs"><li>dairy processing</li><li>dairy plant</li><li>cheese production</li><li>processing investment</li></ul>
+            <p class="stat"><span>960×540</span><span>162 KB</span><span>used 1× in 1 issue · 2026-09-07</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for dairy-processing-vats">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="dairy-products-display"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="true">
+          <button class="frame" type="button" data-zoom="dairy-products-display" aria-label="View dairy-products-display full size">
+            <img src="../public/images/editorial/dairy-products-display.webp" alt="Packaged cheese and dairy products displayed on refrigerated grocery shelves" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>dairy-products-display</code></h3>
+            <div class="flags"><span class="flag flag-warn">shows 90% of frame</span></div>
+            <p class="cred">Bezik · <span class="lic">CC BY-SA 4.0</span></p>
+            <ul class="subs"><li>dairy prices</li><li>dairy products</li><li>cheese</li><li>global dairy market</li></ul>
+            <p class="stat"><span>1280×646</span><span>255 KB</span><span>used 1× in 1 issue · 2026-09-07</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for dairy-products-display">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="cheese-curd-vat"
+                 data-fresh="true"
+                 data-unused="true"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="cheese-curd-vat" aria-label="View cheese-curd-vat full size">
+            <img src="../public/images/editorial/cheese-curd-vat.webp" alt="Cheese curds forming in a stainless steel cheesemaking vat" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>cheese-curd-vat</code></h3>
+            <div class="flags"><span class="flag flag-new">added this cycle</span><span class="flag flag-unused">never used</span></div>
+            <p class="cred">U.S. Department of Agriculture · <span class="lic">CC BY 2.0</span></p>
+            <ul class="subs"><li>cheese production</li><li>cheese making</li><li>cheese plant</li><li>cheese output</li><li>milk processing</li><li>curd</li></ul>
+            <p class="stat"><span>1280×720</span><span>117 KB</span><span>never used</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for cheese-curd-vat">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="cheese-ripening-room"
+                 data-fresh="true"
+                 data-unused="true"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="cheese-ripening-room" aria-label="View cheese-ripening-room full size">
+            <img src="../public/images/editorial/cheese-ripening-room.webp" alt="Rounds of cheese curing in brine at a cheese factory" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>cheese-ripening-room</code></h3>
+            <div class="flags"><span class="flag flag-new">added this cycle</span><span class="flag flag-unused">never used</span></div>
+            <p class="cred">Carol M. Highsmith · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>cheese stocks</li><li>cheese inventory</li><li>cheese ripening</li><li>cheese storage</li><li>cheese prices</li><li>cheese exports</li></ul>
+            <p class="stat"><span>1280×720</span><span>86 KB</span><span>never used</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for cheese-ripening-room">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article></div>
+      </section>
+      <section class="beat" data-accent="meat" id="beat-beef">
+        <header class="beat-head">
+          <div>
+            <h2>Beef, feedlots &amp; markets</h2>
+            <p>Cattle on feed, packing, retail, auctions, cattle prices.</p>
+          </div>
+          <span class="beat-count">8</span>
+        </header>
+        <div class="grid">
+        <article class="card" data-id="cattle-market"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="cattle-market" aria-label="View cattle-market full size">
+            <img src="../public/images/editorial/cattle-market.webp" alt="A commercial cattle herd gathered in an open pasture" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>cattle-market</code></h3>
+            
+            <p class="cred">Keith Weller, USDA Agricultural Research Service · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>cattle market</li><li>live cattle</li><li>cattle inventory</li><li>cattle prices</li></ul>
+            <p class="stat"><span>1280×720</span><span>127 KB</span><span>used 3× in 2 issues · 2026-08-13, 2026-08-17</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for cattle-market">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="beef-retail"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="beef-retail" aria-label="View beef-retail full size">
+            <img src="../public/images/editorial/beef-retail.webp" alt="Packages of ground beef displayed in a United States grocery store" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>beef-retail</code></h3>
+            
+            <p class="cred">Lance Cheung, USDA · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>grocery beef</li><li>retail beef</li><li>beef promotion</li><li>ground beef</li></ul>
+            <p class="stat"><span>1280×720</span><span>274 KB</span><span>used 1× in 1 issue · 2026-08-17</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for beef-retail">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="beef-processing"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="beef-processing" aria-label="View beef-processing full size">
+            <img src="../public/images/editorial/beef-processing.webp" alt="A meat cutter preparing bone-in beef cuts at an Iowa butcher shop" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>beef-processing</code></h3>
+            
+            <p class="cred">Lance Cheung, USDA · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>boxed beef</li><li>beef cuts</li><li>wholesale beef</li><li>meat processing</li></ul>
+            <p class="stat"><span>1280×720</span><span>234 KB</span><span>used 2× in 2 issues · 2026-08-17, 2026-08-22</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for beef-processing">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="ground-beef-production"
+                 data-fresh="false"
+                 data-unused="true"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="ground-beef-production" aria-label="View ground-beef-production full size">
+            <img src="../public/images/editorial/ground-beef-production.webp" alt="Ground beef moving through an inspected commercial grinding operation" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>ground-beef-production</code></h3>
+            <div class="flags"><span class="flag flag-unused">never used</span></div>
+            <p class="cred">United States Department of Agriculture · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>ground beef</li><li>beef imports</li><li>beef prices</li><li>beef production</li><li>tariff-free beef</li></ul>
+            <p class="stat"><span>1280×720</span><span>119 KB</span><span>never used</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for ground-beef-production">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="african-beef-retail"
+                 data-fresh="false"
+                 data-unused="true"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="african-beef-retail" aria-label="View african-beef-retail full size">
+            <img src="../public/images/editorial/african-beef-retail.webp" alt="Assorted beef cuts displayed in a refrigerated butcher case in Botswana" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>african-beef-retail</code></h3>
+            <div class="flags"><span class="flag flag-unused">never used</span></div>
+            <p class="cred">Olgatladi2020 · <span class="lic">CC BY-SA 4.0</span></p>
+            <ul class="subs"><li>beef cuts</li><li>African beef market</li><li>beef market access</li><li>beef exports</li><li>beef retail</li></ul>
+            <p class="stat"><span>1280×720</span><span>194 KB</span><span>never used</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for african-beef-retail">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="small-farm-cattle"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="true">
+          <button class="frame" type="button" data-zoom="small-farm-cattle" aria-label="View small-farm-cattle full size">
+            <img src="../public/images/editorial/small-farm-cattle.webp" alt="Brown and white cattle standing near a wooden fence on a small farm" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>small-farm-cattle</code></h3>
+            <div class="flags"><span class="flag flag-warn">shows 85% of frame</span></div>
+            <p class="cred">APHIS.gov · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>cattle ranching</li><li>rancher</li><li>herd</li><li>animal health</li><li>regional livestock</li><li>herd retention</li></ul>
+            <p class="stat"><span>1280×850</span><span>303 KB</span><span>used 1× in 1 issue · 2026-09-07</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for small-farm-cattle">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="cattle-feedlot"
+                 data-fresh="true"
+                 data-unused="true"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="cattle-feedlot" aria-label="View cattle-feedlot full size">
+            <img src="../public/images/editorial/cattle-feedlot.webp" alt="Beef cattle standing in the pens of an open feedlot" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>cattle-feedlot</code></h3>
+            <div class="flags"><span class="flag flag-new">added this cycle</span><span class="flag flag-unused">never used</span></div>
+            <p class="cred">Quintin Soloviev · <span class="lic">CC0</span></p>
+            <ul class="subs"><li>cattle feedlot</li><li>cattle on feed</li><li>feedlot placements</li><li>fed cattle</li><li>beef production</li><li>cattle inventory</li></ul>
+            <p class="stat"><span>1280×720</span><span>293 KB</span><span>never used</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for cattle-feedlot">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="cattle-auction"
+                 data-fresh="true"
+                 data-unused="true"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="cattle-auction" aria-label="View cattle-auction full size">
+            <img src="../public/images/editorial/cattle-auction.webp" alt="Buyers and mounted drovers working the pens of a large cattle market" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>cattle-auction</code></h3>
+            <div class="flags"><span class="flag flag-new">added this cycle</span><span class="flag flag-unused">never used</span></div>
+            <p class="cred">Beatrice Murch · <span class="lic">CC BY 2.0</span></p>
+            <ul class="subs"><li>cattle auction</li><li>cattle market</li><li>cattle prices</li><li>livestock market</li><li>cattle sales</li><li>South American cattle</li><li>international cattle</li></ul>
+            <p class="stat"><span>1280×720</span><span>335 KB</span><span>never used</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for cattle-auction">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article></div>
+      </section>
+      <section class="beat" data-accent="meat" id="beat-trade">
+        <header class="beat-head">
+          <div>
+            <h2>Trade, borders &amp; movement</h2>
+            <p>Imports, tariffs, port-of-entry reopenings, livestock movement.</p>
+          </div>
+          <span class="beat-count">3</span>
+        </header>
+        <div class="grid">
+        <article class="card" data-id="cattle-loading"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="true">
+          <button class="frame" type="button" data-zoom="cattle-loading" aria-label="View cattle-loading full size">
+            <img src="../public/images/editorial/cattle-loading.webp" alt="Cattle loading platform and holding pens on a grassland" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>cattle-loading</code></h3>
+            <div class="flags"><span class="flag flag-warn">640px wide — upscaled</span><span class="flag flag-warn">shows 85% of frame</span></div>
+            <p class="cred">National Park Service, National Trails Office · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>cattle trade</li><li>cattle transport</li><li>border crossing</li><li>cattle imports</li></ul>
+            <p class="stat"><span>640×424</span><span>52 KB</span><span>used 3× in 3 issues · 2026-08-13, 2026-08-17, 2026-08-22</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for cattle-loading">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="cattle-import-crossing"
+                 data-fresh="true"
+                 data-unused="true"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="cattle-import-crossing" aria-label="View cattle-import-crossing full size">
+            <img src="../public/images/editorial/cattle-import-crossing.webp" alt="Cattle moving through holding pens at a border port of entry" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>cattle-import-crossing</code></h3>
+            <div class="flags"><span class="flag flag-new">added this cycle</span><span class="flag flag-unused">never used</span></div>
+            <p class="cred">R. Anson Eaglin, USDA · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>cattle imports</li><li>border crossing</li><li>port reopening</li><li>livestock movement</li><li>cattle trade</li><li>Mexican cattle</li></ul>
+            <p class="stat"><span>1280×720</span><span>230 KB</span><span>never used</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for cattle-import-crossing">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="border-cattle-inspection"
+                 data-fresh="true"
+                 data-unused="true"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="border-cattle-inspection" aria-label="View border-cattle-inspection full size">
+            <img src="../public/images/editorial/border-cattle-inspection.webp" alt="Veterinary staff recording livestock details on a tablet at a border inspection chute" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>border-cattle-inspection</code></h3>
+            <div class="flags"><span class="flag flag-new">added this cycle</span><span class="flag flag-unused">never used</span></div>
+            <p class="cred">R. Anson Eaglin, USDA · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>border inspection</li><li>port of entry</li><li>import protocol</li><li>livestock movement</li><li>cattle records</li><li>veterinary oversight</li></ul>
+            <p class="stat"><span>1280×720</span><span>134 KB</span><span>never used</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for border-cattle-inspection">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article></div>
+      </section>
+      <section class="beat" data-accent="meat" id="beat-health">
+        <header class="beat-head">
+          <div>
+            <h2>Animal health &amp; pest response</h2>
+            <p>Screwworm, FMD, veterinary inspection, eradication programmes.</p>
+          </div>
+          <span class="beat-count">6</span>
+        </header>
+        <div class="grid">
+        <article class="card" data-id="screwworm-fly"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="screwworm-fly" aria-label="View screwworm-fly full size">
+            <img src="../public/images/editorial/screwworm-fly.webp" alt="A marked sterile male New World screwworm fly held between fingertips" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>screwworm-fly</code></h3>
+            
+            <p class="cred">Peggy Greb, USDA Agricultural Research Service · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>screwworm</li><li>livestock pest</li><li>animal health</li><li>border biosecurity</li></ul>
+            <p class="stat"><span>1280×720</span><span>52 KB</span><span>used 2× in 2 issues · 2026-08-22, 2026-09-14</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for screwworm-fly">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="screwworm-specimens"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="true">
+          <button class="frame" type="button" data-zoom="screwworm-specimens" aria-label="View screwworm-specimens full size">
+            <img src="../public/images/editorial/screwworm-specimens.webp" alt="Two metallic green screwworm flies photographed against a pale background" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>screwworm-specimens</code></h3>
+            <div class="flags"><span class="flag flag-warn">shows 86% of frame</span></div>
+            <p class="cred">division, CSIRO · <span class="lic">CC BY 3.0</span></p>
+            <ul class="subs"><li>screwworm</li><li>livestock parasites</li><li>fly control</li></ul>
+            <p class="stat"><span>1280×836</span><span>137 KB</span><span>used 1× in 1 issue · 2026-08-31</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for screwworm-specimens">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="bovine-veterinary-exam"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="true">
+          <button class="frame" type="button" data-zoom="bovine-veterinary-exam" aria-label="View bovine-veterinary-exam full size">
+            <img src="../public/images/editorial/bovine-veterinary-exam.webp" alt="Veterinarian examining a restrained cow during an animal health check" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>bovine-veterinary-exam</code></h3>
+            <div class="flags"><span class="flag flag-warn">500px wide — upscaled</span><span class="flag flag-warn">shows 67% of frame</span></div>
+            <p class="cred">Bobjgalindo · <span class="lic">CC BY-SA 4.0</span></p>
+            <ul class="subs"><li>cattle health</li><li>animal health</li><li>FMD</li><li>veterinary examination</li></ul>
+            <p class="stat"><span>500×418</span><span>46 KB</span><span>used 1× in 1 issue · 2026-08-31</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for bovine-veterinary-exam">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="pasture-cattle-health"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="true">
+          <button class="frame" type="button" data-zoom="pasture-cattle-health" aria-label="View pasture-cattle-health full size">
+            <img src="../public/images/editorial/pasture-cattle-health.webp" alt="Cattle grazing on a grassy pasture in the Scottish countryside" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>pasture-cattle-health</code></h3>
+            <div class="flags"><span class="flag flag-warn">500px wide — upscaled</span></div>
+            <p class="cred">Calum McRoberts · <span class="lic">CC BY-SA 2.0</span></p>
+            <ul class="subs"><li>pasture</li><li>cattle grazing</li><li>tick control</li><li>animal health</li></ul>
+            <p class="stat"><span>500×281</span><span>12 KB</span><span>used 1× in 1 issue · 2026-08-31</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for pasture-cattle-health">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="veterinary-cattle-inspection"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="true">
+          <button class="frame" type="button" data-zoom="veterinary-cattle-inspection" aria-label="View veterinary-cattle-inspection full size">
+            <img src="../public/images/editorial/veterinary-cattle-inspection.webp" alt="Ethiopian and United States veterinarians examining a cow during a veterinary clinic" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>veterinary-cattle-inspection</code></h3>
+            <div class="flags"><span class="flag flag-warn">500px wide — upscaled</span><span class="flag flag-warn">shows 84% of frame</span></div>
+            <p class="cred">US Army Africa from Vicenza, Italy · <span class="lic">CC BY 2.0</span></p>
+            <ul class="subs"><li>cattle inspection</li><li>animal health</li><li>biosecurity</li><li>livestock disease</li><li>screwworm</li></ul>
+            <p class="stat"><span>500×334</span><span>61 KB</span><span>used 1× in 1 issue · 2026-09-07</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for veterinary-cattle-inspection">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="sterile-fly-release"
+                 data-fresh="true"
+                 data-unused="true"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="sterile-fly-release" aria-label="View sterile-fly-release full size">
+            <img src="../public/images/editorial/sterile-fly-release.webp" alt="Crews loading sterile fly containers onto an aircraft for an aerial release program" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>sterile-fly-release</code></h3>
+            <div class="flags"><span class="flag flag-new">added this cycle</span><span class="flag flag-unused">never used</span></div>
+            <p class="cred">USDA Animal and Plant Health Inspection Service · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>sterile fly release</li><li>sterile insect technique</li><li>fly eradication</li><li>aerial release</li><li>eradication program</li><li>pest response facility</li></ul>
+            <p class="stat"><span>1280×720</span><span>106 KB</span><span>never used</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for sterile-fly-release">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article></div>
+      </section>
+      <section class="beat" data-accent="dairy" id="beat-land">
+        <header class="beat-head">
+          <div>
+            <h2>Land, feed &amp; climate</h2>
+            <p>Pasture, rangeland, drought, feed costs and rations.</p>
+          </div>
+          <span class="beat-count">4</span>
+        </header>
+        <div class="grid">
+        <article class="card" data-id="global-pasture"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="global-pasture" aria-label="View global-pasture full size">
+            <img src="../public/images/editorial/global-pasture.webp" alt="Cattle grazing among trees in a managed pasture" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>global-pasture</code></h3>
+            
+            <p class="cred">USDA NRCS Texas · <span class="lic">CC BY 2.0</span></p>
+            <ul class="subs"><li>international cattle</li><li>global livestock</li><li>pasture</li><li>grazing</li></ul>
+            <p class="stat"><span>1280×720</span><span>152 KB</span><span>used 5× in 4 issues · 2026-08-13, 2026-08-17, 2026-09-07, 2026-09-14</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for global-pasture">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="rangeland-grazing"
+                 data-fresh="false"
+                 data-unused="false"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="rangeland-grazing" aria-label="View rangeland-grazing full size">
+            <img src="../public/images/editorial/rangeland-grazing.webp" alt="Two Brahman cattle grazing on managed pasture in Brazos County, Texas" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>rangeland-grazing</code></h3>
+            
+            <p class="cred">USDA NRCS Texas · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>rangeland grazing</li><li>grazing access</li><li>cattle grazing</li><li>pasture</li><li>ranch land</li></ul>
+            <p class="stat"><span>1280×720</span><span>229 KB</span><span>used 1× in 1 issue · 2026-08-22</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for rangeland-grazing">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="drought-water-supply"
+                 data-fresh="true"
+                 data-unused="true"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="drought-water-supply" aria-label="View drought-water-supply full size">
+            <img src="../public/images/editorial/drought-water-supply.webp" alt="A cattle watering trough on dry rangeland beside a shrinking stock pond" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>drought-water-supply</code></h3>
+            <div class="flags"><span class="flag flag-new">added this cycle</span><span class="flag flag-unused">never used</span></div>
+            <p class="cred">USDA Natural Resources Conservation Service · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>drought</li><li>drought mitigation</li><li>rangeland</li><li>water supply</li><li>pasture conditions</li><li>forage</li><li>cattle watering</li></ul>
+            <p class="stat"><span>1280×720</span><span>276 KB</span><span>never used</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for drought-water-supply">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article>
+        <article class="card" data-id="tmr-feeding"
+                 data-fresh="true"
+                 data-unused="true"
+                 data-small="false">
+          <button class="frame" type="button" data-zoom="tmr-feeding" aria-label="View tmr-feeding full size">
+            <img src="../public/images/editorial/tmr-feeding.webp" alt="A mixer wagon delivering total mixed ration along a dairy barn feed alley" loading="lazy" width="1280" height="720">
+          </button>
+          <div class="body">
+            <h3><code>tmr-feeding</code></h3>
+            <div class="flags"><span class="flag flag-new">added this cycle</span><span class="flag flag-unused">never used</span></div>
+            <p class="cred">Tractorboy60 · <span class="lic">Public domain</span></p>
+            <ul class="subs"><li>feed costs</li><li>dairy ration</li><li>mixed ration</li><li>feed prices</li><li>cattle feeding</li><li>feed margin</li></ul>
+            <p class="stat"><span>1280×720</span><span>219 KB</span><span>never used</span></p>
+          </div>
+          <div class="verdict" role="group" aria-label="Verdict for tmr-feeding">
+            <button type="button" data-v="keep">Keep</button>
+            <button type="button" data-v="replace">Replace</button>
+            <button type="button" data-v="drop">Drop</button>
+          </div>
+        </article></div>
+      </section>
+
+  <section class="gaps">
+    <h2>Still uncovered</h2>
+    <p>Subjects on the beat with no usable Commons asset. Tell me which of these are worth widening the search for &mdash; that would mean relaxing the registry's Wikimedia-only rule.</p>
+    <div class="gap-list">
+      <div class="gap"><h3>Robotic / automated milking</h3><p>Every usable Commons asset is a vendor product shot (DeLaval, Lely) with the brand dominating the frame. Precedent says no — the Halter collar is already barred from illustrating Nofence.</p></div>
+      <div class="gap"><h3>Manure digesters &amp; methane</h3><p>Only unreadable dark tank covers or press-event photos on Commons. Nothing legible as a digester.</p></div>
+      <div class="gap"><h3>Beef-on-dairy crossbred calves</h3><p>No Commons asset shows the cross specifically; bovine-embryos is the nearest stand-in.</p></div>
+      <div class="gap"><h3>Dairy / beef export logistics</h3><p>Reefer and port photos on Commons carry heavy carrier branding (Maersk, Samskip) and read as the wrong continent.</p></div>
+    </div>
+  </section>
+</main>
+
+<div class="lb" id="lb" hidden>
+  <button class="lb-close" type="button" id="lbClose">Close &nbsp;Esc</button>
+  <div class="lb-panel">
+    <img id="lbImg" src="" alt="">
+    <div class="lb-meta">
+      <h2 id="lbId"></h2>
+      <p class="alt" id="lbAlt"></p>
+      <p class="row" id="lbCred"></p>
+      <p class="row" id="lbSubs"></p>
+      <p class="row" id="lbUse"></p>
+      <p class="row"><a id="lbLink" href="#" target="_blank" rel="noreferrer">Open the original file page on Wikimedia Commons &rarr;</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var META = {"calf-health":{"alt":"Young Holstein calf resting on straw in a dairy stall","creator":"Kirsten Strough, USDA","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:Animals_(20120720-KS-Reclamation-0036).jpg","subjects":["calf health","young calf","dairy calf","animal health","livestock disease","screwworm"],"w":1280,"h":720,"used":["2026-08-13","2026-08-13","2026-08-17"],"introduced":null},"cattle-market":{"alt":"A commercial cattle herd gathered in an open pasture","creator":"Keith Weller, USDA Agricultural Research Service","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:Cattle_herd.jpg","subjects":["cattle market","live cattle","cattle inventory","cattle prices"],"w":1280,"h":720,"used":["2026-08-13","2026-08-13","2026-08-17"],"introduced":null},"global-pasture":{"alt":"Cattle grazing among trees in a managed pasture","creator":"USDA NRCS Texas","license":"CC BY 2.0","url":"https://commons.wikimedia.org/wiki/File:Cattle_grazing_in_a_silvopasture._(25112780735).jpg","subjects":["international cattle","global livestock","pasture","grazing"],"w":1280,"h":720,"used":["2026-08-13","2026-08-13","2026-08-17","2026-09-07","2026-09-14"],"introduced":null},"dairy-parlor":{"alt":"Dairy cows in a rotary milking parlor","creator":"USDA Rural Development","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:20250813-USDA-RD-VA-JGP-0001_(54721557540).jpg","subjects":["dairy farm","milk production","milk supply","dairy cows"],"w":1280,"h":720,"used":["2026-08-13","2026-08-17","2026-09-14"],"introduced":null},"butter-output":{"alt":"Stick of butter beside a silver butter knife","creator":"Renee Comet, National Cancer Institute","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:NCI_butter.jpg","subjects":["butter","butter production","butter prices"],"w":1280,"h":720,"used":["2026-08-13","2026-09-14"],"introduced":null},"cattle-loading":{"alt":"Cattle loading platform and holding pens on a grassland","creator":"National Park Service, National Trails Office","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:Cattle_loading_platform_at_the_Cimarron_National_Grassland_(4957b4a646ff485a962df874a57d8d09).JPG","subjects":["cattle trade","cattle transport","border crossing","cattle imports"],"w":640,"h":424,"used":["2026-08-13","2026-08-17","2026-08-22"],"introduced":null},"genetics-lab":{"alt":"Laboratory technician pipetting a DNA sample","creator":"National Institute of Standards and Technology","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:Laboratory_Technician_Pipettes_Dirt_(10714910404).jpg","subjects":["bovine genetics","genomics","breeding evaluation","genetic ranking"],"w":1280,"h":720,"used":["2026-08-13","2026-08-17"],"introduced":null},"milk-powder":{"alt":"Milk powder with a measuring scoop","creator":"ProjectManhattan","license":"CC BY-SA 3.0","url":"https://commons.wikimedia.org/wiki/File:Milk_powder_cropped.jpg","subjects":["milk powder","nonfat dry milk","skim milk powder","dairy powder"],"w":1280,"h":720,"used":["2026-09-14"],"introduced":null},"beef-retail":{"alt":"Packages of ground beef displayed in a United States grocery store","creator":"Lance Cheung, USDA","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:110303_CNPP_LSC_0158_(13065042035).jpg","subjects":["grocery beef","retail beef","beef promotion","ground beef"],"w":1280,"h":720,"used":["2026-08-17"],"introduced":null},"beef-processing":{"alt":"A meat cutter preparing bone-in beef cuts at an Iowa butcher shop","creator":"Lance Cheung, USDA","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:Agriculture_Secretary_Vilsack_at_Rustic_Cuts_growing_in_Iowa_(20210709-OSEC-LSC-0228).jpg","subjects":["boxed beef","beef cuts","wholesale beef","meat processing"],"w":1280,"h":720,"used":["2026-08-17","2026-08-22"],"introduced":null},"calf-feeding":{"alt":"A farmer bottle-feeding a young Holstein calf","creator":"Preston Keres, USDA","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:20220517-USDA-OC-PSD-0260_Agriculture_in_the_United_States.jpg","subjects":["colostrum","calf feeding","calf nutrition","calf immunity"],"w":1280,"h":720,"used":[],"introduced":null},"ground-beef-production":{"alt":"Ground beef moving through an inspected commercial grinding operation","creator":"United States Department of Agriculture","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:Ground_beef_USDA.jpg","subjects":["ground beef","beef imports","beef prices","beef production","tariff-free beef"],"w":1280,"h":720,"used":[],"introduced":"2026-08-22"},"milk-tanker":{"alt":"A stainless steel milk tanker parked beside a Pennsylvania dairy farm","creator":"Beyond My Ken","license":"CC BY-SA 4.0","url":"https://commons.wikimedia.org/wiki/File:Wanner%27s_Farm_Narvon_Pennsylvania_milk_tanker_truck.jpg","subjects":["milk production","dairy plant","dairy processing","milk supply","dairy expansion"],"w":1280,"h":720,"used":["2026-08-22"],"introduced":"2026-08-22"},"bovine-embryos":{"alt":"Bovine embryos and ova collected from a Holstein cow under magnification","creator":"Aspron","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:EMBRIONES_BOVINOS.jpg","subjects":["bovine genetics","beef-on-dairy genetics","embryo transfer","dairy genetics","breeding"],"w":1280,"h":720,"used":["2026-08-22"],"introduced":"2026-08-22"},"screwworm-fly":{"alt":"A marked sterile male New World screwworm fly held between fingertips","creator":"Peggy Greb, USDA Agricultural Research Service","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:SterileMaleCochliomyiahominivorax.jpg","subjects":["screwworm","livestock pest","animal health","border biosecurity"],"w":1280,"h":720,"used":["2026-08-22","2026-09-14"],"introduced":"2026-08-22"},"rangeland-grazing":{"alt":"Two Brahman cattle grazing on managed pasture in Brazos County, Texas","creator":"USDA NRCS Texas","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:Brahman_cattle_graze_in_Brazos_County%2C_Texas._NRCS_photo_by_Beverly_Moseley._%2824489776063%29.jpg","subjects":["rangeland grazing","grazing access","cattle grazing","pasture","ranch land"],"w":1280,"h":720,"used":["2026-08-22"],"introduced":"2026-08-22"},"african-beef-retail":{"alt":"Assorted beef cuts displayed in a refrigerated butcher case in Botswana","creator":"Olgatladi2020","license":"CC BY-SA 4.0","url":"https://commons.wikimedia.org/wiki/File:Beef_meat_on_display_at_a_butchery_store.jpg","subjects":["beef cuts","African beef market","beef market access","beef exports","beef retail"],"w":1280,"h":720,"used":[],"introduced":"2026-08-22"},"milk-components-glass":{"alt":"Glass filled with milk on a kitchen counter","creator":"Ngophuongthanh","license":"CC BY-SA 4.0","url":"https://commons.wikimedia.org/wiki/File:A_glass_of_milk.jpg","subjects":["milk protein","butterfat","milk components","milk supply"],"w":905,"h":1600,"used":["2026-08-31"],"introduced":"2026-08-31"},"creamery-cheese-production":{"alt":"Workers washing cheese blocks at Chaseholm Farm Creamery in New York","creator":"Baynard","license":"CC BY-SA 3.0","url":"https://commons.wikimedia.org/wiki/File:Cheesemaking_at_Chaseholm_Farm_Creamery.jpg","subjects":["cheese processing","dairy plant","creamery","milk processing"],"w":960,"h":638,"used":["2026-08-31"],"introduced":"2026-08-31"},"screwworm-specimens":{"alt":"Two metallic green screwworm flies photographed against a pale background","creator":"division, CSIRO","license":"CC BY 3.0","url":"https://commons.wikimedia.org/wiki/File:CSIRO_ScienceImage_1437_Screw_worm_fly.jpg","subjects":["screwworm","livestock parasites","fly control"],"w":1280,"h":836,"used":["2026-08-31"],"introduced":"2026-08-31"},"dairy-processing-vats":{"alt":"Cheese production vats inside a dairy facility in Affoltern im Emmental Switzerland","creator":"Max Richard","license":"CC0","url":"https://commons.wikimedia.org/wiki/File:Emmental_Production.jpg","subjects":["dairy processing","dairy plant","cheese production","processing investment"],"w":960,"h":540,"used":["2026-09-07"],"introduced":"2026-09-07"},"livestock-genomic-sequencers":{"alt":"Genomic sequencing equipment at the USDA livestock insects research laboratory in Texas","creator":"USDAgov","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:Secretary_Rollins_New_World_Screwworm_Press_Conf_,_and_Knipling-Bushland_U_S_Livestock_Insects_Research_Laboratory,_Tour_(55326002964).jpg","subjects":["genomic research","cattle research","genetic research","laboratory"],"w":1280,"h":853,"used":["2026-09-07"],"introduced":"2026-09-07"},"virtual-fencing-collar":{"alt":"Dairy cow wearing a Halter virtual fencing collar in a New Zealand pasture","creator":"Halter","license":"CC BY 4.0","url":"https://commons.wikimedia.org/wiki/File:Cow_with_Halter_Collar.jpg","subjects":["virtual fencing","cattle collar","grazing management","livestock monitoring"],"w":960,"h":640,"used":[],"introduced":"2026-09-07"},"dairy-products-display":{"alt":"Packaged cheese and dairy products displayed on refrigerated grocery shelves","creator":"Bezik","license":"CC BY-SA 4.0","url":"https://commons.wikimedia.org/wiki/File:Karat_products_in_grocery_shop.jpg","subjects":["dairy prices","dairy products","cheese","global dairy market"],"w":1280,"h":646,"used":["2026-09-07"],"introduced":"2026-09-07"},"small-farm-cattle":{"alt":"Brown and white cattle standing near a wooden fence on a small farm","creator":"APHIS.gov","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:Veterinary_Services_(35327687005).jpg","subjects":["cattle ranching","rancher","herd","animal health","regional livestock","herd retention"],"w":1280,"h":850,"used":["2026-09-07"],"introduced":"2026-09-07"},"cattle-record-identification":{"alt":"Ranch workers applying an identification ear tag to a restrained young cow","creator":"Loren Kerns from Tigard, Oregon, USA","license":"CC BY 2.0","url":"https://commons.wikimedia.org/wiki/File:Ear_tagging_with_a_cattle_crush_1_(7275982534).jpg","subjects":["cattle records","genomic data","animal identification","cattle supply chains"],"w":500,"h":500,"used":["2026-08-31"],"introduced":"2026-08-31"},"bovine-veterinary-exam":{"alt":"Veterinarian examining a restrained cow during an animal health check","creator":"Bobjgalindo","license":"CC BY-SA 4.0","url":"https://commons.wikimedia.org/wiki/File:AshtonCow.jpg","subjects":["cattle health","animal health","FMD","veterinary examination"],"w":500,"h":418,"used":["2026-08-31"],"introduced":"2026-08-31"},"pasture-cattle-health":{"alt":"Cattle grazing on a grassy pasture in the Scottish countryside","creator":"Calum McRoberts","license":"CC BY-SA 2.0","url":"https://commons.wikimedia.org/wiki/File:Cattle_on_the_pasture_-_geograph.org.uk_-_843103.jpg","subjects":["pasture","cattle grazing","tick control","animal health"],"w":500,"h":281,"used":["2026-08-31"],"introduced":"2026-08-31"},"veterinary-cattle-inspection":{"alt":"Ethiopian and United States veterinarians examining a cow during a veterinary clinic","creator":"US Army Africa from Vicenza, Italy","license":"CC BY 2.0","url":"https://commons.wikimedia.org/wiki/File:Ethiopia,_U.S._partner_for_veterinarian_project_(8144892684).jpg","subjects":["cattle inspection","animal health","biosecurity","livestock disease","screwworm"],"w":500,"h":334,"used":["2026-09-07"],"introduced":"2026-09-07"},"cattle-monitoring-tag":{"alt":"Numbered cattle identification ear tag shown in close view","creator":"Eliran t","license":"CC BY-SA 4.0","url":"https://commons.wikimedia.org/wiki/File:Cattle_ear_tag_(1).jpg","subjects":["cattle monitoring","ear tag","animal identification","cattle data"],"w":500,"h":575,"used":["2026-09-14"],"introduced":"2026-09-14"},"bovine-semen-straws":{"alt":"Frozen bovine semen straws held in a liquid nitrogen storage tank","creator":"Uwemuell","license":"CC BY-SA 3.0","url":"https://commons.wikimedia.org/wiki/File:Gefriersperma.JPG","subjects":["artificial insemination","bovine semen","semen straws","bovine genetics","sire selection","cattle breeding","genetics supplier"],"w":1280,"h":720,"used":[],"introduced":"2026-09-21"},"cattle-feedlot":{"alt":"Beef cattle standing in the pens of an open feedlot","creator":"Quintin Soloviev","license":"CC0","url":"https://commons.wikimedia.org/wiki/File:Beef_cattle_in_a_feedlot_in_New_Mexico.jpg","subjects":["cattle feedlot","cattle on feed","feedlot placements","fed cattle","beef production","cattle inventory"],"w":1280,"h":720,"used":[],"introduced":"2026-09-21"},"cattle-import-crossing":{"alt":"Cattle moving through holding pens at a border port of entry","creator":"R. Anson Eaglin, USDA","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:Douglas,_Arizona_-_Agua_Prieta,_Mexico_port_of_entry_on_August_24,_2026,_to_mark_the_port%E2%80%99s_reopening_to_cattle_imports_from_Mexico_-_26.jpg","subjects":["cattle imports","border crossing","port reopening","livestock movement","cattle trade","Mexican cattle"],"w":1280,"h":720,"used":[],"introduced":"2026-09-21"},"border-cattle-inspection":{"alt":"Veterinary staff recording livestock details on a tablet at a border inspection chute","creator":"R. Anson Eaglin, USDA","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:Douglas,_Arizona_-_Agua_Prieta,_Mexico_port_of_entry_on_August_24,_2026,_to_mark_the_port%E2%80%99s_reopening_to_cattle_imports_from_Mexico_-_8.jpg","subjects":["border inspection","port of entry","import protocol","livestock movement","cattle records","veterinary oversight"],"w":1280,"h":720,"used":[],"introduced":"2026-09-21"},"drought-water-supply":{"alt":"A cattle watering trough on dry rangeland beside a shrinking stock pond","creator":"USDA Natural Resources Conservation Service","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:Drought_Mitigation_-_Solar_Powered_Cattle_Watering_(20150416-NRCS-LSC-0403).jpg","subjects":["drought","drought mitigation","rangeland","water supply","pasture conditions","forage","cattle watering"],"w":1280,"h":720,"used":[],"introduced":"2026-09-21"},"heifer-barn":{"alt":"Holstein heifers feeding at the bunk in a free-stall barn","creator":"USDA Rural Development","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:Animals_(20110419-RD-LSC-0620).jpg","subjects":["dairy heifers","heifer retention","replacement heifers","young stock","dairy herd","herd rebuilding"],"w":1280,"h":720,"used":[],"introduced":"2026-09-21"},"sterile-fly-release":{"alt":"Crews loading sterile fly containers onto an aircraft for an aerial release program","creator":"USDA Animal and Plant Health Inspection Service","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:20190417-PJK-APHIS-0811_TONED.jpg","subjects":["sterile fly release","sterile insect technique","fly eradication","aerial release","eradication program","pest response facility"],"w":1280,"h":720,"used":[],"introduced":"2026-09-21"},"cheese-curd-vat":{"alt":"Cheese curds forming in a stainless steel cheesemaking vat","creator":"U.S. Department of Agriculture","license":"CC BY 2.0","url":"https://commons.wikimedia.org/wiki/File:Cheese_curds_floating.jpg","subjects":["cheese production","cheese making","cheese plant","cheese output","milk processing","curd"],"w":1280,"h":720,"used":[],"introduced":"2026-09-21"},"cheese-ripening-room":{"alt":"Rounds of cheese curing in brine at a cheese factory","creator":"Carol M. Highsmith","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:Curing_baby_Swiss_cheese_rounds_at_the_Alp_and_Dell_factory,_Monroe,_Wisconsin_LCCN2011632367.tif","subjects":["cheese stocks","cheese inventory","cheese ripening","cheese storage","cheese prices","cheese exports"],"w":1280,"h":720,"used":[],"introduced":"2026-09-21"},"tmr-feeding":{"alt":"A mixer wagon delivering total mixed ration along a dairy barn feed alley","creator":"Tractorboy60","license":"Public domain","url":"https://commons.wikimedia.org/wiki/File:Feeding_TMR.JPG","subjects":["feed costs","dairy ration","mixed ration","feed prices","cattle feeding","feed margin"],"w":1280,"h":720,"used":[],"introduced":"2026-09-21"},"cattle-auction":{"alt":"Buyers and mounted drovers working the pens of a large cattle market","creator":"Beatrice Murch","license":"CC BY 2.0","url":"https://commons.wikimedia.org/wiki/File:Liniers_cattle_market,_Buenos_Aires,_24_July_2009.jpg","subjects":["cattle auction","cattle market","cattle prices","livestock market","cattle sales","South American cattle","international cattle"],"w":1280,"h":720,"used":[],"introduced":"2026-09-21"}};
+  var KEY = "proterra-image-verdicts";
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".card"));
+  var verdicts = {};
+  var storageOk = true;
+
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (raw) verdicts = JSON.parse(raw) || {};
+  } catch (e) { storageOk = false; }
+  if (!storageOk) document.getElementById("storageNote").hidden = false;
+
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(verdicts)); }
+    catch (e) { storageOk = false; document.getElementById("storageNote").hidden = false; }
+  }
+
+  function paint() {
+    cards.forEach(function (c) {
+      var v = verdicts[c.dataset.id];
+      if (v) c.setAttribute("data-verdict", v); else c.removeAttribute("data-verdict");
+    });
+    var n = Object.keys(verdicts).length;
+    document.getElementById("scoreline").textContent = n + " of " + cards.length + " vetted";
+    applyFilter();
+  }
+
+  var filter = "all";
+  function matches(c) {
+    if (filter === "all") return true;
+    if (filter === "undecided") return !verdicts[c.dataset.id];
+    return c.dataset[filter] === "true";
+  }
+  function applyFilter() {
+    cards.forEach(function (c) { c.hidden = !matches(c); });
+    document.querySelectorAll(".beat").forEach(function (b) {
+      var any = Array.prototype.some.call(b.querySelectorAll(".card"), function (c) { return !c.hidden; });
+      b.hidden = !any;
+    });
+  }
+
+  document.querySelectorAll(".chip").forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      filter = chip.dataset.filter;
+      document.querySelectorAll(".chip").forEach(function (o) {
+        o.setAttribute("aria-pressed", String(o === chip));
+      });
+      applyFilter();
+    });
+  });
+
+  document.addEventListener("click", function (ev) {
+    var vb = ev.target.closest(".verdict button");
+    if (vb) {
+      var card = vb.closest(".card");
+      var id = card.dataset.id;
+      if (verdicts[id] === vb.dataset.v) delete verdicts[id];
+      else verdicts[id] = vb.dataset.v;
+      save(); paint();
+      return;
+    }
+    var zb = ev.target.closest("[data-zoom]");
+    if (zb) openLb(zb.dataset.zoom);
+  });
+
+  var lb = document.getElementById("lb");
+  function openLb(id) {
+    var m = META[id];
+    if (!m) return;
+    document.getElementById("lbImg").src = "../public/images/editorial/" + id + ".webp";
+    document.getElementById("lbImg").alt = m.alt;
+    document.getElementById("lbId").textContent = id;
+    document.getElementById("lbAlt").textContent = m.alt;
+    document.getElementById("lbCred").textContent = m.creator + " \u00b7 " + m.license + " \u00b7 " + m.w + "\u00d7" + m.h + (m.introduced ? " \u00b7 introduced " + m.introduced : "");
+    document.getElementById("lbSubs").textContent = "Subjects: " + m.subjects.join(", ");
+    var issues = m.used.filter(function (d, i) { return m.used.indexOf(d) === i; });
+    document.getElementById("lbUse").textContent = m.used.length
+      ? "Used " + m.used.length + "x across " + issues.length + " issue(s): " + issues.join(", ")
+      : "Never used in a published issue";
+    document.getElementById("lbLink").href = m.url;
+    lb.hidden = false;
+    document.getElementById("lbClose").focus();
+  }
+  function closeLb() { lb.hidden = true; }
+  document.getElementById("lbClose").addEventListener("click", closeLb);
+  lb.addEventListener("click", function (e) { if (e.target === lb) closeLb(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !lb.hidden) closeLb(); });
+
+  document.getElementById("reset").addEventListener("click", function () {
+    verdicts = {}; save(); paint();
+  });
+
+  document.getElementById("copy").addEventListener("click", function () {
+    var buckets = { keep: [], replace: [], drop: [] };
+    cards.forEach(function (c) {
+      var v = verdicts[c.dataset.id];
+      if (v) buckets[v].push(c.dataset.id);
+    });
+    var undecided = cards.filter(function (c) { return !verdicts[c.dataset.id]; })
+                         .map(function (c) { return c.dataset.id; });
+    var out = ["Proterra image library verdicts (" + new Date().toISOString().slice(0, 10) + ")", ""];
+    ["keep", "replace", "drop"].forEach(function (k) {
+      out.push(k.toUpperCase() + " (" + buckets[k].length + "): " + (buckets[k].join(", ") || "none"));
+    });
+    out.push("NOT VETTED (" + undecided.length + "): " + (undecided.join(", ") || "none"));
+    var text = out.join("\n");
+    var done = function () {
+      var b = document.getElementById("copy");
+      var old = b.textContent; b.textContent = "Copied";
+      setTimeout(function () { b.textContent = old; }, 1400);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { window.prompt("Copy the report:", text); });
+    } else {
+      window.prompt("Copy the report:", text);
+    }
+  });
+
+  paint();
+})();
+</script>
+</body>
+</html>

@@ -27,7 +27,7 @@ export type ScoreFactor<Weight extends number = number> = {
 };
 
 export type ScoreBreakdown = {
-  version: 1;
+  version: 2;
   factors: {
     recency: ScoreFactor<0.34> & { ageDays: number };
     authority: ScoreFactor<0.24>;
@@ -65,10 +65,8 @@ export function scoreCandidateBreakdown(candidate: NormalizedCandidate, context:
   const corroboration = Math.min(context.corroboratingPublisherCount, 3) / 3;
   const bovineGenetics: 0 | 0.08 = candidate.sectors.includes("bovine-genetics") ? 0.08 : 0;
   const international: 0 | 0.06 = candidate.geographies.some((geography) => geography !== "United States") ? 0.06 : 0;
-  // The reel is an English-reading brief that links out to the source. Confident
-  // non-English items are down-ranked so English-native reporting leads, but not
-  // dropped: a strong international story can still climb.
-  const nonEnglish: -0.07 | 0 = candidate.language !== "en" && candidate.language !== "und" ? -0.07 : 0;
+  // Rank evidence and relevance equally across source languages.
+  const nonEnglish = 0;
   const contributions = {
     recency: 0.34 * recency,
     authority: 0.24 * authority,
@@ -80,7 +78,7 @@ export function scoreCandidateBreakdown(candidate: NormalizedCandidate, context:
     + bovineGenetics + international + nonEnglish;
 
   return {
-    version: 1,
+    version: 2,
     factors: {
       recency: { signal: round(recency), weight: 0.34, contribution: round(contributions.recency), ageDays: round(ageDays) },
       authority: { signal: round(authority), weight: 0.24, contribution: round(contributions.authority) },

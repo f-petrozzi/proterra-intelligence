@@ -55,6 +55,8 @@ npm run email:preview -- --report 2026-08-31,2026-09-07,2026-09-14
 
 The output is `email-preview/catchup-2026-08-31-2026-09-14.html` and its plain-text counterpart. It includes all 18 articles, divided into August 24–30, August 31–September 6, and September 7–13, with issue dates and full-brief links. Historical report files are unchanged.
 
+The same HTML is available at `/digest-preview.html` on the publication website for browser review. This static preview contains only approved report content and a generic unsubscribe link; it never includes subscriber addresses or personal unsubscribe tokens.
+
 Use the same comma-separated value in the **Weekly email** workflow's `report` input. First choose `preview`, then `test`. After the recipient list and test email are approved, use `send` with `confirmation=2026-08-31,2026-09-07,2026-09-14`. Production requires an initialized subscriber database and approved reports. Test sends use only `EMAIL_TEST_RECIPIENT` (or the Gmail sender as fallback), never the production list.
 
 
