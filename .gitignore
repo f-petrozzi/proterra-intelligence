@@ -7,7 +7,6 @@ dist/
 .wrangler/
 **/.wrangler/
 email-preview/
-/public/digest-preview.html
 .review/
 
 # local environment
