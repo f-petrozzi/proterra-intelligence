@@ -164,6 +164,7 @@ export function renderSourceAudit(candidates: CandidateFile, manifest: RunManife
   }
 
   lines.push(
+    "", "### Coverage checks", "", ...(manifest.coverageChecklist ?? []).map(check => `- **${check.area}**: ${check.status}; ${check.newsCount} news candidates. ${check.note}`),
     "", "<details><summary>Source health and collection diagnostics</summary>", "",
     "Accepted counts are before story grouping. Score ranges use surviving representative items.", "",
     "| Adapter | Publisher group | Mode | Health | Seen / accepted | Rejected: window / scope / date | Score range |",
@@ -174,7 +175,8 @@ export function renderSourceAudit(candidates: CandidateFile, manifest: RunManife
     const adapter = adapters.get(adapterId);
     const manual = source.method === "manual" || source.collectionRole === "manual";
     const disabled = source.method === "disabled" || source.collectionRole === "disabled";
-    const health = manual ? "Manual; not fetched" : disabled ? "Disabled" : adapter?.status === "failed"
+    const suppliedLeads = manifest.manualLeadSources?.[source.sourceId] ?? 0;
+    const health = manual ? `Manual; ${suppliedLeads ? `${suppliedLeads} curated lead${suppliedLeads === 1 ? "" : "s"} supplied` : "no lead supplied"}` : disabled ? "Disabled" : adapter?.status === "failed"
       ? `Failed: ${adapter.error ?? "unknown error"}` : adapter ? "Healthy" : "Not run";
     const observed = adapter ? `${adapter.itemsSeen} / ${adapter.itemsAccepted}` : "—";
     const rejected = adapter
@@ -214,7 +216,7 @@ export function renderSourceAudit(candidates: CandidateFile, manifest: RunManife
     "| Content class (N) | News = 1.0; routine dataset = 0.5 | 0.180 |",
     "| Topic signal (T) | Capped deterministic sector-keyword hits | 0.140 |",
     "| Independent coverage (C) | Up to three additional publisher groups in the same story cluster | 0.100 |",
-    "| Adjustments | Bovine genetics +0.08; non-US +0.06; confident non-English −0.07 | varies |",
+    "| Adjustments | Bovine genetics +0.08; non-US +0.06; source language has no penalty (scoring v2) | varies |",
     "", "| Rank | Score | Source | Candidate | Published | Coverage | Calculation |",
     "| ---: | ---: | --- | --- | --- | --- | --- |"
   );

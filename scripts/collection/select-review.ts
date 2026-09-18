@@ -1,3 +1,4 @@
+import { matchesArea } from "./coverage";
 import type { Candidate, RunManifest } from "./types";
 
 export const reviewSelectionPolicy = {
@@ -63,6 +64,12 @@ export function buildReviewQueue(rankedCandidates: Candidate[]): {
       + Number(candidate.sectors.includes("bovine-genetics") && current["bovine-genetics"] < coverageTargets["bovine-genetics"])
       + Number(isInternational(candidate) && current.international < coverageTargets.international);
   };
+
+  // Keep Puerto Rico separate from broader LATAM coverage.
+  for (const area of ["Puerto Rico", "Latin America & Caribbean"]) {
+    const candidate = news.find(item => !selectedIds.has(item.candidateId) && underCap(item) && matchesArea(item, area));
+    if (candidate) select(candidate, "coverage-balance");
+  }
 
   // The input is already relevance-ranked, so first() preserves score order for
   // every tie while filling the most important coverage gaps.

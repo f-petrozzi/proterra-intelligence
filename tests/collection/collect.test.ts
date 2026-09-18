@@ -33,6 +33,85 @@ test("continues after an adapter failure and emits a partial manifest", async ()
   assert.equal(result.manifest.adapters[1].status, "failed");
 });
 
+test("merges a validated manual lead from an approved bot-protected source", async () => {
+  const result = await collectSources({
+    issueDate: "2026-09-14", now: new Date("2026-09-14T11:00:00Z"),
+    registry: { version: 1, sources: [{
+      sourceId: "drovers", publisherGroup: "farm-journal", enabled: false,
+      collectionRole: "manual", method: "manual", allowedHosts: [],
+      sectors: ["meat", "bovine-genetics"], geographies: ["United States", "International"],
+      lookbackDays: 10, rateLimitMs: 0, timeoutMs: 1_000, maxResponseBytes: 100_000,
+      minimumItemsSeen: 1, notes: "Bot-protected approved trade publication."
+    }] },
+    manualLeads: {
+      schemaVersion: 1, issueDate: "2026-09-14", leads: [{
+        sourceId: "drovers",
+        title: "The Next Breakthrough in Beef Genetics Depends Largely on Research Funding",
+        url: "https://www.drovers.com/news/next-breakthrough-beef-genetics-depends-largely-research-funding",
+        publishedAt: "2026-09-10T15:01:00-04:00",
+        summary: "Public research funding is presented as a constraint on future beef genetic improvement."
+      }]
+    }
+  });
+  assert.equal(result.manifest.status, "success");
+  assert.equal(result.manifest.manualLeadCount, 1);
+  assert.deepEqual(result.manifest.manualLeadSources, { drovers: 1 });
+  assert.equal(result.candidateFile.candidates.length, 1);
+  const [candidate] = result.candidateFile.candidates;
+  assert.equal(candidate.sourceId, "drovers");
+  assert.equal(candidate.discoveredBy, "manual");
+  assert.equal(candidate.contentClass, "news");
+  assert.deepEqual(candidate.sectors, ["bovine-genetics", "meat"]);
+  assert.equal(candidate.reviewTier, "review-first");
+  assert.ok(result.manifest.warnings.some((warning) => warning.includes("1 curated lead was supplied")));
+});
+
+test("rejects a manual lead whose URL is outside its registered publisher domain", async () => {
+  await assert.rejects(collectSources({
+    issueDate: "2026-09-14", now: new Date("2026-09-14T11:00:00Z"),
+    registry: { version: 1, sources: [{
+      sourceId: "drovers", enabled: false, collectionRole: "manual", method: "manual", allowedHosts: [],
+      sectors: ["meat", "bovine-genetics"], geographies: ["United States"], lookbackDays: 10,
+      rateLimitMs: 0, timeoutMs: 1_000, maxResponseBytes: 100_000, minimumItemsSeen: 1,
+      notes: "Bot-protected approved trade publication."
+    }] },
+    manualLeads: {
+      schemaVersion: 1, issueDate: "2026-09-14", leads: [{
+        sourceId: "drovers", title: "Beef genetics research funding update",
+        url: "https://example.org/not-drovers", publishedAt: "2026-09-10T15:01:00-04:00",
+        summary: "This deliberately invalid lead must not cross the approved publisher boundary."
+      }]
+    }
+  }), /does not belong to registered domain/);
+});
+
+test("saved discoveries return only while their source is still collected", async () => {
+  const feed = `<?xml version="1.0"?><rss><channel><item><title>Weekly dairy release</title><link>https://example.org/a</link><pubDate>2026-09-10T12:00:00Z</pubDate></item></channel></rss>`;
+  const fetcher: typeof fetch = async () => new Response(feed, { status: 200, headers: { "content-type": "application/rss+xml" } });
+  const registry = { version: 1, sources: [source("fao-americas", "https://example.org/feed.xml")] };
+  const saved = await collectSources({ issueDate: "2026-09-14", now: new Date("2026-09-14T11:00:00Z"), fetcher, registry });
+  assert.equal(saved.candidateFile.candidates.length, 1);
+
+  // A later week rediscovers nothing live, so the archive carries the story forward.
+  const empty = `<?xml version="1.0"?><rss><channel></channel></rss>`;
+  const quiet: typeof fetch = async () => new Response(empty, { status: 200, headers: { "content-type": "application/rss+xml" } });
+  const restored = await collectSources({
+    issueDate: "2026-09-16", now: new Date("2026-09-16T11:00:00Z"), fetcher: quiet, registry,
+    archivedCandidates: saved.candidateFile.candidates
+  });
+  assert.equal(restored.manifest.archivedCandidateCount, 1);
+  assert.equal(restored.candidateFile.candidates[0].canonicalUrl, saved.candidateFile.candidates[0].canonicalUrl);
+
+  // Turning the source off stops its saved discoveries too.
+  const disabled = await collectSources({
+    issueDate: "2026-09-16", now: new Date("2026-09-16T11:00:00Z"), fetcher: quiet,
+    registry: { version: 1, sources: [{ ...source("fao-americas", "https://example.org/feed.xml"), enabled: false }] },
+    archivedCandidates: saved.candidateFile.candidates
+  });
+  assert.equal(disabled.manifest.archivedCandidateCount, 0);
+  assert.equal(disabled.candidateFile.candidates.length, 0);
+});
+
 test("renders a simple review list with technical details collapsed", async () => {
   const feed = `<?xml version="1.0"?><rss><channel><item><title>International dairy genetics update</title>`
     + `<link>https://example.org/genetics</link><pubDate>2026-08-22T12:00:00Z</pubDate></item></channel></rss>`;
@@ -60,7 +139,7 @@ test("renders a simple review list with technical details collapsed", async () =
   assert.match(audit, /### Review first/);
   assert.match(audit, /Why it surfaced/);
   assert.match(audit, /fao-americas.*Healthy.*1 \/ 1/s);
-  assert.match(audit, /linkedin-org-post.*Manual; not fetched/s);
+  assert.match(audit, /linkedin-org-post.*Manual; no lead supplied/s);
   assert.match(audit, /<details><summary>Technical ranking and score math<\/summary>/);
   assert.match(audit, /R \d\.\d{3} \+ A \d\.\d{3} \+ N \d\.\d{3} \+ T \d\.\d{3} \+ C \d\.\d{3} \+ Adj/);
   assert.match(audit, /<details><summary>Grouped coverage/);

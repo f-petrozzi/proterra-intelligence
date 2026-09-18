@@ -12,7 +12,7 @@ export function publisherGroupOf(source: Pick<CollectionSource, "publisherGroup"
 }
 
 const trackingParameters = new Set([
-  "fbclid", "gclid", "mc_cid", "mc_eid", "ref", "ref_src", "source",
+  "fbclid", "gclid", "p_auth", "mc_cid", "mc_eid", "ref", "ref_src", "source",
   "utm_campaign", "utm_content", "utm_medium", "utm_source", "utm_term"
 ]);
 
@@ -70,6 +70,7 @@ const geographyTerms: Record<string, string[]> = {
   "United States": ["united states", "u s", "american", "usda"],
   "Latin America & Caribbean": ["latin america", "caribbean", "americas", "america latina", "latinoamerica", "caribe"],
   "Puerto Rico": ["puerto rico", "puertorican"],
+  Brazil: ["brazil", "brasil", "brasileiro", "brasileira"],
   Mexico: ["mexico", "mexican", "mexicano", "mexicana"],
   "Central America": ["central america", "centroamerica", "belize", "belice", "costa rica", "el salvador", "guatemala", "honduras", "nicaragua", "panama"],
   "Dominican Republic": ["dominican republic", "dominican", "republica dominicana", "dominicana"],
@@ -225,12 +226,13 @@ export function deduplicateCandidates(candidates: NormalizedCandidate[]) {
 export function normalizeCandidate(
   raw: RawCandidate,
   source: CollectionSource,
-  retrievedAt: string
+  retrievedAt: string,
+  options: { manual?: boolean } = {}
 ): NormalizedCandidate {
-  if (source.collectionRole !== "evidence" && source.collectionRole !== "discovery") {
+  if (!options.manual && source.collectionRole !== "evidence" && source.collectionRole !== "discovery") {
     throw new Error(`${source.sourceId}: non-collectable source role`);
   }
-  if (source.method === "manual" || source.method === "disabled") {
+  if (!options.manual && (source.method === "manual" || source.method === "disabled")) {
     throw new Error(`${source.sourceId}: non-collectable source method`);
   }
   const canonicalUrl = canonicalizeUrl(new URL(raw.url, source.endpoint).toString());
@@ -249,7 +251,11 @@ export function normalizeCandidate(
   if (!classification) throw new Error(`${source.sourceId}: candidate is outside the configured editorial scope`);
   // Reader-facing citation prefers a readable landing/synopsis page; the raw
   // API/PDF response stays attached as the auditable evidence link for datasets.
-  const contentClass = contentClassOf(source);
+  const contentClass = options.manual ? "news" : contentClassOf(source);
+  const collectionRole: NormalizedCandidate["collectionRole"] = options.manual
+    ? "discovery" : source.collectionRole as NormalizedCandidate["collectionRole"];
+  const discoveredBy: NormalizedCandidate["discoveredBy"] = options.manual
+    ? "manual" : source.method as NormalizedCandidate["discoveredBy"];
   const landingUrl = raw.landingUrl ? canonicalizeUrl(raw.landingUrl) : undefined;
   const citationUrl = landingUrl ?? canonicalUrl;
   const evidenceUrl = contentClass === "dataset" ? canonicalUrl : undefined;
@@ -257,10 +263,10 @@ export function normalizeCandidate(
     candidateId: candidateId(canonicalUrl),
     sourceId: source.sourceId,
     publisherGroup: publisherGroupOf(source),
-    collectionRole: source.collectionRole,
+    collectionRole,
     contentClass,
     language: detectLanguage(raw.title, raw.summary),
-    discoveredBy: source.method,
+    discoveredBy,
     canonicalUrl,
     citationUrl,
     ...(evidenceUrl ? { evidenceUrl } : {}),

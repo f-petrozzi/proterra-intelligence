@@ -10,10 +10,11 @@ import { linkedinAccounts } from "../lib/social";
 
 const approvedCount = sources.filter((source) => source.status === "approved").length;
 const probationaryCount = sources.filter((source) => source.status === "probationary").length;
-const proposalUrl = "https://github.com/f-petrozzi/proterra-intelligence/issues/new?template=source-review.yml";
-const linkedinUrl = "https://github.com/f-petrozzi/proterra-intelligence/issues/new?template=linkedin-lead.yml";
-const registryUrl = "https://github.com/f-petrozzi/proterra-intelligence/edit/main/src/data/sources.json";
-const watchlistUrl = "https://github.com/f-petrozzi/proterra-intelligence/edit/main/config/social-watchlist.json";
+const reviewOrigin = (import.meta.env.PUBLIC_REVIEW_ORIGIN || "https://proterra-intelligence-review.petrozzi.workers.dev").replace(/\/$/, "");
+const proposalUrl = `${reviewOrigin}/sources/new`;
+const linkedinUrl = proposalUrl;
+const registryUrl = `${reviewOrigin}/sources/review`;
+const watchlistUrl = `${reviewOrigin}/sources/new`;
 ---
 
 <BaseLayout title="Source review" description={`Review and maintain the ${site.name} source registry.`}>
@@ -22,11 +23,12 @@ const watchlistUrl = "https://github.com/f-petrozzi/proterra-intelligence/edit/m
   <section class="source-review-overview reveal delay-1" aria-labelledby="source-review-title">
     <div class="source-review-intro">
       <h2 id="source-review-title">Manage sources</h2>
-      <p>Propose or edit a source in GitHub. Each change requires review before it enters the registry.</p>
+      <p>Add a publisher or story here. You and your reviewer can check the link and accept it before it enters collection. Puerto Rico is checked separately from LATAM.</p>
       <div class="source-review-actions">
-        <a class="primary-action" href={proposalUrl} target="_blank" rel="noreferrer">Propose a source</a>
-        <a href={linkedinUrl} target="_blank" rel="noreferrer">Submit LinkedIn lead</a>
-        <a href={registryUrl} target="_blank" rel="noreferrer">Edit registry</a>
+        <a href={`${reviewOrigin}/sources/coverage`}>Weekly coverage · Puerto Rico</a>
+        <a class="primary-action" href={proposalUrl}>Add source or story</a>
+        <a href={linkedinUrl}>Submit LinkedIn lead</a>
+        <a href={registryUrl}>Review submissions</a>
       </div>
     </div>
     <div class="source-status-grid" aria-label="Source status summary">
@@ -44,8 +46,8 @@ const watchlistUrl = "https://github.com/f-petrozzi/proterra-intelligence/edit/m
         <p>Curated official accounts checked through public indexing and reviewer submissions. Posts are discovery leads; material claims still require primary verification.</p>
       </div>
       <div>
-        <a href={linkedinUrl} target="_blank" rel="noreferrer">Submit a post</a>
-        <a href={watchlistUrl} target="_blank" rel="noreferrer">Edit watchlist</a>
+        <a href={linkedinUrl}>Submit a post</a>
+        <a href={watchlistUrl}>Suggest an account</a>
       </div>
     </header>
     <div class="linkedin-watch-grid">

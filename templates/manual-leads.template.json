@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "issueDate": "YYYY-MM-DD",
+  "leads": [
+    {
+      "sourceId": "drovers",
+      "title": "Exact publisher headline",
+      "url": "https://www.drovers.com/news/example",
+      "publishedAt": "YYYY-MM-DDTHH:mm:ss-04:00",
+      "summary": "A factual publisher-supplied deck or short summary of at least 40 characters, without unsupported interpretation."
+    }
+  ]
+}

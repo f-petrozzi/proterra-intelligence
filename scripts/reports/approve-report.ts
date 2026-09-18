@@ -13,6 +13,7 @@ const report = JSON.parse(await readFile(reportPath, "utf8")) as {
   publishedAt?: string;
   issueNumber?: number;
   status?: string;
+  editorNote?: string;
   items?: Array<{ rank?: number; reviewStatus?: string }>;
 };
 
@@ -47,6 +48,7 @@ if (unknownStatuses) {
 }
 
 report.status = "approved";
+if (report.editorNote) report.editorNote = report.editorNote.replace(/\s*Human factual approval[^.]*pending\./g, "");
 report.items = report.items.map((item) => ({ ...item, reviewStatus: "reviewed" }));
 
 await writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");

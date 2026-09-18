@@ -8,7 +8,8 @@ interface Props {
 
 const { source } = Astro.props;
 const hostname = new URL(source.url).hostname.replace(/^www\./, "");
-const reviewUrl = "https://github.com/f-petrozzi/proterra-intelligence/edit/main/src/data/sources.json";
+const origin = (import.meta.env.PUBLIC_REVIEW_ORIGIN || "https://proterra-intelligence-review.petrozzi.workers.dev").replace(/\/$/, "");
+const reviewUrl = `${origin}/sources/${source.id}`;
 ---
 
 <article
@@ -45,6 +46,6 @@ const reviewUrl = "https://github.com/f-petrozzi/proterra-intelligence/edit/main
 
   <footer class="source-card-actions">
     <ArrowLink href={source.url} label="Visit source" external />
-    <a href={reviewUrl} target="_blank" rel="noreferrer">Review entry</a>
+    <a href={reviewUrl}>Review entry</a>
   </footer>
 </article>

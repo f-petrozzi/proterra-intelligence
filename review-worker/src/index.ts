@@ -3,6 +3,7 @@ import { assertCsrf, assertService, authenticatedEmail, csrfToken, type AuthEnv 
 import { reviewShell } from "./html";
 import { reviewReportSchema, type ReviewReport } from "./report";
 import { subscriptionRoutes } from "./subscriptions";
+import { sourceRoutes } from "./sources";
 
 export interface Env extends AuthEnv {
   REVIEW_DB: D1Database;
@@ -895,6 +896,8 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     try {
       const url = new URL(request.url);
+      const sourceResponse = await sourceRoutes(request, env);
+      if (sourceResponse) return sourceResponse;
       const subscriptionResponse = await subscriptionRoutes(request, env);
       if (subscriptionResponse) return subscriptionResponse;
       const path = url.pathname.split("/").filter(Boolean);
