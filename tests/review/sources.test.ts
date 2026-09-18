@@ -13,7 +13,7 @@ import collection from "../../config/collection-sources.json" with { type: "json
 test("two-person source review persists decisions, rejects stale approval, and protects service routes", async context=>{
  const mf=new Miniflare({workers:[{config:{name:"source-test",type:"worker",compatibilityDate:"2026-08-17",manifest:{mainModule:"index.js",modulesRoot:process.cwd(),modules:{"index.js":{type:"esm",contents:"export default {fetch(){return new Response('ok')}}"}}},env:{REVIEW_DB:{type:"d1",name:"sources"}}}}]});
  context.after(()=>mf.dispose());const db=await mf.getD1Database("REVIEW_DB","source-test");
- for(const file of ["0001_initial.sql","0005_sources.sql"]) for(const sql of (await readFile(`review-worker/migrations/${file}`,"utf8")).split(";").map(s=>s.trim()).filter(Boolean)) await db.prepare(sql).run();
+ for(const file of ["0001_initial.sql","0007_sources.sql"]) for(const sql of (await readFile(`review-worker/migrations/${file}`,"utf8")).split(";").map(s=>s.trim()).filter(Boolean)) await db.prepare(sql).run();
  await db.prepare("INSERT INTO review_users(email,role) VALUES('coo@example.org','reviewer')").run();
  const env={REVIEW_DB:db,REVIEW_SERVICE_KEY:"secret",REVIEW_ORIGIN:"https://review.example.org"} as unknown as Env;
  const payload={kind:"source",url:"https://example.org/news?utm_source=test",name:"Example livestock institute",notes:"Official dated cattle research publications.",regions:["Puerto Rico"],sectors:["dairy"]};

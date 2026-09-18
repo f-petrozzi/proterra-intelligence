@@ -20,7 +20,7 @@ Coverage shows how many news candidates collection already found for the selecte
 
 Nothing here works until the Worker is live, so deploy in this order.
 
-1. **Apply the migration.** `0005_sources.sql` creates the submission, decision-event, coverage-check, and daily-archive tables. The Deploy review worker workflow applies migrations before deploying; to do it by hand:
+1. **Apply the migration.** `0007_sources.sql` creates the submission, decision-event, coverage-check, and daily-archive tables. The Deploy review worker workflow applies migrations before deploying; to do it by hand:
 
    ```sh
    npx wrangler d1 migrations apply proterra-intelligence-review --remote --config review-worker/wrangler.jsonc
