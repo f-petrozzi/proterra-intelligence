@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "prebuild": "node --import tsx scripts/email/build-catchup-preview.ts",
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
     "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
