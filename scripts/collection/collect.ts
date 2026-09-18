@@ -1,4 +1,5 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { coverageChecklist, type CoverageCheck } from "./coverage";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import rawRegistry from "../../config/collection-sources.json" with { type: "json" };
 import rawEditorialSources from "../../src/data/sources.json" with { type: "json" };
@@ -12,7 +13,7 @@ import { deduplicateCandidates, normalizeCandidate, stableCandidateSort } from "
 import { buildReviewQueue } from "./select-review";
 import { authorityWeightOf, scoreCandidateBreakdown, type ScoreBreakdown } from "./score";
 import {
-  candidateFileSchema, collectionRegistrySchema, rawCandidateSchema, runManifestSchema,
+  candidateFileSchema, collectionRegistrySchema, manualLeadFileSchema, rawCandidateSchema, runManifestSchema,
   type Candidate, type CandidateFile, type CollectionSource, type NormalizedCandidate, type RunManifest
 } from "./types";
 
@@ -86,9 +87,13 @@ export async function collectSources(options: {
   now?: Date;
   fetcher?: FetchLike;
   registry?: unknown;
+  manualLeads?: unknown;
+  archivedCandidates?: unknown[];
+  coverageChecks?: CoverageCheck[];
 }) {
   const registry = collectionRegistrySchema.parse(options.registry ?? rawRegistry);
-  const editorialIds = new Set(rawEditorialSources.map((source) => source.id));
+  const editorialSources = new Map(rawEditorialSources.map((source) => [source.id, source]));
+  const editorialIds = new Set(editorialSources.keys());
   for (const source of registry.sources) {
     if (!editorialIds.has(source.sourceId)) throw new Error(`collection source ${source.sourceId} is not registered editorially`);
   }
@@ -97,9 +102,17 @@ export async function collectSources(options: {
   const collected: NormalizedCandidate[] = [];
   const adapters: RunManifest["adapters"] = [];
   const manualSources = registry.sources.filter((source) => source.collectionRole === "manual").map((source) => source.sourceId).sort();
+  const manualLeadInput = options.manualLeads === undefined
+    ? { schemaVersion: 1 as const, issueDate: options.issueDate, leads: [] }
+    : manualLeadFileSchema.parse(options.manualLeads);
+  if (manualLeadInput.issueDate !== options.issueDate) {
+    throw new Error(`manual lead file is for ${manualLeadInput.issueDate}, not ${options.issueDate}`);
+  }
+  const sourceById = new Map(registry.sources.map((source) => [source.sourceId, source]));
+  const manualLeadSources: Record<string, number> = {};
 
   const fetchable = registry.sources.filter((candidate) => candidate.enabled && !["manual", "disabled"].includes(candidate.method));
-  const maxLookback = Math.max(7, ...fetchable.map((source) => source.lookbackDays));
+  const maxLookback = Math.max(7, ...registry.sources.map((source) => source.lookbackDays));
   const window = windowFor(options.issueDate, maxLookback);
 
   for (const source of fetchable) {
@@ -154,6 +167,51 @@ export async function collectSources(options: {
       });
     }
     if (source.rateLimitMs) await new Promise((resolveDelay) => setTimeout(resolveDelay, source.rateLimitMs));
+  }
+
+  // Revalidate saved discoveries against today's registry and reporting window.
+  let archivedCandidateCount = 0;
+  for (const value of options.archivedCandidates ?? []) {
+    const parsed = candidateFileSchema.shape.candidates.element.safeParse(value);
+    if (!parsed.success) continue;
+    const old = parsed.data;
+    // Saved discoveries pass exactly the gate a live fetch passes today: a
+    // source turned off or removed since the run no longer contributes.
+    const source = fetchable.find((entry) => entry.sourceId === old.sourceId && entry.contentClass === old.contentClass)
+      ?? fetchable.find((entry) => entry.sourceId === old.sourceId);
+    if (!source) continue;
+    const sourceWindow = windowFor(options.issueDate, source.lookbackDays);
+    if (old.publishedAt < sourceWindow.start || old.publishedAt >= sourceWindow.end) continue;
+    try {
+      const candidate = normalizeCandidate({ title:old.title, url:old.canonicalUrl, publishedAt:old.publishedAt,
+        summary:old.summary, releaseId:old.releaseId, landingUrl:old.citationUrl }, source, old.retrievedAt,
+        { manual: old.discoveredBy === "manual" });
+      collected.push(candidate); archivedCandidateCount += 1;
+    } catch { /* A changed scope must not be bypassed by the archive. */ }
+  }
+
+  // Curated leads are the safe fallback for approved publishers whose bot
+  // protection prevents unattended collection. They still pass the same host,
+  // topic, date-window, deduplication, ranking, and evidence rules as feeds.
+  for (const lead of manualLeadInput.leads) {
+    const source = sourceById.get(lead.sourceId);
+    const editorial = editorialSources.get(lead.sourceId);
+    if (!source || !editorial) throw new Error(`manual lead source ${lead.sourceId} is not registered`);
+    if (editorial.status !== "approved") throw new Error(`manual lead source ${lead.sourceId} is not approved`);
+    const sourceHost = editorial.domain.toLowerCase().replace(/^www\./, "");
+    const leadHost = new URL(lead.url).hostname.toLowerCase().replace(/^www\./, "");
+    if (leadHost !== sourceHost && !leadHost.endsWith(`.${sourceHost}`)) {
+      throw new Error(`manual lead ${lead.url} does not belong to registered domain ${editorial.domain}`);
+    }
+    const sourceWithHost = { ...source, allowedHosts: [...new Set([...source.allowedHosts, sourceHost])] };
+    const { sourceId: _sourceId, ...raw } = lead;
+    const candidate = normalizeCandidate(raw, sourceWithHost, retrievedAt, { manual: true });
+    const sourceWindow = windowFor(options.issueDate, source.lookbackDays);
+    if (candidate.publishedAt < sourceWindow.start || candidate.publishedAt >= sourceWindow.end) {
+      throw new Error(`manual lead ${lead.url} is outside ${lead.sourceId}'s collection window`);
+    }
+    collected.push(candidate);
+    manualLeadSources[lead.sourceId] = (manualLeadSources[lead.sourceId] ?? 0) + 1;
   }
 
   // Collapse near-duplicate stories, then rank every surviving cluster
@@ -219,7 +277,9 @@ export async function collectSources(options: {
 
   const completedAt = (options.now ?? new Date()).toISOString();
   const failed = adapters.filter((adapter) => adapter.status === "failed").length;
-  const status = adapters.length === 0 || failed === adapters.length ? "failed" : failed > 0 ? "partial" : "success";
+  const status = adapters.length === 0
+    ? (manualLeadInput.leads.length ? "success" : "failed")
+    : failed === adapters.length ? "failed" : failed > 0 ? "partial" : "success";
   const candidateFile: CandidateFile = candidateFileSchema.parse({
     schemaVersion: 1, issueDate: options.issueDate, window, generatedAt: completedAt, candidates
   });
@@ -232,7 +292,9 @@ export async function collectSources(options: {
     candidate.geographies.some((geography) => geography !== "United States")
   );
   // Coverage gaps are waivable by an editorial override; the news-led minimum is not.
+  const checklist = coverageChecklist(options.issueDate, candidates, options.coverageChecks);
   const coverageGaps = [
+    ...checklist.filter(check => ["Puerto Rico", "Latin America & Caribbean"].includes(check.area) && ["needs-check", "unavailable"].includes(check.status)).map(check => `${check.area}: ${check.status === "unavailable" ? "sources unavailable" : "dedicated coverage check needed"}.`),
     ...(["dairy", "meat", "bovine-genetics"] as const)
       .filter((sector) => !sectorCounts[sector])
       .map((sector) => `No relevant ${sector} candidate was collected.`),
@@ -246,7 +308,7 @@ export async function collectSources(options: {
     .filter((adapter) => adapter.status === "success" && adapter.itemsSeen > 0 && adapter.itemsAccepted === 0)
     .map((adapter) => `${adapter.sourceId} saw ${adapter.itemsSeen} items but accepted none (window ${adapter.rejectedOutOfWindow}, scope ${adapter.rejectedByScope}, date ${adapter.rejectedByDate}); verify its filters, date selector, or lookback.`);
   const warnings = [
-    ...(manualSources.length ? [`${manualSources.length} manual sources were not fetched.`] : []),
+    ...(manualSources.length ? [`${manualSources.length} manual sources were not fetched${manualLeadInput.leads.length ? `; ${manualLeadInput.leads.length} curated lead${manualLeadInput.leads.length === 1 ? " was" : "s were"} supplied separately` : ""}.`] : []),
     ...(newsCandidateCount < preferredNewsCandidates ? [`The preferred ${preferredNewsCandidates} news-item editorial target is unavailable; publish only if at least ${minimumNewsCandidates} strong news items clear review.`] : []),
     ...newsShortfall,
     ...coverageGaps,
@@ -256,6 +318,7 @@ export async function collectSources(options: {
     schemaVersion: 1, issueDate: options.issueDate, startedAt, completedAt, status,
     candidateCount: candidates.length, candidatesBeforeDeduplication: collected.length,
     newsCandidateCount, datasetCandidateCount, clusterCount: clusters.length, adapters, manualSources,
+    manualLeadCount: manualLeadInput.leads.length, manualLeadSources, archivedCandidateCount, coverageChecklist: checklist,
     editorialReadiness: coverageGaps.length === 0 && newsReadiness === "ready" ? "ready" : "coverage-gap",
     newsReadiness,
     coverageGaps,
@@ -273,7 +336,24 @@ export async function collectSources(options: {
 async function main() {
   const issueDate = argument("issue-date") ?? new Intl.DateTimeFormat("en-CA", { timeZone: timezone }).format(new Date());
   const dryRun = process.argv.includes("--dry-run");
-  const result = await collectSources({ issueDate });
+  const manualLeadPath = argument("manual-leads") ?? resolve("src", "data", "research-runs", `${issueDate}.manual.json`);
+  let manualLeads: unknown;
+  try {
+    manualLeads = JSON.parse(await readFile(manualLeadPath, "utf8"));
+  } catch (error) {
+    if (!((error as NodeJS.ErrnoException).code === "ENOENT")) throw error;
+  }
+  // A review-service outage must degrade to live-only collection, not fail the week.
+  let archive: { candidates?: unknown[]; checks?: CoverageCheck[] } = {};
+  const archivePath = argument("archive");
+  if (archivePath) {
+    try {
+      archive = JSON.parse(await readFile(archivePath, "utf8"));
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    }
+  }
+  const result = await collectSources({ issueDate, manualLeads, archivedCandidates: archive.candidates, coverageChecks: archive.checks });
   if (dryRun) {
     process.stdout.write(`${JSON.stringify({
       issueDate, status: result.manifest.status,

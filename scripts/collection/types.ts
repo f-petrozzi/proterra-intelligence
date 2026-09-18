@@ -63,7 +63,8 @@ const htmlMappingSchema = z.object({
   linkSelector: z.string().min(1),
   dateSelector: z.string().min(1),
   summarySelector: z.string().min(1).optional(),
-  dateAttribute: z.string().min(1).optional()
+  dateAttribute: z.string().min(1).optional(),
+  dateFormat: z.enum(["day-first-short"]).optional()
 });
 
 export const collectionSourceSchema = baseSourceSchema.extend({
@@ -126,6 +127,18 @@ export const rawCandidateSchema = z.object({
   landingUrl: z.url().optional()
 });
 
+export const manualLeadSchema = rawCandidateSchema.extend({
+  sourceId: z.string().regex(/^[a-z0-9-]+$/),
+  url: z.url().refine((value) => new URL(value).protocol === "https:", "manual lead URLs must use HTTPS"),
+  summary: z.string().min(40).max(2_000)
+});
+
+export const manualLeadFileSchema = z.object({
+  schemaVersion: z.literal(1),
+  issueDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  leads: z.array(manualLeadSchema).max(100)
+});
+
 export const normalizedCandidateSchema = z.object({
   candidateId: z.string().regex(/^[a-f0-9]{64}$/),
   sourceId: z.string().regex(/^[a-z0-9-]+$/),
@@ -133,7 +146,7 @@ export const normalizedCandidateSchema = z.object({
   collectionRole: z.enum(["evidence", "discovery"]),
   contentClass: z.enum(contentClasses),
   language: z.enum(languageTags),
-  discoveredBy: z.enum(["rss", "json-api", "csv-api", "html-list"]),
+  discoveredBy: z.enum(["rss", "json-api", "csv-api", "html-list", "manual"]),
   canonicalUrl: z.url(),
   citationUrl: z.url(),
   evidenceUrl: z.url().optional(),
@@ -149,7 +162,7 @@ export const normalizedCandidateSchema = z.object({
 });
 
 const scoreBreakdownSchema = z.object({
-    version: z.literal(1),
+    version: z.union([z.literal(1), z.literal(2)]),
     factors: z.object({
       recency: z.object({ signal: z.number().min(0).max(1), weight: z.literal(0.34), contribution: z.number().nonnegative(), ageDays: z.number().nonnegative() }),
       authority: z.object({ signal: z.number().min(0).max(1), weight: z.literal(0.24), contribution: z.number().nonnegative() }),
@@ -225,7 +238,7 @@ export const candidateSchema = normalizedCandidateSchema.extend({
   const expectedAdjustments = {
     bovineGenetics: candidate.sectors.includes("bovine-genetics") ? 0.08 : 0,
     international: candidate.geographies.some((geography) => geography !== "United States") ? 0.06 : 0,
-    nonEnglish: candidate.language !== "en" && candidate.language !== "und" ? -0.07 : 0
+    nonEnglish: candidate.scoreBreakdown.version === 1 && candidate.language !== "en" && candidate.language !== "und" ? -0.07 : 0
   };
   for (const [name, expected] of Object.entries(expectedAdjustments)) {
     if (adjustments[name as keyof typeof adjustments] !== expected) {
@@ -282,6 +295,10 @@ export const runManifestSchema = z.object({
   clusterCount: z.number().int().nonnegative(),
   adapters: z.array(adapterResultSchema),
   manualSources: z.array(z.string()),
+  coverageChecklist: z.array(z.object({ area: z.string(), newsCount: z.number().int().nonnegative(), status: z.enum(["checked", "stories-found", "unavailable", "needs-check"]), note: z.string(), checkedAt: z.string().optional() })).optional(),
+  archivedCandidateCount: z.number().int().nonnegative().optional(),
+  manualLeadCount: z.number().int().nonnegative().optional(),
+  manualLeadSources: z.record(z.string(), z.number().int().positive()).optional(),
   editorialReadiness: z.enum(["ready", "coverage-gap"]),
   newsReadiness: z.enum(["ready", "insufficient-news"]),
   coverageGaps: z.array(z.string()),
@@ -310,6 +327,7 @@ export const runManifestSchema = z.object({
 
 export type CollectionSource = z.infer<typeof collectionSourceSchema>;
 export type RawCandidate = z.infer<typeof rawCandidateSchema>;
+export type ManualLeadFile = z.infer<typeof manualLeadFileSchema>;
 export type NormalizedCandidate = z.infer<typeof normalizedCandidateSchema>;
 export type Candidate = z.infer<typeof candidateSchema>;
 export type CandidateFile = z.infer<typeof candidateFileSchema>;

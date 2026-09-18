@@ -6,8 +6,13 @@
     "url": "https://www.ams.usda.gov/market-news/dairy",
     "tier": "A",
     "status": "approved",
-    "regions": ["United States", "International"],
-    "sectors": ["dairy"],
+    "regions": [
+      "United States",
+      "International"
+    ],
+    "sectors": [
+      "dairy"
+    ],
     "cadence": "Weekly",
     "notes": "Primary source for milk and dairy product supply, demand, and pricing."
   },
@@ -18,8 +23,13 @@
     "url": "https://www.ams.usda.gov/market-news/livestock-poultry-grain",
     "tier": "A",
     "status": "approved",
-    "regions": ["United States", "International"],
-    "sectors": ["meat"],
+    "regions": [
+      "United States",
+      "International"
+    ],
+    "sectors": [
+      "meat"
+    ],
     "cadence": "Daily and weekly",
     "notes": "Primary source for cattle, beef, slaughter, import, and retail market prices and volumes."
   },
@@ -30,8 +40,13 @@
     "url": "https://www.ers.usda.gov/topics/animal-products/dairy",
     "tier": "A",
     "status": "approved",
-    "regions": ["United States", "International"],
-    "sectors": ["dairy"],
+    "regions": [
+      "United States",
+      "International"
+    ],
+    "sectors": [
+      "dairy"
+    ],
     "cadence": "Monthly",
     "notes": "Market outlooks, production, consumption, and trade analysis."
   },
@@ -42,8 +57,13 @@
     "url": "https://www.ers.usda.gov/topics/animal-products/cattle-beef",
     "tier": "A",
     "status": "approved",
-    "regions": ["United States", "International"],
-    "sectors": ["meat"],
+    "regions": [
+      "United States",
+      "International"
+    ],
+    "sectors": [
+      "meat"
+    ],
     "cadence": "Monthly",
     "notes": "Domestic and international livestock production, consumption, and trade."
   },
@@ -54,8 +74,14 @@
     "url": "https://www.nass.usda.gov",
     "tier": "A",
     "status": "approved",
-    "regions": ["United States", "Puerto Rico"],
-    "sectors": ["dairy", "meat"],
+    "regions": [
+      "United States",
+      "Puerto Rico"
+    ],
+    "sectors": [
+      "dairy",
+      "meat"
+    ],
     "cadence": "Varies",
     "notes": "Official inventories, production, slaughter, and agricultural statistics."
   },
@@ -66,8 +92,13 @@
     "url": "https://www.fas.usda.gov/data",
     "tier": "A",
     "status": "approved",
-    "regions": ["International"],
-    "sectors": ["dairy", "meat"],
+    "regions": [
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "meat"
+    ],
     "cadence": "Varies",
     "notes": "Official global agricultural production, market, and trade reporting."
   },
@@ -76,11 +107,19 @@
     "name": "USDA World Agricultural Outlook Board",
     "domain": "usda.gov",
     "url": "https://www.usda.gov/oce/commodity/wasde",
-    "allowedPaths": ["/oce/commodity/wasde/"],
+    "allowedPaths": [
+      "/oce/commodity/wasde/"
+    ],
     "tier": "A",
     "status": "approved",
-    "regions": ["United States", "International"],
-    "sectors": ["dairy", "meat"],
+    "regions": [
+      "United States",
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "meat"
+    ],
     "cadence": "Monthly",
     "notes": "Official USDA supply, demand, trade, and price forecasts for major agricultural commodities."
   },
@@ -91,8 +130,14 @@
     "url": "https://www.aphis.usda.gov/livestock-poultry-disease",
     "tier": "A",
     "status": "approved",
-    "regions": ["United States"],
-    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "regions": [
+      "United States"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Event-driven",
     "notes": "Primary U.S. source for livestock health alerts and disease programs."
   },
@@ -103,8 +148,14 @@
     "url": "https://uscdcb.com",
     "tier": "A",
     "status": "approved",
-    "regions": ["United States", "International"],
-    "sectors": ["dairy", "bovine-genetics"],
+    "regions": [
+      "United States",
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "bovine-genetics"
+    ],
     "cadence": "Evaluation cycle",
     "notes": "U.S. dairy genetic and genomic evaluations, methods, and industry data."
   },
@@ -115,8 +166,14 @@
     "url": "https://www.holsteinusa.com/genetic_evaluations/GenUpdateMain.html",
     "tier": "A",
     "status": "approved",
-    "regions": ["United States", "International"],
-    "sectors": ["dairy", "bovine-genetics"],
+    "regions": [
+      "United States",
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "bovine-genetics"
+    ],
     "cadence": "Evaluation cycle",
     "notes": "Official Holstein evaluation schedules, ranking lists, pedigrees, and breed selection tools."
   },
@@ -127,8 +184,14 @@
     "url": "https://interbull.org",
     "tier": "A",
     "status": "approved",
-    "regions": ["International"],
-    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "regions": [
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Evaluation cycle",
     "notes": "International dairy and beef cattle genetic evaluation services."
   },
@@ -139,8 +202,14 @@
     "url": "https://www.icar.org",
     "tier": "A",
     "status": "approved",
-    "regions": ["International"],
-    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "regions": [
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Varies",
     "notes": "Standards and guidance for animal identification, recording, and genetic evaluation."
   },
@@ -151,8 +220,14 @@
     "url": "https://www.fao.org/faostat/en",
     "tier": "A",
     "status": "approved",
-    "regions": ["International"],
-    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "regions": [
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Dataset-dependent",
     "notes": "Global food, agriculture, livestock production, and trade data."
   },
@@ -163,8 +238,14 @@
     "url": "https://wahis.woah.org",
     "tier": "A",
     "status": "approved",
-    "regions": ["International"],
-    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "regions": [
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Event-driven",
     "notes": "Official global reference system for significant animal disease events."
   },
@@ -175,8 +256,14 @@
     "url": "https://agriculture.ec.europa.eu/data-and-analysis/markets/overviews/market-observatories_en",
     "tier": "A",
     "status": "approved",
-    "regions": ["European Union", "International"],
-    "sectors": ["dairy", "meat"],
+    "regions": [
+      "European Union",
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "meat"
+    ],
     "cadence": "Varies",
     "notes": "EU milk and meat market observatories, dashboards, and policy analysis."
   },
@@ -187,8 +274,15 @@
     "url": "https://www.agricultura.pr.gov/",
     "tier": "A",
     "status": "approved",
-    "regions": ["Puerto Rico", "Latin America & Caribbean"],
-    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "regions": [
+      "Puerto Rico",
+      "Latin America & Caribbean"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Event-driven",
     "notes": "Official source for Puerto Rico agricultural policy, programs, notices, and sector news."
   },
@@ -197,11 +291,20 @@
     "name": "FAO Regional Office for Latin America and the Caribbean",
     "domain": "fao.org",
     "url": "https://www.fao.org/americas/news/news-detail/en",
-    "allowedPaths": ["/americas/"],
+    "allowedPaths": [
+      "/americas/"
+    ],
     "tier": "A",
     "status": "approved",
-    "regions": ["Latin America & Caribbean", "Puerto Rico"],
-    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "regions": [
+      "Latin America & Caribbean",
+      "Puerto Rico"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Event-driven",
     "notes": "Regional FAO reporting on livestock, food systems, trade, animal health, and agricultural policy."
   },
@@ -233,8 +336,17 @@
     "url": "https://web.oirsa.org/en/",
     "tier": "A",
     "status": "approved",
-    "regions": ["Mexico", "Central America", "Dominican Republic", "Latin America & Caribbean"],
-    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "regions": [
+      "Mexico",
+      "Central America",
+      "Dominican Republic",
+      "Latin America & Caribbean"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Event-driven",
     "notes": "Official regional source for animal health, quarantine, traceability, and livestock disease programs."
   },
@@ -245,8 +357,16 @@
     "url": "https://iica.int/en/news",
     "tier": "A",
     "status": "approved",
-    "regions": ["Latin America & Caribbean", "Puerto Rico", "International"],
-    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "regions": [
+      "Latin America & Caribbean",
+      "Puerto Rico",
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Event-driven",
     "notes": "Inter-American reporting on agricultural trade, innovation, policy, sustainability, and rural development."
   },
@@ -255,11 +375,24 @@
     "name": "LinkedIn: Official Organization Posts",
     "domain": "linkedin.com",
     "url": "https://www.linkedin.com/",
-    "allowedPaths": ["/posts/", "/feed/update/", "/company/"],
+    "allowedPaths": [
+      "/posts/",
+      "/feed/update/",
+      "/company/"
+    ],
     "tier": "B",
     "status": "probationary",
-    "regions": ["United States", "Latin America & Caribbean", "Puerto Rico", "International"],
-    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "regions": [
+      "United States",
+      "Latin America & Caribbean",
+      "Puerto Rico",
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Weekly indexed search and manual submission",
     "notes": "Publicly indexed posts and feeds from official organizations; announcements require clear attribution and material claims require primary corroboration."
   },
@@ -268,11 +401,21 @@
     "name": "JDS Communications",
     "domain": "sciencedirect.com",
     "url": "https://www.sciencedirect.com/journal/jds-communications",
-    "allowedPaths": ["/science/article/", "/journal/jds-communications"],
+    "allowedPaths": [
+      "/science/article/",
+      "/journal/jds-communications"
+    ],
     "tier": "A",
     "status": "approved",
-    "regions": ["United States", "International"],
-    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "regions": [
+      "United States",
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Continuous",
     "notes": "Peer-reviewed, open-access dairy science research published for the American Dairy Science Association."
   },
@@ -283,8 +426,15 @@
     "url": "https://www.agproud.com",
     "tier": "B",
     "status": "approved",
-    "regions": ["United States", "International"],
-    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "regions": [
+      "United States",
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Continuous",
     "notes": "Independent trade press for dairy, beef, and forage producers; strong dairy-genetics and evaluation coverage. News-led discovery."
   },
@@ -295,8 +445,15 @@
     "url": "https://www.feedstuffs.com",
     "tier": "B",
     "status": "approved",
-    "regions": ["United States", "International"],
-    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "regions": [
+      "United States",
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Continuous",
     "notes": "Established animal-agriculture trade press covering livestock, feed, markets, and animal health. News-led discovery."
   },
@@ -307,8 +464,13 @@
     "url": "https://www.beefmagazine.com",
     "tier": "B",
     "status": "approved",
-    "regions": ["United States"],
-    "sectors": ["meat", "bovine-genetics"],
+    "regions": [
+      "United States"
+    ],
+    "sectors": [
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Continuous",
     "notes": "Farm Progress beef-cattle trade press: production, markets, health, and cattle genetics. News-led discovery."
   },
@@ -319,8 +481,14 @@
     "url": "https://www.farmprogress.com",
     "tier": "B",
     "status": "approved",
-    "regions": ["United States"],
-    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "regions": [
+      "United States"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Continuous",
     "notes": "General-agriculture trade press; filtered deterministically to cattle, dairy, and genetics stories. News-led discovery."
   },
@@ -331,8 +499,14 @@
     "url": "https://www.drovers.com",
     "tier": "B",
     "status": "approved",
-    "regions": ["United States", "International"],
-    "sectors": ["meat", "bovine-genetics"],
+    "regions": [
+      "United States",
+      "International"
+    ],
+    "sectors": [
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Continuous",
     "notes": "Farm Journal beef-cattle trade press. Collection disabled until an approved fetch path is verified; citeable when surfaced through an approved channel."
   },
@@ -343,8 +517,14 @@
     "url": "https://www.dairyherd.com",
     "tier": "B",
     "status": "approved",
-    "regions": ["United States", "International"],
-    "sectors": ["dairy", "bovine-genetics"],
+    "regions": [
+      "United States",
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "bovine-genetics"
+    ],
     "cadence": "Continuous",
     "notes": "Farm Journal dairy trade press. Collection disabled until an approved fetch path is verified; citeable when surfaced through an approved channel."
   },
@@ -355,8 +535,14 @@
     "url": "https://www.bovinevetonline.com",
     "tier": "B",
     "status": "approved",
-    "regions": ["United States"],
-    "sectors": ["dairy", "meat", "bovine-genetics"],
+    "regions": [
+      "United States"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
     "cadence": "Continuous",
     "notes": "Farm Journal Bovine Veterinarian animal-health trade press. Collection disabled until an approved fetch path is verified; citeable when surfaced through an approved channel."
   },
@@ -367,9 +553,58 @@
     "url": "https://hoards.com",
     "tier": "B",
     "status": "approved",
-    "regions": ["United States", "International"],
-    "sectors": ["dairy", "bovine-genetics"],
+    "regions": [
+      "United States",
+      "International"
+    ],
+    "sectors": [
+      "dairy",
+      "bovine-genetics"
+    ],
     "cadence": "Continuous",
     "notes": "Long-established dairy trade press. Collection disabled until a stable public feed URL is verified; citeable when surfaced through an approved channel."
+  },
+  {
+    "id": "uprm-extension",
+    "name": "UPR Mayagüez · Servicio de Extensión Agrícola",
+    "domain": "uprm.edu",
+    "url": "https://www.uprm.edu/sea/",
+    "allowedPaths": [
+      "/sea/"
+    ],
+    "tier": "A",
+    "status": "approved",
+    "regions": [
+      "Puerto Rico"
+    ],
+    "sectors": [
+      "dairy",
+      "meat",
+      "bovine-genetics"
+    ],
+    "cadence": "Daily feed check",
+    "notes": "Puerto Rico university extension. Local livestock, dairy, farm resilience, and agricultural research. Only dated, relevant developments enter the news queue."
+  },
+  {
+    "id": "embrapa-dairy",
+    "name": "Embrapa Gado de Leite",
+    "domain": "embrapa.br",
+    "url": "https://www.embrapa.br/web/gado-de-leite/busca-de-noticias",
+    "allowedPaths": [
+      "/web/gado-de-leite/",
+      "/gado-de-leite/"
+    ],
+    "tier": "A",
+    "status": "approved",
+    "regions": [
+      "Brazil",
+      "Latin America & Caribbean"
+    ],
+    "sectors": [
+      "dairy",
+      "bovine-genetics"
+    ],
+    "cadence": "Daily news check",
+    "notes": "Brazilian public agricultural research institute: tropical dairy systems, cattle breeding, genetic evaluations, and applied research. Portuguese sources are ranked without a language penalty."
   }
 ]

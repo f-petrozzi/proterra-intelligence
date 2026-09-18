@@ -1,0 +1,61 @@
+name: Add reviewed publishers
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 * * * *"
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+concurrency:
+  group: reviewed-source-registry
+  cancel-in-progress: false
+jobs:
+  sync:
+    if: github.event_name == 'workflow_dispatch' || vars.WEEKLY_COLLECTION_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24.19.0
+          cache: npm
+      - run: npm ci
+      - name: Apply accepted publisher decisions
+        env:
+          REVIEW_API_URL: ${{ vars.REVIEW_API_URL }}
+          REVIEW_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_ACCESS_CLIENT_ID }}
+          REVIEW_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_ACCESS_CLIENT_SECRET }}
+          REVIEW_SERVICE_KEY: ${{ secrets.REVIEW_SERVICE_KEY }}
+        run: node --import tsx scripts/sources/sync.ts publishers
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then echo "changed=false" >> "$GITHUB_OUTPUT"; else echo "changed=true" >> "$GITHUB_OUTPUT"; fi
+      - name: Validate accepted registry
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run verify
+      - name: Merge reviewed registry changes
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="automation/reviewed-sources"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin "$branch:refs/remotes/origin/$branch" || true
+          git switch -C "$branch"
+          git add src/data/sources.json config/collection-sources.json
+          git commit -m "sources: apply accepted publisher reviews"
+          git push --force-with-lease origin "HEAD:$branch"
+          pr="$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')"
+          if [ -z "$pr" ]; then
+            pr="$(gh pr create --base main --head "$branch" --title 'Apply accepted publisher reviews' --body 'Publisher changes explicitly accepted in Proterra Intelligence. Registry validation and site checks passed.')"
+          fi
+          gh pr merge "$pr" --squash --delete-branch --match-head-commit "$(git rev-parse HEAD)"
+          # A merge made with GITHUB_TOKEN does not trigger push workflows.
+          gh workflow run deploy-review-worker.yml --ref main

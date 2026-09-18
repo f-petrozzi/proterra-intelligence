@@ -1,0 +1,31 @@
+name: Collect daily discoveries
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 10 * * *"
+permissions:
+  contents: read
+concurrency:
+  group: daily-source-discovery
+  cancel-in-progress: false
+jobs:
+  collect:
+    if: github.event_name == 'workflow_dispatch' || vars.WEEKLY_COLLECTION_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24.19.0
+          cache: npm
+      - run: npm ci
+      - name: Collect and retain discoveries
+        env:
+          REVIEW_API_URL: ${{ vars.REVIEW_API_URL }}
+          REVIEW_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_ACCESS_CLIENT_ID }}
+          REVIEW_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_ACCESS_CLIENT_SECRET }}
+          REVIEW_SERVICE_KEY: ${{ secrets.REVIEW_SERVICE_KEY }}
+        run: node --import tsx scripts/sources/sync.ts daily

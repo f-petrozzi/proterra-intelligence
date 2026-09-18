@@ -64,12 +64,12 @@ test("fresher items and corroborated clusters score higher", () => {
   assert.ok(scoreCandidate(fresh, context(4)) > scoreCandidate(fresh, context(1)));
 });
 
-test("confident non-English items are down-ranked below an otherwise identical English item", () => {
+test("source language does not change the score of otherwise identical evidence", () => {
   const base = build(discovery, "Cattle market shifts on export demand", "2026-08-22T12:00:00Z");
   const english = { ...base, language: "en" as const };
   const spanish = { ...base, language: "es" as const };
   const unknown = { ...base, language: "und" as const };
-  assert.ok(scoreCandidate(english, context()) > scoreCandidate(spanish, context()));
+  assert.equal(scoreCandidate(english, context()), scoreCandidate(spanish, context()));
   assert.equal(scoreCandidate(unknown, context()), scoreCandidate(english, context()));
 });
 

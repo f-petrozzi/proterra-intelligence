@@ -16,12 +16,12 @@ Use this rubric to rank candidate signals. Score each dimension from 0 to 5, mul
 - Publish 8 to 10 signals only when the evidence supports them.
 - Cover dairy, meat, and bovine genetics; aim for at least two signals per sector.
 - Include both US and international developments; aim for at least three of each.
-- Run a dedicated Latin America and Puerto Rico search every week. Select regional items only when they meet the same threshold as the rest of the list.
+- Run separate Puerto Rico and Latin America searches every week and record each coverage check. Puerto Rico must never be inferred from general LATAM coverage. Select regional items only when they meet the same threshold as the rest of the list.
 - Lead with news-led developments (`contentClass: "news"`). A recurring dataset or market release (`contentClass: "dataset"`) supports a story or the dashboard and enters the reel only when the release itself is materially newsworthy.
 - Consolidate articles about the same underlying development into one signal; when the queue already clustered them, keep the representative and treat `relatedUrls` as corroboration.
 - Treat approved trade press as first-class news reporting, but anchor statistics, regulatory, and market claims to an approved primary source.
 - Cite the reader-facing `citationUrl` as the readable link and keep the raw dated release in `evidenceUrl` with its `releaseId`; never make a raw API response or PDF the primary reader link when a readable citation exists.
-- The brief is English and links out to sources; write every field in English. For a non-English candidate (`language` other than `en`), prefer an English citation for the same development when one exists, and otherwise note the source language in `sourceNote`. Non-English items are ranked lower by default but may still lead when the development is materially stronger.
+- The brief is English and links out to sources; write every field in English. For a non-English candidate (`language` other than `en`), prefer an English citation for the same development when one exists, and otherwise note the source language in `sourceNote`. Source language does not reduce ranking. Spanish and Portuguese primary evidence are essential to Puerto Rico and LATAM coverage.
 - Treat press releases as claims by the issuing organization, not independent validation.
 - Treat LinkedIn as manual discovery only. Do not scrape it. Official organization posts may support attributed announcements, but material claims require approved primary evidence.
 - Do not infer causation, commercial impact, or scientific consensus beyond the evidence.

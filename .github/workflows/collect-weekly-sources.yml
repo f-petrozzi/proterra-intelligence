@@ -77,12 +77,23 @@ jobs:
           ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
         run: rm -f "src/data/research-runs/$ISSUE_DATE.candidates.json" "src/data/research-runs/$ISSUE_DATE.run.json"
 
+      - name: Load accepted stories and saved daily discoveries
+        id: prepare
+        continue-on-error: true
+        env:
+          ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
+          REVIEW_API_URL: ${{ vars.REVIEW_API_URL }}
+          REVIEW_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_ACCESS_CLIENT_ID }}
+          REVIEW_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_ACCESS_CLIENT_SECRET }}
+          REVIEW_SERVICE_KEY: ${{ secrets.REVIEW_SERVICE_KEY }}
+        run: node --import tsx scripts/sources/sync.ts prepare "$ISSUE_DATE" "$RUNNER_TEMP/source-input"
+
       - name: Collect source candidates
         id: collector
         continue-on-error: true
         env:
           ISSUE_DATE: ${{ steps.issue.outputs.issue_date }}
-        run: npm run research:collect -- --issue-date "$ISSUE_DATE"
+        run: npm run research:collect -- --issue-date "$ISSUE_DATE" --manual-leads "$RUNNER_TEMP/source-input.manual.json" --archive "$RUNNER_TEMP/source-input.archive.json"
 
       - name: Validate generated files
         id: manifest
@@ -124,6 +135,15 @@ jobs:
             git push origin "HEAD:$BRANCH"
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Record stories included in the saved queue
+        if: steps.manifest.outputs.status != 'failed' && steps.prepare.outcome == 'success'
+        env:
+          REVIEW_API_URL: ${{ vars.REVIEW_API_URL }}
+          REVIEW_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_ACCESS_CLIENT_ID }}
+          REVIEW_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_ACCESS_CLIENT_SECRET }}
+          REVIEW_SERVICE_KEY: ${{ secrets.REVIEW_SERVICE_KEY }}
+        run: node --import tsx scripts/sources/sync.ts receipt "$RUNNER_TEMP/source-input.receipts.json"
 
       - name: Open or update source-review pull request
         if: steps.manifest.outputs.status != 'failed'

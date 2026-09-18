@@ -29,7 +29,9 @@ npm run verify
 
 Reports live in `src/data/reports/`; the source registry lives in `src/data/sources.json`. Approved, credited images live in `src/data/editorial-images.json`. Editorial rules are in `config/editorial-rubric.md`.
 
-See `docs/weekly-automation-plan.md` for architecture and `docs/weekly-research-operations.md` for setup and the weekly runbook.
+Publishers and individual stories are proposed and accepted at `/sources` on the Review Worker, by either of the two reviewers. Accepted publishers reach the registry through an automated pull request; accepting anything there never publishes a brief.
+
+See `docs/weekly-automation-plan.md` for architecture, `docs/weekly-research-operations.md` for setup and the weekly runbook, and `docs/source-review.md` for the source review service.
 
 ## Market dashboard
 

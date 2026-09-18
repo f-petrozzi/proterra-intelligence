@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - "review-worker/**"
+      - "src/data/sources.json"
+      - "config/collection-sources.json"
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/deploy-review-worker.yml"
